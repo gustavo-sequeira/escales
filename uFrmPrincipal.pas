@@ -136,8 +136,10 @@ begin
 
             if TryStrToInt(valor, valorInteiro) then
               Break;
+
             telefoneContato := EmptyStr;
 
+            //procura a aba de contatos
             for iSheetContato := 0 to AdvGridWorkbook1.Sheets.Count - 1 do
             begin
               AdvGridWorkbook1.ActiveSheet := iSheetContato;
@@ -164,6 +166,12 @@ begin
             AdvGridWorkbook1.ActiveSheet := iSheet;
 
             cxMemo1.Lines.Add('   Nome encontrado: ' + valor + ' e de telefone: ' + telefoneContato);
+
+            // pegar coluna lateral
+            {}
+
+
+            {}
             Inc(r);
           end;
         end;
