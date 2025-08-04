@@ -13,7 +13,7 @@ uses
   dxSkinLondonLiquidSky, dxSkinMcSkin, cxSplitter;
 
 type
-  TForm1 = class(TForm)
+  TfrmPrincipal = class(TForm)
     AdvSmoothStepControl1: TAdvSmoothStepControl;
     cxGroupBox1: TcxGroupBox;
     cxGroupBox2: TcxGroupBox;
@@ -44,13 +44,13 @@ type
   end;
 
 var
-  Form1: TForm1;
+  frmPrincipal: TfrmPrincipal;
 
 implementation
 
 {$R *.dfm}
 
-procedure TForm1.AdvSmoothStepControl1StepChanged(Sender: TObject; StepIndex: Integer);
+procedure TfrmPrincipal.AdvSmoothStepControl1StepChanged(Sender: TObject; StepIndex: Integer);
 begin
   case StepIndex of
     0:
@@ -74,25 +74,25 @@ begin
   end;
 end;
 
-procedure TForm1.cxButton1Click(Sender: TObject);
+procedure TfrmPrincipal.cxButton1Click(Sender: TObject);
 begin
   if AdvSmoothStepControl1.ActiveStep > 0 then
     AdvSmoothStepControl1.PreviousStep;
 end;
 
-procedure TForm1.cxButton2Click(Sender: TObject);
+procedure TfrmPrincipal.cxButton2Click(Sender: TObject);
 begin
   if AdvSmoothStepControl1.ActiveStep <= 3 then
     AdvSmoothStepControl1.NextStep;
 end;
 
-procedure TForm1.cxButton4Click(Sender: TObject);
+procedure TfrmPrincipal.cxButton4Click(Sender: TObject);
 begin
   if OpenDialog1.Execute then
     AdvGridExcelIO1.XLSImport(OpenDialog1.FileName);
 end;
 
-procedure TForm1.cxButton5Click(Sender: TObject);
+procedure TfrmPrincipal.cxButton5Click(Sender: TObject);
 var
   valorInteiro, iSheet, iSheetContato, row, col, rowContato, colContato, totalRows, totalCols, totalRowsContato, totalColsContato: Integer;
   Grid, GridContato: TAdvStringGrid;
@@ -172,7 +172,7 @@ begin
   end;
 end;
 
-procedure TForm1.FormCreate(Sender: TObject);
+procedure TfrmPrincipal.FormCreate(Sender: TObject);
 begin
   AdvGridExcelIO1.AdvGridWorkbook := AdvGridWorkbook1;
 end;

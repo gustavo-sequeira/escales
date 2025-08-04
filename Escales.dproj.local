@@ -8,8 +8,11 @@
     <Transaction>2025/06/04 20:33:14.000.725,=C:\Users\seque\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>2025/07/21 20:48:51.000.882,=C:\Users\seque\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>2025/07/24 06:42:44.000.194,=C:\Users\seque\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2025/07/24 07:36:20.000.098,C:\projetos\repositorios\portfolio\escales\uFrmPrincipal.pas=C:\Users\seque\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2025/07/24 07:36:20.000.098,C:\projetos\repositorios\portfolio\escales\uFrmPrincipal.dfm=C:\Users\seque\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
-    <Transaction>2025/07/24 07:36:29.000.551,C:\projetos\repositorios\portfolio\escales\Escales.dproj=C:\Users\seque\OneDrive\Documentos\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2025/07/24 07:36:20.000.098,C:\Users\seque\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.dfm=C:\projetos\repositorios\portfolio\escales\uFrmPrincipal.dfm</Transaction>
+    <Transaction>2025/07/24 07:36:20.000.098,C:\Users\seque\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas=C:\projetos\repositorios\portfolio\escales\uFrmPrincipal.pas</Transaction>
+    <Transaction>2025/07/24 07:36:29.000.551,C:\Users\seque\OneDrive\Documentos\Embarcadero\Studio\Projects\Project1.dproj=C:\projetos\repositorios\portfolio\escales\Escales.dproj</Transaction>
+    <Transaction>2025/08/04 16:36:38.237,=C:\projetos\repositorios\escales\Unit1.pas</Transaction>
+    <Transaction>2025/08/04 16:36:58.067,C:\projetos\repositorios\escales\uDmPrincipal.pas=C:\projetos\repositorios\escales\Unit1.pas</Transaction>
+    <Transaction>2025/08/04 16:36:58.067,C:\projetos\repositorios\escales\uDmPrincipal.dfm=C:\projetos\repositorios\escales\Unit1.dfm</Transaction>
   </Transactions>
 </BorlandProject>

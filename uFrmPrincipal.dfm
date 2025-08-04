@@ -1,8 +1,8 @@
-object Form1: TForm1
+object frmPrincipal: TfrmPrincipal
   Left = 0
   Top = 0
   ActiveControl = AdvSmoothStepControl1
-  Caption = 'Form1'
+  Caption = 'frmPrincipal'
   ClientHeight = 530
   ClientWidth = 624
   Color = clBtnFace
@@ -11,8 +11,10 @@ object Form1: TForm1
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  OldCreateOrder = True
   WindowState = wsMaximized
   OnCreate = FormCreate
+  PixelsPerInch = 96
   TextHeight = 15
   object AdvSmoothStepControl1: TAdvSmoothStepControl
     AlignWithMargins = True
@@ -285,7 +287,6 @@ object Form1: TForm1
     Align = alBottom
     PanelStyle.Active = True
     TabOrder = 2
-    ExplicitTop = 359
     Height = 108
     Width = 618
     object cxButton1: TcxButton
@@ -446,8 +447,6 @@ object Form1: TForm1
       OptionsImage.Images = cxImageList1
       TabOrder = 1
       OnClick = cxButton1Click
-      ExplicitLeft = 56
-      ExplicitHeight = 100
     end
     object cxButton2: TcxButton
       Left = 515
@@ -459,9 +458,6 @@ object Form1: TForm1
       OptionsImage.Images = cxImageList1
       TabOrder = 3
       OnClick = cxButton2Click
-      ExplicitLeft = 312
-      ExplicitTop = 16
-      ExplicitHeight = 100
     end
     object cxButton4: TcxButton
       Left = 133
@@ -491,7 +487,6 @@ object Form1: TForm1
     Align = alClient
     PanelStyle.Active = True
     TabOrder = 1
-    ExplicitHeight = 288
     Height = 339
     Width = 618
     object cxGroupBox4: TcxGroupBox
@@ -520,10 +515,6 @@ object Form1: TForm1
       Align = alClient
       PanelStyle.Active = True
       TabOrder = 0
-      ExplicitLeft = 2
-      ExplicitTop = 2
-      ExplicitWidth = 614
-      ExplicitHeight = 284
       Height = 333
       Width = 612
       object cxMemo1: TcxMemo
@@ -534,16 +525,13 @@ object Form1: TForm1
           'cxMemo1')
         Properties.ScrollBars = ssVertical
         TabOrder = 2
-        ExplicitLeft = 427
-        ExplicitTop = 2
-        ExplicitHeight = 216
         Height = 327
         Width = 185
       end
       object AdvGridWorkbook1: TAdvGridWorkbook
         Left = 3
         Top = 3
-        Width = 413
+        Width = 415
         Height = 327
         ActiveSheet = 0
         Sheets = <
@@ -567,13 +555,11 @@ object Form1: TForm1
         Align = alClient
         Anchors = [akLeft, akTop, akRight]
         TabOrder = 0
-        Version = '3.3.4.0'
-        ExplicitWidth = 421
-        ExplicitHeight = 257
+        Version = '3.3.3.1'
         object TAdvStringGrid
           Left = 0
           Top = 0
-          Width = 409
+          Width = 411
           Height = 302
           Align = alClient
           BorderStyle = bsNone
@@ -622,14 +608,6 @@ object Form1: TForm1
           ControlLook.DropDownFooter.Font.Style = []
           ControlLook.DropDownFooter.Visible = True
           ControlLook.DropDownFooter.Buttons = <>
-          ControlLook.ToggleSwitch.BackgroundBorderWidth = 1.000000000000000000
-          ControlLook.ToggleSwitch.ButtonBorderWidth = 1.000000000000000000
-          ControlLook.ToggleSwitch.CaptionFont.Charset = DEFAULT_CHARSET
-          ControlLook.ToggleSwitch.CaptionFont.Color = clWindowText
-          ControlLook.ToggleSwitch.CaptionFont.Height = -12
-          ControlLook.ToggleSwitch.CaptionFont.Name = 'Segoe UI'
-          ControlLook.ToggleSwitch.CaptionFont.Style = []
-          ControlLook.ToggleSwitch.Shadow = False
           Filter = <>
           FilterDropDown.Font.Charset = DEFAULT_CHARSET
           FilterDropDown.Font.Color = clWindowText
@@ -705,10 +683,7 @@ object Form1: TForm1
           SortSettings.HeaderColorTo = clWhite
           SortSettings.HeaderMirrorColor = clWhite
           SortSettings.HeaderMirrorColorTo = clWhite
-          Version = '9.1.3.1'
-          ExplicitLeft = -4
-          ExplicitTop = -8
-          ExplicitWidth = 417
+          Version = '8.7.1.0'
           ColWidths = (
             64
             64
@@ -729,13 +704,11 @@ object Form1: TForm1
         end
       end
       object cxSplitter1: TcxSplitter
-        Left = 416
+        Left = 418
         Top = 3
-        Width = 8
+        Width = 6
         Height = 327
         AlignSplitter = salRight
-        ExplicitLeft = 430
-        ExplicitTop = 9
       end
     end
   end
@@ -907,7 +880,6 @@ object Form1: TForm1
           B6D31F4BDA98F7F033F4591B5B888DCF006FFC95E049A7B0FBDB86279DC2EE6F
           1B2214A108452842118A50842214A108452842118A5084222418C6F4FF069E92
           BEFC141E580000000049454E44AE426082}
-        FileName = 'C:\Users\seque\Downloads\icons8-back-to-100.png'
       end
       item
         ImageClass = 'TdxSmartImage'
@@ -1056,9 +1028,6 @@ object Form1: TForm1
           E0AD3F173DEF14728F6D78DE29E41EDB10A63085294C610A5398C214A6308529
           4C610A5398C21426D130A6FF07B44AE2CDB86466CB0000000049454E44AE4260
           82}
-        FileName = 
-          'C:\Users\seque\Downloads\icons8-divisa-circulada-'#224'-direita-100.p' +
-          'ng'
       end
       item
         ImageClass = 'TdxSmartImage'
@@ -1117,7 +1086,6 @@ object Form1: TForm1
           E3BD5303413CB70D6BE25801F50497E8DDFC7013E7467A130287611956AC7B72
           272ED173049BB8C33C153522B9B78BF77CF5B84DFC6FF40A5B0DF05E42A10000
           000049454E44AE426082}
-        FileName = 'C:\Users\seque\Downloads\icons8-exporta'#231#227'o-excel-100.png'
       end
       item
         ImageClass = 'TdxSmartImage'
@@ -1289,7 +1257,6 @@ object Form1: TForm1
           216DC3DB1AC4381A7C06DEFA4BC9F79D9CEE671BBEEFE4743FDBE02217B9C845
           2E72918B5CE42217B9C8452E72918B5CE422C934A6FF0748D1FD693DBC947300
           00000049454E44AE426082}
-        FileName = 'C:\Users\seque\Downloads\icons8-engrenagens-100.png'
       end>
   end
   object dxSkinController1: TdxSkinController
