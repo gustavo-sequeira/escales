@@ -1,6 +1,6 @@
 __history
 __recovery
-/node_modules
+node_modules/
 *.exe
 *.dcu
 *.res
