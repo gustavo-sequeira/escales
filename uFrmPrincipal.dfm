@@ -11,9 +11,11 @@ object frmPrincipal: TfrmPrincipal
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  OldCreateOrder = True
   WindowState = wsMaximized
   OnCreate = FormCreate
   OnDestroy = FormDestroy
+  PixelsPerInch = 96
   TextHeight = 15
   object AdvSmoothStepControl1: TAdvSmoothStepControl
     AlignWithMargins = True
@@ -496,10 +498,6 @@ object frmPrincipal: TfrmPrincipal
       PanelStyle.Active = True
       TabOrder = 0
       Visible = False
-      ExplicitLeft = 31
-      ExplicitTop = 16
-      ExplicitWidth = 185
-      ExplicitHeight = 105
       Height = 333
       Width = 612
       object cxGridImportacao: TcxGrid
@@ -509,10 +507,6 @@ object frmPrincipal: TfrmPrincipal
         Height = 327
         Align = alClient
         TabOrder = 0
-        ExplicitLeft = 88
-        ExplicitTop = 64
-        ExplicitWidth = 250
-        ExplicitHeight = 200
         object cxGridImportacaoDBTableView1: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           ScrollbarAnnotations.CustomAnnotations = <>
@@ -580,7 +574,7 @@ object frmPrincipal: TfrmPrincipal
         Align = alClient
         Anchors = [akLeft, akTop, akRight]
         TabOrder = 0
-        Version = '3.3.4.0'
+        Version = '3.3.3.1'
         object TAdvStringGrid
           Left = 0
           Top = 0
@@ -633,14 +627,6 @@ object frmPrincipal: TfrmPrincipal
           ControlLook.DropDownFooter.Font.Style = []
           ControlLook.DropDownFooter.Visible = True
           ControlLook.DropDownFooter.Buttons = <>
-          ControlLook.ToggleSwitch.BackgroundBorderWidth = 1.000000000000000000
-          ControlLook.ToggleSwitch.ButtonBorderWidth = 1.000000000000000000
-          ControlLook.ToggleSwitch.CaptionFont.Charset = DEFAULT_CHARSET
-          ControlLook.ToggleSwitch.CaptionFont.Color = clWindowText
-          ControlLook.ToggleSwitch.CaptionFont.Height = -12
-          ControlLook.ToggleSwitch.CaptionFont.Name = 'Segoe UI'
-          ControlLook.ToggleSwitch.CaptionFont.Style = []
-          ControlLook.ToggleSwitch.Shadow = False
           Filter = <>
           FilterDropDown.Font.Charset = DEFAULT_CHARSET
           FilterDropDown.Font.Color = clWindowText
@@ -716,7 +702,7 @@ object frmPrincipal: TfrmPrincipal
           SortSettings.HeaderColorTo = clWhite
           SortSettings.HeaderMirrorColor = clWhite
           SortSettings.HeaderMirrorColorTo = clWhite
-          Version = '9.1.3.1'
+          Version = '8.7.1.0'
           ColWidths = (
             64
             64

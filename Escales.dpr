@@ -4,9 +4,15 @@ uses
   Vcl.Forms,
   uFrmPrincipal in 'uFrmPrincipal.pas' {frmPrincipal},
   uDmPrincipal in 'uDmPrincipal.pas' {dmPrincipal: TDataModule},
-  uContato in 'class\uContato.pas',
-  uTelefone in 'class\uTelefone.pas',
-  uLibary in 'lib\uLibary.pas';
+  uLibary in 'lib\uLibary.pas',
+  uModeloBase in 'class\uModeloBase.pas',
+  uCargo in 'class\uCargo.pas',
+  uObreiro in 'class\uObreiro.pas',
+  uLembrete in 'class\uLembrete.pas',
+  uVersiculo in 'class\uVersiculo.pas',
+  uLocalidade in 'class\uLocalidade.pas',
+  uEscala in 'class\uEscala.pas',
+  uEscalado in 'class\uEscalado.pas';
 
 {$R *.res}
 

@@ -17,7 +17,7 @@ implementation
 
 uses
   System.Net.URLClient, System.Net.HttpClient, System.Net.HttpClientComponent,
-  System.SysUtils, System.StrUtils, System.JSON, System.Classes;
+  System.SysUtils, System.StrUtils, System.JSON, System.Classes, System.Generics.Collections;
 
 function TLibary.MesValido(const AMes: string): Boolean;
 const
@@ -70,7 +70,7 @@ const
   URL = 'https://api.openai.com/v1/chat/completions';
 var
   HttpClient: TNetHTTPClient;
-  ReqBody, MsgObj, RootObj: TJSONObject;
+  ReqBody, MsgObj: TJSONObject;
   Msgs: TJSONArray;
   Response: IHTTPResponse;
   RespJSON: TJSONObject;
