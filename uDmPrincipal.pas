@@ -7,13 +7,14 @@ uses
   FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.VCLUI.Wait,
   FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt, Data.DB,
-  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, FireDAC.Phys.PGDef, FireDAC.Phys.PG;
 
 type
-  TDataModule1 = class(TDataModule)
+  TdmPrincipal = class(TDataModule)
     FDConnection: TFDConnection;
     qryPrincipal: TFDQuery;
     dsPrincipal: TDataSource;
+    FDPhysPgDriverLink1: TFDPhysPgDriverLink;
   private
     { Private declarations }
   public
@@ -21,7 +22,7 @@ type
   end;
 
 var
-  DataModule1: TDataModule1;
+  dmPrincipal: TdmPrincipal;
 
 implementation
 

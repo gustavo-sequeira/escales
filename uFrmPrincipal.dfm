@@ -11,10 +11,9 @@ object frmPrincipal: TfrmPrincipal
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
-  OldCreateOrder = True
   WindowState = wsMaximized
   OnCreate = FormCreate
-  PixelsPerInch = 96
+  OnDestroy = FormDestroy
   TextHeight = 15
   object AdvSmoothStepControl1: TAdvSmoothStepControl
     AlignWithMargins = True
@@ -489,18 +488,45 @@ object frmPrincipal: TfrmPrincipal
     TabOrder = 1
     Height = 339
     Width = 618
-    object cxGroupBox4: TcxGroupBox
-      Left = 31
-      Top = 16
+    object cxGroupGridImportacao: TcxGroupBox
+      Left = 3
+      Top = 3
+      Align = alClient
       Caption = 'cxGroupBox1'
       PanelStyle.Active = True
-      TabOrder = 1
+      TabOrder = 0
       Visible = False
-      Height = 105
-      Width = 185
+      ExplicitLeft = 31
+      ExplicitTop = 16
+      ExplicitWidth = 185
+      ExplicitHeight = 105
+      Height = 333
+      Width = 612
+      object cxGridImportacao: TcxGrid
+        Left = 3
+        Top = 3
+        Width = 606
+        Height = 327
+        Align = alClient
+        TabOrder = 0
+        ExplicitLeft = 88
+        ExplicitTop = 64
+        ExplicitWidth = 250
+        ExplicitHeight = 200
+        object cxGridImportacaoDBTableView1: TcxGridDBTableView
+          Navigator.Buttons.CustomButtons = <>
+          ScrollbarAnnotations.CustomAnnotations = <>
+          DataController.Summary.DefaultGroupSummaryItems = <>
+          DataController.Summary.FooterSummaryItems = <>
+          DataController.Summary.SummaryGroups = <>
+        end
+        object cxGridImportacaoLevel1: TcxGridLevel
+          GridView = cxGridImportacaoDBTableView1
+        end
+      end
     end
     object cxGroupBox5: TcxGroupBox
-      Left = 439
+      Left = 4390
       Top = 127
       Caption = 'cxGroupBox1'
       PanelStyle.Active = True
@@ -509,12 +535,11 @@ object frmPrincipal: TfrmPrincipal
       Height = 105
       Width = 185
     end
-    object cxGroupBox3: TcxGroupBox
-      Left = 3
+    object cxGroupImportacao: TcxGroupBox
+      Left = 1000
       Top = 3
-      Align = alClient
       PanelStyle.Active = True
-      TabOrder = 0
+      TabOrder = 1
       Height = 333
       Width = 612
       object cxMemo1: TcxMemo
@@ -555,7 +580,7 @@ object frmPrincipal: TfrmPrincipal
         Align = alClient
         Anchors = [akLeft, akTop, akRight]
         TabOrder = 0
-        Version = '3.3.3.1'
+        Version = '3.3.4.0'
         object TAdvStringGrid
           Left = 0
           Top = 0
@@ -608,6 +633,14 @@ object frmPrincipal: TfrmPrincipal
           ControlLook.DropDownFooter.Font.Style = []
           ControlLook.DropDownFooter.Visible = True
           ControlLook.DropDownFooter.Buttons = <>
+          ControlLook.ToggleSwitch.BackgroundBorderWidth = 1.000000000000000000
+          ControlLook.ToggleSwitch.ButtonBorderWidth = 1.000000000000000000
+          ControlLook.ToggleSwitch.CaptionFont.Charset = DEFAULT_CHARSET
+          ControlLook.ToggleSwitch.CaptionFont.Color = clWindowText
+          ControlLook.ToggleSwitch.CaptionFont.Height = -12
+          ControlLook.ToggleSwitch.CaptionFont.Name = 'Segoe UI'
+          ControlLook.ToggleSwitch.CaptionFont.Style = []
+          ControlLook.ToggleSwitch.Shadow = False
           Filter = <>
           FilterDropDown.Font.Charset = DEFAULT_CHARSET
           FilterDropDown.Font.Color = clWindowText
@@ -683,7 +716,7 @@ object frmPrincipal: TfrmPrincipal
           SortSettings.HeaderColorTo = clWhite
           SortSettings.HeaderMirrorColor = clWhite
           SortSettings.HeaderMirrorColorTo = clWhite
-          Version = '8.7.1.0'
+          Version = '9.1.3.1'
           ColWidths = (
             64
             64
@@ -717,13 +750,13 @@ object frmPrincipal: TfrmPrincipal
     Options.ExportRawRTF = False
     UseUnicode = False
     Version = '3.14'
-    Left = 240
-    Top = 320
+    Left = 400
+    Top = 376
   end
   object OpenDialog1: TOpenDialog
     Filter = 'Excel files (*.xls)|*.xls'
-    Left = 360
-    Top = 320
+    Left = 488
+    Top = 376
   end
   object cxImageList1: TcxImageList
     SourceDPI = 96
@@ -1262,7 +1295,36 @@ object frmPrincipal: TfrmPrincipal
   object dxSkinController1: TdxSkinController
     NativeStyle = False
     SkinName = 'McSkin'
-    Left = 295
-    Top = 110
+    Left = 551
+    Top = 374
+  end
+  object dsGridImportacao: TDataSource
+    DataSet = p
+    Left = 304
+    Top = 272
+  end
+  object p: TFDMemTable
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    Left = 334
+    Top = 373
+    object pmes: TStringField
+      FieldName = 'mes'
+    end
+    object pdata: TDateField
+      FieldName = 'data'
+    end
+    object pnome: TStringField
+      FieldName = 'nome'
+      Size = 150
+    end
+    object ptelefone: TStringField
+      FieldName = 'telefone'
+    end
   end
 end

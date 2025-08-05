@@ -10,18 +10,24 @@ uses
   AdvSmoothStepControl, AdvUtil, Vcl.Grids, AdvObj, BaseGrid, AdvGrid,
   AdvGridWorkbook, cxTextEdit, cxMemo, tmsAdvGridExcel, System.ImageList,
   Vcl.ImgList, cxImageList, dxCore, cxClasses, dxSkinsForm, dxSkinWhiteprint,
-  dxSkinLondonLiquidSky, dxSkinMcSkin, cxSplitter;
+  dxSkinLondonLiquidSky, dxSkinMcSkin, cxSplitter, cxStyles, cxCustomData,
+  cxFilter, cxData, cxDataStorage, cxNavigator, dxDateRanges,
+  dxScrollbarAnnotations, Data.DB, cxDBData, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, cxGridLevel, cxGridCustomView, cxGridCustomTableView,
+  cxGridTableView, cxGridDBTableView, cxGrid, uLibary;
 
 type
   TfrmPrincipal = class(TForm)
     AdvSmoothStepControl1: TAdvSmoothStepControl;
     cxGroupBox1: TcxGroupBox;
     cxGroupBox2: TcxGroupBox;
-    cxGroupBox4: TcxGroupBox;
+    cxGroupGridImportacao: TcxGroupBox;
     cxGroupBox5: TcxGroupBox;
     cxButton1: TcxButton;
     cxButton2: TcxButton;
-    cxGroupBox3: TcxGroupBox;
+    cxGroupImportacao: TcxGroupBox;
     cxMemo1: TcxMemo;
     AdvGridWorkbook1: TAdvGridWorkbook;
     AdvGridExcelIO1: TAdvGridExcelIO;
@@ -31,14 +37,25 @@ type
     cxButton4: TcxButton;
     cxButton5: TcxButton;
     cxSplitter1: TcxSplitter;
+    cxGridImportacaoDBTableView1: TcxGridDBTableView;
+    cxGridImportacaoLevel1: TcxGridLevel;
+    cxGridImportacao: TcxGrid;
+    dsGridImportacao: TDataSource;
+    p: TFDMemTable;
+    pmes: TStringField;
+    pdata: TDateField;
+    pnome: TStringField;
+    ptelefone: TStringField;
     procedure cxButton1Click(Sender: TObject);
     procedure cxButton2Click(Sender: TObject);
     procedure AdvSmoothStepControl1StepChanged(Sender: TObject; StepIndex: Integer);
     procedure cxButton4Click(Sender: TObject);
     procedure cxButton5Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
+    lib: TLibary;
   public
     { Public declarations }
   end;
@@ -48,6 +65,8 @@ var
 
 implementation
 
+
+
 {$R *.dfm}
 
 procedure TfrmPrincipal.AdvSmoothStepControl1StepChanged(Sender: TObject; StepIndex: Integer);
@@ -55,20 +74,20 @@ begin
   case StepIndex of
     0:
       begin
-        cxGroupBox3.Visible := True;
-        cxGroupBox4.Visible := False;
+        cxGroupImportacao.Visible := True;
+        cxGridImportacao.Visible := False;
         cxGroupBox5.Visible := False;
       end;
     1:
       begin
-        cxGroupBox3.Visible := False;
-        cxGroupBox4.Visible := True;
+        cxGroupImportacao.Visible := False;
+        cxGridImportacao.Visible := True;
         cxGroupBox5.Visible := False;
       end;
     2:
       begin
-        cxGroupBox3.Visible := False;
-        cxGroupBox4.Visible := False;
+        cxGroupImportacao.Visible := False;
+        cxGridImportacao.Visible := False;
         cxGroupBox5.Visible := True;
       end;
   end;
@@ -170,7 +189,6 @@ begin
             // pegar coluna lateral
             {}
 
-
             {}
 
             Inc(r);
@@ -184,6 +202,13 @@ end;
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
 begin
   AdvGridExcelIO1.AdvGridWorkbook := AdvGridWorkbook1;
+  lib := TLibary.Create;
+end;
+
+procedure TfrmPrincipal.FormDestroy(Sender: TObject);
+begin
+  lib.Free;
+  inherited;
 end;
 
 end.
