@@ -10,8 +10,6 @@ type
   private
     FEscala: TEscala;
     FObreiro: TObreiro;
-    FLocalidade : TLocalidade;
-    FCargo : TCargo;
   public
     property Escala: TEscala read FEscala write FEscala;
     property Obreiro: TObreiro read FObreiro write FObreiro;
@@ -27,8 +25,7 @@ type
 implementation
 
 uses
-  System.SysUtils, Vcl.Dialogs, System.UITypes, FiredaC.Stan.Param, Data.DB,
-  uLocalidade, uCargo;
+  System.SysUtils, Vcl.Dialogs, System.UITypes, FiredaC.Stan.Param, Data.DB;
 
   { TEscalado }
 
@@ -86,7 +83,7 @@ begin
   inherited;
   FQuery.SQL.Clear;
   FQuery.SQL.Add('    SELECT escalas.codigo as codigo_escala, escalas.data, escalas.horario, escalas.turno, ');
-  FQuery.SQL.Add('	         localidades.codigo as codigo_localidade, localidades.descricao, ');
+  FQuery.SQL.Add('	         localidades.codigo as codigo_localidade, localidades.descricao as descricao_localidade, ');
   FQuery.SQL.Add('	         obreiros.codigo as codigo_obreiro, obreiros.nome, obreiros.dt_nascimento, ');
   FQuery.SQL.Add('		       cargos.codigo as codigo_cargo ');
   FQuery.SQL.Add('	    FROM escalados ');
@@ -109,10 +106,20 @@ begin
 
   if not (FQuery.IsEmpty) then
   begin
-    FEscala.Codigo := FQuery.FieldByName('codigo').AsInteger;
-    TEscalado.es FEscala.Localidade := FLocalidade;
-    FEs
-    FObreiro.Codigo := FQuery.FieldByName('descricao').AsString;
+
+    FEscala.Codigo := FQuery.FieldByName('codigo_escala').AsInteger;
+    FEscala.Data := FQuery.FieldByName('data').AsDateTime;
+    FEscala.Horario := FQuery.FieldByName('turno').AsDateTime;
+    FEscala.Turno := FQuery.FieldByName('turno').AsString;
+
+    FEscala.Localidade.Codigo := FQuery.FieldByName('codigo_localidade').AsInteger;
+    FEscala.Localidade.Descricao := FQuery.FieldByName('descricao_localidade').AsString;
+
+    FObreiro.Codigo := FQuery.FieldByName('codigo_obreiro').AsInteger;
+    FObreiro.Nome := FQuery.FieldByName('nome').AsString;
+    FObreiro.DtNascimento := FQuery.FieldByName('dt_nascimento').AsDateTime;
+
+    FObreiro.Cargo.Codigo :=
   end;
 end;
 
@@ -121,14 +128,10 @@ begin
   inherited;
   FEscala := TEscala.Create;
   FObreiro := TObreiro.Create;
-  FLocalidade := TLocalidade.Create;
-  FCargo := TCargo.Create;
 end;
 
 destructor TEscalado.Destroy;
 begin
-  FCargo.Free;
-  FLocalidade.Free;
   FObreiro.Free;
   FEscala.Free;
   inherited;
