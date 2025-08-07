@@ -33,8 +33,8 @@ procedure TVersiculo.Inserir;
 begin
   inherited;
   FQuery.SQL.Clear;
-  FQuery.SQL.Add('INSERT INTO versiculos (status, versiculo)');
-  FQuery.SQL.Add('            VALUES (:status, :versiculo) ');
+  FQuery.SQL.Add('INSERT INTO versiculos (versiculo)');
+  FQuery.SQL.Add('            VALUES (:versiculo) ');
   FQuery.ParamByName('status').AsInteger := FStatus;
   FQuery.ParamByName('versiculo').AsString := FVersiculo;
 

@@ -33,8 +33,8 @@ procedure TLembrete.Inserir;
 begin
   inherited;
   FQuery.SQL.Clear;
-  FQuery.SQL.Add('INSERT INTO lembretes (status, lembrete)');
-  FQuery.SQL.Add('            VALUES (:status, :lembrete) ');
+  FQuery.SQL.Add('INSERT INTO lembretes (lembrete)');
+  FQuery.SQL.Add('            VALUES (:lembrete) ');
   FQuery.ParamByName('status').AsInteger := FStatus;
   FQuery.ParamByName('lembrete').AsString := FLembrete;
 

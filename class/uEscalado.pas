@@ -85,7 +85,7 @@ begin
   FQuery.SQL.Add('    SELECT escalas.codigo as codigo_escala, escalas.data, escalas.horario, escalas.turno, ');
   FQuery.SQL.Add('	         localidades.codigo as codigo_localidade, localidades.descricao as descricao_localidade, ');
   FQuery.SQL.Add('	         obreiros.codigo as codigo_obreiro, obreiros.nome, obreiros.dt_nascimento, ');
-  FQuery.SQL.Add('		       cargos.codigo as codigo_cargo ');
+  FQuery.SQL.Add('		       cargos.codigo as codigo_cargo, cargos.abreviacao, cargos.descricao as descricao_cargo ');
   FQuery.SQL.Add('	    FROM escalados ');
   FQuery.SQL.Add('INNER JOIN escalas ON escalados.codigo_escala = escalas.codigo ');
   FQuery.SQL.Add('INNER JOIN localidades ON escalas.codigo_localidade = localidades.codigo ');
@@ -106,20 +106,18 @@ begin
 
   if not (FQuery.IsEmpty) then
   begin
-
     FEscala.Codigo := FQuery.FieldByName('codigo_escala').AsInteger;
     FEscala.Data := FQuery.FieldByName('data').AsDateTime;
     FEscala.Horario := FQuery.FieldByName('turno').AsDateTime;
     FEscala.Turno := FQuery.FieldByName('turno').AsString;
-
     FEscala.Localidade.Codigo := FQuery.FieldByName('codigo_localidade').AsInteger;
     FEscala.Localidade.Descricao := FQuery.FieldByName('descricao_localidade').AsString;
-
     FObreiro.Codigo := FQuery.FieldByName('codigo_obreiro').AsInteger;
     FObreiro.Nome := FQuery.FieldByName('nome').AsString;
     FObreiro.DtNascimento := FQuery.FieldByName('dt_nascimento').AsDateTime;
-
-    FObreiro.Cargo.Codigo :=
+    FObreiro.Cargo.Codigo := FQuery.FieldByName('codigo_cargo').AsInteger;
+    FObreiro.Cargo.Abreviacao := FQuery.FieldByName('abreviacao').AsString;
+    FObreiro.Cargo.Descricao := FQuery.FieldByName('descricao_cargo').AsString;
   end;
 end;
 
