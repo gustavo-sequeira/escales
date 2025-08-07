@@ -16,23 +16,8 @@ uses
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Comp.DataSet,
   FireDAC.Comp.Client, cxGridLevel, cxGridCustomView, cxGridCustomTableView,
-  cxGridTableView, cxGridDBTableView, cxGrid, uLibary, dxSkinBasic, dxSkinBlack,
-  dxSkinBlue, dxSkinBlueprint, dxSkinCaramel, dxSkinCoffee, dxSkinDarkroom,
-  dxSkinDarkSide, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinFoggy,
-  dxSkinGlassOceans, dxSkinHighContrast, dxSkiniMaginary, dxSkinLilian,
-  dxSkinLiquidSky, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
-  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful,
-  dxSkinOffice2016Dark, dxSkinOffice2019Black, dxSkinOffice2019Colorful,
-  dxSkinOffice2019DarkGray, dxSkinOffice2019White, dxSkinPumpkin, dxSkinSeven,
-  dxSkinSevenClassic, dxSkinSharp, dxSkinSharpPlus, dxSkinSilver,
-  dxSkinSpringtime, dxSkinStardust, dxSkinSummer2008, dxSkinTheAsphaltWorld,
-  dxSkinTheBezier, dxSkinValentine, dxSkinVisualStudio2013Blue,
-  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinVS2010,
-  dxSkinWXI, dxSkinXmas2008Blue, dxNavBarCollns, dxNavBarBase, dxNavBar, cxLabel,
-  Vcl.ExtCtrls;
+  cxGridTableView, cxGridDBTableView, cxGrid, uLibary, dxSkinOffice2010Blue,
+  cxLabel, Vcl.ExtCtrls, dxNavBarCollns, dxNavBarBase, dxNavBar;
 
 type
   TfrmPrincipal = class(TForm)
@@ -75,7 +60,8 @@ var
 
 implementation
 
-uses uFraObreiros, uFraModelo;
+uses
+  uFraObreiros, uFraModelo;
 
 {$R *.dfm}
 
@@ -83,8 +69,8 @@ uses uFraObreiros, uFraModelo;
 
 procedure TfrmPrincipal.dxNavBar1Group4Click(Sender: TObject);
 var
- f: TFraModelo;
- i: Integer;
+  f: TFraModelo;
+  i: Integer;
 begin
 
   for i := gbTerciarioCenter.ControlCount - 1 downto 0 do
@@ -102,8 +88,8 @@ end;
 
 procedure TfrmPrincipal.dxNavBar1Item5Click(Sender: TObject);
 var
- f: TFraObreiros;
- i: Integer;
+  f: TFraObreiros;
+  i: Integer;
 begin
 
   for i := gbTerciarioCenter.ControlCount - 1 downto 0 do
@@ -118,5 +104,6 @@ begin
   f.Parent := gbTerciarioCenter;
   f.Align := alClient;
 end;
+
 end.
 
