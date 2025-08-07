@@ -26,9 +26,6 @@ object frmPrincipal: TfrmPrincipal
       Align = alTop
       PanelStyle.Active = True
       TabOrder = 0
-      ExplicitLeft = 296
-      ExplicitTop = 24
-      ExplicitWidth = 185
       Height = 105
       Width = 618
     end
@@ -38,10 +35,6 @@ object frmPrincipal: TfrmPrincipal
       Align = alClient
       PanelStyle.Active = True
       TabOrder = 1
-      ExplicitLeft = 200
-      ExplicitTop = 168
-      ExplicitWidth = 185
-      ExplicitHeight = 105
       Height = 314
       Width = 618
       object gbTerciarioLeft: TcxGroupBox
@@ -50,9 +43,6 @@ object frmPrincipal: TfrmPrincipal
         Align = alLeft
         PanelStyle.Active = True
         TabOrder = 0
-        ExplicitLeft = 40
-        ExplicitTop = 32
-        ExplicitHeight = 105
         Height = 308
         Width = 185
         object cxLabel1: TcxLabel
@@ -64,9 +54,6 @@ object frmPrincipal: TfrmPrincipal
           Properties.Alignment.Horz = taCenter
           Properties.Alignment.Vert = taVCenter
           Transparent = True
-          ExplicitLeft = 104
-          ExplicitTop = 32
-          ExplicitWidth = 49
           AnchorX = 93
           AnchorY = 16
         end
@@ -84,7 +71,6 @@ object frmPrincipal: TfrmPrincipal
           View = 20
           OptionsBehavior.Common.AllowExpandAnimation = True
           OptionsBehavior.NavigationPane.AdjustWidthByPopup = True
-          ExplicitWidth = 34
           object dxNavBar1Group4: TdxNavBarGroup
             Caption = 'Dashboard'
             SelectedLinkIndex = -1
@@ -191,10 +177,6 @@ object frmPrincipal: TfrmPrincipal
         Align = alClient
         PanelStyle.Active = True
         TabOrder = 1
-        ExplicitLeft = 288
-        ExplicitTop = 56
-        ExplicitWidth = 185
-        ExplicitHeight = 105
         Height = 308
         Width = 242
       end
@@ -204,9 +186,6 @@ object frmPrincipal: TfrmPrincipal
         Align = alRight
         PanelStyle.Active = True
         TabOrder = 2
-        ExplicitLeft = 416
-        ExplicitTop = 224
-        ExplicitHeight = 105
         Height = 308
         Width = 185
       end
@@ -217,9 +196,6 @@ object frmPrincipal: TfrmPrincipal
       Align = alBottom
       PanelStyle.Active = True
       TabOrder = 2
-      ExplicitLeft = 488
-      ExplicitTop = 336
-      ExplicitWidth = 185
       Height = 105
       Width = 618
     end

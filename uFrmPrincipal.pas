@@ -75,7 +75,7 @@ var
 
 implementation
 
-uses uFraObreiros;
+uses uFraObreiros, uFraModelo;
 
 {$R *.dfm}
 
@@ -83,9 +83,19 @@ uses uFraObreiros;
 
 procedure TfrmPrincipal.dxNavBar1Group4Click(Sender: TObject);
 var
- f: TFraObreiros;
+ f: TFraModelo;
+ i: Integer;
 begin
-  f := TFraObreiros.Create(Self);
+
+  for i := gbTerciarioCenter.ControlCount - 1 downto 0 do
+  begin
+    if gbTerciarioCenter.Controls[i] is TFrame then
+    begin
+      gbTerciarioCenter.Controls[i].Free;
+    end;
+  end;
+
+  f := TFraModelo.Create(Self);
   f.Parent := gbTerciarioCenter;
   f.Align := alClient;
 end;
@@ -93,11 +103,20 @@ end;
 procedure TfrmPrincipal.dxNavBar1Item5Click(Sender: TObject);
 var
  f: TFraObreiros;
+ i: Integer;
 begin
+
+  for i := gbTerciarioCenter.ControlCount - 1 downto 0 do
+  begin
+    if gbTerciarioCenter.Controls[i] is TFrame then
+    begin
+      gbTerciarioCenter.Controls[i].Free;
+    end;
+  end;
+
   f := TFraObreiros.Create(Self);
   f.Parent := gbTerciarioCenter;
   f.Align := alClient;
 end;
-
 end.
 

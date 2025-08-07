@@ -14,6 +14,7 @@ uses
   uEscalado in 'class\uEscalado.pas',
   uModeloBase in 'class\uModeloBase.pas',
   uTelefone in 'class\uTelefone.pas',
+  uFraModelo in 'frames\uFraModelo.pas' {FraModelo: TFrame},
   uFraObreiros in 'frames\uFraObreiros.pas' {FraObreiros: TFrame};
 
 {$R *.res}

@@ -1,10 +1,10 @@
-unit uFraObreiros;
+unit uFraModelo;
 
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uFraModelo, cxGraphics, cxControls,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls,
   cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit, dxSkinsCore,
   dxSkinBasic, dxSkinBlack, dxSkinBlue, dxSkinBlueprint, dxSkinCaramel,
   dxSkinCoffee, dxSkinDarkroom, dxSkinDarkSide, dxSkinDevExpressDarkStyle,
@@ -21,18 +21,16 @@ uses
   dxSkinSpringtime, dxSkinStardust, dxSkinSummer2008, dxSkinTheAsphaltWorld,
   dxSkinTheBezier, dxSkinValentine, dxSkinVisualStudio2013Blue,
   dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinVS2010,
-  dxSkinWhiteprint, dxSkinWXI, dxSkinXmas2008Blue, cxGroupBox;
+  dxSkinWhiteprint, dxSkinWXI, dxSkinXmas2008Blue, cxGroupBox, cxImage;
 
 type
-  TFraObreiros = class(TFraModelo)
+  TFraModelo = class(TFrame)
+    gbPrincipal: TcxGroupBox;
   private
     { Private declarations }
   public
     { Public declarations }
   end;
-
-var
-  FraObreiros: TFraObreiros;
 
 implementation
 
