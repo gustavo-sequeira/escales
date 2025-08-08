@@ -17,7 +17,15 @@ uses
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Comp.DataSet,
   FireDAC.Comp.Client, cxGridLevel, cxGridCustomView, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxGrid, uLibary, dxSkinOffice2010Blue,
-  cxLabel, Vcl.ExtCtrls, dxNavBarCollns, dxNavBarBase, dxNavBar;
+  cxLabel, Vcl.ExtCtrls, dxNavBarCollns, dxNavBarBase, dxNavBar,
+  Vcl.WinXCalendars, cxCalendar, cxScheduler, cxSchedulerStorage,
+  cxSchedulerCustomControls, cxSchedulerCustomResourceView, cxSchedulerDayView,
+  cxSchedulerAgendaView, cxSchedulerDateNavigator, cxSchedulerHolidays,
+  cxSchedulerTimeGridView, cxSchedulerUtils, cxSchedulerWeekView,
+  cxSchedulerYearView, cxSchedulerGanttView, cxSchedulerRecurrence,
+  dxBarBuiltInMenu, cxSchedulerTreeListBrowser,
+  cxSchedulerRibbonStyleEventEditor, dxPrinting, cxSchedulerActions,
+  System.Actions, Vcl.ActnList, dxActions;
 
 type
   TfrmPrincipal = class(TForm)
@@ -45,6 +53,42 @@ type
     dxNavBar1Group4Control: TdxNavBarGroupControl;
     dxNavBar1Item8: TdxNavBarItem;
     dxNavBar1Item9: TdxNavBarItem;
+    ActionList1: TActionList;
+    cxImageList1: TcxImageList;
+    cxImageList2: TcxImageList;
+    dxSchedulerNewEvent: TdxSchedulerNewEvent;
+    dxSchedulerNewRecurringEvent: TdxSchedulerNewRecurringEvent;
+    dxSchedulerGoBackward: TdxSchedulerGoBackward;
+    dxSchedulerGoForward: TdxSchedulerGoForward;
+    dxSchedulerGoToToday: TdxSchedulerGoToToday;
+    dxSchedulerGoToDate: TdxSchedulerGoToDate;
+    dxSchedulerNextSevenDays: TdxSchedulerNextSevenDays;
+    dxSchedulerDayView: TdxSchedulerDayView;
+    dxSchedulerWorkWeekView: TdxSchedulerWorkWeekView;
+    dxSchedulerWeekView: TdxSchedulerWeekView;
+    dxSchedulerMonthView: TdxSchedulerMonthView;
+    dxSchedulerTimeGridView: TdxSchedulerTimeGridView;
+    dxSchedulerYearView: TdxSchedulerYearView;
+    dxSchedulerGanttView: TdxSchedulerGanttView;
+    dxSchedulerAgendaView: TdxSchedulerAgendaView;
+    dxSchedulerGroupByNone: TdxSchedulerGroupByNone;
+    dxSchedulerGroupByDate: TdxSchedulerGroupByDate;
+    dxSchedulerGroupByResource: TdxSchedulerGroupByResource;
+    dxSchedulerTimeScale60Minutes: TdxSchedulerTimeScale60Minutes;
+    dxSchedulerTimeScale30Minutes: TdxSchedulerTimeScale30Minutes;
+    dxSchedulerTimeScale15Minutes: TdxSchedulerTimeScale15Minutes;
+    dxSchedulerTimeScale10Minutes: TdxSchedulerTimeScale10Minutes;
+    dxSchedulerTimeScale6Minutes: TdxSchedulerTimeScale6Minutes;
+    dxSchedulerTimeScale5Minutes: TdxSchedulerTimeScale5Minutes;
+    dxSchedulerCompressWeekends: TdxSchedulerCompressWeekends;
+    dxSchedulerWorkTimeOnly: TdxSchedulerWorkTimeOnly;
+    dxSchedulerSnapEventsToTimeSlots: TdxSchedulerSnapEventsToTimeSlots;
+    dxSchedulerDateNavigator: TdxSchedulerDateNavigator;
+    dxSchedulerResourcesLayoutEditor: TdxSchedulerResourcesLayoutEditor;
+    dxSchedulerShowPrintForm: TdxSchedulerShowPrintForm;
+    dxSchedulerShowPrintPreviewForm: TdxSchedulerShowPrintPreviewForm;
+    dxSchedulerShowPageSetupForm: TdxSchedulerShowPageSetupForm;
+    cxScheduler1: TcxScheduler;
     procedure dxNavBar1Item5Click(Sender: TObject);
     procedure dxNavBar1Group4Click(Sender: TObject);
 
