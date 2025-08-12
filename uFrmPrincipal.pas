@@ -16,23 +16,9 @@ uses
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Comp.DataSet,
   FireDAC.Comp.Client, cxGridLevel, cxGridCustomView, cxGridCustomTableView,
-  cxGridTableView, cxGridDBTableView, cxGrid, uLibary, dxSkinBasic, dxSkinBlack,
-  dxSkinBlue, dxSkinBlueprint, dxSkinCaramel, dxSkinCoffee, dxSkinDarkroom,
-  dxSkinDarkSide, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinFoggy,
-  dxSkinGlassOceans, dxSkinHighContrast, dxSkiniMaginary, dxSkinLilian,
-  dxSkinLiquidSky, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
-  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful,
-  dxSkinOffice2016Dark, dxSkinOffice2019Black, dxSkinOffice2019Colorful,
-  dxSkinOffice2019DarkGray, dxSkinOffice2019White, dxSkinPumpkin, dxSkinSeven,
-  dxSkinSevenClassic, dxSkinSharp, dxSkinSharpPlus, dxSkinSilver,
-  dxSkinSpringtime, dxSkinStardust, dxSkinSummer2008, dxSkinTheAsphaltWorld,
-  dxSkinTheBezier, dxSkinValentine, dxSkinVisualStudio2013Blue,
-  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinVS2010,
-  dxSkinWXI, dxSkinXmas2008Blue, dxNavBarCollns, dxNavBarBase, dxNavBar, cxLabel,
-  Vcl.ExtCtrls;
+  cxGridTableView, cxGridDBTableView, cxGrid, uLibary, dxSkinOffice2010Blue,
+  dxNavBarCollns, dxNavBarBase, dxNavBar, cxLabel, Vcl.ExtCtrls, System.Actions,
+  Vcl.ActnList, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ActnMan;
 
 type
   TfrmPrincipal = class(TForm)
@@ -46,22 +32,27 @@ type
     gbTerciarioRight: TcxGroupBox;
     cxLabel1: TcxLabel;
     dxNavBar1: TdxNavBar;
-    dxNavBar1Group1: TdxNavBarGroup;
+    dxNavBarCadastros: TdxNavBarGroup;
     dxNavBar1Group2: TdxNavBarGroup;
     dxNavBar1Group3: TdxNavBarGroup;
-    dxNavBar1Group4: TdxNavBarGroup;
-    dxNavBar1Item1: TdxNavBarItem;
-    dxNavBar1Item2: TdxNavBarItem;
-    dxNavBar1Item3: TdxNavBarItem;
-    dxNavBar1Item4: TdxNavBarItem;
-    dxNavBar1Item5: TdxNavBarItem;
-    dxNavBar1Item6: TdxNavBarItem;
-    dxNavBar1Item7: TdxNavBarItem;
-    dxNavBar1Group4Control: TdxNavBarGroupControl;
+    dxNavBarDashboard: TdxNavBarGroup;
+    dxNavBarCadastroCargos: TdxNavBarItem;
+    dxNavBarCadastroEscalas: TdxNavBarItem;
+    dxNavBarCadastroLembretes: TdxNavBarItem;
+    dxNavBarCadastroLocalidades: TdxNavBarItem;
+    dxNavBarCadastroObreiros: TdxNavBarItem;
+    dxNavBarCadastroTelefones: TdxNavBarItem;
+    dxNavBarCadastroVersiculos: TdxNavBarItem;
+    dxNavBarDashboardControl: TdxNavBarGroupControl;
     dxNavBar1Item8: TdxNavBarItem;
     dxNavBar1Item9: TdxNavBarItem;
-    procedure dxNavBar1Item5Click(Sender: TObject);
-    procedure dxNavBar1Group4Click(Sender: TObject);
+    ActionManager1: TActionManager;
+    actCadastroCargos: TAction;
+    actCadastroObreiros: TAction;
+    Action1: TAction;
+    procedure actCadastroCargosExecute(Sender: TObject);
+    procedure actCadastroObreirosExecute(Sender: TObject);
+    procedure dxNavBarDashboardClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -77,11 +68,21 @@ var
 implementation
 
 uses
-  uFraObreiros, uFraModelo;
+  uFraObreiros, uFraModelo, uFraCargos;
 
 {$R *.dfm}
 
 { TfrmPrincipal }
+
+procedure TfrmPrincipal.actCadastroCargosExecute(Sender: TObject);
+begin
+  ControleFrame('cargos');
+end;
+
+procedure TfrmPrincipal.actCadastroObreirosExecute(Sender: TObject);
+begin
+  ControleFrame('obreiros');
+end;
 
 procedure TfrmPrincipal.ControleFrame(pFrame: string; pLimparTodos: Boolean = False);
 var
@@ -100,21 +101,19 @@ begin
   begin
     if pFrame = 'obreiros' then
       f := TfraObreiros.Create(Self)
+    else if pFrame = 'cargos' then
+      f := TfraCargos.Create(Self)
     else
       f := TFraModelo.Create(Self);
     f.Parent := gbTerciarioCenter;
     f.Align := alClient;
+    f.pcFramePrincipal.ActivePageIndex := 0;
   end;
 end;
 
-procedure TfrmPrincipal.dxNavBar1Group4Click(Sender: TObject);
+procedure TfrmPrincipal.dxNavBarDashboardClick(Sender: TObject);
 begin
   ControleFrame(EmptyStr, True);
-end;
-
-procedure TfrmPrincipal.dxNavBar1Item5Click(Sender: TObject);
-begin
-  ControleFrame('obreiros');
 end;
 
 end.

@@ -6,13 +6,13 @@ uses
   uModeloBase;
 
 type
-  TCargo = class(TModeloBase)
+  TCargos = class(TModeloBase)
   private
     FCodigo: Integer;
     FAbreviacao: string;
-    FNome: string;     Criar no banco
+    FNome: string;
     FDescricao: string;
-  public
+  published
     property Codigo: Integer read FCodigo write FCodigo;
     property Abreviacao: string read FAbreviacao write FAbreviacao;
     property Nome: string read FNome write FNome;

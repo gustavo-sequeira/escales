@@ -1,4 +1,5 @@
 object dmPrincipal: TdmPrincipal
+  OldCreateOrder = True
   Height = 279
   Width = 364
   object FDConnection: TFDConnection
@@ -9,22 +10,22 @@ object dmPrincipal: TdmPrincipal
       'Server=127.0.0.1'
       'DriverID=PG')
     LoginPrompt = False
-    Left = 48
-    Top = 24
+    Left = 46
+    Top = 15
   end
   object qryPrincipal: TFDQuery
     Connection = FDConnection
-    Left = 72
-    Top = 96
+    Left = 106
+    Top = 15
   end
   object dsPrincipal: TDataSource
     DataSet = qryPrincipal
-    Left = 168
-    Top = 120
+    Left = 16
+    Top = 15
   end
   object FDPhysPgDriverLink1: TFDPhysPgDriverLink
     DriverID = 'PG'
-    Left = 232
-    Top = 64
+    Left = 76
+    Top = 15
   end
 end

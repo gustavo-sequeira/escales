@@ -196,7 +196,7 @@ object FraModelo: TFraModelo
             Height = 25
             Caption = '&Confirmar'
             OptionsImage.ImageIndex = 0
-            OptionsImage.Images = p
+            OptionsImage.Images = cxImageList
             TabOrder = 1
             OnClick = btnFrameConfirmarClick
           end
@@ -207,7 +207,7 @@ object FraModelo: TFraModelo
             Height = 25
             Caption = 'C&ancelar'
             OptionsImage.ImageIndex = 1
-            OptionsImage.Images = p
+            OptionsImage.Images = cxImageList
             TabOrder = 2
             OnClick = btnFrameCancelarClick
           end
@@ -215,10 +215,10 @@ object FraModelo: TFraModelo
       end
     end
   end
-  object p: TcxImageList
+  object cxImageList: TcxImageList
     SourceDPI = 96
     FormatVersion = 1
-    DesignInfo = 10682923
+    DesignInfo = 28574262
     ImageInfo = <
       item
         ImageClass = 'TdxSmartImage'
@@ -232,7 +232,6 @@ object FraModelo: TFraModelo
           05F752C88D2236C02300BF7411714D92FA0A158665AE4986E02B30B2043A1169
           12AB27E4DA727210F64DF25B7B9F6965E5FC13FB0063DE8299BD8214BB000000
           0049454E44AE426082}
-        FileName = 'C:\Users\seque\Downloads\icons8-check-mark-16.png'
       end
       item
         ImageClass = 'TdxSmartImage'
@@ -245,7 +244,6 @@ object FraModelo: TFraModelo
           E0E5902A41C13514288C677AA217D2FBF75D05F2AD16B29549EC81A3AE44BDA2
           8C95D507896B925FE4F75C37CAC633D2CAF26CB9394AD639B9049FE96C79DE25
           46CE857DB7CE85F8A80000000049454E44AE426082}
-        FileName = 'C:\Users\seque\Downloads\icons8-cancelar-16.png'
       end>
   end
 end

@@ -10,7 +10,9 @@ object frmPrincipal: TfrmPrincipal
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  OldCreateOrder = True
   WindowState = wsMaximized
+  PixelsPerInch = 96
   TextHeight = 15
   object gbPrincipal: TcxGroupBox
     Left = 0
@@ -50,18 +52,32 @@ object frmPrincipal: TfrmPrincipal
           Left = 6
           Top = 6
           Align = alTop
-          Caption = 'cxLabel1'
+          AutoSize = False
+          Caption = 'MENU'
+          ParentFont = False
+          Style.Font.Charset = DEFAULT_CHARSET
+          Style.Font.Color = clNavy
+          Style.Font.Height = -17
+          Style.Font.Name = 'Segoe UI'
+          Style.Font.Style = [fsBold]
+          Style.LookAndFeel.NativeStyle = True
+          Style.IsFontAssigned = True
+          StyleDisabled.LookAndFeel.NativeStyle = True
+          StyleFocused.LookAndFeel.NativeStyle = True
+          StyleHot.LookAndFeel.NativeStyle = True
           Properties.Alignment.Horz = taCenter
           Properties.Alignment.Vert = taVCenter
           Transparent = True
+          Height = 16
+          Width = 173
           AnchorX = 93
-          AnchorY = 16
+          AnchorY = 14
         end
         object dxNavBar1: TdxNavBar
           Left = 3
-          Top = 28
+          Top = 25
           Width = 179
-          Height = 277
+          Height = 280
           Align = alClient
           ActiveGroupIndex = 1
           TabOrder = 1
@@ -71,7 +87,9 @@ object frmPrincipal: TfrmPrincipal
           View = 20
           OptionsBehavior.Common.AllowExpandAnimation = True
           OptionsBehavior.NavigationPane.AdjustWidthByPopup = True
-          object dxNavBar1Group4: TdxNavBarGroup
+          ExplicitTop = 28
+          ExplicitHeight = 277
+          object dxNavBarDashboard: TdxNavBarGroup
             Caption = 'Dashboard'
             SelectedLinkIndex = -1
             TopVisibleLinkIndex = 0
@@ -80,35 +98,35 @@ object frmPrincipal: TfrmPrincipal
             OptionsExpansion.Expandable = False
             OptionsExpansion.Expanded = False
             OptionsExpansion.ShowExpandButton = False
-            OnClick = dxNavBar1Group4Click
+            OnClick = dxNavBarDashboardClick
             Links = <>
           end
-          object dxNavBar1Group1: TdxNavBarGroup
+          object dxNavBarCadastros: TdxNavBarGroup
             Caption = 'Cadastros'
             SelectedLinkIndex = -1
             TopVisibleLinkIndex = 0
             OptionsExpansion.Expanded = False
             Links = <
               item
-                Item = dxNavBar1Item1
+                Item = dxNavBarCadastroCargos
               end
               item
-                Item = dxNavBar1Item2
+                Item = dxNavBarCadastroEscalas
               end
               item
-                Item = dxNavBar1Item3
+                Item = dxNavBarCadastroLembretes
               end
               item
-                Item = dxNavBar1Item4
+                Item = dxNavBarCadastroLocalidades
               end
               item
-                Item = dxNavBar1Item5
+                Item = dxNavBarCadastroObreiros
               end
               item
-                Item = dxNavBar1Item6
+                Item = dxNavBarCadastroTelefones
               end
               item
-                Item = dxNavBar1Item7
+                Item = dxNavBarCadastroVersiculos
               end>
           end
           object dxNavBar1Group2: TdxNavBarGroup
@@ -131,26 +149,25 @@ object frmPrincipal: TfrmPrincipal
             OptionsExpansion.Expanded = False
             Links = <>
           end
-          object dxNavBar1Item1: TdxNavBarItem
-            Caption = 'Cargos'
+          object dxNavBarCadastroCargos: TdxNavBarItem
+            Action = actCadastroCargos
           end
-          object dxNavBar1Item2: TdxNavBarItem
+          object dxNavBarCadastroEscalas: TdxNavBarItem
             Caption = 'Escalas'
           end
-          object dxNavBar1Item3: TdxNavBarItem
+          object dxNavBarCadastroLembretes: TdxNavBarItem
             Caption = 'Lembretes'
           end
-          object dxNavBar1Item4: TdxNavBarItem
+          object dxNavBarCadastroLocalidades: TdxNavBarItem
             Caption = 'Localidades'
           end
-          object dxNavBar1Item5: TdxNavBarItem
-            Caption = 'Obreiros'
-            OnClick = dxNavBar1Item5Click
+          object dxNavBarCadastroObreiros: TdxNavBarItem
+            Action = actCadastroObreiros
           end
-          object dxNavBar1Item6: TdxNavBarItem
+          object dxNavBarCadastroTelefones: TdxNavBarItem
             Caption = 'Telefones'
           end
-          object dxNavBar1Item7: TdxNavBarItem
+          object dxNavBarCadastroVersiculos: TdxNavBarItem
             Caption = 'Vers'#237'culos'
           end
           object dxNavBar1Item8: TdxNavBarItem
@@ -159,12 +176,12 @@ object frmPrincipal: TfrmPrincipal
           object dxNavBar1Item9: TdxNavBarItem
             Caption = 'Envio Mensagem'
           end
-          object dxNavBar1Group4Control: TdxNavBarGroupControl
+          object dxNavBarDashboardControl: TdxNavBarGroupControl
             Left = 0
             Top = 0
             Width = 179
             Height = 277
-            Caption = 'dxNavBar1Group4Control'
+            Caption = 'dxNavBarDashboardControl'
             TabOrder = 0
             GroupIndex = 0
             OriginalHeight = 41
@@ -203,7 +220,27 @@ object frmPrincipal: TfrmPrincipal
   object dxSkinController1: TdxSkinController
     NativeStyle = False
     SkinName = 'Office2010Blue'
-    Left = 551
-    Top = 374
+    Left = 550
+    Top = 486
+  end
+  object ActionManager1: TActionManager
+    Left = 520
+    Top = 486
+    StyleName = 'Platform Default'
+    object actCadastroCargos: TAction
+      Category = 'Cadastros'
+      Caption = 'Cargos'
+      OnExecute = actCadastroCargosExecute
+    end
+    object actCadastroObreiros: TAction
+      Category = 'Cadastros'
+      Caption = 'Obreiros'
+      OnExecute = actCadastroObreirosExecute
+    end
+    object Action1: TAction
+      Category = 'Dashboard'
+      AutoCheck = True
+      Caption = 'Dashboard'
+    end
   end
 end

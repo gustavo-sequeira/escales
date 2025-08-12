@@ -3,11 +3,6 @@ inherited FraObreiros: TFraObreiros
     Caption = 'OBREIROS'
     inherited pcFramePrincipal: TcxPageControl
       Properties.ActivePage = tsManutencao
-      inherited tsConsulta: TcxTabSheet
-        ExplicitTop = 26
-        ExplicitWidth = 634
-        ExplicitHeight = 430
-      end
       inherited tsManutencao: TcxTabSheet
         inherited gbFramePrincipal: TcxGroupBox
           inherited gbFrameSecundario: TcxGroupBox
@@ -19,7 +14,6 @@ inherited FraObreiros: TFraObreiros
                 Caption = 'Data de Nasci.'
                 Properties.Alignment.Horz = taLeftJustify
                 Transparent = True
-                ExplicitTop = 26
               end
               object cxLabel2: TcxLabel
                 Left = 2
@@ -28,8 +22,6 @@ inherited FraObreiros: TFraObreiros
                 Caption = 'Cargo'
                 Properties.Alignment.Horz = taLeftJustify
                 Transparent = True
-                ExplicitLeft = 0
-                ExplicitTop = 22
               end
               object cxLabel3: TcxLabel
                 Left = 2
@@ -38,8 +30,6 @@ inherited FraObreiros: TFraObreiros
                 Caption = 'Nome'
                 Properties.Alignment.Horz = taLeftJustify
                 Transparent = True
-                ExplicitLeft = 0
-                ExplicitTop = 22
               end
               object cxLabel4: TcxLabel
                 Left = 2
@@ -64,8 +54,6 @@ inherited FraObreiros: TFraObreiros
                 Style.IsFontAssigned = True
                 TabOrder = 0
                 Text = 'cxTextEdit1'
-                ExplicitLeft = 1
-                ExplicitTop = -4
                 Width = 248
               end
               object cxTextEdit3: TcxTextEdit
@@ -81,7 +69,7 @@ inherited FraObreiros: TFraObreiros
                 Style.IsFontAssigned = True
                 TabOrder = 2
                 Text = 'cxTextEdit1'
-                ExplicitTop = 27
+                ExplicitTop = 48
                 Width = 248
               end
               object cxComboBox1: TcxComboBox
@@ -97,9 +85,6 @@ inherited FraObreiros: TFraObreiros
                 Style.IsFontAssigned = True
                 TabOrder = 1
                 Text = 'cxComboBox1'
-                ExplicitLeft = 56
-                ExplicitTop = 21
-                ExplicitWidth = 121
                 Width = 248
               end
               object cxDateEdit1: TcxDateEdit
@@ -122,7 +107,7 @@ inherited FraObreiros: TFraObreiros
       end
     end
   end
-  inherited cxImageList1: TcxImageList
+  inherited cxImageList: TcxImageList
     FormatVersion = 1
   end
 end

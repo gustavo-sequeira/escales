@@ -9,13 +9,13 @@ type
   TObreiro = class(TModeloBase)
   private
     FCodigo: Integer;
-    FCargo: TCargo;
+    FCargo: TCargos;
     FNome: string;
     FDtNascimento: TDate;
   public
     property Codigo: Integer read FCodigo write FCodigo;
     [TForeignKey('Cargos', 'Codigo')]
-    property Cargo: TCargo read FCargo write FCargo;
+    property Cargo: TCargos read FCargo write FCargo;
     property Nome: string read FNome write FNome;
     property DtNascimento: TDate read FDtNascimento write FDtNascimento;
   end;

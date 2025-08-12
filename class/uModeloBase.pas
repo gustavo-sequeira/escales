@@ -65,7 +65,7 @@ end;
 
 class function TModeloBase.GetTableName: string;
 begin
-  Result := LowerCase(Copy(Self.ClassName, 2, MaxInt));
+  Result := UpperCase(Copy(Self.ClassName, 2, MaxInt));
 end;
 
 function TModeloBase.GetFieldList: TArray<string>;
