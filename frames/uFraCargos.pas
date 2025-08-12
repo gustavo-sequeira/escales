@@ -1,4 +1,4 @@
-unit uFraObreiros;
+unit uFraCargos;
 
 interface
 
@@ -23,22 +23,21 @@ uses
   dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinVS2010,
   dxSkinWhiteprint, dxSkinWXI, dxSkinXmas2008Blue, dxBarBuiltInMenu, cxStyles,
   cxCustomData, cxFilter, cxData, cxDataStorage, cxNavigator, dxDateRanges,
-  dxScrollbarAnnotations, Data.DB, cxDBData, cxGridLevel, cxClasses,
+  dxScrollbarAnnotations, Data.DB, cxDBData, Vcl.Menus, System.ImageList,
+  Vcl.ImgList, cxImageList, cxButtons, Vcl.StdCtrls, cxGridLevel, cxClasses,
   cxGridCustomView, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
-  cxGrid, cxPC, cxGroupBox, Vcl.Menus, System.ImageList, Vcl.ImgList,
-  cxImageList, cxButtons, Vcl.StdCtrls, cxTextEdit, cxLabel, cxMaskEdit,
-  cxDropDownEdit, Vcl.ComCtrls, dxCore, cxDateUtils, cxCalendar;
+  cxGrid, cxPC, cxGroupBox, cxLabel, cxMemo, cxTextEdit;
 
 type
-  TFraObreiros = class(TFraModelo)
-    cxLabel1: TcxLabel;
+  TFraCargos = class(TFraModelo)
     cxLabel2: TcxLabel;
-    cxLabel3: TcxLabel;
     cxLabel4: TcxLabel;
-    cxTextEdit4: TcxTextEdit;
+    cxLabel3: TcxLabel;
+    cxTextEdit1: TcxTextEdit;
+    cxTextEdit2: TcxTextEdit;
+    cxLabel1: TcxLabel;
     cxTextEdit3: TcxTextEdit;
-    cxComboBox1: TcxComboBox;
-    cxDateEdit1: TcxDateEdit;
+    cxMemo1: TcxMemo;
   private
     { Private declarations }
   public
@@ -46,7 +45,7 @@ type
   end;
 
 var
-  FraObreiros: TFraObreiros;
+  FraCargos: TFraCargos;
 
 implementation
 

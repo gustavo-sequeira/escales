@@ -68,6 +68,7 @@ type
     lib: TLibary;
   public
     { Public declarations }
+    procedure ControleFrame(pFrame: string; pLimparTodos: Boolean = False);
   end;
 
 var
@@ -75,16 +76,17 @@ var
 
 implementation
 
-uses uFraObreiros, uFraModelo;
+uses
+  uFraObreiros, uFraModelo;
 
 {$R *.dfm}
 
 { TfrmPrincipal }
 
-procedure TfrmPrincipal.dxNavBar1Group4Click(Sender: TObject);
+procedure TfrmPrincipal.ControleFrame(pFrame: string; pLimparTodos: Boolean = False);
 var
- f: TFraModelo;
- i: Integer;
+  f: TFraModelo;
+  i: Integer;
 begin
 
   for i := gbTerciarioCenter.ControlCount - 1 downto 0 do
@@ -94,29 +96,26 @@ begin
       gbTerciarioCenter.Controls[i].Free;
     end;
   end;
+  if not (pLimparTodos) then
+  begin
+    if pFrame = 'obreiros' then
+      f := TfraObreiros.Create(Self)
+    else
+      f := TFraModelo.Create(Self);
+    f.Parent := gbTerciarioCenter;
+    f.Align := alClient;
+  end;
+end;
 
-  f := TFraModelo.Create(Self);
-  f.Parent := gbTerciarioCenter;
-  f.Align := alClient;
+procedure TfrmPrincipal.dxNavBar1Group4Click(Sender: TObject);
+begin
+  ControleFrame(EmptyStr, True);
 end;
 
 procedure TfrmPrincipal.dxNavBar1Item5Click(Sender: TObject);
-var
- f: TFraObreiros;
- i: Integer;
 begin
-
-  for i := gbTerciarioCenter.ControlCount - 1 downto 0 do
-  begin
-    if gbTerciarioCenter.Controls[i] is TFrame then
-    begin
-      gbTerciarioCenter.Controls[i].Free;
-    end;
-  end;
-
-  f := TFraObreiros.Create(Self);
-  f.Parent := gbTerciarioCenter;
-  f.Align := alClient;
+  ControleFrame('obreiros');
 end;
+
 end.
 
