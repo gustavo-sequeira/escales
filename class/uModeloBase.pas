@@ -8,7 +8,6 @@ uses
   Data.DB;
 
 type
-
   TPrimaryKeyAttribute = class(TCustomAttribute)
   private
     FAutoIncrement: Boolean;
@@ -84,7 +83,7 @@ var
   Prop: TRttiProperty;
   L: TList<string>;
   Attr: TCustomAttribute;
-  IsFKObject: Boolean;
+  IsFKObject, IsPrimaryKey: Boolean;
 begin
   L := TList<string>.Create;
   Ctx := TRttiContext.Create;
@@ -94,11 +93,24 @@ begin
     begin
       if (Prop.Visibility <> mvPublished) then
         Continue;
-      if SameText(Prop.Name, 'ID') then
+
+      IsPrimaryKey := False;
+      for Attr in Prop.GetAttributes do
+        if Attr is TPrimaryKeyAttribute then
+        begin
+          IsPrimaryKey := True;
+          // se for auto-incremento e o ID atual for 0, ignora (inclusão)
+          if TPrimaryKeyAttribute(Attr).AutoIncrement and (ID = 0) then
+            IsPrimaryKey := True
+          else
+            IsPrimaryKey := False; // mantém em update
+          Break;
+        end;
+
+      if IsPrimaryKey then
         Continue;
 
-      // Ignora propriedades do tipo objeto (tkClass) que representam FKs —
-      // mas inclui o campo local que guarda o FK (ex: ClienteID)
+      // Ignora propriedades objeto com FK
       IsFKObject := False;
       for Attr in Prop.GetAttributes do
         if Attr is TForeignKeyAttribute then
@@ -108,9 +120,8 @@ begin
         end;
 
       if IsFKObject then
-        Continue; // local field (ex: ClienteID) deverá estar presente como propriedade separada
+        Continue;
 
-      // Aceita propriedades simples (integer, float, string, datetime)
       case Prop.PropertyType.TypeKind of
         tkInteger, tkInt64, tkFloat, tkUString, tkLString, tkWString, tkString:
           L.Add(Prop.Name);
@@ -142,8 +153,8 @@ begin
         Result := V.AsExtended;
     tkUString, tkLString, tkWString, tkString:
       Result := V.ToString;
-    else
-      Result := V.ToString;
+  else
+    Result := V.ToString;
   end;
 end;
 
@@ -155,70 +166,42 @@ var
   Attr: TCustomAttribute;
   PName: string;
   Val: Variant;
-  FKLocalField: string;
-  FKProp: TRttiProperty;
-  i: Integer;
+  IsPrimaryKey: Boolean;
 begin
   Ctx := TRttiContext.Create;
   try
     RType := Ctx.GetType(Self.ClassType);
 
-    // Primeiro: se alguma propriedade de objeto tiver instância, salve-a antes
-    for Prop in RType.GetProperties do
-    begin
-      for Attr in Prop.GetAttributes do
-        if Attr is TForeignKeyAttribute then
-        begin
-          // local field name (ex ClienteID). Se a propriedade objeto existir e for TModeloBase, salve e atualize o local field
-          FKLocalField := FindLocalFieldNameForProp(Prop, TForeignKeyAttribute(Attr));
-          // procurar propriedade que contém o ID local
-          FKProp := nil;
-          for i := 0 to Pred(Length(RType.GetProperties)) do
-            if SameText(RType.GetProperties[i].Name, FKLocalField) then
-            begin
-              FKProp := RType.GetProperties[i];
-              Break;
-            end;
-
-          // se houver instância do objeto, salva-a e seta o ID local
-          if Prop.PropertyType.TypeKind = tkClass then
-          begin
-            if Prop.GetValue(Self).IsEmpty = False then
-            begin
-              // obtém o objeto e verifica se é TModeloBase
-              if Prop.GetValue(Self).AsObject is TModeloBase then
-              begin
-                TModeloBase(Prop.GetValue(Self).AsObject).Save;
-                if Assigned(FKProp) then
-                  FKProp.SetValue(Self, TValue.From<Integer>(TModeloBase(Prop.GetValue(Self).AsObject).ID));
-              end;
-            end;
-          end;
-        end;
-    end;
-
-    // Depois: popula os parâmetros básicos (inclui campos locais de FK)
     for Prop in RType.GetProperties do
     begin
       if (Prop.Visibility <> mvPublished) then
         Continue;
-      if SameText(Prop.Name, 'ID') then
+
+      // Verifica se é PK e auto-incremento
+      IsPrimaryKey := False;
+      for Attr in Prop.GetAttributes do
+        if Attr is TPrimaryKeyAttribute then
+        begin
+          if TPrimaryKeyAttribute(Attr).AutoIncrement and (ID = 0) then
+            IsPrimaryKey := True;
+          Break;
+        end;
+
+      if IsPrimaryKey then
         Continue;
 
-      // aceita strings, inteiros, floats, e também propriedades que armazenam FK (ex ClienteID)
       case Prop.PropertyType.TypeKind of
         tkInteger, tkInt64, tkFloat, tkUString, tkLString, tkWString, tkString:
-        begin
-          PName := Prop.Name;
-          Val := PropertyValueAsVariant(Prop);
-          if AQuery.Params.FindParam(PName) = nil then
-            AQuery.Params.CreateParam(ftUnknown, PName, ptInput);
-          AQuery.ParamByName(PName).Value := Val;
-        end;
+          begin
+            PName := Prop.Name;
+            Val := PropertyValueAsVariant(Prop);
+            if AQuery.Params.FindParam(PName) = nil then
+              AQuery.Params.CreateParam(ftUnknown, PName, ptInput);
+            AQuery.ParamByName(PName).Value := Val;
+          end;
       end;
     end;
 
-    // ID param (for update/delete)
     if AQuery.Params.FindParam('ID') = nil then
       AQuery.Params.CreateParam(ftInteger, 'ID', ptInput);
     AQuery.ParamByName('ID').AsInteger := ID;
@@ -478,11 +461,7 @@ begin
       for attr in prop.GetAttributes do
         if attr is TForeignKeyAttribute then
         begin
-          Writeln(Format('Propriedade %s -> FK para %s(%s) [local: %s]'
-            , [prop.Name,
-               TForeignKeyAttribute(attr).ReferencedTable,
-               TForeignKeyAttribute(attr).ReferencedColumn,
-               TForeignKeyAttribute(attr).LocalField]));
+          Writeln(Format('Propriedade %s -> FK para %s(%s) [local: %s]', [prop.Name, TForeignKeyAttribute(attr).ReferencedTable, TForeignKeyAttribute(attr).ReferencedColumn, TForeignKeyAttribute(attr).LocalField]));
         end;
   finally
     ctx.Free;
@@ -497,5 +476,4 @@ begin
 end;
 
 end.
-
 
