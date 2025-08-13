@@ -10,13 +10,13 @@ object dmPrincipal: TdmPrincipal
       'Server=127.0.0.1'
       'DriverID=PG')
     LoginPrompt = False
-    Left = 46
-    Top = 15
+    Left = 30
+    Top = 95
   end
   object qryPrincipal: TFDQuery
     Connection = FDConnection
-    Left = 106
-    Top = 15
+    Left = 138
+    Top = 103
   end
   object dsPrincipal: TDataSource
     DataSet = qryPrincipal
@@ -25,7 +25,7 @@ object dmPrincipal: TdmPrincipal
   end
   object FDPhysPgDriverLink1: TFDPhysPgDriverLink
     DriverID = 'PG'
-    Left = 76
+    Left = 132
     Top = 15
   end
 end

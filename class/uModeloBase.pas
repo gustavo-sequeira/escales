@@ -8,6 +8,15 @@ uses
   Data.DB;
 
 type
+
+  TPrimaryKeyAttribute = class(TCustomAttribute)
+  private
+    FAutoIncrement: Boolean;
+  public
+    constructor Create(AAutoIncrement: Boolean);
+    property AutoIncrement: Boolean read FAutoIncrement;
+  end;
+
   // Atributo que marca uma propriedade de objeto como chave estrangeira
   // ALocalField é o nome do campo local que guarda o ID (ex: 'ClienteID').
   TForeignKeyAttribute = class(TCustomAttribute)
@@ -478,6 +487,13 @@ begin
   finally
     ctx.Free;
   end;
+end;
+
+{ TPrimaryKeyAttribute }
+
+constructor TPrimaryKeyAttribute.Create(AAutoIncrement: Boolean);
+begin
+  FAutoIncrement := AAutoIncrement;
 end;
 
 end.
