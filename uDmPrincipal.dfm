@@ -1,4 +1,5 @@
 object dmPrincipal: TdmPrincipal
+  OldCreateOrder = True
   OnCreate = DataModuleCreate
   Height = 279
   Width = 364
@@ -15,6 +16,10 @@ object dmPrincipal: TdmPrincipal
   end
   object FDPhysPgDriverLink1: TFDPhysPgDriverLink
     Left = 168
-    Top = 120
+    Top = 136
+  end
+  object cxLocalizer1: TcxLocalizer
+    Left = 204
+    Top = 79
   end
 end

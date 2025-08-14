@@ -1,4 +1,4 @@
-unit uFraModelo;
+﻿unit uFraModelo;
 
 interface
 
@@ -11,10 +11,10 @@ uses
   dxScrollbarAnnotations, Data.DB, cxDBData, cxGridLevel, cxClasses,
   cxGridCustomView, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
   cxGrid, cxPC, Vcl.Menus, System.ImageList, Vcl.ImgList, cxImageList,
-  Vcl.StdCtrls, cxButtons, cxTextEdit, cxLabel, dxSkinsCore, dxSkinWXI,
-  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
-  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
-  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+  Vcl.StdCtrls, cxButtons, cxTextEdit, cxLabel, dxSkinsCore, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, cxButtonEdit;
 
 type
   TFraModelo = class(TFrame)
@@ -30,25 +30,34 @@ type
     gbFrameSecundario: TcxGroupBox;
     btnFrameConfirmar: TcxButton;
     btnFrameCancelar: TcxButton;
-    Button1: TButton;
     cxGroupBox1: TcxGroupBox;
     cxGroupBox2: TcxGroupBox;
     FDMemTable1: TFDMemTable;
     DataSource1: TDataSource;
+    grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn;
+    grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn;
     procedure tsManutencaoShow(Sender: TObject);
     procedure btnFrameConfirmarClick(Sender: TObject);
     procedure btnFrameCancelarClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
     procedure pcFramePrincipalResize(Sender: TObject);
     procedure tsConsultaResize(Sender: TObject);
+    procedure FDMemTable1BeforeInsert(DataSet: TDataSet);
+    procedure grdFramePrincialDBTableView1CustomDrawCell(Sender: TcxCustomGridTableView; ACanvas: TcxCanvas; AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
+    procedure grdFramePrincialDBTableView1CellClick(Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
   private
     { Private declarations }
+
   public
     { Public declarations }
     emTransacao: Boolean;
+    procedure PreencherCamposEdicao; virtual; abstract;
+    procedure ExclusaoRegistro; virtual; abstract;
   end;
 
 implementation
+
+uses
+  uDmPrincipal;
 
 {$R *.dfm}
 
@@ -64,9 +73,57 @@ begin
   pcFramePrincipal.ActivePage := tsConsulta;
 end;
 
-procedure TFraModelo.Button1Click(Sender: TObject);
+procedure TFraModelo.FDMemTable1BeforeInsert(DataSet: TDataSet);
 begin
   pcFramePrincipal.ActivePage := tsManutencao;
+  emTransacao := True;
+  Abort;
+end;
+
+procedure TFraModelo.grdFramePrincialDBTableView1CellClick(Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
+begin
+  if ACellViewInfo.Item = grdFramePrincialDBTableView1ColEdicao then
+  begin
+    // Ação de edição
+    PreencherCamposEdicao;
+    pcFramePrincipal.ActivePage := tsManutencao;
+    AHandled := True;
+  end
+  else if ACellViewInfo.Item = grdFramePrincialDBTableView1ColExclusao then
+  begin
+    if MessageDlg('Deseja excluir este registro?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+    begin
+      ExclusaoRegistro;
+    end;
+    AHandled := True;
+  end;
+end;
+
+procedure TFraModelo.grdFramePrincialDBTableView1CustomDrawCell(Sender: TcxCustomGridTableView; ACanvas: TcxCanvas; AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
+var
+  ImgIndex: Integer;
+  X, Y: Integer;
+begin
+  // Desenha só para as colunas de ação
+  if AViewInfo.Item = grdFramePrincialDBTableView1ColEdicao then
+    ImgIndex := 2 // lápis
+  else if AViewInfo.Item = grdFramePrincialDBTableView1ColExclusao then
+    ImgIndex := 3 // lixeira
+  else
+    Exit;
+
+  // Fundo da célula
+  ACanvas.FillRect(AViewInfo.Bounds);
+
+  // Centralizar o ícone
+  X := AViewInfo.Bounds.Left + (AViewInfo.Bounds.Width - cxImageList.Width) div 2;
+  Y := AViewInfo.Bounds.Top + (AViewInfo.Bounds.Height - cxImageList.Height) div 2;
+
+  // Desenhar ícone
+  cxImageList.Draw(ACanvas.Canvas, X, Y, ImgIndex, True);
+
+  ADone := True; // evita que o grid redesenhe por cima
+
 end;
 
 procedure TFraModelo.pcFramePrincipalResize(Sender: TObject);

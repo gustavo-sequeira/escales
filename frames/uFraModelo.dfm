@@ -26,7 +26,7 @@ object FraModelo: TFraModelo
       Height = 456
       Align = alClient
       TabOrder = 0
-      Properties.ActivePage = tsConsulta
+      Properties.ActivePage = tsManutencao
       Properties.CustomButtons.Buttons = <>
       Properties.Style = 8
       LookAndFeel.NativeStyle = False
@@ -62,23 +62,35 @@ object FraModelo: TFraModelo
             Navigator.InfoPanel.Visible = True
             Navigator.Visible = True
             ScrollbarAnnotations.CustomAnnotations = <>
+            OnCellClick = grdFramePrincialDBTableView1CellClick
+            OnCustomDrawCell = grdFramePrincialDBTableView1CustomDrawCell
             DataController.DataSource = DataSource1
             DataController.Summary.DefaultGroupSummaryItems = <>
             DataController.Summary.FooterSummaryItems = <>
             DataController.Summary.SummaryGroups = <>
+            OptionsView.GroupByBox = False
+            object grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
+              Options.Editing = False
+              Options.Filtering = False
+              Options.Focusing = False
+              Options.ExpressionEditing = False
+              Options.Moving = False
+              Options.Sorting = False
+              Width = 25
+            end
+            object grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn
+              Options.Editing = False
+              Options.Filtering = False
+              Options.Focusing = False
+              Options.ExpressionEditing = False
+              Options.Moving = False
+              Options.Sorting = False
+              Width = 25
+            end
           end
           object grdFramePrincialLevel1: TcxGridLevel
             GridView = grdFramePrincialDBTableView1
           end
-        end
-        object Button1: TButton
-          Left = 72
-          Top = 400
-          Width = 75
-          Height = 25
-          Caption = 'Button1'
-          TabOrder = 1
-          OnClick = Button1Click
         end
       end
       object tsManutencao: TcxTabSheet
@@ -245,9 +257,36 @@ object FraModelo: TFraModelo
           E0E5902A41C13514288C677AA217D2FBF75D05F2AD16B29549EC81A3AE44BDA2
           8C95D507896B925FE4F75C37CAC633D2CAF26CB9394AD639B9049FE96C79DE25
           46CE857DB7CE85F8A80000000049454E44AE426082}
+      end
+      item
+        ImageClass = 'TdxPNGImage'
+        Image.Data = {
+          89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
+          61000000097048597300000B1300000B1301009A9C18000000A649444154789C
+          BD90B10A0231104473889D6015373349955AAB341662A37F27A8957E8E95FF72
+          5F71CAEAA9872024873A3055F6CDEEC4987F2A843023B94E290D4BD90AC086E4
+          450DE05C1252C518C7004E8F80D6AB2C98E45E61119974421A119966C17C9DFD
+          0CD13A45303B215A47DF8B61DEBDFB296C74A837EC9C5BF68655008E1FE02C0D
+          48D66F3FBECDDAACF2DECF5BB00670D03AB99B6FB2D68E002CF49222F01BBA02
+          B2005444E14CB2130000000049454E44AE426082}
+      end
+      item
+        ImageClass = 'TdxPNGImage'
+        Image.Data = {
+          89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
+          61000000097048597300000B1300000B1301009A9C18000000E849444154789C
+          B592BD6A024114852DD20512D86266CE376C91913C8C69CD13D8E70DB4D4DEF4
+          A6D142F2005A9A37882F91903275822803BBE0DFECAE810C5CB803E71CBEB973
+          5BADFF3A799EB78167606C8C0917994308B7923E813E3090F49165D94DD2608C
+          0992E6925E63016F92BECB7BD1AFF6EEF3032A6BED35D003B60DAB173DC72057
+          C0A6817913B5679F027C9542EFFDFDB93E6A92B390B42E8545E0492FE93D1900
+          2CEB02804515C14B03824915C1A801C1B08AE0A96E8851930CF0DE3FD67DA373
+          AE9B0C88DB05FCA6CC927EACB577C98082E20198EDAD6DB9DE53E75CA7D2FC97
+          B303FB418A3E280E6ACF0000000049454E44AE426082}
       end>
   end
   object FDMemTable1: TFDMemTable
+    BeforeInsert = FDMemTable1BeforeInsert
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     ResourceOptions.AssignedValues = [rvSilentMode]

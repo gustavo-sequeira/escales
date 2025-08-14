@@ -27,12 +27,12 @@ uses
   cxDBData, Vcl.Menus, System.ImageList, Vcl.ImgList, cxImageList, cxButtons,
   Vcl.StdCtrls, cxGridLevel, cxClasses, cxGridCustomView, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxGrid, cxPC, cxGroupBox, cxLabel, cxMemo,
-  cxTextEdit, uCargo, dxSkinWXI, FireDAC.Stan.Intf, FireDAC.Stan.Option,
-  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
-  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client,
-  FireDAC.Comp.DataSet, FireDAC.UI.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool,
-  FireDAC.Phys, FireDAC.Phys.PG, FireDAC.Phys.PGDef, FireDAC.VCLUI.Wait,
-  FireDAC.Stan.StorageBin;
+  cxTextEdit, uCargo, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client, FireDAC.Comp.DataSet,
+  FireDAC.UI.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Phys,
+  FireDAC.Phys.PG, FireDAC.Phys.PGDef, FireDAC.VCLUI.Wait,
+  FireDAC.Stan.StorageBin, cxButtonEdit;
 
 type
   TFraCargos = class(TFraModelo)
@@ -52,11 +52,13 @@ type
     grdFramePrincialDBTableView1nome: TcxGridDBColumn;
     grdFramePrincialDBTableView1descricao: TcxGridDBColumn;
     procedure btnFrameConfirmarClick(Sender: TObject);
-    procedure btnFrameCancelarClick(Sender: TObject);
+    procedure FDMemTable1BeforeInsert(DataSet: TDataSet);
   private
     { Private declarations }
   public
     { Public declarations }
+    procedure PreencherCamposEdicao; override;
+    procedure ExclusaoRegistro; override;
 
   end;
 
@@ -65,18 +67,12 @@ var
 
 implementation
 
-uses System.UITypes;
+uses
+  System.UITypes;
 
 {$R *.dfm}
 
 { TFraCargos }
-
-procedure TFraCargos.btnFrameCancelarClick(Sender: TObject);
-begin
-  emTransacao := True;
-  //inherited;
-
-end;
 
 procedure TFraCargos.btnFrameConfirmarClick(Sender: TObject);
 var
@@ -98,14 +94,36 @@ begin
       on e: Exception do
       begin
         if Cargo.Codigo = 0 then
-          MessageDlg('Erro ao tentar incluir. '+e.Message, mtError, [mbOK], 0)
+          MessageDlg('Erro ao tentar incluir. ' + e.Message, mtError, [mbOK], 0)
         else
-          MessageDlg('Erro ao tentar atualizar. '+e.Message, mtError, [mbOK], 0);
+          MessageDlg('Erro ao tentar atualizar. ' + e.Message, mtError, [mbOK], 0);
       end;
     end;
   finally
     Cargo.Free;
   end;
+end;
+
+procedure TFraCargos.ExclusaoRegistro;
+begin
+  inherited;
+//
+end;
+
+procedure TFraCargos.FDMemTable1BeforeInsert(DataSet: TDataSet);
+begin
+  edtCodigo.Text := '0';
+  edtCodigo.Enabled := False;
+  inherited;
+end;
+
+procedure TFraCargos.PreencherCamposEdicao;
+begin
+  inherited;
+  edtCodigo.Text := IntToStr(FDMemTable1.FieldByName('codigo').AsInteger);
+  edtAbreviacao.Text := FDMemTable1.FieldByName('abreviacao').AsString;
+  edtNome.Text := FDMemTable1.FieldByName('nome').AsString;
+  mmDescricao.Lines.Text := FDMemTable1.FieldByName('descricao').AsString;
 end;
 
 end.

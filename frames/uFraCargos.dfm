@@ -2,15 +2,11 @@ inherited FraCargos: TFraCargos
   inherited gbPrincipal: TcxGroupBox
     Caption = 'CARGOS'
     inherited pcFramePrincipal: TcxPageControl
-      Properties.ActivePage = tsManutencao
       inherited tsConsulta: TcxTabSheet
-        ExplicitTop = 26
-        ExplicitWidth = 634
-        ExplicitHeight = 430
         inherited grdFramePrincial: TcxGrid
           inherited grdFramePrincialDBTableView1: TcxGridDBTableView
             Navigator.InfoPanel.DisplayMask = '[RecordIndex] de [RecordCount]'
-            object grdFramePrincialDBTableView1codigo: TcxGridDBColumn
+            object grdFramePrincialDBTableView1codigo: TcxGridDBColumn [0]
               DataBinding.FieldName = 'codigo'
               Visible = False
               MinWidth = 74
@@ -19,7 +15,7 @@ inherited FraCargos: TFraCargos
               Options.HorzSizing = False
               Options.Moving = False
             end
-            object grdFramePrincialDBTableView1abreviacao: TcxGridDBColumn
+            object grdFramePrincialDBTableView1abreviacao: TcxGridDBColumn [1]
               Caption = 'Abrevia'#231#227'o'
               DataBinding.FieldName = 'abreviacao'
               PropertiesClassName = 'TcxTextEditProperties'
@@ -31,7 +27,7 @@ inherited FraCargos: TFraCargos
               Options.HorzSizing = False
               Options.Moving = False
             end
-            object grdFramePrincialDBTableView1nome: TcxGridDBColumn
+            object grdFramePrincialDBTableView1nome: TcxGridDBColumn [2]
               Caption = 'Nome'
               DataBinding.FieldName = 'nome'
               HeaderAlignmentHorz = taCenter
@@ -42,7 +38,7 @@ inherited FraCargos: TFraCargos
               Options.Moving = False
               Width = 150
             end
-            object grdFramePrincialDBTableView1descricao: TcxGridDBColumn
+            object grdFramePrincialDBTableView1descricao: TcxGridDBColumn [3]
               Caption = 'Descri'#231#227'o'
               DataBinding.FieldName = 'descricao'
               HeaderAlignmentHorz = taCenter
@@ -54,12 +50,6 @@ inherited FraCargos: TFraCargos
               Width = 500
             end
           end
-        end
-        inherited Button1: TButton
-          Left = 363
-          Top = 367
-          ExplicitLeft = 363
-          ExplicitTop = 367
         end
       end
       inherited tsManutencao: TcxTabSheet
@@ -156,6 +146,7 @@ inherited FraCargos: TFraCargos
                 Style.Font.Style = []
                 Style.IsFontAssigned = True
                 TabOrder = 3
+                ExplicitTop = 65
                 Height = 89
                 Width = 248
               end
@@ -197,7 +188,7 @@ inherited FraCargos: TFraCargos
     UpdateOptions.FetchGeneratorsPoint = gpNone
     StoreDefs = True
     Content = {
-      414442531000000065070000FF00010001FF02FF03040016000000460044004D
+      414442530F00000065070000FF00010001FF02FF03040016000000460044004D
       0065006D005400610062006C0065003100050016000000460044004D0065006D
       005400610062006C0065003100060000000000070000080032000000090000FF
       0AFF0B04000C00000063006F006400690067006F0005000C00000063006F0064
