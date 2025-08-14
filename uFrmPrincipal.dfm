@@ -10,9 +10,7 @@ object frmPrincipal: TfrmPrincipal
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
-  OldCreateOrder = True
   WindowState = wsMaximized
-  PixelsPerInch = 96
   TextHeight = 15
   object gbPrincipal: TcxGroupBox
     Left = 0
@@ -87,8 +85,6 @@ object frmPrincipal: TfrmPrincipal
           View = 20
           OptionsBehavior.Common.AllowExpandAnimation = True
           OptionsBehavior.NavigationPane.AdjustWidthByPopup = True
-          ExplicitTop = 28
-          ExplicitHeight = 277
           object dxNavBarDashboard: TdxNavBarGroup
             Caption = 'Dashboard'
             SelectedLinkIndex = -1

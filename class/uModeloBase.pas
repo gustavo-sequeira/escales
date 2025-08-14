@@ -397,7 +397,7 @@ begin
       vQuery.ExecSQL;
 
       // obtém o ID - adapte para seu SGBD (generator/RETURNING são melhores)
-      vQuery.SQL.Text := Format('SELECT MAX(ID) AS ID FROM %s', [GetTableName]);
+      vQuery.SQL.Text := Format('SELECT MAX(CODIGO) AS ID FROM %s', [GetTableName]);
       vQuery.Open;
       if not vQuery.Eof then
         ID := vQuery.FieldByName('ID').AsInteger;

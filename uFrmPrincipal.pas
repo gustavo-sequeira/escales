@@ -18,7 +18,7 @@ uses
   FireDAC.Comp.Client, cxGridLevel, cxGridCustomView, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxGrid, uLibary, dxSkinOffice2010Blue,
   dxNavBarCollns, dxNavBarBase, dxNavBar, cxLabel, Vcl.ExtCtrls, System.Actions,
-  Vcl.ActnList, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ActnMan;
+  Vcl.ActnList, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ActnMan, dxSkinWXI;
 
 type
   TfrmPrincipal = class(TForm)
@@ -94,15 +94,34 @@ begin
   begin
     if gbTerciarioCenter.Controls[i] is TFrame then
     begin
+      if pFrame = 'obreiros' then
+      begin
+        if TfraObreiros(gbTerciarioCenter.Controls[i]).emTransacao then
+          Exit;
+      end
+      else if pFrame = 'cargos' then
+      begin
+        if TfraCargos(gbTerciarioCenter.Controls[i]).emTransacao then
+          Exit;
+      end;
+
       gbTerciarioCenter.Controls[i].Free;
     end;
   end;
   if not (pLimparTodos) then
   begin
     if pFrame = 'obreiros' then
-      f := TfraObreiros.Create(Self)
+    begin
+      if TfraObreiros(gbTerciarioCenter.Controls[i]).emTransacao then
+        Exit;
+      f := TfraObreiros.Create(Self);
+    end
     else if pFrame = 'cargos' then
+    begin
+      if TfraCargos(TControl(FindComponent('TfraCargos'))).emTransacao then
+        Exit;
       f := TfraCargos.Create(Self)
+    end
     else
       f := TFraModelo.Create(Self);
     f.Parent := gbTerciarioCenter;

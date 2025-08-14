@@ -11,7 +11,10 @@ uses
   dxScrollbarAnnotations, Data.DB, cxDBData, cxGridLevel, cxClasses,
   cxGridCustomView, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
   cxGrid, cxPC, Vcl.Menus, System.ImageList, Vcl.ImgList, cxImageList,
-  Vcl.StdCtrls, cxButtons, cxTextEdit, cxLabel, dxSkinsCore;
+  Vcl.StdCtrls, cxButtons, cxTextEdit, cxLabel, dxSkinsCore, dxSkinWXI,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
   TFraModelo = class(TFrame)
@@ -30,6 +33,8 @@ type
     Button1: TButton;
     cxGroupBox1: TcxGroupBox;
     cxGroupBox2: TcxGroupBox;
+    FDMemTable1: TFDMemTable;
+    DataSource1: TDataSource;
     procedure tsManutencaoShow(Sender: TObject);
     procedure btnFrameConfirmarClick(Sender: TObject);
     procedure btnFrameCancelarClick(Sender: TObject);

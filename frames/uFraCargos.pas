@@ -27,7 +27,12 @@ uses
   cxDBData, Vcl.Menus, System.ImageList, Vcl.ImgList, cxImageList, cxButtons,
   Vcl.StdCtrls, cxGridLevel, cxClasses, cxGridCustomView, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxGrid, cxPC, cxGroupBox, cxLabel, cxMemo,
-  cxTextEdit, uCargo;
+  cxTextEdit, uCargo, dxSkinWXI, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client,
+  FireDAC.Comp.DataSet, FireDAC.UI.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool,
+  FireDAC.Phys, FireDAC.Phys.PG, FireDAC.Phys.PGDef, FireDAC.VCLUI.Wait,
+  FireDAC.Stan.StorageBin;
 
 type
   TFraCargos = class(TFraModelo)
@@ -39,7 +44,15 @@ type
     cxLabel1: TcxLabel;
     edtNome: TcxTextEdit;
     mmDescricao: TcxMemo;
+    FDQuery1: TFDQuery;
+    FDConnection1: TFDConnection;
+    FDPhysPgDriverLink1: TFDPhysPgDriverLink;
+    grdFramePrincialDBTableView1codigo: TcxGridDBColumn;
+    grdFramePrincialDBTableView1abreviacao: TcxGridDBColumn;
+    grdFramePrincialDBTableView1nome: TcxGridDBColumn;
+    grdFramePrincialDBTableView1descricao: TcxGridDBColumn;
     procedure btnFrameConfirmarClick(Sender: TObject);
+    procedure btnFrameCancelarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -57,6 +70,13 @@ uses System.UITypes;
 {$R *.dfm}
 
 { TFraCargos }
+
+procedure TFraCargos.btnFrameCancelarClick(Sender: TObject);
+begin
+  emTransacao := True;
+  //inherited;
+
+end;
 
 procedure TFraCargos.btnFrameConfirmarClick(Sender: TObject);
 var

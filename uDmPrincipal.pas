@@ -12,9 +12,8 @@ uses
 type
   TdmPrincipal = class(TDataModule)
     FDConnection: TFDConnection;
-    qryPrincipal: TFDQuery;
-    dsPrincipal: TDataSource;
     FDPhysPgDriverLink1: TFDPhysPgDriverLink;
+    procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -30,4 +29,11 @@ implementation
 
 {$R *.dfm}
 
+procedure TdmPrincipal.DataModuleCreate(Sender: TObject);
+begin
+  FDPhysPgDriverLink1.VendorLib := ExtractFilePath(ParamStr(0))+'libpq.dll';
+  FDConnection.Connected := True;
+end;
+
 end.
+

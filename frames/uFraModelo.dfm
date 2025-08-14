@@ -62,6 +62,7 @@ object FraModelo: TFraModelo
             Navigator.InfoPanel.Visible = True
             Navigator.Visible = True
             ScrollbarAnnotations.CustomAnnotations = <>
+            DataController.DataSource = DataSource1
             DataController.Summary.DefaultGroupSummaryItems = <>
             DataController.Summary.FooterSummaryItems = <>
             DataController.Summary.SummaryGroups = <>
@@ -218,7 +219,7 @@ object FraModelo: TFraModelo
   object cxImageList: TcxImageList
     SourceDPI = 96
     FormatVersion = 1
-    DesignInfo = 28574262
+    DesignInfo = 28049934
     ImageInfo = <
       item
         ImageClass = 'TdxSmartImage'
@@ -245,5 +246,21 @@ object FraModelo: TFraModelo
           8C95D507896B925FE4F75C37CAC633D2CAF26CB9394AD639B9049FE96C79DE25
           46CE857DB7CE85F8A80000000049454E44AE426082}
       end>
+  end
+  object FDMemTable1: TFDMemTable
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    Left = 467
+    Top = 427
+  end
+  object DataSource1: TDataSource
+    DataSet = FDMemTable1
+    Left = 400
+    Top = 424
   end
 end
