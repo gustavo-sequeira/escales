@@ -32,7 +32,7 @@ type
 
   TModeloBase = class
   private
-    FID: Integer;
+    FCODIGO: Integer;
   protected
     // helpers
     class function GetTableName: string; virtual;
@@ -43,9 +43,9 @@ type
     procedure EnsureObjectPropertyInstance(const Prop: TRttiProperty);
     function FindLocalFieldNameForProp(const Prop: TRttiProperty; const Attr: TForeignKeyAttribute): string;
   public
-    property ID: Integer read FID write FID;
+    property CODIGO: Integer read FCODIGO write FCODIGO;
 
-    procedure LoadFromID(AID: Integer); virtual;
+    procedure LoadFromID(ACODIGO: Integer); virtual;
     procedure Save; virtual;
     procedure Delete; virtual;
 
@@ -100,7 +100,7 @@ begin
         begin
           IsPrimaryKey := True;
           // se for auto-incremento e o ID atual for 0, ignora (inclusão)
-          if TPrimaryKeyAttribute(Attr).AutoIncrement and (ID = 0) then
+          if TPrimaryKeyAttribute(Attr).AutoIncrement and (CODIGO = 0) then
             IsPrimaryKey := True
           else
             IsPrimaryKey := False; // mantém em update
@@ -182,7 +182,7 @@ begin
       for Attr in Prop.GetAttributes do
         if Attr is TPrimaryKeyAttribute then
         begin
-          if TPrimaryKeyAttribute(Attr).AutoIncrement and (ID = 0) then
+          if TPrimaryKeyAttribute(Attr).AutoIncrement and (CODIGO = 0) then
             IsPrimaryKey := True;
           Break;
         end;
@@ -202,9 +202,9 @@ begin
       end;
     end;
 
-    if AQuery.Params.FindParam('ID') = nil then
-      AQuery.Params.CreateParam(ftInteger, 'ID', ptInput);
-    AQuery.ParamByName('ID').AsInteger := ID;
+    if AQuery.Params.FindParam('CODIGO') = nil then
+      AQuery.Params.CreateParam(ftInteger, 'CODIGO', ptInput);
+    AQuery.ParamByName('CODIGO').AsInteger := CODIGO;
   finally
     Ctx.Free;
   end;
@@ -269,7 +269,7 @@ begin
   if (Attr <> nil) and (Attr.LocalField <> '') then
     Exit(Attr.LocalField);
 
-  Candidate := Prop.Name + 'ID';
+  Candidate := Prop.Name + 'CODIGO';
   Result := Candidate;
   // não há validação aqui; quem chama verifica se o campo existe no dataset
 end;
@@ -295,7 +295,7 @@ begin
   end;
 end;
 
-procedure TModeloBase.LoadFromID(AID: Integer);
+procedure TModeloBase.LoadFromID(ACODIGO: Integer);
 var
   vQuery: TFDQuery;
   ctx: TRttiContext;
@@ -306,17 +306,17 @@ begin
   ctx := TRttiContext.Create;
   try
     vQuery.Connection := dmPrincipal.FDConnection;
-    vQuery.SQL.Text := Format('SELECT * FROM %s WHERE ID = :ID', [GetTableName]);
-    vQuery.ParamByName('ID').AsInteger := AID;
+    vQuery.SQL.Text := Format('SELECT * FROM %s WHERE CODIGO = :CODIGO', [GetTableName]);
+    vQuery.ParamByName('CODIGO').AsInteger := ACODIGO;
     vQuery.Open;
     if vQuery.Eof then
-      raise Exception.CreateFmt('Registro ID=%d não encontrado em %s', [AID, GetTableName]);
+      raise Exception.CreateFmt('Registro CODIGO=%d não encontrado em %s', [ACODIGO, GetTableName]);
 
     // popula propriedades simples
     rType := ctx.GetType(Self.ClassType);
     for prop in rType.GetProperties do
     begin
-      if (prop.Visibility <> mvPublished) or (SameText(prop.Name, 'ID')) then
+      if (prop.Visibility <> mvPublished) or (SameText(prop.Name, 'CODIGO')) then
         Continue;
 
       if vQuery.FindField(prop.Name) = nil then
@@ -341,7 +341,7 @@ begin
     // agora carrega objetos FK marcados com o atributo
     LoadForeignKeyObjectsFromQuery(vQuery, ctx, rType);
 
-    ID := AID;
+    CODIGO := ACODIGO;
   finally
     ctx.Free;
     vQuery.Free;
@@ -360,7 +360,7 @@ begin
   try
     vQuery.Connection := dmPrincipal.FDConnection;
 
-    if ID > 0 then
+    if CODIGO > 0 then
     begin
       vSQLText := 'UPDATE ' + GetTableName + ' SET ';
       for i := 0 to High(vFields) do
@@ -369,7 +369,7 @@ begin
         if i < High(vFields) then
           vSQLText := vSQLText + ', ';
       end;
-      vSQLText := vSQLText + ' WHERE ID = :ID';
+      vSQLText := vSQLText + ' WHERE CODIGO = :CODIGO';
       vQuery.SQL.Text := vSQLText;
       FillParamsFromProperties(vQuery);
       vQuery.ExecSQL;
@@ -397,10 +397,10 @@ begin
       vQuery.ExecSQL;
 
       // obtém o ID - adapte para seu SGBD (generator/RETURNING são melhores)
-      vQuery.SQL.Text := Format('SELECT MAX(CODIGO) AS ID FROM %s', [GetTableName]);
+      vQuery.SQL.Text := Format('SELECT MAX(CODIGO) AS CODIGO FROM %s', [GetTableName]);
       vQuery.Open;
       if not vQuery.Eof then
-        ID := vQuery.FieldByName('ID').AsInteger;
+        CODIGO := vQuery.FieldByName('CODIGO').AsInteger;
     end;
   finally
     vQuery.Free;
@@ -411,13 +411,13 @@ procedure TModeloBase.Delete;
 var
   vQuery: TFDQuery;
 begin
-  if ID <= 0 then
+  if CODIGO <= 0 then
     Exit;
   vQuery := TFDQuery.Create(nil);
   try
     vQuery.Connection := dmPrincipal.FDConnection;
-    vQuery.SQL.Text := Format('DELETE FROM %s WHERE ID = :ID', [GetTableName]);
-    vQuery.ParamByName('ID').AsInteger := ID;
+    vQuery.SQL.Text := Format('DELETE FROM %s WHERE CODIGO = :CODIGO', [GetTableName]);
+    vQuery.ParamByName('CODIGO').AsInteger := CODIGO;
     vQuery.ExecSQL;
   finally
     vQuery.Free;
@@ -428,8 +428,8 @@ function TModeloBase.ToQuery: TFDQuery;
 begin
   Result := TFDQuery.Create(nil);
   Result.Connection := dmPrincipal.FDConnection;
-  Result.SQL.Text := Format('SELECT * FROM %s WHERE ID = :ID', [GetTableName]);
-  Result.ParamByName('ID').AsInteger := ID;
+  Result.SQL.Text := Format('SELECT * FROM %s WHERE CODIGO = :CODIGO', [GetTableName]);
+  Result.ParamByName('CODIGO').AsInteger := CODIGO;
 end;
 
 class function TModeloBase.ListToQuery(const AWhere: string = ''): TFDQuery;

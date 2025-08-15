@@ -14,7 +14,8 @@ uses
   Vcl.StdCtrls, cxButtons, cxTextEdit, cxLabel, dxSkinsCore, FireDAC.Stan.Intf,
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Comp.DataSet,
-  FireDAC.Comp.Client, cxButtonEdit;
+  FireDAC.Comp.Client, cxButtonEdit, cxMaskEdit, cxDropDownEdit, cxCheckBox,
+  cxRadioGroup, Vcl.ComCtrls, dxCore, cxDateUtils, cxCalendar, cxMemo;
 
 type
   TFraModelo = class(TFrame)
@@ -50,8 +51,14 @@ type
   public
     { Public declarations }
     emTransacao: Boolean;
-    procedure PreencherCamposEdicao; virtual; abstract;
+    constructor Create(AOwner: TComponent); override;
+    procedure EdicaoRegistro; virtual; //abstract;
     procedure ExclusaoRegistro; virtual; abstract;
+    procedure SalvarRegistro; virtual; //abstract;
+    procedure ValidarAntesSalvar; virtual; abstract;
+    procedure PreencherGrid; virtual; abstract;
+    procedure LimparControlesFrame;
+    procedure LimparControlesContainer(AContainer: TWinControl);
   end;
 
 implementation
@@ -69,14 +76,27 @@ end;
 
 procedure TFraModelo.btnFrameConfirmarClick(Sender: TObject);
 begin
+  SalvarRegistro;
   emTransacao := False;
   pcFramePrincipal.ActivePage := tsConsulta;
+end;
+
+constructor TFraModelo.Create(AOwner: TComponent);
+begin
+  inherited;
+  PreencherGrid;
+end;
+
+procedure TFraModelo.EdicaoRegistro;
+begin
+  LimparControlesFrame;
 end;
 
 procedure TFraModelo.FDMemTable1BeforeInsert(DataSet: TDataSet);
 begin
   pcFramePrincipal.ActivePage := tsManutencao;
   emTransacao := True;
+  LimparControlesFrame;
   Abort;
 end;
 
@@ -85,7 +105,7 @@ begin
   if ACellViewInfo.Item = grdFramePrincialDBTableView1ColEdicao then
   begin
     // Ação de edição
-    PreencherCamposEdicao;
+    EdicaoRegistro;
     pcFramePrincipal.ActivePage := tsManutencao;
     AHandled := True;
   end
@@ -124,6 +144,65 @@ begin
 
   ADone := True; // evita que o grid redesenhe por cima
 
+end;
+
+procedure TFraModelo.SalvarRegistro;
+begin
+  ValidarAntesSalvar;
+end;
+
+procedure TFraModelo.LimparControlesContainer(AContainer: TWinControl);
+var
+  I: Integer;
+  Ctrl: TControl;
+begin
+  for I := 0 to AContainer.ControlCount - 1 do
+  begin
+    Ctrl := AContainer.Controls[I];
+
+    if Ctrl is TcxTextEdit then
+      TcxTextEdit(Ctrl).Text := EmptyStr
+    else if Ctrl is TcxComboBox then
+      TcxComboBox(Ctrl).ItemIndex := -1
+    else if Ctrl is TcxCheckBox then
+      TcxCheckBox(Ctrl).Checked := False
+    else if Ctrl is TcxRadioButton then
+      TRadioButton(Ctrl).Checked := False
+    else if Ctrl is TcxDateEdit then
+      TcxDateEdit(Ctrl).Date := Now
+    else if Ctrl is TcxMemo then
+      TcxMemo(Ctrl).Clear;
+
+    if Ctrl is TWinControl then
+      LimparControlesContainer(TWinControl(Ctrl)); // Recursão
+  end;
+end;
+
+procedure TFraModelo.LimparControlesFrame;
+var
+  I: Integer;
+  Ctrl: TControl;
+begin
+  for I := 0 to Self.ControlCount - 1 do
+  begin
+    Ctrl := Self.Controls[I];
+
+    if Ctrl is TcxTextEdit then
+      TcxTextEdit(Ctrl).Text := EmptyStr
+    else if Ctrl is TcxComboBox then
+      TcxComboBox(Ctrl).ItemIndex := -1
+    else if Ctrl is TcxCheckBox then
+      TcxCheckBox(Ctrl).Checked := False
+    else if Ctrl is TcxRadioButton then
+      TRadioButton(Ctrl).Checked := False
+    else if Ctrl is TcxDateEdit then
+      TcxDateEdit(Ctrl).Date := Now
+    else if Ctrl is TcxMemo then
+      TcxMemo(Ctrl).Clear;
+
+    if Ctrl is TWinControl then
+      LimparControlesContainer(TWinControl(Ctrl)); // Recursão
+  end;
 end;
 
 procedure TFraModelo.pcFramePrincipalResize(Sender: TObject);

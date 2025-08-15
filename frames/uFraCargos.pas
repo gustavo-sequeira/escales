@@ -57,8 +57,11 @@ type
     { Private declarations }
   public
     { Public declarations }
-    procedure PreencherCamposEdicao; override;
+    procedure EdicaoRegistro; override;
+    procedure SalvarRegistro; override;
     procedure ExclusaoRegistro; override;
+    procedure PreencherGrid; override;
+    procedure ValidarAntesSalvar; override;
 
   end;
 
@@ -105,9 +108,17 @@ begin
 end;
 
 procedure TFraCargos.ExclusaoRegistro;
+var
+  Cargo : TCargos;
 begin
   inherited;
-//
+  Cargo := TCargos.Create;
+  try
+    Cargo.Codigo := FDMemTable1.FieldByName('codigo').AsInteger;
+    Cargo.Delete;
+  finally
+    Cargo.Free;
+  end;
 end;
 
 procedure TFraCargos.FDMemTable1BeforeInsert(DataSet: TDataSet);
@@ -117,13 +128,64 @@ begin
   inherited;
 end;
 
-procedure TFraCargos.PreencherCamposEdicao;
+procedure TFraCargos.SalvarRegistro;
+var
+  Cargo : TCargos;
+begin
+  inherited;
+  Cargo := TCargos.Create;
+  try
+
+    Cargo.Codigo := StrToIntDef(edtCodigo.Text,0);
+    Cargo.Abreviacao := Trim(edtAbreviacao.Text);
+    Cargo.Nome := Trim(edtNome.Text);
+    Cargo.Descricao := Trim(mmDescricao.Text);
+    Cargo.Save;
+
+  finally
+    Cargo.Free;
+  end;
+end;
+
+procedure TFraCargos.ValidarAntesSalvar;
+begin
+  inherited;
+
+end;
+
+procedure TFraCargos.EdicaoRegistro;
 begin
   inherited;
   edtCodigo.Text := IntToStr(FDMemTable1.FieldByName('codigo').AsInteger);
+  edtCodigo.Enabled := False;
   edtAbreviacao.Text := FDMemTable1.FieldByName('abreviacao').AsString;
   edtNome.Text := FDMemTable1.FieldByName('nome').AsString;
   mmDescricao.Lines.Text := FDMemTable1.FieldByName('descricao').AsString;
+end;
+
+procedure TFraCargos.PreencherGrid;
+var
+  Cargos: TCargos;
+  Query: TFDQuery;
+begin
+  inherited;
+  Cargos := TCargos.Create;
+  Query := Cargos.ListToQuery;
+
+  Query.Open;
+  Query.FetchAll;
+  try
+    FDMemTable1.Close;
+    try
+      FDMemTable1.CloneCursor(Query);
+    except
+      on e:Exception do
+        ShowMessage(e.Message);
+    end;
+  finally
+    Cargos.Free;
+    Query.Free;
+  end;
 end;
 
 end.
