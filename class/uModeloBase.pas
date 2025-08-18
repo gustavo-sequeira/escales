@@ -11,13 +11,13 @@ type
   TPrimaryKeyAttribute = class(TCustomAttribute)
   private
     FAutoIncrement: Boolean;
+    FFieldName: string;
   public
-    constructor Create(AAutoIncrement: Boolean);
+    constructor Create(AAutoIncrement: Boolean; const AFieldName: string = 'CODIGO');
     property AutoIncrement: Boolean read FAutoIncrement;
+    property FieldName: string read FFieldName;
   end;
 
-  // Atributo que marca uma propriedade de objeto como chave estrangeira
-  // ALocalField é o nome do campo local que guarda o ID (ex: 'ClienteID').
   TForeignKeyAttribute = class(TCustomAttribute)
   private
     FReferencedTable: string;
@@ -31,10 +31,7 @@ type
   end;
 
   TModeloBase = class
-  private
-    FCODIGO: Integer;
   protected
-    // helpers
     class function GetTableName: string; virtual;
     function GetFieldList: TArray<string>;
     procedure FillParamsFromProperties(AQuery: TFDQuery);
@@ -42,10 +39,11 @@ type
     procedure LoadForeignKeyObjectsFromQuery(AQuery: TFDQuery; AContext: TRttiContext; AType: TRttiType);
     procedure EnsureObjectPropertyInstance(const Prop: TRttiProperty);
     function FindLocalFieldNameForProp(const Prop: TRttiProperty; const Attr: TForeignKeyAttribute): string;
+    function GetPrimaryKeyValue: Integer;
+    procedure SetPrimaryKeyValue(const Value: Integer);
+    function GetPrimaryKeyFieldName: string;
   public
-    property CODIGO: Integer read FCODIGO write FCODIGO;
-
-    procedure LoadFromID(ACODIGO: Integer); virtual;
+    procedure LoadFromID(AID: Integer); virtual;
     procedure Save; virtual;
     procedure Delete; virtual;
 
@@ -58,6 +56,15 @@ implementation
 
 uses
   uDmPrincipal;
+
+{ TPrimaryKeyAttribute }
+
+constructor TPrimaryKeyAttribute.Create(AAutoIncrement: Boolean; const AFieldName: string);
+begin
+  inherited Create;
+  FAutoIncrement := AAutoIncrement;
+  FFieldName := AFieldName;
+end;
 
 { TForeignKeyAttribute }
 
@@ -76,6 +83,86 @@ begin
   Result := UpperCase(Copy(Self.ClassName, 2, MaxInt));
 end;
 
+function TModeloBase.GetPrimaryKeyFieldName: string;
+var
+  Ctx: TRttiContext;
+  RType: TRttiType;
+  Prop: TRttiProperty;
+  Attr: TCustomAttribute;
+begin
+  Result := 'CODIGO'; // default
+  Ctx := TRttiContext.Create;
+  try
+    RType := Ctx.GetType(Self.ClassType);
+    for Prop in RType.GetProperties do
+    begin
+      for Attr in Prop.GetAttributes do
+      begin
+        if Attr is TPrimaryKeyAttribute then
+        begin
+          Result := TPrimaryKeyAttribute(Attr).FieldName;
+          Exit;
+        end;
+      end;
+    end;
+  finally
+    Ctx.Free;
+  end;
+end;
+
+function TModeloBase.GetPrimaryKeyValue: Integer;
+var
+  Ctx: TRttiContext;
+  RType: TRttiType;
+  Prop: TRttiProperty;
+  Attr: TCustomAttribute;
+begin
+  Result := 0;
+  Ctx := TRttiContext.Create;
+  try
+    RType := Ctx.GetType(Self.ClassType);
+    for Prop in RType.GetProperties do
+    begin
+      for Attr in Prop.GetAttributes do
+      begin
+        if Attr is TPrimaryKeyAttribute then
+        begin
+          Result := Prop.GetValue(Self).AsInteger;
+          Exit;
+        end;
+      end;
+    end;
+  finally
+    Ctx.Free;
+  end;
+end;
+
+procedure TModeloBase.SetPrimaryKeyValue(const Value: Integer);
+var
+  Ctx: TRttiContext;
+  RType: TRttiType;
+  Prop: TRttiProperty;
+  Attr: TCustomAttribute;
+begin
+  Ctx := TRttiContext.Create;
+  try
+    RType := Ctx.GetType(Self.ClassType);
+    for Prop in RType.GetProperties do
+    begin
+      for Attr in Prop.GetAttributes do
+      begin
+        if Attr is TPrimaryKeyAttribute then
+        begin
+          Prop.SetValue(Self, Value);
+          Exit;
+        end;
+      end;
+    end;
+  finally
+    Ctx.Free;
+  end;
+end;
+
 function TModeloBase.GetFieldList: TArray<string>;
 var
   Ctx: TRttiContext;
@@ -84,11 +171,14 @@ var
   L: TList<string>;
   Attr: TCustomAttribute;
   IsFKObject, IsPrimaryKey: Boolean;
+  PrimaryKeyValue: Integer;
 begin
   L := TList<string>.Create;
   Ctx := TRttiContext.Create;
   try
     RType := Ctx.GetType(Self.ClassType);
+    PrimaryKeyValue := GetPrimaryKeyValue;
+
     for Prop in RType.GetProperties do
     begin
       if (Prop.Visibility <> mvPublished) then
@@ -99,18 +189,16 @@ begin
         if Attr is TPrimaryKeyAttribute then
         begin
           IsPrimaryKey := True;
-          // se for auto-incremento e o ID atual for 0, ignora (inclusão)
-          if TPrimaryKeyAttribute(Attr).AutoIncrement and (CODIGO = 0) then
+          if TPrimaryKeyAttribute(Attr).AutoIncrement and (PrimaryKeyValue = 0) then
             IsPrimaryKey := True
           else
-            IsPrimaryKey := False; // mantém em update
+            IsPrimaryKey := False;
           Break;
         end;
 
       if IsPrimaryKey then
         Continue;
 
-      // Ignora propriedades objeto com FK
       IsFKObject := False;
       for Attr in Prop.GetAttributes do
         if Attr is TForeignKeyAttribute then
@@ -167,22 +255,23 @@ var
   PName: string;
   Val: Variant;
   IsPrimaryKey: Boolean;
+  PrimaryKeyValue: Integer;
 begin
   Ctx := TRttiContext.Create;
   try
     RType := Ctx.GetType(Self.ClassType);
+    PrimaryKeyValue := GetPrimaryKeyValue;
 
     for Prop in RType.GetProperties do
     begin
       if (Prop.Visibility <> mvPublished) then
         Continue;
 
-      // Verifica se é PK e auto-incremento
       IsPrimaryKey := False;
       for Attr in Prop.GetAttributes do
         if Attr is TPrimaryKeyAttribute then
         begin
-          if TPrimaryKeyAttribute(Attr).AutoIncrement and (CODIGO = 0) then
+          if TPrimaryKeyAttribute(Attr).AutoIncrement and (PrimaryKeyValue = 0) then
             IsPrimaryKey := True;
           Break;
         end;
@@ -202,9 +291,11 @@ begin
       end;
     end;
 
-    if AQuery.Params.FindParam('CODIGO') = nil then
-      AQuery.Params.CreateParam(ftInteger, 'CODIGO', ptInput);
-    AQuery.ParamByName('CODIGO').AsInteger := CODIGO;
+    // Adiciona parâmetro para a chave primária
+    PName := GetPrimaryKeyFieldName;
+    if AQuery.Params.FindParam(PName) = nil then
+      AQuery.Params.CreateParam(ftInteger, PName, ptInput);
+    AQuery.ParamByName(PName).AsInteger := PrimaryKeyValue;
   finally
     Ctx.Free;
   end;
@@ -229,14 +320,13 @@ begin
         RefColumn := TForeignKeyAttribute(Attr).ReferencedColumn;
 
         if (AQuery.FindField(LocalField) = nil) then
-          Continue; // não encontrou campo local no select
+          Continue;
 
         if AQuery.FieldByName(LocalField).IsNull then
           Continue;
 
         localID := AQuery.FieldByName(LocalField).AsInteger;
 
-        // instanciar objeto da propriedade (assume que a classe é compatível com TModeloBase)
         if Prop.PropertyType.Handle <> nil then
         begin
           ObjClass := Prop.PropertyType.ClassType;
@@ -244,9 +334,7 @@ begin
           begin
             ObjInstance := ObjClass.Create;
             try
-              // carrega pelo ID
               TModeloBase(ObjInstance).LoadFromID(localID);
-              // seta no objeto atual
               Prop.SetValue(Self, TValue.From<TObject>(ObjInstance));
             except
               ObjInstance.Free;
@@ -262,16 +350,11 @@ function TModeloBase.FindLocalFieldNameForProp(const Prop: TRttiProperty; const 
 var
   Candidate: string;
 begin
-  // Ordem de resolução:
-  // 1) se o atributo informou explicitamente o LocalField, usa ele
-  // 2) senão tenta "<PropName>ID" (ex: Cliente -> ClienteID)
-  // 3) senão tenta "<PropName>_id" e genericamente 'PropNameId'
   if (Attr <> nil) and (Attr.LocalField <> '') then
     Exit(Attr.LocalField);
 
-  Candidate := Prop.Name + 'CODIGO';
+  Candidate := Prop.Name + GetPrimaryKeyFieldName;
   Result := Candidate;
-  // não há validação aqui; quem chama verifica se o campo existe no dataset
 end;
 
 procedure TModeloBase.EnsureObjectPropertyInstance(const Prop: TRttiProperty);
@@ -283,7 +366,6 @@ begin
 
   if Prop.GetValue(Self).IsEmpty then
   begin
-    // tenta criar instância caso seja descendente de TModeloBase
     if Prop.PropertyType.Handle <> nil then
     begin
       if Prop.PropertyType.ClassType.InheritsFrom(TModeloBase) then
@@ -295,28 +377,30 @@ begin
   end;
 end;
 
-procedure TModeloBase.LoadFromID(ACODIGO: Integer);
+procedure TModeloBase.LoadFromID(AID: Integer);
 var
   vQuery: TFDQuery;
   ctx: TRttiContext;
   rType: TRttiType;
   prop: TRttiProperty;
+  PrimaryKeyField: string;
 begin
   vQuery := TFDQuery.Create(nil);
   ctx := TRttiContext.Create;
   try
     vQuery.Connection := dmPrincipal.FDConnection;
-    vQuery.SQL.Text := Format('SELECT * FROM %s WHERE CODIGO = :CODIGO', [GetTableName]);
-    vQuery.ParamByName('CODIGO').AsInteger := ACODIGO;
+    PrimaryKeyField := GetPrimaryKeyFieldName;
+    vQuery.SQL.Text := Format('SELECT * FROM %s WHERE %s = :%s', [GetTableName, PrimaryKeyField, PrimaryKeyField]);
+    vQuery.ParamByName(PrimaryKeyField).AsInteger := AID;
     vQuery.Open;
-    if vQuery.Eof then
-      raise Exception.CreateFmt('Registro CODIGO=%d não encontrado em %s', [ACODIGO, GetTableName]);
 
-    // popula propriedades simples
+    if vQuery.Eof then
+      raise Exception.CreateFmt('Registro %s=%d não encontrado em %s', [PrimaryKeyField, AID, GetTableName]);
+
     rType := ctx.GetType(Self.ClassType);
     for prop in rType.GetProperties do
     begin
-      if (prop.Visibility <> mvPublished) or (SameText(prop.Name, 'CODIGO')) then
+      if (prop.Visibility <> mvPublished) then
         Continue;
 
       if vQuery.FindField(prop.Name) = nil then
@@ -338,10 +422,8 @@ begin
       end;
     end;
 
-    // agora carrega objetos FK marcados com o atributo
     LoadForeignKeyObjectsFromQuery(vQuery, ctx, rType);
-
-    CODIGO := ACODIGO;
+    SetPrimaryKeyValue(AID);
   finally
     ctx.Free;
     vQuery.Free;
@@ -354,13 +436,17 @@ var
   vQuery: TFDQuery;
   i: Integer;
   vSQLText: string;
+  PrimaryKeyField: string;
+  PrimaryKeyValue: Integer;
 begin
   vFields := GetFieldList;
   vQuery := TFDQuery.Create(nil);
   try
     vQuery.Connection := dmPrincipal.FDConnection;
+    PrimaryKeyField := GetPrimaryKeyFieldName;
+    PrimaryKeyValue := GetPrimaryKeyValue;
 
-    if CODIGO > 0 then
+    if PrimaryKeyValue > 0 then
     begin
       vSQLText := 'UPDATE ' + GetTableName + ' SET ';
       for i := 0 to High(vFields) do
@@ -369,7 +455,7 @@ begin
         if i < High(vFields) then
           vSQLText := vSQLText + ', ';
       end;
-      vSQLText := vSQLText + ' WHERE CODIGO = :CODIGO';
+      vSQLText := vSQLText + ' WHERE ' + PrimaryKeyField + ' = :' + PrimaryKeyField;
       vQuery.SQL.Text := vSQLText;
       FillParamsFromProperties(vQuery);
       vQuery.ExecSQL;
@@ -396,11 +482,10 @@ begin
       FillParamsFromProperties(vQuery);
       vQuery.ExecSQL;
 
-      // obtém o ID - adapte para seu SGBD (generator/RETURNING são melhores)
-      vQuery.SQL.Text := Format('SELECT MAX(CODIGO) AS CODIGO FROM %s', [GetTableName]);
+      vQuery.SQL.Text := Format('SELECT MAX(%s) AS %s FROM %s', [PrimaryKeyField, PrimaryKeyField, GetTableName]);
       vQuery.Open;
       if not vQuery.Eof then
-        CODIGO := vQuery.FieldByName('CODIGO').AsInteger;
+        SetPrimaryKeyValue(vQuery.FieldByName(PrimaryKeyField).AsInteger);
     end;
   finally
     vQuery.Free;
@@ -410,14 +495,19 @@ end;
 procedure TModeloBase.Delete;
 var
   vQuery: TFDQuery;
+  PrimaryKeyField: string;
+  PrimaryKeyValue: Integer;
 begin
-  if CODIGO <= 0 then
+  PrimaryKeyValue := GetPrimaryKeyValue;
+  if PrimaryKeyValue <= 0 then
     Exit;
+
   vQuery := TFDQuery.Create(nil);
   try
     vQuery.Connection := dmPrincipal.FDConnection;
-    vQuery.SQL.Text := Format('DELETE FROM %s WHERE CODIGO = :CODIGO', [GetTableName]);
-    vQuery.ParamByName('CODIGO').AsInteger := CODIGO;
+    PrimaryKeyField := GetPrimaryKeyFieldName;
+    vQuery.SQL.Text := Format('DELETE FROM %s WHERE %s = :%s', [GetTableName, PrimaryKeyField, PrimaryKeyField]);
+    vQuery.ParamByName(PrimaryKeyField).AsInteger := PrimaryKeyValue;
     vQuery.ExecSQL;
   finally
     vQuery.Free;
@@ -425,24 +515,39 @@ begin
 end;
 
 function TModeloBase.ToQuery: TFDQuery;
+var
+  PrimaryKeyField: string;
+  PrimaryKeyValue: Integer;
 begin
   Result := TFDQuery.Create(nil);
   Result.Connection := dmPrincipal.FDConnection;
-  Result.SQL.Text := Format('SELECT * FROM %s WHERE CODIGO = :CODIGO', [GetTableName]);
-  Result.ParamByName('CODIGO').AsInteger := CODIGO;
+  PrimaryKeyField := GetPrimaryKeyFieldName;
+  PrimaryKeyValue := GetPrimaryKeyValue;
+  Result.SQL.Text := Format('SELECT * FROM %s WHERE %s = :%s', [GetTableName, PrimaryKeyField, PrimaryKeyField]);
+  Result.ParamByName(PrimaryKeyField).AsInteger := PrimaryKeyValue;
 end;
 
 class function TModeloBase.ListToQuery(const AWhere: string = ''): TFDQuery;
 var
   vQuery: TFDQuery;
   vWhere: string;
+  PrimaryKeyField: string;
 begin
   vQuery := TFDQuery.Create(nil);
   vQuery.Connection := dmPrincipal.FDConnection;
   vWhere := AWhere;
+  PrimaryKeyField := EmptyStr;
+
+  with Self.Create do
+  try
+    PrimaryKeyField := GetPrimaryKeyFieldName;
+  finally
+    Free;
+  end;
+
   if vWhere <> '' then
     vWhere := ' WHERE ' + vWhere;
-  vQuery.SQL.Text := Format('SELECT * FROM %s %s', [GetTableName, vWhere]);
+  vQuery.SQL.Text := Format('SELECT * FROM %s %s ORDER BY %s ', [GetTableName, vWhere, PrimaryKeyField]);
   Result := vQuery;
 end;
 
@@ -468,12 +573,4 @@ begin
   end;
 end;
 
-{ TPrimaryKeyAttribute }
-
-constructor TPrimaryKeyAttribute.Create(AAutoIncrement: Boolean);
-begin
-  FAutoIncrement := AAutoIncrement;
-end;
-
 end.
-

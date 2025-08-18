@@ -81,18 +81,18 @@ procedure TFraCargos.btnFrameConfirmarClick(Sender: TObject);
 var
   Cargo: TCargos;
 begin
-  inherited;
   Cargo := TCargos.Create;
   try
-    if trim(edtCodigo.Text) = EmptyStr then
-      Cargo.Codigo := 0
-    else
-      Cargo.Codigo := StrToInt(edtCodigo.Text);
-    Cargo.Abreviacao := Trim(edtAbreviacao.Text);
-    Cargo.Nome := Trim(edtNome.Text);
-    Cargo.Descricao := Trim(mmDescricao.Text);
     try
-      Cargo.Save;
+      if trim(edtCodigo.Text) = EmptyStr then
+        Cargo.Codigo := 0
+      else
+        Cargo.Codigo := StrToInt(edtCodigo.Text);
+      Cargo.Abreviacao := Trim(edtAbreviacao.Text);
+      Cargo.Nome := Trim(edtNome.Text);
+      Cargo.Descricao := Trim(mmDescricao.Text);
+      inherited;
+
     except
       on e: Exception do
       begin
@@ -109,9 +109,8 @@ end;
 
 procedure TFraCargos.ExclusaoRegistro;
 var
-  Cargo : TCargos;
+  Cargo: TCargos;
 begin
-  inherited;
   Cargo := TCargos.Create;
   try
     Cargo.Codigo := FDMemTable1.FieldByName('codigo').AsInteger;
@@ -119,6 +118,7 @@ begin
   finally
     Cargo.Free;
   end;
+  inherited;
 end;
 
 procedure TFraCargos.FDMemTable1BeforeInsert(DataSet: TDataSet);
@@ -130,13 +130,13 @@ end;
 
 procedure TFraCargos.SalvarRegistro;
 var
-  Cargo : TCargos;
+  Cargo: TCargos;
 begin
   inherited;
   Cargo := TCargos.Create;
   try
 
-    Cargo.Codigo := StrToIntDef(edtCodigo.Text,0);
+    Cargo.Codigo := StrToIntDef(edtCodigo.Text, 0);
     Cargo.Abreviacao := Trim(edtAbreviacao.Text);
     Cargo.Nome := Trim(edtNome.Text);
     Cargo.Descricao := Trim(mmDescricao.Text);
@@ -179,7 +179,7 @@ begin
     try
       FDMemTable1.CloneCursor(Query);
     except
-      on e:Exception do
+      on e: Exception do
         ShowMessage(e.Message);
     end;
   finally

@@ -26,7 +26,7 @@ object FraModelo: TFraModelo
       Height = 456
       Align = alClient
       TabOrder = 0
-      Properties.ActivePage = tsManutencao
+      Properties.ActivePage = tsConsulta
       Properties.CustomButtons.Buttons = <>
       Properties.Style = 8
       LookAndFeel.NativeStyle = False
@@ -69,6 +69,8 @@ object FraModelo: TFraModelo
             DataController.Summary.FooterSummaryItems = <>
             DataController.Summary.SummaryGroups = <>
             OptionsView.GroupByBox = False
+            Styles.ContentEven = zebradoEven
+            Styles.ContentOdd = zebradoOdd
             object grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
               Options.Editing = False
               Options.Filtering = False
@@ -231,7 +233,7 @@ object FraModelo: TFraModelo
   object cxImageList: TcxImageList
     SourceDPI = 96
     FormatVersion = 1
-    DesignInfo = 28049934
+    DesignInfo = 28574202
     ImageInfo = <
       item
         ImageClass = 'TdxSmartImage'
@@ -294,12 +296,25 @@ object FraModelo: TFraModelo
     UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
-    Left = 467
-    Top = 427
+    Left = 566
+    Top = 436
   end
   object DataSource1: TDataSource
     DataSet = FDMemTable1
-    Left = 400
-    Top = 424
+    Left = 536
+    Top = 436
+  end
+  object cxStyleRepository1: TcxStyleRepository
+    Left = 598
+    Top = 436
+    PixelsPerInch = 96
+    object zebradoEven: TcxStyle
+      AssignedValues = [svColor]
+      Color = clGradientActiveCaption
+    end
+    object zebradoOdd: TcxStyle
+      AssignedValues = [svColor]
+      Color = 15653832
+    end
   end
 end

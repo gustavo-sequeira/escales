@@ -37,6 +37,9 @@ type
     DataSource1: TDataSource;
     grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn;
     grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn;
+    cxStyleRepository1: TcxStyleRepository;
+    zebradoEven: TcxStyle;
+    zebradoOdd: TcxStyle;
     procedure tsManutencaoShow(Sender: TObject);
     procedure btnFrameConfirmarClick(Sender: TObject);
     procedure btnFrameCancelarClick(Sender: TObject);
@@ -52,9 +55,9 @@ type
     { Public declarations }
     emTransacao: Boolean;
     constructor Create(AOwner: TComponent); override;
-    procedure EdicaoRegistro; virtual; //abstract;
-    procedure ExclusaoRegistro; virtual; abstract;
-    procedure SalvarRegistro; virtual; //abstract;
+    procedure EdicaoRegistro; virtual;
+    procedure ExclusaoRegistro; virtual; //abstract;
+    procedure SalvarRegistro; virtual;
     procedure ValidarAntesSalvar; virtual; abstract;
     procedure PreencherGrid; virtual; abstract;
     procedure LimparControlesFrame;
@@ -71,6 +74,7 @@ uses
 procedure TFraModelo.btnFrameCancelarClick(Sender: TObject);
 begin
   emTransacao := False;
+  PreencherGrid;
   pcFramePrincipal.ActivePage := tsConsulta;
 end;
 
@@ -78,6 +82,7 @@ procedure TFraModelo.btnFrameConfirmarClick(Sender: TObject);
 begin
   SalvarRegistro;
   emTransacao := False;
+  PreencherGrid;
   pcFramePrincipal.ActivePage := tsConsulta;
 end;
 
@@ -90,6 +95,11 @@ end;
 procedure TFraModelo.EdicaoRegistro;
 begin
   LimparControlesFrame;
+end;
+
+procedure TFraModelo.ExclusaoRegistro;
+begin
+  PreencherGrid;
 end;
 
 procedure TFraModelo.FDMemTable1BeforeInsert(DataSet: TDataSet);
@@ -111,10 +121,11 @@ begin
   end
   else if ACellViewInfo.Item = grdFramePrincialDBTableView1ColExclusao then
   begin
-    if MessageDlg('Deseja excluir este registro?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+    if Application.MessageBox('Deseja excluir este registro?', 'Escales', MB_YESNO + MB_ICONQUESTION) = IDYES then
     begin
       ExclusaoRegistro;
     end;
+
     AHandled := True;
   end;
 end;

@@ -3,6 +3,9 @@ inherited FraCargos: TFraCargos
     Caption = 'CARGOS'
     inherited pcFramePrincipal: TcxPageControl
       inherited tsConsulta: TcxTabSheet
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         inherited grdFramePrincial: TcxGrid
           inherited grdFramePrincialDBTableView1: TcxGridDBTableView
             Navigator.InfoPanel.DisplayMask = '[RecordIndex] de [RecordCount]'
