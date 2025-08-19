@@ -8,6 +8,11 @@ uses
   Data.DB;
 
 type
+  TFKInfo = record
+    tabela: string;
+    chaveEstrangeira: string;
+  end;
+
   TPrimaryKeyAttribute = class(TCustomAttribute)
   private
     FAutoIncrement: Boolean;
@@ -47,6 +52,7 @@ type
     procedure Save; virtual;
     procedure Delete; virtual;
 
+    function TotalReg(AArrStrings: TArray<TFKInfo>): Integer; virtual;
     function ToQuery: TFDQuery;
     class function ListToQuery(const AWhere: string = ''): TFDQuery; virtual;
     procedure ListForeignKeys(AClass: TClass);
@@ -527,6 +533,30 @@ begin
   Result.ParamByName(PrimaryKeyField).AsInteger := PrimaryKeyValue;
 end;
 
+function TModeloBase.TotalReg(AArrStrings: TArray<TFKInfo>): Integer;
+var
+  vQuery: TFDQuery;
+  vWhere: string;
+  PrimaryKeyValue: Integer;
+  vQuantidadeTabelas: Integer;
+  TotalRegistros: Integer;
+begin
+  vQuery := TFDQuery.Create(nil);
+  vQuery.Connection := dmPrincipal.FDConnection;
+  PrimaryKeyValue := GetPrimaryKeyValue;
+  TotalRegistros := 0;
+
+  vWhere := ' WHERE 1 = 1 ';
+
+  for vQuantidadeTabelas := 0 to Length(AArrStrings) do
+  begin
+    vWhere := ' AND (' + AArrStrings[vQuantidadeTabelas].chaveEstrangeira+ ' = '+IntToStr(PrimaryKeyValue) +')';
+    vQuery.Open( Format('SELECT Count(*) QTD FROM %s %s ', [AArrStrings[vQuantidadeTabelas].tabela, vWhere]) );
+    TotalRegistros := TotalRegistros + vQuery.FieldByName('QTD').AsInteger;
+  end;
+  Result := TotalRegistros;
+end;
+
 class function TModeloBase.ListToQuery(const AWhere: string = ''): TFDQuery;
 var
   vQuery: TFDQuery;
@@ -574,3 +604,4 @@ begin
 end;
 
 end.
+
