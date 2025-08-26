@@ -1,5 +1,4 @@
 object dmPrincipal: TdmPrincipal
-  OldCreateOrder = True
   OnCreate = DataModuleCreate
   Height = 279
   Width = 364
@@ -21,5 +20,10 @@ object dmPrincipal: TdmPrincipal
   object cxLocalizer1: TcxLocalizer
     Left = 204
     Top = 79
+  end
+  object FDQuery1: TFDQuery
+    Connection = FDConnection
+    Left = 248
+    Top = 40
   end
 end

@@ -16,7 +16,8 @@ uses
   uTelefone in 'class\uTelefone.pas',
   uFraModelo in 'frames\uFraModelo.pas' {FraModelo: TFrame},
   uFraObreiros in 'frames\uFraObreiros.pas' {FraObreiros: TFrame},
-  uFraCargos in 'frames\uFraCargos.pas' {FraCargos: TFrame};
+  uFraCargos in 'frames\uFraCargos.pas' {FraCargos: TFrame},
+  uEXEscales in 'class\uEXEscales.pas';
 
 {$R *.res}
 

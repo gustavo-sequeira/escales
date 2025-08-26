@@ -32,7 +32,7 @@ uses
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client, FireDAC.Comp.DataSet,
   FireDAC.UI.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Phys,
   FireDAC.Phys.PG, FireDAC.Phys.PGDef, FireDAC.VCLUI.Wait,
-  FireDAC.Stan.StorageBin, cxButtonEdit;
+  FireDAC.Stan.StorageBin, cxButtonEdit, dxSkinWXI, uModeloBase;
 
 type
   TFraCargos = class(TFraModelo)
@@ -44,9 +44,6 @@ type
     cxLabel1: TcxLabel;
     edtNome: TcxTextEdit;
     mmDescricao: TcxMemo;
-    FDQuery1: TFDQuery;
-    FDConnection1: TFDConnection;
-    FDPhysPgDriverLink1: TFDPhysPgDriverLink;
     grdFramePrincialDBTableView1codigo: TcxGridDBColumn;
     grdFramePrincialDBTableView1abreviacao: TcxGridDBColumn;
     grdFramePrincialDBTableView1nome: TcxGridDBColumn;
@@ -62,7 +59,7 @@ type
     procedure ExclusaoRegistro; override;
     procedure PreencherGrid; override;
     procedure ValidarAntesSalvar; override;
-
+    procedure ValidarAntesExcluir; override;
   end;
 
 var
@@ -71,7 +68,7 @@ var
 implementation
 
 uses
-  System.UITypes;
+  System.UITypes, uEXEscales;
 
 {$R *.dfm}
 
@@ -147,10 +144,63 @@ begin
   end;
 end;
 
-procedure TFraCargos.ValidarAntesSalvar;
+procedure TFraCargos.ValidarAntesExcluir;
+var
+  vArrStrings: TArray<TFKInfo>;
+  vEstado: string;
+  vCodException: Integer;
+  Cargo: TCargos;
 begin
   inherited;
 
+  vEstado := 'exclusão';
+  vCodException := 3001;
+
+  SetLength(vArrStrings, 1);
+
+  vArrStrings[0].tabela := 'obreiros';
+  vArrStrings[0].chaveEstrangeira := 'codigo_cargo';
+
+  Cargo := TCargos.Create();
+  try
+    if Cargo.TotalReg(vArrStrings) > 0 then
+    begin
+      raise EXEscales.Create('Não foi possível realizar a exclusão. Registro é usado em outras tabelas');
+      Abort;
+    end;
+  finally
+    Cargo.Free;
+  end;
+end;
+
+procedure TFraCargos.ValidarAntesSalvar;
+var
+  vEstado: string;
+  vCodException: Integer;
+begin
+  inherited;
+  if ((Trim(edtCodigo.Text) = EmptyStr) or (Trim(edtCodigo.Text) = '0')) then
+  begin
+    vEstado := 'inclusão';
+    vCodException := 1001;
+  end
+  else
+  begin
+    vEstado := 'alteração';
+    vCodException := 2001;
+  end;
+
+  if Trim(edtAbreviacao.Text) = EmptyStr then
+  begin
+    raise ExCargosException.Create('Para realizar a ' + vEstado + ' é necessário o campo: ABREVIAÇÃO', vCodException);
+    Abort;
+  end;
+
+  if Trim(edtNome.Text) = EmptyStr then
+  begin
+    raise ExCargosException.Create('Para realizar a ' + vEstado + ' é necessário o campo: ABREVIAÇÃO', vCodException);
+    Abort;
+  end;
 end;
 
 procedure TFraCargos.EdicaoRegistro;

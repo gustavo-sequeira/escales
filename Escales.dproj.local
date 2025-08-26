@@ -1,2 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<BorlandProject/>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2025/08/18 21:40:02.424,=C:\projetos\repositorios\portfolio\escales\Unit1.pas</Transaction>
+    <Transaction>2025/08/18 21:44:24.957,C:\projetos\repositorios\portfolio\escales\class\EXEscales.pas=C:\projetos\repositorios\portfolio\escales\Unit1.pas</Transaction>
+    <Transaction>2025/08/18 21:45:17.451,C:\projetos\repositorios\portfolio\escales\class\uEXEscales.pas=C:\projetos\repositorios\portfolio\escales\class\EXEscales.pas</Transaction>
+  </Transactions>
+</BorlandProject>
