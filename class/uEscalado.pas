@@ -9,10 +9,10 @@ type
   TEscalado = class(TModeloBase)
   private
     FEscala: TEscala;
-    FObreiro: TObreiro;
+    FObreiro: TObreiros;
   public
     property Escala: TEscala read FEscala write FEscala;
-    property Obreiro: TObreiro read FObreiro write FObreiro;
+    property Obreiro: TObreiros read FObreiro write FObreiro;
   end;
 
 implementation

@@ -28,12 +28,12 @@ uses
   cxGridTableView, cxGridDBTableView, cxGrid, cxPC, cxGroupBox, Vcl.Menus,
   System.ImageList, Vcl.ImgList, cxImageList, cxButtons, Vcl.StdCtrls,
   cxTextEdit, cxLabel, cxMaskEdit, cxDropDownEdit, Vcl.ComCtrls, dxCore,
-  cxDateUtils, cxCalendar, dxSkinWXI, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  cxDateUtils, cxCalendar, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   FireDAC.Phys.PGDef, FireDAC.UI.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool,
   FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.PG, FireDAC.VCLUI.Wait,
-  FireDAC.DApt, Vcl.ExtCtrls, cxCheckBox;
+  FireDAC.DApt, Vcl.ExtCtrls, cxCheckBox, cxImage, dxGDIPlusClasses;
 
 type
   TFraObreiros = class(TFraModelo)
@@ -45,7 +45,6 @@ type
     edtNome: TcxTextEdit;
     cbCargo: TcxComboBox;
     dtDataNascimento: TcxDateEdit;
-    cbTelefone: TcxComboBox;
     cxLabel5: TcxLabel;
     FDPhysPgDriverLink1: TFDPhysPgDriverLink;
     FDConnection1: TFDConnection;
@@ -79,13 +78,13 @@ type
     cxLabel19: TcxLabel;
     cxLabel20: TcxLabel;
     cxLabel21: TcxLabel;
-    cxCheckBox1: TcxCheckBox;
-    cxCheckBox2: TcxCheckBox;
-    cxCheckBox3: TcxCheckBox;
-    cxCheckBox4: TcxCheckBox;
-    cxCheckBox5: TcxCheckBox;
-    cxCheckBox6: TcxCheckBox;
-    cxCheckBox7: TcxCheckBox;
+    chbDomNoite: TcxCheckBox;
+    chbSegNoite: TcxCheckBox;
+    chbTerNoite: TcxCheckBox;
+    chbQuaNoite: TcxCheckBox;
+    chbQuiNoite: TcxCheckBox;
+    chbSexNoite: TcxCheckBox;
+    chbSabNoite: TcxCheckBox;
     cxGroupBox5: TcxGroupBox;
     Bevel15: TBevel;
     Bevel16: TBevel;
@@ -95,13 +94,13 @@ type
     Bevel20: TBevel;
     Bevel21: TBevel;
     cxLabel7: TcxLabel;
-    cxCheckBox8: TcxCheckBox;
-    cxCheckBox9: TcxCheckBox;
-    cxCheckBox10: TcxCheckBox;
-    cxCheckBox11: TcxCheckBox;
-    cxCheckBox12: TcxCheckBox;
-    cxCheckBox13: TcxCheckBox;
-    cxCheckBox14: TcxCheckBox;
+    chbDomTarde: TcxCheckBox;
+    chbSegTarde: TcxCheckBox;
+    chbTerTarde: TcxCheckBox;
+    chbQuaTarde: TcxCheckBox;
+    chbQuiTarde: TcxCheckBox;
+    chbSexTarde: TcxCheckBox;
+    chbSabTarde: TcxCheckBox;
     cxGroupBox6: TcxGroupBox;
     Bevel22: TBevel;
     Bevel23: TBevel;
@@ -111,15 +110,22 @@ type
     Bevel27: TBevel;
     Bevel28: TBevel;
     cxLabel8: TcxLabel;
-    cxCheckBox15: TcxCheckBox;
-    cxCheckBox16: TcxCheckBox;
-    cxCheckBox17: TcxCheckBox;
-    cxCheckBox18: TcxCheckBox;
-    cxCheckBox19: TcxCheckBox;
-    cxCheckBox20: TcxCheckBox;
-    cxCheckBox21: TcxCheckBox;
+    chbDomManha: TcxCheckBox;
+    chbSegManha: TcxCheckBox;
+    chbTerManha: TcxCheckBox;
+    chbQuaManha: TcxCheckBox;
+    chbQuiManha: TcxCheckBox;
+    chbSexManha: TcxCheckBox;
+    chbSabManha: TcxCheckBox;
     cxLabel9: TcxLabel;
+    cxGroupBox7: TcxGroupBox;
+    cbTelefone: TcxComboBox;
+    cxImage1: TcxImage;
+    cxImage2: TcxImage;
+    cxImage3: TcxImage;
     procedure tsManutencaoShow(Sender: TObject);
+    procedure cxImage1Click(Sender: TObject);
+    procedure cxImage2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -142,7 +148,7 @@ var
 implementation
 
 uses
-  uDmPrincipal;
+  uDmPrincipal, uFrmTelefone, uObreiro, uCargo, uEXEscales, uModeloBase;
 
 {$R *.dfm}
 
@@ -163,7 +169,7 @@ begin
     Exit;
 
   dmPrincipal.FDQuery1.First;
-  while dmPrincipal.FDQuery1.Eof do
+  while not dmPrincipal.FDQuery1.Eof do
   begin
     cbCargo.Properties.Items.Add(dmPrincipal.FDQuery1.FieldByName('nome_cargo').AsString);
     dmPrincipal.FDQuery1.Next;
@@ -192,6 +198,34 @@ begin
   end;
 end;
 
+procedure TFraObreiros.cxImage1Click(Sender: TObject);
+var
+  frmTelefone: TfrmTelefone;
+begin
+  inherited;
+
+  frmTelefone := TfrmTelefone.Create(Self);
+  try
+    frmTelefone.ShowModal;
+  finally
+    frmTelefone.Free;
+  end;
+end;
+
+procedure TFraObreiros.cxImage2Click(Sender: TObject);
+var
+  frmTelefone: TfrmTelefone;
+begin
+  inherited;
+
+  frmTelefone := TfrmTelefone.Create(Self);
+  try
+    frmTelefone.ShowModal;
+  finally
+    frmTelefone.Free;
+  end;
+end;
+
 procedure TFraObreiros.EdicaoRegistro;
 begin
   inherited;
@@ -201,9 +235,18 @@ begin
 end;
 
 procedure TFraObreiros.ExclusaoRegistro;
+var
+  Obreiro: TObreiros;
 begin
   inherited;
 
+  Obreiro := TObreiros.Create;
+  try
+    Obreiro.Codigo := StrToIntDef(edtCodigo.Text, 0);
+    Obreiro.Delete;
+  finally
+    Obreiro.Free;
+  end;
 end;
 
 procedure TFraObreiros.PosicionarItemIndexCargo(ACodigoCargo: integer);
@@ -220,19 +263,54 @@ begin
   if dmPrincipal.FDQuery1.IsEmpty then
     Exit;
 
-  cbCargo.ItemIndex :=  cbCargo.Properties.Items.IndexOf(dmPrincipal.FDQuery1.FieldByName('nome_cargo').AsString);
+  cbCargo.ItemIndex := cbCargo.Properties.Items.IndexOf(dmPrincipal.FDQuery1.FieldByName('nome_cargo').AsString);
 end;
 
 procedure TFraObreiros.PreencherGrid;
+var
+  Obreiro: TObreiros;
+  Query: TFDQuery;
 begin
   inherited;
+  Obreiro := TObreiros.Create;
+  Query := Obreiro.ListToQuery;
 
+  Query.Open;
+  Query.FetchAll;
+  try
+    FDMemTable1.Close;
+    try
+      FDMemTable1.CloneCursor(Query);
+    except
+      on e: Exception do
+        ShowMessage(e.Message);
+    end;
+  finally
+    Obreiro.Free;
+    Query.Free;
+  end;
 end;
 
 procedure TFraObreiros.SalvarRegistro;
+var
+  Obreiro: TObreiros;
+  Cargo: TCargos;
 begin
   inherited;
 
+  Obreiro := TObreiros.Create;
+  Cargo := TCargos.Create;
+  try
+    Obreiro.Codigo := StrToIntDef(edtCodigo.Text, 0);
+    Cargo.LoadFromField('NOME', Copy(cbCargo.Text, Pos('-', cbCargo.Text) + 1, Length(cbCargo.Text)));
+    Obreiro.Cargo := Cargo;
+    Obreiro.Nome := Trim(edtNome.Text);
+    Obreiro.Dt_Nascimento := dtDataNascimento.Date;
+    Obreiro.Save;
+  finally
+    Cargo.Free;
+    Obreiro.Free;
+  end;
 end;
 
 procedure TFraObreiros.tsManutencaoShow(Sender: TObject);
@@ -240,7 +318,7 @@ begin
   inherited;
   CarregarComboCargos;
 
-  if (not(Trim(edtCodigo.Text) = EmptyStr) and not(Trim(edtCodigo.Text) = '0')) then
+  if (not (Trim(edtCodigo.Text) = EmptyStr) and not (Trim(edtCodigo.Text) = '0')) then
   begin
     PosicionarItemIndexCargo(dmPrincipal.FDQuery1.FieldByName('codigo').AsInteger);
   end;
@@ -249,13 +327,30 @@ end;
 procedure TFraObreiros.ValidarAntesExcluir;
 begin
   inherited;
-
 end;
 
 procedure TFraObreiros.ValidarAntesSalvar;
+var
+  vEstado: string;
+  vCodException: Integer;
 begin
   inherited;
+  if ((Trim(edtCodigo.Text) = EmptyStr) or (Trim(edtCodigo.Text) = '0')) then
+  begin
+    vEstado := 'inclusão';
+    vCodException := 1001;
+  end
+  else
+  begin
+    vEstado := 'alteração';
+    vCodException := 2001;
+  end;
 
+  if Trim(edtNome.Text) = EmptyStr then
+  begin
+    raise ExObreirosException.Create('Para realizar a ' + vEstado + ' é necessário o campo: NOME', vCodException);
+    Abort;
+  end;
 end;
 
 end.

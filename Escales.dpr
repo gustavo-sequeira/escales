@@ -17,7 +17,8 @@ uses
   uFraModelo in 'frames\uFraModelo.pas' {FraModelo: TFrame},
   uFraObreiros in 'frames\uFraObreiros.pas' {FraObreiros: TFrame},
   uFraCargos in 'frames\uFraCargos.pas' {FraCargos: TFrame},
-  uEXEscales in 'class\uEXEscales.pas';
+  uEXEscales in 'class\uEXEscales.pas',
+  uFrmTelefone in 'uFrmTelefone.pas' {frmTelefone};
 
 {$R *.res}
 
@@ -26,5 +27,6 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
   Application.CreateForm(TdmPrincipal, dmPrincipal);
+  Application.CreateForm(TfrmTelefone, frmTelefone);
   Application.Run;
 end.

@@ -49,6 +49,7 @@ type
     function GetPrimaryKeyFieldName: string;
   public
     procedure LoadFromID(AID: Integer); virtual;
+    procedure LoadFromField(AField: String; AValue: Variant); virtual;
     procedure Save; virtual;
     procedure Delete; virtual;
 
@@ -380,6 +381,63 @@ begin
         Prop.SetValue(Self, TValue.From<TObject>(Obj));
       end;
     end;
+  end;
+end;
+
+procedure TModeloBase.LoadFromField(AField: String; AValue: Variant);
+var
+  vQuery: TFDQuery;
+  ctx: TRttiContext;
+  rType: TRttiType;
+  prop: TRttiProperty;
+  PrimaryKeyField: string;
+begin
+  vQuery := TFDQuery.Create(nil);
+  ctx := TRttiContext.Create;
+  try
+    vQuery.Connection := dmPrincipal.FDConnection;
+    PrimaryKeyField := GetPrimaryKeyFieldName;
+
+    if VarIsStr(AValue) then
+      vQuery.SQL.Text := Format('SELECT * FROM %s WHERE upper(%s) = upper(''%s'')', [GetTableName, AField, AValue])
+    else
+      vQuery.SQL.Text := Format('SELECT * FROM %s WHERE %s = %s', [GetTableName, AField, AValue]);
+
+    vQuery.Open;
+
+    if vQuery.Eof then
+      raise Exception.CreateFmt('Registro %s=%d não encontrado em %s', [AField, AValue, GetTableName]);
+
+    rType := ctx.GetType(Self.ClassType);
+    for prop in rType.GetProperties do
+    begin
+      if (prop.Visibility <> mvPublished) then
+        Continue;
+
+      if vQuery.FindField(prop.Name) = nil then
+        Continue;
+
+      if vQuery.FieldByName(prop.Name).IsNull then
+        Continue;
+
+      case prop.PropertyType.TypeKind of
+        tkInteger:
+          prop.SetValue(Self, vQuery.FieldByName(prop.Name).AsInteger);
+        tkFloat:
+          if prop.PropertyType.Handle = TypeInfo(TDateTime) then
+            prop.SetValue(Self, TValue.From<TDateTime>(vQuery.FieldByName(prop.Name).AsDateTime))
+          else
+            prop.SetValue(Self, vQuery.FieldByName(prop.Name).AsExtended);
+        tkUString, tkWString, tkLString, tkString:
+          prop.SetValue(Self, vQuery.FieldByName(prop.Name).AsString);
+      end;
+    end;
+
+    LoadForeignKeyObjectsFromQuery(vQuery, ctx, rType);
+//    SetPrimaryKeyValue(AID);
+  finally
+    ctx.Free;
+    vQuery.Free;
   end;
 end;
 

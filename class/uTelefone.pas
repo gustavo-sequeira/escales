@@ -12,13 +12,13 @@ type
     FDdd: Integer;
     FNumero: integer;
     FPrincipal: Integer;
-    FObreiro: TObreiro;
+    FObreiro: TObreiros;
   public
     property Codigo: Integer read FCodigo write FCodigo;
     property Ddd: Integer read FDdd write FDdd;
     property Numero: integer read FNumero write FNumero;
     property Principal: Integer read FPrincipal write FPrincipal;
-    property Obreiro: TObreiro read FObreiro write FObreiro;
+    property Obreiro: TObreiros read FObreiro write FObreiro;
   end;
 
 implementation

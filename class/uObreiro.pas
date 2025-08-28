@@ -6,18 +6,19 @@ uses
   uModeloBase, uCargo;
 
 type
-  TObreiro = class(TModeloBase)
+  TObreiros = class(TModeloBase)
   private
     FCodigo: Integer;
     FCargo: TCargos;
     FNome: string;
     FDtNascimento: TDate;
-  public
+  published
+    [TPrimaryKey(True)]
     property Codigo: Integer read FCodigo write FCodigo;
-    [TForeignKey('Cargos', 'Codigo')]
+    [TForeignKey('Cargos', 'Codigo', 'codigo_cargo')]
     property Cargo: TCargos read FCargo write FCargo;
     property Nome: string read FNome write FNome;
-    property DtNascimento: TDate read FDtNascimento write FDtNascimento;
+    property Dt_Nascimento: TDate read FDtNascimento write FDtNascimento;
   end;
 
 implementation

@@ -32,7 +32,7 @@ uses
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client, FireDAC.Comp.DataSet,
   FireDAC.UI.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Phys,
   FireDAC.Phys.PG, FireDAC.Phys.PGDef, FireDAC.VCLUI.Wait,
-  FireDAC.Stan.StorageBin, cxButtonEdit, dxSkinWXI, uModeloBase;
+  FireDAC.Stan.StorageBin, cxButtonEdit, uModeloBase;
 
 type
   TFraCargos = class(TFraModelo)
@@ -132,13 +132,11 @@ begin
   inherited;
   Cargo := TCargos.Create;
   try
-
     Cargo.Codigo := StrToIntDef(edtCodigo.Text, 0);
     Cargo.Abreviacao := Trim(edtAbreviacao.Text);
     Cargo.Nome := Trim(edtNome.Text);
     Cargo.Descricao := Trim(mmDescricao.Text);
     Cargo.Save;
-
   finally
     Cargo.Free;
   end;
@@ -198,7 +196,7 @@ begin
 
   if Trim(edtNome.Text) = EmptyStr then
   begin
-    raise ExCargosException.Create('Para realizar a ' + vEstado + ' é necessário o campo: ABREVIAÇÃO', vCodException);
+    raise ExCargosException.Create('Para realizar a ' + vEstado + ' é necessário o campo: NOME', vCodException);
     Abort;
   end;
 end;
