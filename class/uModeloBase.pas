@@ -49,7 +49,7 @@ type
     function GetPrimaryKeyFieldName: string;
   public
     procedure LoadFromID(AID: Integer); virtual;
-    procedure LoadFromField(AField: String; AValue: Variant); virtual;
+    procedure LoadFromField(AField: string; AValue: Variant); virtual;
     procedure Save; virtual;
     procedure Delete; virtual;
 
@@ -210,6 +210,8 @@ begin
       for Attr in Prop.GetAttributes do
         if Attr is TForeignKeyAttribute then
         begin
+          // adicionar o campo local (chave estrangeira)
+          L.Add(TForeignKeyAttribute(Attr).LocalField);
           IsFKObject := True;
           Break;
         end;
@@ -242,10 +244,14 @@ begin
     tkInteger, tkInt64:
       Result := V.AsInteger;
     tkFloat:
-      if Prop.PropertyType.Handle = TypeInfo(TDateTime) then
-        Result := V.AsExtended
-      else
-        Result := V.AsExtended;
+      begin
+        if (Prop.PropertyType.Handle = TypeInfo(TDateTime)) then
+          Result := V.AsType<TDateTime>
+        else if (Prop.PropertyType.Handle = TypeInfo(TDate)) then
+          Result := V.AsType<TDate>
+        else
+          Result := V.AsExtended;
+      end;
     tkUString, tkLString, tkWString, tkString:
       Result := V.ToString;
   else
@@ -263,6 +269,7 @@ var
   Val: Variant;
   IsPrimaryKey: Boolean;
   PrimaryKeyValue: Integer;
+  Obj: TObject;
 begin
   Ctx := TRttiContext.Create;
   try
@@ -286,6 +293,26 @@ begin
       if IsPrimaryKey then
         Continue;
 
+      for Attr in Prop.GetAttributes do
+        if Attr is TForeignKeyAttribute then
+        begin
+          EnsureObjectPropertyInstance(Prop);
+          if not Prop.GetValue(Self).IsEmpty then
+          begin
+            Obj := Prop.GetValue(Self).AsObject;
+            if Obj is TModeloBase then
+            begin
+              PName := TForeignKeyAttribute(Attr).LocalField;
+              Val := TModeloBase(Obj).GetPrimaryKeyValue;
+
+              if AQuery.Params.FindParam(PName) = nil then
+                AQuery.Params.CreateParam(ftInteger, PName, ptInput);
+
+              AQuery.ParamByName(PName).AsInteger := Val;
+            end;
+          end;
+        end;
+
       case Prop.PropertyType.TypeKind of
         tkInteger, tkInt64, tkFloat, tkUString, tkLString, tkWString, tkString:
           begin
@@ -293,6 +320,12 @@ begin
             Val := PropertyValueAsVariant(Prop);
             if AQuery.Params.FindParam(PName) = nil then
               AQuery.Params.CreateParam(ftUnknown, PName, ptInput);
+
+            if Prop.PropertyType.Handle = TypeInfo(TDate) then
+              AQuery.ParamByName(PName).DataType := ftDate
+            else if Prop.PropertyType.Handle = TypeInfo(TDateTime) then
+              AQuery.ParamByName(PName).DataType := ftDateTime;
+
             AQuery.ParamByName(PName).Value := Val;
           end;
       end;
@@ -384,7 +417,7 @@ begin
   end;
 end;
 
-procedure TModeloBase.LoadFromField(AField: String; AValue: Variant);
+procedure TModeloBase.LoadFromField(AField: string; AValue: Variant);
 var
   vQuery: TFDQuery;
   ctx: TRttiContext;
@@ -608,8 +641,8 @@ begin
 
   for vQuantidadeTabelas := 0 to Length(AArrStrings) do
   begin
-    vWhere := ' AND (' + AArrStrings[vQuantidadeTabelas].chaveEstrangeira+ ' = '+IntToStr(PrimaryKeyValue) +')';
-    vQuery.Open( Format('SELECT Count(*) QTD FROM %s %s ', [AArrStrings[vQuantidadeTabelas].tabela, vWhere]) );
+    vWhere := ' AND (' + AArrStrings[vQuantidadeTabelas].chaveEstrangeira + ' = ' + IntToStr(PrimaryKeyValue) + ')';
+    vQuery.Open(Format('SELECT Count(*) QTD FROM %s %s ', [AArrStrings[vQuantidadeTabelas].tabela, vWhere]));
     TotalRegistros := TotalRegistros + vQuery.FieldByName('QTD').AsInteger;
   end;
   Result := TotalRegistros;
