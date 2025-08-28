@@ -123,9 +123,17 @@ type
     cxImage1: TcxImage;
     cxImage2: TcxImage;
     cxImage3: TcxImage;
+    grdFramePrincialDBTableView1codigo: TcxGridDBColumn;
+    grdFramePrincialDBTableView1codigo_cargo: TcxGridDBColumn;
+    grdFramePrincialDBTableView1nome: TcxGridDBColumn;
+    grdFramePrincialDBTableView1dt_nascimento: TcxGridDBColumn;
+    FDMemTable1nome_cargo: TStringField;
+    grdFramePrincialDBTableView1nome_cargo: TcxGridDBColumn;
     procedure tsManutencaoShow(Sender: TObject);
     procedure cxImage1Click(Sender: TObject);
     procedure cxImage2Click(Sender: TObject);
+    procedure FDMemTable1BeforeInsert(DataSet: TDataSet);
+    procedure FDMemTable1CalcFields(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -139,7 +147,9 @@ type
 
     procedure CarregarComboCargos;
     procedure CarregarComboTelefones;
+    function CarregarNomeCargo(ACodigoCargo: integer): string;
     procedure PosicionarItemIndexCargo(ACodigoCargo: integer);
+
   end;
 
 var
@@ -198,6 +208,23 @@ begin
   end;
 end;
 
+function TFraObreiros.CarregarNomeCargo(ACodigoCargo: integer): string;
+begin
+  Result := EmptyStr;
+  dmPrincipal.FDQuery1.Close;
+  dmPrincipal.FDQuery1.SQL.Clear;
+  dmPrincipal.FDQuery1.SQL.Add('  select nome ');
+  dmPrincipal.FDQuery1.SQL.Add('    from cargos');
+  dmPrincipal.FDQuery1.SQL.Add('   where codigo = :codigo');
+  dmPrincipal.FDQuery1.ParamByName('codigo').AsInteger := ACodigoCargo;
+  dmPrincipal.FDQuery1.Open;
+
+  if dmPrincipal.FDQuery1.IsEmpty then
+    Exit;
+
+  Result := dmPrincipal.FDQuery1.Fields[0].AsString;
+end;
+
 procedure TFraObreiros.cxImage1Click(Sender: TObject);
 var
   frmTelefone: TfrmTelefone;
@@ -230,6 +257,7 @@ procedure TFraObreiros.EdicaoRegistro;
 begin
   inherited;
   edtCodigo.Text := IntToStr(FDMemTable1.FieldByName('codigo').AsInteger);
+  edtCodigo.Enabled := False;
   edtNome.Text := FDMemTable1.FieldByName('nome').AsString;
   dtDataNascimento.Date := FDMemTable1.FieldByName('dt_nascimento').AsDateTime;
 end;
@@ -242,10 +270,26 @@ begin
 
   Obreiro := TObreiros.Create;
   try
-    Obreiro.Codigo := StrToIntDef(edtCodigo.Text, 0);
+    Obreiro.Codigo := FDMemTable1.FieldByName('codigo').AsInteger;
     Obreiro.Delete;
   finally
     Obreiro.Free;
+  end;
+end;
+
+procedure TFraObreiros.FDMemTable1BeforeInsert(DataSet: TDataSet);
+begin
+  edtCodigo.Text := '0';
+  edtCodigo.Enabled := False;
+  inherited;
+end;
+
+procedure TFraObreiros.FDMemTable1CalcFields(DataSet: TDataSet);
+begin
+  inherited;
+  if not FDMemTable1codigo_cargo.IsNull then
+  begin
+    FDMemTable1nome_cargo.AsString := CarregarNomeCargo(FDMemTable1codigo_cargo.AsInteger);
   end;
 end;
 
@@ -320,7 +364,7 @@ begin
 
   if (not (Trim(edtCodigo.Text) = EmptyStr) and not (Trim(edtCodigo.Text) = '0')) then
   begin
-    PosicionarItemIndexCargo(dmPrincipal.FDQuery1.FieldByName('codigo').AsInteger);
+    PosicionarItemIndexCargo(FDMemTable1.FieldByName('codigo_cargo').AsInteger);
   end;
 end;
 

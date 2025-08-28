@@ -12,8 +12,31 @@ inherited FraObreiros: TFraObreiros
       ClientRectRight = 891
       inherited tsConsulta: TcxTabSheet
         ExplicitTop = 26
-        ExplicitWidth = 892
+        ExplicitWidth = 891
         ExplicitHeight = 430
+        inherited grdFramePrincial: TcxGrid
+          inherited grdFramePrincialDBTableView1: TcxGridDBTableView
+            object grdFramePrincialDBTableView1codigo: TcxGridDBColumn [0]
+              DataBinding.FieldName = 'codigo'
+              Visible = False
+            end
+            object grdFramePrincialDBTableView1codigo_cargo: TcxGridDBColumn [1]
+              DataBinding.FieldName = 'codigo_cargo'
+              Visible = False
+            end
+            object grdFramePrincialDBTableView1nome_cargo: TcxGridDBColumn [2]
+              DataBinding.FieldName = 'nome_cargo'
+            end
+            object grdFramePrincialDBTableView1nome: TcxGridDBColumn [3]
+              Caption = 'Nome'
+              DataBinding.FieldName = 'nome'
+            end
+            object grdFramePrincialDBTableView1dt_nascimento: TcxGridDBColumn [4]
+              Caption = 'Dt Nascimento'
+              DataBinding.FieldName = 'dt_nascimento'
+            end
+          end
+        end
       end
       inherited tsManutencao: TcxTabSheet
         ExplicitWidth = 891
@@ -1158,6 +1181,7 @@ inherited FraObreiros: TFraObreiros
   end
   inherited FDMemTable1: TFDMemTable
     Active = True
+    OnCalcFields = FDMemTable1CalcFields
     FieldDefs = <
       item
         Name = 'codigo'
@@ -1184,6 +1208,11 @@ inherited FraObreiros: TFraObreiros
     end
     object FDMemTable1codigo_cargo: TIntegerField
       FieldName = 'codigo_cargo'
+    end
+    object FDMemTable1nome_cargo: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'nome_cargo'
+      Calculated = True
     end
     object FDMemTable1nome: TWideMemoField
       FieldName = 'nome'
