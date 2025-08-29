@@ -1102,6 +1102,7 @@ inherited FraObreiros: TFraObreiros
                   Style.BorderStyle = ebsNone
                   TabOrder = 3
                   Transparent = True
+                  OnClick = cxImage3Click
                   Height = 23
                   Width = 23
                 end
@@ -1246,5 +1247,28 @@ inherited FraObreiros: TFraObreiros
       'select * from obreiros')
     Left = 320
     Top = 424
+  end
+  object FDMemTable2: TFDMemTable
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    Left = 632
+    Top = 440
+    object FDMemTable2ddd: TIntegerField
+      FieldName = 'ddd'
+    end
+    object FDMemTable2numero: TIntegerField
+      FieldName = 'numero'
+    end
+    object FDMemTable2principal: TIntegerField
+      FieldName = 'principal'
+    end
+    object FDMemTable2telefone: TStringField
+      FieldName = 'telefone'
+    end
   end
 end

@@ -129,11 +129,17 @@ type
     grdFramePrincialDBTableView1dt_nascimento: TcxGridDBColumn;
     FDMemTable1nome_cargo: TStringField;
     grdFramePrincialDBTableView1nome_cargo: TcxGridDBColumn;
+    FDMemTable2: TFDMemTable;
+    FDMemTable2ddd: TIntegerField;
+    FDMemTable2numero: TIntegerField;
+    FDMemTable2principal: TIntegerField;
+    FDMemTable2telefone: TStringField;
     procedure tsManutencaoShow(Sender: TObject);
     procedure cxImage1Click(Sender: TObject);
     procedure cxImage2Click(Sender: TObject);
     procedure FDMemTable1BeforeInsert(DataSet: TDataSet);
     procedure FDMemTable1CalcFields(DataSet: TDataSet);
+    procedure cxImage3Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -149,7 +155,7 @@ type
     procedure CarregarComboTelefones;
     function CarregarNomeCargo(ACodigoCargo: integer): string;
     procedure PosicionarItemIndexCargo(ACodigoCargo: integer);
-
+    procedure SalvarTelefone;
   end;
 
 var
@@ -192,16 +198,25 @@ begin
 
   dmPrincipal.FDQuery1.Close;
   dmPrincipal.FDQuery1.SQL.Clear;
-  dmPrincipal.FDQuery1.SQL.Add('  select ''(''||ddd||'') ''||numero as telefone ');
+  dmPrincipal.FDQuery1.SQL.Add('  select ddd, ');
+  dmPrincipal.FDQuery1.SQL.Add('         numero, ');
+  dmPrincipal.FDQuery1.SQL.Add('         principal, ');
+  dmPrincipal.FDQuery1.SQL.Add('         ''(''||ddd||'') ''||numero as telefone ');
   dmPrincipal.FDQuery1.SQL.Add('    from telefones');
   dmPrincipal.FDQuery1.SQL.Add('order by principal desc	');
   dmPrincipal.FDQuery1.Open;
 
+  FDMemTable2.Open;
+  FDMemTable2.EmptyDataSet;
+
   if dmPrincipal.FDQuery1.IsEmpty then
     Exit;
 
+  FDMemTable2.Close;
+  FDMemTable2.CopyDataSet(dmPrincipal.FDQuery1, [coRestart, coAppend]);
+
   dmPrincipal.FDQuery1.First;
-  while dmPrincipal.FDQuery1.Eof do
+  while not dmPrincipal.FDQuery1.Eof do
   begin
     cbTelefone.Properties.Items.Add(dmPrincipal.FDQuery1.FieldByName('telefone').AsString);
     dmPrincipal.FDQuery1.Next;
@@ -228,12 +243,40 @@ end;
 procedure TFraObreiros.cxImage1Click(Sender: TObject);
 var
   frmTelefone: TfrmTelefone;
+  vApenasNumeros: string;
 begin
   inherited;
 
   frmTelefone := TfrmTelefone.Create(Self);
   try
     frmTelefone.ShowModal;
+    if frmTelefone.ModalResult = mrOk then
+    begin
+      FDMemTable2.Active := True;
+      FDMemTable2.Insert;
+      vApenasNumeros := StringReplace(frmTelefone.cxMaskEdit1.Text, '(', '', [rfReplaceAll]);
+      vApenasNumeros := StringReplace(vApenasNumeros, ')', '', [rfReplaceAll]);
+      vApenasNumeros := StringReplace(vApenasNumeros, '-', '', [rfReplaceAll]);
+      vApenasNumeros := StringReplace(vApenasNumeros, ' ', '', [rfReplaceAll]);
+
+      FDMemTable2.FieldByName('ddd').AsInteger := StrToIntDef(Copy(vApenasNumeros, 1, 2), 0);
+      FDMemTable2.FieldByName('numero').AsInteger := StrToIntDef(Copy(vApenasNumeros, 3, Length(vApenasNumeros)), 0);
+      if frmTelefone.cxCheckBox1.Checked then
+        FDMemTable2.FieldByName('principal').AsInteger := 1
+      else
+        FDMemTable2.FieldByName('principal').AsInteger := 0;
+      FDMemTable2.FieldByName('telefone').AsString := frmTelefone.cxMaskEdit1.Text;
+      FDMemTable2.Post;
+
+      cbTelefone.Properties.Items.Clear;
+      FDMemTable2.First;
+      while not FDMemTable2.Eof do
+      begin
+        cbTelefone.Properties.Items.Add(FDMemTable2.FieldByName('telefone').AsString);
+        FDMemTable2.Next;
+      end;
+      cbTelefone.ItemIndex := 0;
+    end;
   finally
     frmTelefone.Free;
   end;
@@ -242,15 +285,57 @@ end;
 procedure TFraObreiros.cxImage2Click(Sender: TObject);
 var
   frmTelefone: TfrmTelefone;
+  vApenasNumeros: string;
 begin
   inherited;
 
+  if trim(cbTelefone.Text) = EmptyStr then
+    Exit;
+
   frmTelefone := TfrmTelefone.Create(Self);
+
+  frmTelefone.cxMaskEdit1.Text := cbTelefone.Text;
+
   try
     frmTelefone.ShowModal;
+    if frmTelefone.ModalResult = mrOk then
+    begin
+      FDMemTable2.Active := True;
+      FDMemTable2.Edit;
+      vApenasNumeros := StringReplace(frmTelefone.cxMaskEdit1.Text, '(', '', [rfReplaceAll]);
+      vApenasNumeros := StringReplace(vApenasNumeros, ')', '', [rfReplaceAll]);
+      vApenasNumeros := StringReplace(vApenasNumeros, '-', '', [rfReplaceAll]);
+      vApenasNumeros := StringReplace(vApenasNumeros, ' ', '', [rfReplaceAll]);
+
+      FDMemTable2.FieldByName('ddd').AsInteger := StrToIntDef(Copy(vApenasNumeros, 1, 2), 0);
+      FDMemTable2.FieldByName('numero').AsInteger := StrToIntDef(Copy(vApenasNumeros, 3, Length(vApenasNumeros)), 0);
+      if frmTelefone.cxCheckBox1.Checked then
+        FDMemTable2.FieldByName('principal').AsInteger := 1
+      else
+        FDMemTable2.FieldByName('principal').AsInteger := 0;
+      FDMemTable2.FieldByName('telefone').AsString := frmTelefone.cxMaskEdit1.Text;
+      FDMemTable2.Post;
+
+      cbTelefone.Properties.Items.Clear;
+      FDMemTable2.First;
+      while not FDMemTable2.Eof do
+      begin
+        cbTelefone.Properties.Items.Add(FDMemTable2.FieldByName('telefone').AsString);
+        FDMemTable2.Next;
+      end;
+      cbTelefone.ItemIndex := 0;
+    end;
   finally
     frmTelefone.Free;
   end;
+end;
+
+procedure TFraObreiros.cxImage3Click(Sender: TObject);
+begin
+  inherited;
+
+  if trim(cbTelefone.Text) = EmptyStr then
+    Exit;
 end;
 
 procedure TFraObreiros.EdicaoRegistro;
@@ -357,10 +442,16 @@ begin
   end;
 end;
 
+procedure TFraObreiros.SalvarTelefone;
+begin
+
+end;
+
 procedure TFraObreiros.tsManutencaoShow(Sender: TObject);
 begin
   inherited;
   CarregarComboCargos;
+  CarregarComboTelefones;
 
   if (not (Trim(edtCodigo.Text) = EmptyStr) and not (Trim(edtCodigo.Text) = '0')) then
   begin

@@ -15,7 +15,7 @@ type
     cxMaskEdit1: TcxMaskEdit;
     cxCheckBox1: TcxCheckBox;
     btnFrameConfirmar: TcxButton;
-    procedure btnFrameConfirmarClick(Sender: TObject);
+    cxButton1: TcxButton;
   private
     { Private declarations }
   public
@@ -28,10 +28,5 @@ var
 implementation
 
 {$R *.dfm}
-
-procedure TfrmTelefone.btnFrameConfirmarClick(Sender: TObject);
-begin
-  ModalResult := mrOk;
-end;
 
 end.

@@ -3,7 +3,7 @@ object frmTelefone: TfrmTelefone
   Top = 0
   BorderIcons = []
   BorderStyle = bsNone
-  ClientHeight = 148
+  ClientHeight = 133
   ClientWidth = 221
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -28,11 +28,8 @@ object frmTelefone: TfrmTelefone
     Style.Font.Style = [fsBold]
     Style.IsFontAssigned = True
     TabOrder = 0
-    ExplicitLeft = 136
-    ExplicitTop = 64
-    ExplicitWidth = 185
-    ExplicitHeight = 105
-    Height = 148
+    ExplicitHeight = 147
+    Height = 133
     Width = 221
     object cxMaskEdit1: TcxMaskEdit
       Left = 48
@@ -66,14 +63,24 @@ object frmTelefone: TfrmTelefone
       Transparent = True
     end
     object btnFrameConfirmar: TcxButton
-      Left = 60
-      Top = 111
+      Left = 8
+      Top = 95
       Width = 100
       Height = 25
       Caption = '&Confirmar'
+      ModalResult = 1
       OptionsImage.ImageIndex = 0
       TabOrder = 2
-      OnClick = btnFrameConfirmarClick
+    end
+    object cxButton1: TcxButton
+      Left = 112
+      Top = 95
+      Width = 100
+      Height = 25
+      Caption = 'C&ancelar'
+      ModalResult = 2
+      OptionsImage.ImageIndex = 0
+      TabOrder = 3
     end
   end
 end
