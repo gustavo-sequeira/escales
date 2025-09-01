@@ -140,6 +140,39 @@ type
     procedure FDMemTable1BeforeInsert(DataSet: TDataSet);
     procedure FDMemTable1CalcFields(DataSet: TDataSet);
     procedure cxImage3Click(Sender: TObject);
+    procedure cxLabel8Click(Sender: TObject);
+    procedure cxLabel17Click(Sender: TObject);
+    procedure cxLabel7Click(Sender: TObject);
+    procedure cxLabel6Click(Sender: TObject);
+    procedure cxLabel15Click(Sender: TObject);
+    procedure cxLabel16Click(Sender: TObject);
+    procedure cxLabel20Click(Sender: TObject);
+    procedure cxLabel19Click(Sender: TObject);
+    procedure cxLabel18Click(Sender: TObject);
+    procedure cxLabel21Click(Sender: TObject);
+    procedure cxLabel14Click(Sender: TObject);
+    procedure cxLabel14MouseEnter(Sender: TObject);
+    procedure cxLabel14MouseLeave(Sender: TObject);
+    procedure cxLabel17MouseEnter(Sender: TObject);
+    procedure cxLabel17MouseLeave(Sender: TObject);
+    procedure cxLabel15MouseLeave(Sender: TObject);
+    procedure cxLabel15MouseEnter(Sender: TObject);
+    procedure cxLabel16MouseEnter(Sender: TObject);
+    procedure cxLabel16MouseLeave(Sender: TObject);
+    procedure cxLabel20MouseLeave(Sender: TObject);
+    procedure cxLabel20MouseEnter(Sender: TObject);
+    procedure cxLabel19MouseEnter(Sender: TObject);
+    procedure cxLabel19MouseLeave(Sender: TObject);
+    procedure cxLabel18MouseLeave(Sender: TObject);
+    procedure cxLabel18MouseEnter(Sender: TObject);
+    procedure cxLabel21MouseEnter(Sender: TObject);
+    procedure cxLabel21MouseLeave(Sender: TObject);
+    procedure cxLabel8MouseLeave(Sender: TObject);
+    procedure cxLabel8MouseEnter(Sender: TObject);
+    procedure cxLabel7MouseEnter(Sender: TObject);
+    procedure cxLabel7MouseLeave(Sender: TObject);
+    procedure cxLabel6MouseLeave(Sender: TObject);
+    procedure cxLabel6MouseEnter(Sender: TObject);
   private
     { Private declarations }
   public
@@ -152,10 +185,12 @@ type
     procedure ValidarAntesExcluir; override;
 
     procedure CarregarComboCargos;
-    procedure CarregarComboTelefones;
-    function CarregarNomeCargo(ACodigoCargo: integer): string;
+    procedure CarregarComboTelefones(pCodigoObreiro: Integer);
+    procedure CarregarDisponibilidades(pCodigoObreiro: Integer);
+    function PesquisarNomeCargo(ACodigoCargo: integer): string;
     procedure PosicionarItemIndexCargo(ACodigoCargo: integer);
-    procedure SalvarTelefone;
+    procedure SalvarTelefone(pCodigoObreiro: Integer);
+    procedure SalvarDisponibilidade(pCodigoObreiro: Integer);
   end;
 
 var
@@ -164,7 +199,7 @@ var
 implementation
 
 uses
-  uDmPrincipal, uFrmTelefone, uObreiro, uCargo, uEXEscales, uModeloBase;
+  uDmPrincipal, uFrmTelefone, uObreiro, uCargo, uEXEscales, uModeloBase, Math, uLibary;
 
 {$R *.dfm}
 
@@ -192,7 +227,7 @@ begin
   end;
 end;
 
-procedure TFraObreiros.CarregarComboTelefones;
+procedure TFraObreiros.CarregarComboTelefones(pCodigoObreiro: Integer);
 begin
   cbTelefone.Properties.Items.Clear;
 
@@ -203,7 +238,11 @@ begin
   dmPrincipal.FDQuery1.SQL.Add('         principal, ');
   dmPrincipal.FDQuery1.SQL.Add('         ''(''||ddd||'') ''||numero as telefone ');
   dmPrincipal.FDQuery1.SQL.Add('    from telefones');
+  dmPrincipal.FDQuery1.SQL.Add('   where codigo_obreiro = :codigo_obreiro');
   dmPrincipal.FDQuery1.SQL.Add('order by principal desc	');
+
+  dmPrincipal.FDQuery1.ParamByName('codigo_obreiro').AsInteger := pCodigoObreiro;
+
   dmPrincipal.FDQuery1.Open;
 
   FDMemTable2.Open;
@@ -223,7 +262,43 @@ begin
   end;
 end;
 
-function TFraObreiros.CarregarNomeCargo(ACodigoCargo: integer): string;
+procedure TFraObreiros.CarregarDisponibilidades(pCodigoObreiro: Integer);
+begin
+  dmPrincipal.FDQuery1.Close;
+  dmPrincipal.FDQuery1.SQL.Clear;
+  dmPrincipal.FDQuery1.SQL.Add('	select * ');
+  dmPrincipal.FDQuery1.SQL.Add('	  from disponibilidades ');
+  dmPrincipal.FDQuery1.SQL.Add('  where codigo_obreiro = :codigo_obreiro ');
+  dmPrincipal.FDQuery1.ParamByName('codigo_obreiro').AsInteger := pCodigoObreiro;
+  dmPrincipal.FDQuery1.Open;
+
+  chbDomManha.Checked := dmPrincipal.FDQuery1.FieldByName('mDom').AsInteger = 1;
+  chbSegManha.Checked := dmPrincipal.FDQuery1.FieldByName('mSeg').AsInteger = 1;
+  chbterManha.Checked := dmPrincipal.FDQuery1.FieldByName('mTer').AsInteger = 1;
+  chbQuaManha.Checked := dmPrincipal.FDQuery1.FieldByName('mQua').AsInteger = 1;
+  chbQuiManha.Checked := dmPrincipal.FDQuery1.FieldByName('mQui').AsInteger = 1;
+  chbSexManha.Checked := dmPrincipal.FDQuery1.FieldByName('mSex').AsInteger = 1;
+  chbSabManha.Checked := dmPrincipal.FDQuery1.FieldByName('mSab').AsInteger = 1;
+
+  chbDomTarde.Checked := dmPrincipal.FDQuery1.FieldByName('tDom').AsInteger = 1;
+  chbSegTarde.Checked := dmPrincipal.FDQuery1.FieldByName('tSeg').AsInteger = 1;
+  chbterTarde.Checked := dmPrincipal.FDQuery1.FieldByName('tTer').AsInteger = 1;
+  chbQuaTarde.Checked := dmPrincipal.FDQuery1.FieldByName('tQua').AsInteger = 1;
+  chbQuiTarde.Checked := dmPrincipal.FDQuery1.FieldByName('tQui').AsInteger = 1;
+  chbSexTarde.Checked := dmPrincipal.FDQuery1.FieldByName('tSex').AsInteger = 1;
+  chbSabTarde.Checked := dmPrincipal.FDQuery1.FieldByName('tSab').AsInteger = 1;
+
+  chbDomNoite.Checked := dmPrincipal.FDQuery1.FieldByName('nDom').AsInteger = 1;
+  chbSegNoite.Checked := dmPrincipal.FDQuery1.FieldByName('nSeg').AsInteger = 1;
+  chbterNoite.Checked := dmPrincipal.FDQuery1.FieldByName('nTer').AsInteger = 1;
+  chbQuaNoite.Checked := dmPrincipal.FDQuery1.FieldByName('nQua').AsInteger = 1;
+  chbQuiNoite.Checked := dmPrincipal.FDQuery1.FieldByName('nQui').AsInteger = 1;
+  chbSexNoite.Checked := dmPrincipal.FDQuery1.FieldByName('nSex').AsInteger = 1;
+  chbSabNoite.Checked := dmPrincipal.FDQuery1.FieldByName('nSab').AsInteger = 1;
+
+end;
+
+function TFraObreiros.PesquisarNomeCargo(ACodigoCargo: integer): string;
 begin
   Result := EmptyStr;
   dmPrincipal.FDQuery1.Close;
@@ -294,7 +369,10 @@ begin
 
   frmTelefone := TfrmTelefone.Create(Self);
 
-  frmTelefone.cxMaskEdit1.Text := cbTelefone.Text;
+  frmTelefone.cxMaskEdit1.Text := trim(cbTelefone.Text);
+
+  if FDMemTable2.Locate('telefone', trim(cbTelefone.Text), []) then
+    frmTelefone.cxCheckBox1.Checked := FDMemTable2.FieldByName('principal').AsInteger = 1;
 
   try
     frmTelefone.ShowModal;
@@ -331,11 +409,278 @@ begin
 end;
 
 procedure TFraObreiros.cxImage3Click(Sender: TObject);
+var
+  vIndextelefone: Integer;
 begin
   inherited;
 
   if trim(cbTelefone.Text) = EmptyStr then
     Exit;
+
+  vIndextelefone := cbTelefone.ItemIndex;
+
+  if FDMemTable2.Locate('telefone', trim(cbTelefone.Text), []) then
+    FDMemTable2.Delete;
+
+  cbTelefone.Properties.Items.Delete(vIndextelefone);
+
+  if vIndextelefone < cbTelefone.Properties.Items.Count then
+    cbTelefone.ItemIndex := vIndextelefone
+  else
+    cbTelefone.ItemIndex := cbTelefone.Properties.Items.Count - 1;
+
+end;
+
+procedure TFraObreiros.cxLabel14Click(Sender: TObject);
+begin
+  inherited;
+  chbDomManha.Checked := not chbDomManha.Checked ;
+  chbSegManha.Checked := not chbSegManha.Checked ;
+  chbTerManha.Checked := not chbTerManha.Checked ;
+  chbQuaManha.Checked := not chbQuaManha.Checked ;
+  chbQuiManha.Checked := not chbQuiManha.Checked ;
+  chbSexManha.Checked := not chbSexManha.Checked ;
+  chbSabManha.Checked := not chbSabManha.Checked ;
+
+  chbDomTarde.Checked := not chbDomTarde.Checked ;
+  chbSegTarde.Checked := not chbSegTarde.Checked ;
+  chbTerTarde.Checked := not chbTerTarde.Checked ;
+  chbQuaTarde.Checked := not chbQuaTarde.Checked ;
+  chbQuiTarde.Checked := not chbQuiTarde.Checked ;
+  chbSexTarde.Checked := not chbSexTarde.Checked ;
+  chbSabTarde.Checked := not chbSabTarde.Checked ;
+
+  chbDomNoite.Checked := not chbDomNoite.Checked ;
+  chbSegNoite.Checked := not chbSegNoite.Checked ;
+  chbTerNoite.Checked := not chbTerNoite.Checked ;
+  chbQuaNoite.Checked := not chbQuaNoite.Checked ;
+  chbQuiNoite.Checked := not chbQuiNoite.Checked ;
+  chbSexNoite.Checked := not chbSexNoite.Checked ;
+  chbSabNoite.Checked := not chbSabNoite.Checked ;
+end;
+
+procedure TFraObreiros.cxLabel14MouseEnter(Sender: TObject);
+begin
+  inherited;
+  TLibary.MudarCorLabelEnter(cxLabel14);
+end;
+
+procedure TFraObreiros.cxLabel14MouseLeave(Sender: TObject);
+begin
+  inherited;
+  TLibary.MudarCorLabelLeave(cxLabel14);
+end;
+
+procedure TFraObreiros.cxLabel15Click(Sender: TObject);
+begin
+  inherited;
+  chbSegManha.Checked := not chbSegManha.Checked ;
+  chbSegTarde.Checked := not chbSegTarde.Checked ;
+  chbSegNoite.Checked := not chbSegNoite.Checked ;
+end;
+
+procedure TFraObreiros.cxLabel15MouseEnter(Sender: TObject);
+begin
+  inherited;
+  TLibary.MudarCorLabelEnter(cxLabel15);
+end;
+
+procedure TFraObreiros.cxLabel15MouseLeave(Sender: TObject);
+begin
+  inherited;
+  TLibary.MudarCorLabelLeave(cxLabel15);
+end;
+
+procedure TFraObreiros.cxLabel16Click(Sender: TObject);
+begin
+  inherited;
+  chbTerManha.Checked := not chbTerManha.Checked ;
+  chbTerTarde.Checked := not chbTerTarde.Checked ;
+  chbTerNoite.Checked := not chbTerNoite.Checked ;
+end;
+
+procedure TFraObreiros.cxLabel16MouseEnter(Sender: TObject);
+begin
+  inherited;
+  TLibary.MudarCorLabelEnter(cxLabel16);
+end;
+
+procedure TFraObreiros.cxLabel16MouseLeave(Sender: TObject);
+begin
+  inherited;
+  TLibary.MudarCorLabelLeave(cxLabel16);
+end;
+
+procedure TFraObreiros.cxLabel17Click(Sender: TObject);
+begin
+  inherited;
+  chbDomManha.Checked := not chbDomManha.Checked ;
+  chbDomTarde.Checked := not chbDomTarde.Checked ;
+  chbDomNoite.Checked := not chbDomNoite.Checked ;
+end;
+
+procedure TFraObreiros.cxLabel17MouseEnter(Sender: TObject);
+begin
+  inherited;
+  TLibary.MudarCorLabelEnter(cxLabel17);
+end;
+
+procedure TFraObreiros.cxLabel17MouseLeave(Sender: TObject);
+begin
+  inherited;
+  TLibary.MudarCorLabelLeave(cxLabel17);
+end;
+
+procedure TFraObreiros.cxLabel18Click(Sender: TObject);
+begin
+  inherited;
+  chbSexManha.Checked := not chbSexManha.Checked ;
+  chbSexTarde.Checked := not chbSexTarde.Checked ;
+  chbSexNoite.Checked := not chbSexNoite.Checked ;
+end;
+
+procedure TFraObreiros.cxLabel18MouseEnter(Sender: TObject);
+begin
+  inherited;
+  TLibary.MudarCorLabelEnter(cxLabel18);
+end;
+
+procedure TFraObreiros.cxLabel18MouseLeave(Sender: TObject);
+begin
+  inherited;
+  TLibary.MudarCorLabelLeave(cxLabel18);
+end;
+
+procedure TFraObreiros.cxLabel19Click(Sender: TObject);
+begin
+  inherited;
+  chbQuiManha.Checked := not chbQuiManha.Checked ;
+  chbQuiTarde.Checked := not chbQuiTarde.Checked ;
+  chbQuiNoite.Checked := not chbQuiNoite.Checked ;
+end;
+
+procedure TFraObreiros.cxLabel19MouseEnter(Sender: TObject);
+begin
+  inherited;
+  TLibary.MudarCorLabelEnter(cxLabel19);
+end;
+
+procedure TFraObreiros.cxLabel19MouseLeave(Sender: TObject);
+begin
+  inherited;
+  TLibary.MudarCorLabelLeave(cxLabel19);
+end;
+
+procedure TFraObreiros.cxLabel20Click(Sender: TObject);
+begin
+  inherited;
+  chbQuaManha.Checked := not chbQuaManha.Checked ;
+  chbQuaTarde.Checked := not chbQuaTarde.Checked ;
+  chbQuaNoite.Checked := not chbQuaNoite.Checked ;
+end;
+
+procedure TFraObreiros.cxLabel20MouseEnter(Sender: TObject);
+begin
+  inherited;
+  TLibary.MudarCorLabelEnter(cxLabel20);
+end;
+
+procedure TFraObreiros.cxLabel20MouseLeave(Sender: TObject);
+begin
+  inherited;
+  TLibary.MudarCorLabelLeave(cxLabel20);
+end;
+
+procedure TFraObreiros.cxLabel21Click(Sender: TObject);
+begin
+  inherited;
+  chbSabManha.Checked := not chbSabManha.Checked ;
+  chbSabTarde.Checked := not chbSabTarde.Checked ;
+  chbSabNoite.Checked := not chbSabNoite.Checked ;
+end;
+
+procedure TFraObreiros.cxLabel21MouseEnter(Sender: TObject);
+begin
+  inherited;
+  TLibary.MudarCorLabelEnter(cxLabel21);
+end;
+
+procedure TFraObreiros.cxLabel21MouseLeave(Sender: TObject);
+begin
+  inherited;
+  TLibary.MudarCorLabelLeave(cxLabel21);
+end;
+
+procedure TFraObreiros.cxLabel6Click(Sender: TObject);
+begin
+  inherited;
+  chbDomNoite.Checked := not chbDomNoite.Checked ;
+  chbSegNoite.Checked := not chbSegNoite.Checked ;
+  chbTerNoite.Checked := not chbTerNoite.Checked ;
+  chbQuaNoite.Checked := not chbQuaNoite.Checked ;
+  chbQuiNoite.Checked := not chbQuiNoite.Checked ;
+  chbSexNoite.Checked := not chbSexNoite.Checked ;
+  chbSabNoite.Checked := not chbSabNoite.Checked ;
+end;
+
+procedure TFraObreiros.cxLabel6MouseEnter(Sender: TObject);
+begin
+  inherited;
+  TLibary.MudarCorLabelEnter(cxLabel6);
+end;
+
+procedure TFraObreiros.cxLabel6MouseLeave(Sender: TObject);
+begin
+  inherited;
+  TLibary.MudarCorLabelLeave(cxLabel6);
+end;
+
+procedure TFraObreiros.cxLabel7Click(Sender: TObject);
+begin
+  inherited;
+  chbDomTarde.Checked := not chbDomTarde.Checked ;
+  chbSegTarde.Checked := not chbSegTarde.Checked ;
+  chbTerTarde.Checked := not chbTerTarde.Checked ;
+  chbQuaTarde.Checked := not chbQuaTarde.Checked ;
+  chbQuiTarde.Checked := not chbQuiTarde.Checked ;
+  chbSexTarde.Checked := not chbSexTarde.Checked ;
+  chbSabTarde.Checked := not chbSabTarde.Checked ;
+end;
+
+procedure TFraObreiros.cxLabel7MouseEnter(Sender: TObject);
+begin
+  inherited;
+  TLibary.MudarCorLabelEnter(cxLabel7);
+end;
+
+procedure TFraObreiros.cxLabel7MouseLeave(Sender: TObject);
+begin
+  inherited;
+  TLibary.MudarCorLabelLeave(cxLabel7);
+end;
+
+procedure TFraObreiros.cxLabel8Click(Sender: TObject);
+begin
+  inherited;
+  chbDomManha.Checked := not chbDomManha.Checked ;
+  chbSegManha.Checked := not chbSegManha.Checked ;
+  chbTerManha.Checked := not chbTerManha.Checked ;
+  chbQuaManha.Checked := not chbQuaManha.Checked ;
+  chbQuiManha.Checked := not chbQuiManha.Checked ;
+  chbSexManha.Checked := not chbSexManha.Checked ;
+  chbSabManha.Checked := not chbSabManha.Checked ;
+end;
+
+procedure TFraObreiros.cxLabel8MouseEnter(Sender: TObject);
+begin
+  inherited;
+  TLibary.MudarCorLabelEnter(cxLabel8);
+end;
+
+procedure TFraObreiros.cxLabel8MouseLeave(Sender: TObject);
+begin
+  inherited;
+  TLibary.MudarCorLabelLeave(cxLabel8);
 end;
 
 procedure TFraObreiros.EdicaoRegistro;
@@ -374,7 +719,7 @@ begin
   inherited;
   if not FDMemTable1codigo_cargo.IsNull then
   begin
-    FDMemTable1nome_cargo.AsString := CarregarNomeCargo(FDMemTable1codigo_cargo.AsInteger);
+    FDMemTable1nome_cargo.AsString := PesquisarNomeCargo(FDMemTable1codigo_cargo.AsInteger);
   end;
 end;
 
@@ -420,6 +765,76 @@ begin
   end;
 end;
 
+procedure TFraObreiros.SalvarDisponibilidade(pCodigoObreiro: Integer);
+begin
+  try
+    dmPrincipal.FDQuery1.Close;
+    dmPrincipal.FDQuery1.SQL.Clear;
+    dmPrincipal.FDQuery1.SQL.Add('  select * ');
+    dmPrincipal.FDQuery1.SQL.Add('    from disponibilidades ');
+    dmPrincipal.FDQuery1.SQL.Add('   where codigo_obreiro = :codigo_obreiro');
+    dmPrincipal.FDQuery1.ParamByName('codigo_obreiro').AsInteger := pCodigoObreiro;
+
+    dmPrincipal.FDQuery1.Open;
+
+    if dmPrincipal.FDQuery1.IsEmpty then
+    begin
+      dmPrincipal.FDQuery1.Close;
+      dmPrincipal.FDQuery1.SQL.Clear;
+      dmPrincipal.FDQuery1.SQL.Add('INSERT INTO disponibilidades( ');
+      dmPrincipal.FDQuery1.SQL.Add('	codigo_obreiro, "mDom","mSeg","mTer","mQua","mQui","mSex","mSab", ');
+      dmPrincipal.FDQuery1.SQL.Add('                  "tDom","tSeg","tTer","tQua","tQui","tSex","tSab", ');
+      dmPrincipal.FDQuery1.SQL.Add('                  "nDom","nSeg","nTer","nQua","nQui","nSex","nSab") ');
+      dmPrincipal.FDQuery1.SQL.Add(' VALUES ( ');
+      dmPrincipal.FDQuery1.SQL.Add(' :codigo_obreiro, :mDom, :mSeg, :mTer, :mQua, :mQui, :mSex, :mSab, ');
+      dmPrincipal.FDQuery1.SQL.Add('                  :tDom, :tSeg, :tTer, :tQua, :tQui, :tSex, :tSab, ');
+      dmPrincipal.FDQuery1.SQL.Add('                  :nDom, :nSeg, :nTer, :nQua, :nQui, :nSex, :nSab) ');
+    end
+    else
+    begin
+      dmPrincipal.FDQuery1.Close;
+      dmPrincipal.FDQuery1.SQL.Clear;
+      dmPrincipal.FDQuery1.SQL.Add('UPDATE disponibilidades ');
+      dmPrincipal.FDQuery1.SQL.Add('	SET "mDom"=:mDom, "mSeg"=:mSeg, "mTer"=:mTer, "mQua"=:mQua, "mQui"=:mQui, "mSex"=:mSex, "mSab"=:mSab, ');
+      dmPrincipal.FDQuery1.SQL.Add('	    "tDom"=:tDom, "tSeg"=:tSeg, "tTer"=:tTer, "tQua"=:tQua, "tQui"=:tQui, "tSex"=:tSex, "tSab"=:tSab, ');
+      dmPrincipal.FDQuery1.SQL.Add('	  	"nDom"=:nDom, "nSeg"=:nSeg, "nTer"=:nTer, "nQua"=:nQua, "nQui"=:nQui, "nSex"=:nSex, "nSab"=:nSab ');
+      dmPrincipal.FDQuery1.SQL.Add('	WHERE codigo_obreiro = :codigo_obreiro ');
+    end;
+
+    dmPrincipal.FDQuery1.ParamByName('codigo_obreiro').AsInteger := pCodigoObreiro;
+
+  //manhã
+    dmPrincipal.FDQuery1.ParamByName('mDom').AsInteger := ifthen(chbDomManha.Checked, 1, 0);
+    dmPrincipal.FDQuery1.ParamByName('mSeg').AsInteger := ifthen(chbSegManha.Checked, 1, 0);
+    dmPrincipal.FDQuery1.ParamByName('mTer').AsInteger := ifthen(chbTerManha.Checked, 1, 0);
+    dmPrincipal.FDQuery1.ParamByName('mQua').AsInteger := ifthen(chbQuaManha.Checked, 1, 0);
+    dmPrincipal.FDQuery1.ParamByName('mQui').AsInteger := ifthen(chbQuiManha.Checked, 1, 0);
+    dmPrincipal.FDQuery1.ParamByName('mSex').AsInteger := ifthen(chbSexManha.Checked, 1, 0);
+    dmPrincipal.FDQuery1.ParamByName('mSab').AsInteger := ifthen(chbSabManha.Checked, 1, 0);
+  //tarde
+    dmPrincipal.FDQuery1.ParamByName('tDom').AsInteger := ifthen(chbDomTarde.Checked, 1, 0);
+    dmPrincipal.FDQuery1.ParamByName('tSeg').AsInteger := ifthen(chbSegTarde.Checked, 1, 0);
+    dmPrincipal.FDQuery1.ParamByName('tTer').AsInteger := ifthen(chbTerTarde.Checked, 1, 0);
+    dmPrincipal.FDQuery1.ParamByName('tQua').AsInteger := ifthen(chbQuaTarde.Checked, 1, 0);
+    dmPrincipal.FDQuery1.ParamByName('tQui').AsInteger := ifthen(chbQuiTarde.Checked, 1, 0);
+    dmPrincipal.FDQuery1.ParamByName('tSex').AsInteger := ifthen(chbSexTarde.Checked, 1, 0);
+    dmPrincipal.FDQuery1.ParamByName('tSab').AsInteger := ifthen(chbSabTarde.Checked, 1, 0);
+  //noite
+    dmPrincipal.FDQuery1.ParamByName('nDom').AsInteger := ifthen(chbDomNoite.Checked, 1, 0);
+    dmPrincipal.FDQuery1.ParamByName('nSeg').AsInteger := ifthen(chbSegNoite.Checked, 1, 0);
+    dmPrincipal.FDQuery1.ParamByName('nTer').AsInteger := ifthen(chbTerNoite.Checked, 1, 0);
+    dmPrincipal.FDQuery1.ParamByName('nQua').AsInteger := ifthen(chbQuaNoite.Checked, 1, 0);
+    dmPrincipal.FDQuery1.ParamByName('nQui').AsInteger := ifthen(chbQuiNoite.Checked, 1, 0);
+    dmPrincipal.FDQuery1.ParamByName('nSex').AsInteger := ifthen(chbSexNoite.Checked, 1, 0);
+    dmPrincipal.FDQuery1.ParamByName('nSab').AsInteger := ifthen(chbSabNoite.Checked, 1, 0);
+    dmPrincipal.FDQuery1.ExecSQL;
+  except
+    on e: Exception do
+      raise ExDisponibilidadesException.Create('Erro ao salvar as disponibilidades. ' + e.Message);
+  end;
+
+end;
+
 procedure TFraObreiros.SalvarRegistro;
 var
   Obreiro: TObreiros;
@@ -436,13 +851,15 @@ begin
     Obreiro.Nome := Trim(edtNome.Text);
     Obreiro.Dt_Nascimento := dtDataNascimento.Date;
     Obreiro.Save;
+    SalvarTelefone(Obreiro.Codigo);
+    SalvarDisponibilidade(Obreiro.Codigo);
   finally
     Cargo.Free;
     Obreiro.Free;
   end;
 end;
 
-procedure TFraObreiros.SalvarTelefone;
+procedure TFraObreiros.SalvarTelefone(pCodigoObreiro: Integer);
 begin
 
 end;
@@ -451,11 +868,12 @@ procedure TFraObreiros.tsManutencaoShow(Sender: TObject);
 begin
   inherited;
   CarregarComboCargos;
-  CarregarComboTelefones;
 
   if (not (Trim(edtCodigo.Text) = EmptyStr) and not (Trim(edtCodigo.Text) = '0')) then
   begin
     PosicionarItemIndexCargo(FDMemTable1.FieldByName('codigo_cargo').AsInteger);
+    CarregarComboTelefones(FDMemTable1.FieldByName('codigo').AsInteger);
+    CarregarDisponibilidades(FDMemTable1.FieldByName('codigo').AsInteger);
   end;
 end;
 

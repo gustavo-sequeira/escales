@@ -68,7 +68,7 @@ type
 implementation
 
 uses
-  uDmPrincipal;
+  uDmPrincipal,  uLibary;
 
 {$R *.dfm}
 

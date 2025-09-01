@@ -1,21 +1,21 @@
 inherited FraObreiros: TFraObreiros
-  Width = 897
-  ExplicitWidth = 897
+  Width = 898
+  ExplicitWidth = 898
   inherited gbPrincipal: TcxGroupBox
     Caption = 'OBREIROS'
     ExplicitWidth = 897
-    Width = 897
+    Width = 898
     inherited pcFramePrincipal: TcxPageControl
-      Width = 891
+      Width = 892
       Properties.ActivePage = tsManutencao
       ExplicitWidth = 891
-      ClientRectRight = 891
+      ClientRectRight = 892
       inherited tsConsulta: TcxTabSheet
-        ExplicitTop = 26
         ExplicitWidth = 891
-        ExplicitHeight = 430
         inherited grdFramePrincial: TcxGrid
           inherited grdFramePrincialDBTableView1: TcxGridDBTableView
+            Navigator.InfoPanel.DisplayMask = '[RecordIndex] de [RecordCount]'
+            OptionsSelection.CellSelect = False
             object grdFramePrincialDBTableView1codigo: TcxGridDBColumn [0]
               DataBinding.FieldName = 'codigo'
               Visible = False
@@ -25,15 +25,31 @@ inherited FraObreiros: TFraObreiros
               Visible = False
             end
             object grdFramePrincialDBTableView1nome_cargo: TcxGridDBColumn [2]
+              Caption = 'Cargo'
               DataBinding.FieldName = 'nome_cargo'
+              PropertiesClassName = 'TcxTextEditProperties'
+              Properties.Alignment.Horz = taLeftJustify
+              HeaderAlignmentHorz = taCenter
+              Options.Editing = False
+              Width = 200
             end
             object grdFramePrincialDBTableView1nome: TcxGridDBColumn [3]
               Caption = 'Nome'
               DataBinding.FieldName = 'nome'
+              PropertiesClassName = 'TcxTextEditProperties'
+              Properties.Alignment.Horz = taLeftJustify
+              HeaderAlignmentHorz = taCenter
+              Options.Editing = False
+              Width = 330
             end
             object grdFramePrincialDBTableView1dt_nascimento: TcxGridDBColumn [4]
-              Caption = 'Dt Nascimento'
+              Caption = 'Data de Nascimento'
               DataBinding.FieldName = 'dt_nascimento'
+              PropertiesClassName = 'TcxDateEditProperties'
+              Properties.Alignment.Horz = taCenter
+              HeaderAlignmentHorz = taCenter
+              Options.Editing = False
+              Width = 150
             end
           end
         end
@@ -284,6 +300,7 @@ inherited FraObreiros: TFraObreiros
                 object cxLabel6: TcxLabel
                   Left = 3
                   Top = 3
+                  Cursor = crHandPoint
                   Align = alClient
                   Caption = 'NOITE'
                   ParentFont = False
@@ -295,6 +312,10 @@ inherited FraObreiros: TFraObreiros
                   Style.IsFontAssigned = True
                   Properties.Alignment.Horz = taCenter
                   Transparent = True
+                  OnClick = cxLabel6Click
+                  OnMouseEnter = cxLabel6MouseEnter
+                  OnMouseLeave = cxLabel6MouseLeave
+                  ExplicitLeft = 4
                   AnchorX = 38
                 end
                 object chbDomNoite: TcxCheckBox
@@ -480,6 +501,7 @@ inherited FraObreiros: TFraObreiros
                 object cxLabel14: TcxLabel
                   Left = 3
                   Top = 3
+                  Cursor = crHandPoint
                   Align = alClient
                   Caption = 'TURNO / DIA'
                   ParentFont = False
@@ -488,14 +510,19 @@ inherited FraObreiros: TFraObreiros
                   Style.Font.Height = -8
                   Style.Font.Name = 'Segoe UI'
                   Style.Font.Style = [fsBold]
+                  Style.TextColor = clWindowText
                   Style.IsFontAssigned = True
                   Properties.Alignment.Horz = taCenter
                   Transparent = True
+                  OnClick = cxLabel14Click
+                  OnMouseEnter = cxLabel14MouseEnter
+                  OnMouseLeave = cxLabel14MouseLeave
                   AnchorX = 38
                 end
                 object cxLabel15: TcxLabel
                   Left = 109
                   Top = 3
+                  Cursor = crHandPoint
                   Align = alRight
                   AutoSize = False
                   Caption = 'SEG'
@@ -508,6 +535,9 @@ inherited FraObreiros: TFraObreiros
                   Style.IsFontAssigned = True
                   Properties.Alignment.Horz = taCenter
                   Transparent = True
+                  OnClick = cxLabel15Click
+                  OnMouseEnter = cxLabel15MouseEnter
+                  OnMouseLeave = cxLabel15MouseLeave
                   Height = 15
                   Width = 33
                   AnchorX = 126
@@ -515,6 +545,7 @@ inherited FraObreiros: TFraObreiros
                 object cxLabel16: TcxLabel
                   Left = 144
                   Top = 3
+                  Cursor = crHandPoint
                   Align = alRight
                   AutoSize = False
                   Caption = 'TER'
@@ -527,6 +558,9 @@ inherited FraObreiros: TFraObreiros
                   Style.IsFontAssigned = True
                   Properties.Alignment.Horz = taCenter
                   Transparent = True
+                  OnClick = cxLabel16Click
+                  OnMouseEnter = cxLabel16MouseEnter
+                  OnMouseLeave = cxLabel16MouseLeave
                   Height = 15
                   Width = 33
                   AnchorX = 161
@@ -534,6 +568,7 @@ inherited FraObreiros: TFraObreiros
                 object cxLabel17: TcxLabel
                   Left = 74
                   Top = 3
+                  Cursor = crHandPoint
                   Align = alRight
                   AutoSize = False
                   Caption = 'DOM'
@@ -546,6 +581,9 @@ inherited FraObreiros: TFraObreiros
                   Style.IsFontAssigned = True
                   Properties.Alignment.Horz = taCenter
                   Transparent = True
+                  OnClick = cxLabel17Click
+                  OnMouseEnter = cxLabel17MouseEnter
+                  OnMouseLeave = cxLabel17MouseLeave
                   Height = 15
                   Width = 33
                   AnchorX = 91
@@ -553,6 +591,7 @@ inherited FraObreiros: TFraObreiros
                 object cxLabel18: TcxLabel
                   Left = 249
                   Top = 3
+                  Cursor = crHandPoint
                   Align = alRight
                   AutoSize = False
                   Caption = 'SEX'
@@ -565,6 +604,9 @@ inherited FraObreiros: TFraObreiros
                   Style.IsFontAssigned = True
                   Properties.Alignment.Horz = taCenter
                   Transparent = True
+                  OnClick = cxLabel18Click
+                  OnMouseEnter = cxLabel18MouseEnter
+                  OnMouseLeave = cxLabel18MouseLeave
                   Height = 15
                   Width = 33
                   AnchorX = 266
@@ -572,6 +614,7 @@ inherited FraObreiros: TFraObreiros
                 object cxLabel19: TcxLabel
                   Left = 214
                   Top = 3
+                  Cursor = crHandPoint
                   Align = alRight
                   AutoSize = False
                   Caption = 'QUI'
@@ -584,6 +627,9 @@ inherited FraObreiros: TFraObreiros
                   Style.IsFontAssigned = True
                   Properties.Alignment.Horz = taCenter
                   Transparent = True
+                  OnClick = cxLabel19Click
+                  OnMouseEnter = cxLabel19MouseEnter
+                  OnMouseLeave = cxLabel19MouseLeave
                   Height = 15
                   Width = 33
                   AnchorX = 231
@@ -591,6 +637,7 @@ inherited FraObreiros: TFraObreiros
                 object cxLabel20: TcxLabel
                   Left = 179
                   Top = 3
+                  Cursor = crHandPoint
                   Align = alRight
                   AutoSize = False
                   Caption = 'QUA'
@@ -603,6 +650,9 @@ inherited FraObreiros: TFraObreiros
                   Style.IsFontAssigned = True
                   Properties.Alignment.Horz = taCenter
                   Transparent = True
+                  OnClick = cxLabel20Click
+                  OnMouseEnter = cxLabel20MouseEnter
+                  OnMouseLeave = cxLabel20MouseLeave
                   Height = 15
                   Width = 33
                   AnchorX = 196
@@ -610,6 +660,7 @@ inherited FraObreiros: TFraObreiros
                 object cxLabel21: TcxLabel
                   Left = 284
                   Top = 3
+                  Cursor = crHandPoint
                   Align = alRight
                   AutoSize = False
                   Caption = 'S'#193'B'
@@ -622,6 +673,9 @@ inherited FraObreiros: TFraObreiros
                   Style.IsFontAssigned = True
                   Properties.Alignment.Horz = taCenter
                   Transparent = True
+                  OnClick = cxLabel21Click
+                  OnMouseEnter = cxLabel21MouseEnter
+                  OnMouseLeave = cxLabel21MouseLeave
                   Height = 15
                   Width = 33
                   AnchorX = 301
@@ -707,6 +761,7 @@ inherited FraObreiros: TFraObreiros
                 object cxLabel7: TcxLabel
                   Left = 3
                   Top = 3
+                  Cursor = crHandPoint
                   Align = alClient
                   Caption = 'TARDE'
                   ParentFont = False
@@ -718,6 +773,9 @@ inherited FraObreiros: TFraObreiros
                   Style.IsFontAssigned = True
                   Properties.Alignment.Horz = taCenter
                   Transparent = True
+                  OnClick = cxLabel7Click
+                  OnMouseEnter = cxLabel7MouseEnter
+                  OnMouseLeave = cxLabel7MouseLeave
                   AnchorX = 38
                 end
                 object chbDomTarde: TcxCheckBox
@@ -899,6 +957,7 @@ inherited FraObreiros: TFraObreiros
                 object cxLabel8: TcxLabel
                   Left = 3
                   Top = 3
+                  Cursor = crHandPoint
                   Align = alClient
                   Caption = 'MANH'#195
                   ParentFont = False
@@ -910,6 +969,9 @@ inherited FraObreiros: TFraObreiros
                   Style.IsFontAssigned = True
                   Properties.Alignment.Horz = taCenter
                   Transparent = True
+                  OnClick = cxLabel8Click
+                  OnMouseEnter = cxLabel8MouseEnter
+                  OnMouseLeave = cxLabel8MouseLeave
                   AnchorX = 38
                 end
                 object chbDomManha: TcxCheckBox
@@ -1027,6 +1089,7 @@ inherited FraObreiros: TFraObreiros
                   Left = 0
                   Top = 0
                   Align = alClient
+                  Properties.DropDownListStyle = lsFixedList
                   Style.TransparentBorder = True
                   TabOrder = 0
                   Width = 245
@@ -1103,6 +1166,7 @@ inherited FraObreiros: TFraObreiros
                   TabOrder = 3
                   Transparent = True
                   OnClick = cxImage3Click
+                  ExplicitLeft = 297
                   Height = 23
                   Width = 23
                 end
@@ -1115,6 +1179,7 @@ inherited FraObreiros: TFraObreiros
   end
   inherited cxImageList: TcxImageList
     FormatVersion = 1
+    DesignInfo = 28573712
     ImageInfo = <
       item
         ImageClass = 'TdxSmartImage'
@@ -1204,6 +1269,7 @@ inherited FraObreiros: TFraObreiros
     FormatOptions.MaxBcdPrecision = 2147483647
     FormatOptions.MaxBcdScale = 1073741823
     StoreDefs = True
+    Left = 136
     object FDMemTable1codigo: TIntegerField
       FieldName = 'codigo'
     end
@@ -1223,13 +1289,17 @@ inherited FraObreiros: TFraObreiros
       FieldName = 'dt_nascimento'
     end
   end
+  inherited DataSource1: TDataSource
+    Left = 76
+  end
   inherited cxStyleRepository1: TcxStyleRepository
+    Left = 46
     PixelsPerInch = 96
   end
   object FDPhysPgDriverLink1: TFDPhysPgDriverLink
     VendorLib = 'C:\Program Files (x86)\PostgreSQL\psqlODBC\bin\libpq.dll'
-    Left = 176
-    Top = 432
+    Left = 196
+    Top = 436
   end
   object FDConnection1: TFDConnection
     Params.Strings = (
@@ -1238,15 +1308,15 @@ inherited FraObreiros: TFraObreiros
       'Password=postgres'
       'DriverID=pG')
     LoginPrompt = False
-    Left = 256
-    Top = 424
+    Left = 106
+    Top = 436
   end
   object p: TFDQuery
     Connection = FDConnection1
     SQL.Strings = (
       'select * from obreiros')
-    Left = 320
-    Top = 424
+    Left = 226
+    Top = 436
   end
   object FDMemTable2: TFDMemTable
     FetchOptions.AssignedValues = [evMode]
@@ -1256,8 +1326,8 @@ inherited FraObreiros: TFraObreiros
     UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
-    Left = 632
-    Top = 440
+    Left = 166
+    Top = 436
     object FDMemTable2ddd: TIntegerField
       FieldName = 'ddd'
     end
