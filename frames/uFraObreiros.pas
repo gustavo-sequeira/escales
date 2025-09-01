@@ -46,9 +46,6 @@ type
     cbCargo: TcxComboBox;
     dtDataNascimento: TcxDateEdit;
     cxLabel5: TcxLabel;
-    FDPhysPgDriverLink1: TFDPhysPgDriverLink;
-    FDConnection1: TFDConnection;
-    p: TFDQuery;
     FDMemTable1codigo: TIntegerField;
     FDMemTable1codigo_cargo: TIntegerField;
     FDMemTable1nome: TWideMemoField;
@@ -134,6 +131,7 @@ type
     FDMemTable2numero: TIntegerField;
     FDMemTable2principal: TIntegerField;
     FDMemTable2telefone: TStringField;
+    FDMemTable2codigo: TIntegerField;
     procedure tsManutencaoShow(Sender: TObject);
     procedure cxImage1Click(Sender: TObject);
     procedure cxImage2Click(Sender: TObject);
@@ -199,7 +197,8 @@ var
 implementation
 
 uses
-  uDmPrincipal, uFrmTelefone, uObreiro, uCargo, uEXEscales, uModeloBase, Math, uLibary;
+  uDmPrincipal, uFrmTelefone, uObreiro, uCargo, uEXEscales, uModeloBase, Math,
+  uLibary;
 
 {$R *.dfm}
 
@@ -233,7 +232,8 @@ begin
 
   dmPrincipal.FDQuery1.Close;
   dmPrincipal.FDQuery1.SQL.Clear;
-  dmPrincipal.FDQuery1.SQL.Add('  select ddd, ');
+  dmPrincipal.FDQuery1.SQL.Add('  select codigo, ');
+  dmPrincipal.FDQuery1.SQL.Add('         ddd, ');
   dmPrincipal.FDQuery1.SQL.Add('         numero, ');
   dmPrincipal.FDQuery1.SQL.Add('         principal, ');
   dmPrincipal.FDQuery1.SQL.Add('         ''(''||ddd||'') ''||numero as telefone ');
@@ -260,6 +260,8 @@ begin
     cbTelefone.Properties.Items.Add(dmPrincipal.FDQuery1.FieldByName('telefone').AsString);
     dmPrincipal.FDQuery1.Next;
   end;
+
+  cbTelefone.ItemIndex := 0;
 end;
 
 procedure TFraObreiros.CarregarDisponibilidades(pCodigoObreiro: Integer);
@@ -334,6 +336,7 @@ begin
       vApenasNumeros := StringReplace(vApenasNumeros, '-', '', [rfReplaceAll]);
       vApenasNumeros := StringReplace(vApenasNumeros, ' ', '', [rfReplaceAll]);
 
+      FDMemTable2.FieldByName('codigo').AsInteger := 0;
       FDMemTable2.FieldByName('ddd').AsInteger := StrToIntDef(Copy(vApenasNumeros, 1, 2), 0);
       FDMemTable2.FieldByName('numero').AsInteger := StrToIntDef(Copy(vApenasNumeros, 3, Length(vApenasNumeros)), 0);
       if frmTelefone.cxCheckBox1.Checked then
@@ -420,7 +423,18 @@ begin
   vIndextelefone := cbTelefone.ItemIndex;
 
   if FDMemTable2.Locate('telefone', trim(cbTelefone.Text), []) then
+  begin
+    dmPrincipal.FDQuery1.Close;
+    dmPrincipal.FDQuery1.SQL.Clear;
+    dmPrincipal.FDQuery1.SQL.Add('  delete ');
+    dmPrincipal.FDQuery1.SQL.Add('    from telefones');
+    dmPrincipal.FDQuery1.SQL.Add('   where codigo = :codigo');
+    dmPrincipal.FDQuery1.ParamByName('codigo').AsInteger := FDMemTable2.FieldByName('codigo').AsInteger;
+    dmPrincipal.FDQuery1.ExecSQL;
+
     FDMemTable2.Delete;
+  end;
+
 
   cbTelefone.Properties.Items.Delete(vIndextelefone);
 
@@ -434,29 +448,29 @@ end;
 procedure TFraObreiros.cxLabel14Click(Sender: TObject);
 begin
   inherited;
-  chbDomManha.Checked := not chbDomManha.Checked ;
-  chbSegManha.Checked := not chbSegManha.Checked ;
-  chbTerManha.Checked := not chbTerManha.Checked ;
-  chbQuaManha.Checked := not chbQuaManha.Checked ;
-  chbQuiManha.Checked := not chbQuiManha.Checked ;
-  chbSexManha.Checked := not chbSexManha.Checked ;
-  chbSabManha.Checked := not chbSabManha.Checked ;
+  chbDomManha.Checked := not chbDomManha.Checked;
+  chbSegManha.Checked := not chbSegManha.Checked;
+  chbTerManha.Checked := not chbTerManha.Checked;
+  chbQuaManha.Checked := not chbQuaManha.Checked;
+  chbQuiManha.Checked := not chbQuiManha.Checked;
+  chbSexManha.Checked := not chbSexManha.Checked;
+  chbSabManha.Checked := not chbSabManha.Checked;
 
-  chbDomTarde.Checked := not chbDomTarde.Checked ;
-  chbSegTarde.Checked := not chbSegTarde.Checked ;
-  chbTerTarde.Checked := not chbTerTarde.Checked ;
-  chbQuaTarde.Checked := not chbQuaTarde.Checked ;
-  chbQuiTarde.Checked := not chbQuiTarde.Checked ;
-  chbSexTarde.Checked := not chbSexTarde.Checked ;
-  chbSabTarde.Checked := not chbSabTarde.Checked ;
+  chbDomTarde.Checked := not chbDomTarde.Checked;
+  chbSegTarde.Checked := not chbSegTarde.Checked;
+  chbTerTarde.Checked := not chbTerTarde.Checked;
+  chbQuaTarde.Checked := not chbQuaTarde.Checked;
+  chbQuiTarde.Checked := not chbQuiTarde.Checked;
+  chbSexTarde.Checked := not chbSexTarde.Checked;
+  chbSabTarde.Checked := not chbSabTarde.Checked;
 
-  chbDomNoite.Checked := not chbDomNoite.Checked ;
-  chbSegNoite.Checked := not chbSegNoite.Checked ;
-  chbTerNoite.Checked := not chbTerNoite.Checked ;
-  chbQuaNoite.Checked := not chbQuaNoite.Checked ;
-  chbQuiNoite.Checked := not chbQuiNoite.Checked ;
-  chbSexNoite.Checked := not chbSexNoite.Checked ;
-  chbSabNoite.Checked := not chbSabNoite.Checked ;
+  chbDomNoite.Checked := not chbDomNoite.Checked;
+  chbSegNoite.Checked := not chbSegNoite.Checked;
+  chbTerNoite.Checked := not chbTerNoite.Checked;
+  chbQuaNoite.Checked := not chbQuaNoite.Checked;
+  chbQuiNoite.Checked := not chbQuiNoite.Checked;
+  chbSexNoite.Checked := not chbSexNoite.Checked;
+  chbSabNoite.Checked := not chbSabNoite.Checked;
 end;
 
 procedure TFraObreiros.cxLabel14MouseEnter(Sender: TObject);
@@ -474,9 +488,9 @@ end;
 procedure TFraObreiros.cxLabel15Click(Sender: TObject);
 begin
   inherited;
-  chbSegManha.Checked := not chbSegManha.Checked ;
-  chbSegTarde.Checked := not chbSegTarde.Checked ;
-  chbSegNoite.Checked := not chbSegNoite.Checked ;
+  chbSegManha.Checked := not chbSegManha.Checked;
+  chbSegTarde.Checked := not chbSegTarde.Checked;
+  chbSegNoite.Checked := not chbSegNoite.Checked;
 end;
 
 procedure TFraObreiros.cxLabel15MouseEnter(Sender: TObject);
@@ -494,9 +508,9 @@ end;
 procedure TFraObreiros.cxLabel16Click(Sender: TObject);
 begin
   inherited;
-  chbTerManha.Checked := not chbTerManha.Checked ;
-  chbTerTarde.Checked := not chbTerTarde.Checked ;
-  chbTerNoite.Checked := not chbTerNoite.Checked ;
+  chbTerManha.Checked := not chbTerManha.Checked;
+  chbTerTarde.Checked := not chbTerTarde.Checked;
+  chbTerNoite.Checked := not chbTerNoite.Checked;
 end;
 
 procedure TFraObreiros.cxLabel16MouseEnter(Sender: TObject);
@@ -514,9 +528,9 @@ end;
 procedure TFraObreiros.cxLabel17Click(Sender: TObject);
 begin
   inherited;
-  chbDomManha.Checked := not chbDomManha.Checked ;
-  chbDomTarde.Checked := not chbDomTarde.Checked ;
-  chbDomNoite.Checked := not chbDomNoite.Checked ;
+  chbDomManha.Checked := not chbDomManha.Checked;
+  chbDomTarde.Checked := not chbDomTarde.Checked;
+  chbDomNoite.Checked := not chbDomNoite.Checked;
 end;
 
 procedure TFraObreiros.cxLabel17MouseEnter(Sender: TObject);
@@ -534,9 +548,9 @@ end;
 procedure TFraObreiros.cxLabel18Click(Sender: TObject);
 begin
   inherited;
-  chbSexManha.Checked := not chbSexManha.Checked ;
-  chbSexTarde.Checked := not chbSexTarde.Checked ;
-  chbSexNoite.Checked := not chbSexNoite.Checked ;
+  chbSexManha.Checked := not chbSexManha.Checked;
+  chbSexTarde.Checked := not chbSexTarde.Checked;
+  chbSexNoite.Checked := not chbSexNoite.Checked;
 end;
 
 procedure TFraObreiros.cxLabel18MouseEnter(Sender: TObject);
@@ -554,9 +568,9 @@ end;
 procedure TFraObreiros.cxLabel19Click(Sender: TObject);
 begin
   inherited;
-  chbQuiManha.Checked := not chbQuiManha.Checked ;
-  chbQuiTarde.Checked := not chbQuiTarde.Checked ;
-  chbQuiNoite.Checked := not chbQuiNoite.Checked ;
+  chbQuiManha.Checked := not chbQuiManha.Checked;
+  chbQuiTarde.Checked := not chbQuiTarde.Checked;
+  chbQuiNoite.Checked := not chbQuiNoite.Checked;
 end;
 
 procedure TFraObreiros.cxLabel19MouseEnter(Sender: TObject);
@@ -574,9 +588,9 @@ end;
 procedure TFraObreiros.cxLabel20Click(Sender: TObject);
 begin
   inherited;
-  chbQuaManha.Checked := not chbQuaManha.Checked ;
-  chbQuaTarde.Checked := not chbQuaTarde.Checked ;
-  chbQuaNoite.Checked := not chbQuaNoite.Checked ;
+  chbQuaManha.Checked := not chbQuaManha.Checked;
+  chbQuaTarde.Checked := not chbQuaTarde.Checked;
+  chbQuaNoite.Checked := not chbQuaNoite.Checked;
 end;
 
 procedure TFraObreiros.cxLabel20MouseEnter(Sender: TObject);
@@ -594,9 +608,9 @@ end;
 procedure TFraObreiros.cxLabel21Click(Sender: TObject);
 begin
   inherited;
-  chbSabManha.Checked := not chbSabManha.Checked ;
-  chbSabTarde.Checked := not chbSabTarde.Checked ;
-  chbSabNoite.Checked := not chbSabNoite.Checked ;
+  chbSabManha.Checked := not chbSabManha.Checked;
+  chbSabTarde.Checked := not chbSabTarde.Checked;
+  chbSabNoite.Checked := not chbSabNoite.Checked;
 end;
 
 procedure TFraObreiros.cxLabel21MouseEnter(Sender: TObject);
@@ -614,13 +628,13 @@ end;
 procedure TFraObreiros.cxLabel6Click(Sender: TObject);
 begin
   inherited;
-  chbDomNoite.Checked := not chbDomNoite.Checked ;
-  chbSegNoite.Checked := not chbSegNoite.Checked ;
-  chbTerNoite.Checked := not chbTerNoite.Checked ;
-  chbQuaNoite.Checked := not chbQuaNoite.Checked ;
-  chbQuiNoite.Checked := not chbQuiNoite.Checked ;
-  chbSexNoite.Checked := not chbSexNoite.Checked ;
-  chbSabNoite.Checked := not chbSabNoite.Checked ;
+  chbDomNoite.Checked := not chbDomNoite.Checked;
+  chbSegNoite.Checked := not chbSegNoite.Checked;
+  chbTerNoite.Checked := not chbTerNoite.Checked;
+  chbQuaNoite.Checked := not chbQuaNoite.Checked;
+  chbQuiNoite.Checked := not chbQuiNoite.Checked;
+  chbSexNoite.Checked := not chbSexNoite.Checked;
+  chbSabNoite.Checked := not chbSabNoite.Checked;
 end;
 
 procedure TFraObreiros.cxLabel6MouseEnter(Sender: TObject);
@@ -638,13 +652,13 @@ end;
 procedure TFraObreiros.cxLabel7Click(Sender: TObject);
 begin
   inherited;
-  chbDomTarde.Checked := not chbDomTarde.Checked ;
-  chbSegTarde.Checked := not chbSegTarde.Checked ;
-  chbTerTarde.Checked := not chbTerTarde.Checked ;
-  chbQuaTarde.Checked := not chbQuaTarde.Checked ;
-  chbQuiTarde.Checked := not chbQuiTarde.Checked ;
-  chbSexTarde.Checked := not chbSexTarde.Checked ;
-  chbSabTarde.Checked := not chbSabTarde.Checked ;
+  chbDomTarde.Checked := not chbDomTarde.Checked;
+  chbSegTarde.Checked := not chbSegTarde.Checked;
+  chbTerTarde.Checked := not chbTerTarde.Checked;
+  chbQuaTarde.Checked := not chbQuaTarde.Checked;
+  chbQuiTarde.Checked := not chbQuiTarde.Checked;
+  chbSexTarde.Checked := not chbSexTarde.Checked;
+  chbSabTarde.Checked := not chbSabTarde.Checked;
 end;
 
 procedure TFraObreiros.cxLabel7MouseEnter(Sender: TObject);
@@ -662,13 +676,13 @@ end;
 procedure TFraObreiros.cxLabel8Click(Sender: TObject);
 begin
   inherited;
-  chbDomManha.Checked := not chbDomManha.Checked ;
-  chbSegManha.Checked := not chbSegManha.Checked ;
-  chbTerManha.Checked := not chbTerManha.Checked ;
-  chbQuaManha.Checked := not chbQuaManha.Checked ;
-  chbQuiManha.Checked := not chbQuiManha.Checked ;
-  chbSexManha.Checked := not chbSexManha.Checked ;
-  chbSabManha.Checked := not chbSabManha.Checked ;
+  chbDomManha.Checked := not chbDomManha.Checked;
+  chbSegManha.Checked := not chbSegManha.Checked;
+  chbTerManha.Checked := not chbTerManha.Checked;
+  chbQuaManha.Checked := not chbQuaManha.Checked;
+  chbQuiManha.Checked := not chbQuiManha.Checked;
+  chbSexManha.Checked := not chbSexManha.Checked;
+  chbSabManha.Checked := not chbSabManha.Checked;
 end;
 
 procedure TFraObreiros.cxLabel8MouseEnter(Sender: TObject);
@@ -727,10 +741,11 @@ procedure TFraObreiros.PosicionarItemIndexCargo(ACodigoCargo: integer);
 begin
   dmPrincipal.FDQuery1.Close;
   dmPrincipal.FDQuery1.SQL.Clear;
-  dmPrincipal.FDQuery1.SQL.Add('   	  WITH params AS (SELECT :codigo ::int AS codigo) ');
+//dmPrincipal.FDQuery1.SQL.Add('   	  WITH params AS (SELECT :codigo ::int AS codigo) ');
   dmPrincipal.FDQuery1.SQL.Add('	select abreviacao||''-''||nome as nome_cargo ');
-  dmPrincipal.FDQuery1.SQL.Add('	  from cargos c ');
-  dmPrincipal.FDQuery1.SQL.Add('inner join params p on c.codigo = p.codigo ');
+  dmPrincipal.FDQuery1.SQL.Add('	  from cargos ');
+  dmPrincipal.FDQuery1.SQL.Add('   where codigo = :codigo ');
+//dmPrincipal.FDQuery1.SQL.Add('inner join params p on c.codigo = p.codigo ');
   dmPrincipal.FDQuery1.ParamByName('codigo').AsInteger := ACodigoCargo;
   dmPrincipal.FDQuery1.Open;
 
@@ -861,6 +876,46 @@ end;
 
 procedure TFraObreiros.SalvarTelefone(pCodigoObreiro: Integer);
 begin
+  FDMemTable2.First;
+  while not (FDMemTable2.Eof) do
+  begin
+    dmPrincipal.FDQuery1.Close;
+    dmPrincipal.FDQuery1.SQL.Clear;
+    dmPrincipal.FDQuery1.SQL.Add('  select * ');
+    dmPrincipal.FDQuery1.SQL.Add('    from telefones ');
+    dmPrincipal.FDQuery1.SQL.Add('   where codigo_obreiro = :codigo_obreiro ');
+    dmPrincipal.FDQuery1.SQL.Add('     and codigo = :codigo ');
+    dmPrincipal.FDQuery1.ParamByName('codigo_obreiro').AsInteger := pCodigoObreiro;
+    dmPrincipal.FDQuery1.ParamByName('codigo').AsInteger := FDMemTable2.FieldByName('codigo').AsInteger;
+    dmPrincipal.FDQuery1.Open;
+
+    if dmPrincipal.FDQuery1.IsEmpty then
+    begin
+      dmPrincipal.FDQuery1.Close;
+      dmPrincipal.FDQuery1.SQL.Clear;
+      dmPrincipal.FDQuery1.SQL.Add('  INSERT INTO telefones( ');
+      dmPrincipal.FDQuery1.SQL.Add('  	codigo_obreiro, ddd, numero, principal) ');
+      dmPrincipal.FDQuery1.SQL.Add('  	VALUES (:codigo_obreiro, :ddd, :numero, :principal) ');
+    end
+    else
+    begin
+      dmPrincipal.FDQuery1.Close;
+      dmPrincipal.FDQuery1.SQL.Clear;
+      dmPrincipal.FDQuery1.SQL.Add('   UPDATE telefones ');
+      dmPrincipal.FDQuery1.SQL.Add('    	SET ddd = :ddd, numero = :numero, principal = :principal ');
+      dmPrincipal.FDQuery1.SQL.Add('  	WHERE codigo = :codigo ');
+      dmPrincipal.FDQuery1.SQL.Add('  	  AND codigo_obreiro = :codigo_obreiro ');
+      dmPrincipal.FDQuery1.ParamByName('codigo').AsInteger := FDMemTable2.FieldByName('codigo').AsInteger;
+    end;
+
+    dmPrincipal.FDQuery1.ParamByName('codigo_obreiro').AsInteger := pCodigoObreiro;
+    dmPrincipal.FDQuery1.ParamByName('ddd').AsInteger := FDMemTable2.FieldByName('ddd').AsInteger;
+    dmPrincipal.FDQuery1.ParamByName('numero').AsInteger := FDMemTable2.FieldByName('numero').AsInteger;
+    dmPrincipal.FDQuery1.ParamByName('principal').AsInteger := FDMemTable2.FieldByName('principal').AsInteger;
+
+    dmPrincipal.FDQuery1.ExecSQL;
+    FDMemTable2.Next;
+  end;
 
 end;
 

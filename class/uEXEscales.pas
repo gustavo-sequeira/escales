@@ -17,6 +17,7 @@ type
 
 
   ExCargosException = class(EXEscales);
+  ExDisponibilidadesException = class(EXEscales);
   ExObreirosException = class(EXEscales);
   EConexaoBDException = class(EXEscales);
   EPermissaoException = class(EXEscales);

@@ -122,9 +122,6 @@ object frmPrincipal: TfrmPrincipal
                 Item = dxNavBarCadastroObreiros
               end
               item
-                Item = dxNavBarCadastroTelefones
-              end
-              item
                 Item = dxNavBarCadastroVersiculos
               end>
           end

@@ -2,6 +2,8 @@ unit uLibary;
 
 interface
 
+uses cxLabel;
+
 type
   TLibary = class
   public
@@ -11,12 +13,14 @@ type
     function MelhorarTexto(const TextoOriginal: string): string;
     function SegundosAleatorios: Integer;
     function GerarMensagemLembrete(const Nome: string; const Horario: string): string;
+    class procedure MudarCorLabelEnter(pLabel: TcxLabel);
+    class procedure MudarCorLabelLeave(pLabel: TcxLabel);
   end;
 
 implementation
 
 uses
-  System.Net.URLClient, System.Net.HttpClient, System.Net.HttpClientComponent,
+  System.Net.URLClient, System.Net.HttpClient, System.Net.HttpClientComponent, Vcl.Graphics,
   System.SysUtils, System.StrUtils, System.JSON, System.Classes, System.Generics.Collections;
 
 function TLibary.MesValido(const AMes: string): Boolean;
@@ -39,6 +43,16 @@ begin
   for I := Low(Meses) to High(Meses) do
     if Meses[I] = MesNormalizado then
       Exit(True);
+end;
+
+class procedure TLibary.MudarCorLabelEnter(pLabel: TcxLabel);
+begin
+  pLabel.Style.TextColor := clBlue;
+end;
+
+class procedure TLibary.MudarCorLabelLeave(pLabel: TcxLabel);
+begin
+  pLabel.Style.TextColor := clWindowText;
 end;
 
 function TLibary.RetornarPalavra(const Texto: string; Posicao: integer): string;

@@ -1296,28 +1296,6 @@ inherited FraObreiros: TFraObreiros
     Left = 46
     PixelsPerInch = 96
   end
-  object FDPhysPgDriverLink1: TFDPhysPgDriverLink
-    VendorLib = 'C:\Program Files (x86)\PostgreSQL\psqlODBC\bin\libpq.dll'
-    Left = 196
-    Top = 436
-  end
-  object FDConnection1: TFDConnection
-    Params.Strings = (
-      'Database=escales'
-      'User_Name=postgres'
-      'Password=postgres'
-      'DriverID=pG')
-    LoginPrompt = False
-    Left = 106
-    Top = 436
-  end
-  object p: TFDQuery
-    Connection = FDConnection1
-    SQL.Strings = (
-      'select * from obreiros')
-    Left = 226
-    Top = 436
-  end
   object FDMemTable2: TFDMemTable
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
@@ -1328,6 +1306,9 @@ inherited FraObreiros: TFraObreiros
     UpdateOptions.AutoCommitUpdates = True
     Left = 166
     Top = 436
+    object FDMemTable2codigo: TIntegerField
+      FieldName = 'codigo'
+    end
     object FDMemTable2ddd: TIntegerField
       FieldName = 'ddd'
     end

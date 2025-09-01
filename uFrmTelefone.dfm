@@ -28,15 +28,14 @@ object frmTelefone: TfrmTelefone
     Style.Font.Style = [fsBold]
     Style.IsFontAssigned = True
     TabOrder = 0
-    ExplicitHeight = 147
     Height = 133
     Width = 221
     object cxMaskEdit1: TcxMaskEdit
       Left = 48
       Top = 32
       ParentFont = False
-      Properties.Alignment.Horz = taCenter
-      Properties.EditMask = '!\(99\) 0000-0000;1; '
+      Properties.Alignment.Horz = taLeftJustify
+      Properties.EditMask = '!\(99\) 00000-0000;1; '
       Style.Font.Charset = DEFAULT_CHARSET
       Style.Font.Color = clWindowText
       Style.Font.Height = -13
@@ -44,7 +43,7 @@ object frmTelefone: TfrmTelefone
       Style.Font.Style = []
       Style.IsFontAssigned = True
       TabOrder = 0
-      Text = '(99) 9999-9999'
+      Text = '(  )      -    '
       Width = 129
     end
     object cxCheckBox1: TcxCheckBox
