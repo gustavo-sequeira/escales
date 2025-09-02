@@ -3,15 +3,16 @@ inherited FraObreiros: TFraObreiros
   ExplicitWidth = 898
   inherited gbPrincipal: TcxGroupBox
     Caption = 'OBREIROS'
-    ExplicitWidth = 897
+    ExplicitWidth = 898
     Width = 898
     inherited pcFramePrincipal: TcxPageControl
       Width = 892
-      Properties.ActivePage = tsManutencao
-      ExplicitWidth = 891
+      ExplicitWidth = 892
       ClientRectRight = 892
       inherited tsConsulta: TcxTabSheet
-        ExplicitWidth = 891
+        ExplicitTop = 26
+        ExplicitWidth = 892
+        ExplicitHeight = 430
         inherited grdFramePrincial: TcxGrid
           inherited grdFramePrincialDBTableView1: TcxGridDBTableView
             Navigator.InfoPanel.DisplayMask = '[RecordIndex] de [RecordCount]'
@@ -23,12 +24,13 @@ inherited FraObreiros: TFraObreiros
             object grdFramePrincialDBTableView1codigo_cargo: TcxGridDBColumn [1]
               DataBinding.FieldName = 'codigo_cargo'
               Visible = False
+              Options.Filtering = False
             end
             object grdFramePrincialDBTableView1nome_cargo: TcxGridDBColumn [2]
               Caption = 'Cargo'
               DataBinding.FieldName = 'nome_cargo'
               PropertiesClassName = 'TcxTextEditProperties'
-              Properties.Alignment.Horz = taLeftJustify
+              Properties.Alignment.Horz = taCenter
               HeaderAlignmentHorz = taCenter
               Options.Editing = False
               Width = 200
@@ -55,7 +57,7 @@ inherited FraObreiros: TFraObreiros
         end
       end
       inherited tsManutencao: TcxTabSheet
-        ExplicitWidth = 891
+        ExplicitWidth = 892
         inherited gbFramePrincipal: TcxGroupBox
           Top = 0
           Hint = 'Excluir telefone'
@@ -315,7 +317,6 @@ inherited FraObreiros: TFraObreiros
                   OnClick = cxLabel6Click
                   OnMouseEnter = cxLabel6MouseEnter
                   OnMouseLeave = cxLabel6MouseLeave
-                  ExplicitLeft = 4
                   AnchorX = 38
                 end
                 object chbDomNoite: TcxCheckBox
@@ -1166,7 +1167,6 @@ inherited FraObreiros: TFraObreiros
                   TabOrder = 3
                   Transparent = True
                   OnClick = cxImage3Click
-                  ExplicitLeft = 297
                   Height = 23
                   Width = 23
                 end

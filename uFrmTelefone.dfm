@@ -37,7 +37,6 @@ object frmTelefone: TfrmTelefone
       Properties.Alignment.Horz = taLeftJustify
       Properties.EditMask = '!\(99\) 99999-9999;1; '
       Properties.ValidationOptions = []
-      Properties.OnChange = cxMaskEdit1PropertiesChange
       Style.Font.Charset = DEFAULT_CHARSET
       Style.Font.Color = clWindowText
       Style.Font.Height = -13
@@ -46,7 +45,6 @@ object frmTelefone: TfrmTelefone
       Style.IsFontAssigned = True
       TabOrder = 0
       Text = '(  )      -    '
-      OnEnter = cxMaskEdit1Enter
       Width = 129
     end
     object cxCheckBox1: TcxCheckBox
