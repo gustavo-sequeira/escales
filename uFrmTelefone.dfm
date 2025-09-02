@@ -11,9 +11,7 @@ object frmTelefone: TfrmTelefone
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   Position = poScreenCenter
-  PixelsPerInch = 96
   TextHeight = 13
   object cxGroupBox1: TcxGroupBox
     Left = 0
@@ -35,7 +33,9 @@ object frmTelefone: TfrmTelefone
       Top = 32
       ParentFont = False
       Properties.Alignment.Horz = taLeftJustify
-      Properties.EditMask = '!\(99\) 00000-0000;1; '
+      Properties.EditMask = '!\(99\) 99999-9999;1; '
+      Properties.ValidationOptions = []
+      Properties.OnChange = cxMaskEdit1PropertiesChange
       Style.Font.Charset = DEFAULT_CHARSET
       Style.Font.Color = clWindowText
       Style.Font.Height = -13
@@ -44,6 +44,7 @@ object frmTelefone: TfrmTelefone
       Style.IsFontAssigned = True
       TabOrder = 0
       Text = '(  )      -    '
+      OnEnter = cxMaskEdit1Enter
       Width = 129
     end
     object cxCheckBox1: TcxCheckBox
@@ -70,6 +71,7 @@ object frmTelefone: TfrmTelefone
       ModalResult = 1
       OptionsImage.ImageIndex = 0
       TabOrder = 2
+      OnClick = btnFrameConfirmarClick
     end
     object cxButton1: TcxButton
       Left = 112

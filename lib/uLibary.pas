@@ -2,7 +2,8 @@ unit uLibary;
 
 interface
 
-uses cxLabel;
+uses
+  cxLabel;
 
 type
   TLibary = class
@@ -15,13 +16,15 @@ type
     function GerarMensagemLembrete(const Nome: string; const Horario: string): string;
     class procedure MudarCorLabelEnter(pLabel: TcxLabel);
     class procedure MudarCorLabelLeave(pLabel: TcxLabel);
+    class function ValidarTelefone(const pTelefone: string; out pMensagem: string): boolean;
   end;
 
 implementation
 
 uses
-  System.Net.URLClient, System.Net.HttpClient, System.Net.HttpClientComponent, Vcl.Graphics,
-  System.SysUtils, System.StrUtils, System.JSON, System.Classes, System.Generics.Collections;
+  System.Net.URLClient, System.Net.HttpClient, System.Net.HttpClientComponent,
+  Vcl.Graphics, System.SysUtils, System.StrUtils, System.JSON, System.Classes,
+  System.Generics.Collections, System.RegularExpressions;
 
 function TLibary.MesValido(const AMes: string): Boolean;
 const
@@ -53,6 +56,50 @@ end;
 class procedure TLibary.MudarCorLabelLeave(pLabel: TcxLabel);
 begin
   pLabel.Style.TextColor := clWindowText;
+end;
+
+class function TLibary.ValidarTelefone(const pTelefone: string; out pMensagem: string): boolean;
+var
+  Digits, DDD, Numero: string;
+begin
+  Result := true;
+
+  // mantém apenas dígitos
+  Digits := TRegEx.Replace(pTelefone, '\D', '');
+
+  // precisa ter 10 ou 11 dígitos (DDD + número)
+  if not (Length(Digits) in [10, 11]) then
+  begin
+    pMensagem := 'Número inválido';
+    Result := False;
+    Exit;
+  end;
+
+  // separa DDD
+  DDD := Copy(Digits, 1, 2);
+  Numero := Copy(Digits, 3, Length(Digits) - 2);
+
+  // valida DDD (11–99)
+  if not TRegEx.IsMatch(DDD, '^(1[1-9]|[2-9][0-9])$') then
+  begin
+    pMensagem := 'DDD inválido';
+    Result := False;
+    Exit;
+  end;
+
+  // celular: 9 dígitos começando com 9
+  if (Length(Numero) = 9) and not (Numero.StartsWith('9')) then
+  begin
+    pMensagem := 'Número de celular inválido';
+    Result := False;
+    Exit;
+  end
+  else if (Length(Numero) = 8) and not (TRegEx.IsMatch(Numero[1], '[2-5]')) then
+  begin
+    pMensagem := 'Número de telefone inválido';
+    Result := False;
+    Exit;
+  end;
 end;
 
 function TLibary.RetornarPalavra(const Texto: string; Posicao: integer): string;
@@ -124,25 +171,14 @@ end;
 
 function TLibary.SegundosAleatorios: Integer;
 begin
-  Randomize; 
-  Result := Random(20) + 1; 
+  Randomize;
+  Result := Random(20) + 1;
 end;
 
 function TLibary.GerarMensagemLembrete(const Nome: string; const Horario: string): string;
 const
-  Versiculos: array[0..3] of string = (
-    '"Sede firmes e constantes, sempre abundantes na obra do Senhor." (1Co 15:58)',
-    '"Rogai, pois, ao Senhor da seara que envie obreiros para a sua seara." (Mt 9:38)',
-    '"Cada um exerça o dom que recebeu para servir aos outros." (1Pe 4:10)',
-    '"Tudo quanto fizerdes, fazei-o de coração, como ao Senhor." (Cl 3:23)'
-  );
-
-  Mensagens: array[0..3] of string = (
-    'Que alegria tê-lo servindo ao Senhor conosco!',
-    'Que sua dedicação inspire e edifique a todos!',
-    'Deus fortaleça seu coração neste serviço!',
-    'Que sua presença seja canal de bênção nesta obra!'
-  );
+  Versiculos: array[0..3] of string = ('"Sede firmes e constantes, sempre abundantes na obra do Senhor." (1Co 15:58)', '"Rogai, pois, ao Senhor da seara que envie obreiros para a sua seara." (Mt 9:38)', '"Cada um exerça o dom que recebeu para servir aos outros." (1Pe 4:10)', '"Tudo quanto fizerdes, fazei-o de coração, como ao Senhor." (Cl 3:23)');
+  Mensagens: array[0..3] of string = ('Que alegria tê-lo servindo ao Senhor conosco!', 'Que sua dedicação inspire e edifique a todos!', 'Deus fortaleça seu coração neste serviço!', 'Que sua presença seja canal de bênção nesta obra!');
 var
   Versiculo, Saudacao: string;
 begin
@@ -150,8 +186,7 @@ begin
   Versiculo := Versiculos[Random(Length(Versiculos))];
   Saudacao := Mensagens[Random(Length(Mensagens))];
 
-  Result := Format('Olá, irmão/irmã %s! Você está escalado para o culto às %s. %s %s',
-                   [Nome, Horario, Versiculo, Saudacao]);
+  Result := Format('Olá, irmão/irmã %s! Você está escalado para o culto às %s. %s %s', [Nome, Horario, Versiculo, Saudacao]);
 end;
 
 end.
