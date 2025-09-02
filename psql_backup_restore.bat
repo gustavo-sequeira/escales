@@ -65,10 +65,10 @@ goto menu
 :restore
 cls
 echo.
-echo RESTAURAR BACKUP
+echo RESTAURAR BACKUP (COM SOBRESCRITA COMPLETA)
 echo.
-@set /p RESTORE_FILE="Nome do arquivo de backup: "
-@set /p RESTORE_DB="Nome da base para restaurar: "
+set /p RESTORE_FILE="Nome do arquivo de backup: "
+set /p RESTORE_DB="Nome da base para restaurar: "
 
 @set PGPATH=C:\Program Files\PostgreSQL\17\bin\
 @set PGHOST=localhost
@@ -76,14 +76,59 @@ echo.
 @set PGUSER=postgres
 @set /p PGPASSWORD="Senha do PostgreSQL: "
 
-echo Restaurando %RESTORE_FILE% para base %RESTORE_DB%...
-"%PGPATH%pg_restore.exe" -h %PGHOST% -p %PGPORT% -U %PGUSER% -d %RESTORE_DB% -v "C:\Backups\PostgreSQL\%RESTORE_FILE%"
+echo.
+echo ATENCAO: Esta operacao ira SOBRESCREVER COMPLETAMENTE a base %RESTORE_DB%!
+echo Todos os dados atuais serao perdidos e substituidos pelo backup.
+echo.
+@set /p CONFIRM="Tem certeza que deseja continuar? (S/N): "
 
-if %errorlevel% equ 0 (
-    echo Restauracao concluida com sucesso!
-) else (
-    echo Erro na restauracao!
+if /i not "%CONFIRM%"=="S" (
+    echo Operacao cancelada.
+    pause
+    goto menu
 )
 
+echo.
+echo 1. Verificando se a base de dados existe...
+"%PGPATH%psql.exe" -h %PGHOST% -p %PGPORT% -U %PGUSER% -l -q | findstr /C:"%RESTORE_DB%" >nul
+
+if %errorlevel% equ 0 (
+    echo A base %RESTORE_DB% existe. Prosseguindo com a restauracao...
+) else (
+    echo A base %RESTORE_DB% nao existe. Criando nova base...
+    "%PGPATH%createdb.exe" -h %PGHOST% -p %PGPORT% -U %PGUSER% -E UTF8 %RESTORE_DB%
+    if %errorlevel% neq 0 (
+        echo Erro ao criar a base de dados!
+        pause
+        goto menu
+    )
+)
+
+echo.
+echo 2. Restaurando estrutura e dados (com sobrescrita)...
+echo Esta operacao pode demorar varios minutos...
+echo.
+
+REM Restaurar com opcoes para sobrescrever completamente
+"%PGPATH%pg_restore.exe" -h %PGHOST% -p %PGPORT% -U %PGUSER% -d %RESTORE_DB% --clean --if-exists --create --verbose "C:\Backups\PostgreSQL\%RESTORE_FILE%"
+
+if %errorlevel% equ 0 (
+    echo.
+    echo ===========================================
+    echo RESTAURACAO CONCLUIDA COM SUCESSO!
+    echo A base %RESTORE_DB% foi completamente sobrescrita.
+    echo ===========================================
+) else (
+    echo.
+    echo ===========================================
+    echo ERRO NA RESTAURACAO!
+    echo ===========================================
+    echo Verifique:
+    echo - Se o arquivo de backup existe
+    echo - Se a senha esta correta
+    echo - Se o usuario tem privilegios suficientes
+)
+
+echo.
 pause
 goto menu

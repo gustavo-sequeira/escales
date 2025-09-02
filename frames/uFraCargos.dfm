@@ -2,7 +2,11 @@ inherited FraCargos: TFraCargos
   inherited gbPrincipal: TcxGroupBox
     Caption = 'CARGOS'
     inherited pcFramePrincipal: TcxPageControl
+      Properties.ActivePage = tsManutencao
       inherited tsConsulta: TcxTabSheet
+        ExplicitTop = 26
+        ExplicitWidth = 634
+        ExplicitHeight = 430
         inherited grdFramePrincial: TcxGrid
           inherited grdFramePrincialDBTableView1: TcxGridDBTableView
             Navigator.InfoPanel.DisplayMask = '[RecordIndex] de [RecordCount]'
@@ -63,7 +67,6 @@ inherited FraCargos: TFraCargos
                 Caption = 'Abrevia'#231#227'o'
                 Properties.Alignment.Horz = taLeftJustify
                 Transparent = True
-                ExplicitTop = 23
               end
               object cxLabel4: TcxLabel
                 Left = 2
@@ -80,7 +83,6 @@ inherited FraCargos: TFraCargos
                 Caption = 'Descri'#231#227'o'
                 Properties.Alignment.Horz = taLeftJustify
                 Transparent = True
-                ExplicitTop = 71
               end
               object cxLabel1: TcxLabel
                 Left = 2
@@ -94,7 +96,7 @@ inherited FraCargos: TFraCargos
             inherited cxGroupBox2: TcxGroupBox
               object edtAbreviacao: TcxTextEdit
                 Left = 2
-                Top = 23
+                Top = 27
                 Align = alTop
                 ParentFont = False
                 Style.Font.Charset = DEFAULT_CHARSET
@@ -104,6 +106,7 @@ inherited FraCargos: TFraCargos
                 Style.Font.Style = []
                 Style.IsFontAssigned = True
                 TabOrder = 1
+                ExplicitTop = 23
                 Width = 248
               end
               object edtCodigo: TcxTextEdit
@@ -122,7 +125,7 @@ inherited FraCargos: TFraCargos
               end
               object edtNome: TcxTextEdit
                 Left = 2
-                Top = 44
+                Top = 52
                 Align = alTop
                 ParentFont = False
                 Style.Font.Charset = DEFAULT_CHARSET
@@ -132,12 +135,11 @@ inherited FraCargos: TFraCargos
                 Style.Font.Style = []
                 Style.IsFontAssigned = True
                 TabOrder = 2
-                ExplicitTop = 52
                 Width = 248
               end
               object mmDescricao: TcxMemo
                 Left = 2
-                Top = 65
+                Top = 77
                 Align = alTop
                 ParentFont = False
                 Properties.ScrollBars = ssVertical
@@ -148,7 +150,6 @@ inherited FraCargos: TFraCargos
                 Style.Font.Style = []
                 Style.IsFontAssigned = True
                 TabOrder = 3
-                ExplicitTop = 77
                 Height = 89
                 Width = 248
               end

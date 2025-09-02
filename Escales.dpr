@@ -18,7 +18,8 @@ uses
   uFraObreiros in 'frames\uFraObreiros.pas' {FraObreiros: TFrame},
   uFraCargos in 'frames\uFraCargos.pas' {FraCargos: TFrame},
   uEXEscales in 'class\uEXEscales.pas',
-  uFrmTelefone in 'uFrmTelefone.pas' {frmTelefone};
+  uFrmTelefone in 'uFrmTelefone.pas' {frmTelefone},
+  uFraLocalidades in 'frames\uFraLocalidades.pas' {FraLocalidades: TFrame};
 
 {$R *.res}
 
@@ -27,6 +28,5 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
   Application.CreateForm(TdmPrincipal, dmPrincipal);
-  Application.CreateForm(TfrmTelefone, frmTelefone);
   Application.Run;
 end.

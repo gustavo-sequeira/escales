@@ -2,7 +2,10 @@
 <BorlandProject>
 	<Transactions>
     <Transaction>2025/08/18 21:40:02.000.424,=C:\projetos\repositorios\portfolio\escales\Unit1.pas</Transaction>
-    <Transaction>2025/08/18 21:44:24.000.957,C:\projetos\repositorios\portfolio\escales\class\EXEscales.pas=C:\projetos\repositorios\portfolio\escales\Unit1.pas</Transaction>
-    <Transaction>2025/08/18 21:45:17.000.451,C:\projetos\repositorios\portfolio\escales\class\uEXEscales.pas=C:\projetos\repositorios\portfolio\escales\class\EXEscales.pas</Transaction>
+    <Transaction>2025/08/18 21:44:24.000.957,C:\projetos\repositorios\portfolio\escales\Unit1.pas=C:\projetos\repositorios\portfolio\escales\class\EXEscales.pas</Transaction>
+    <Transaction>2025/08/18 21:45:17.000.451,C:\projetos\repositorios\portfolio\escales\class\EXEscales.pas=C:\projetos\repositorios\portfolio\escales\class\uEXEscales.pas</Transaction>
+    <Transaction>2025/09/02 17:05:44.139,=C:\projetos\repositorios\escales\Unit1.pas</Transaction>
+    <Transaction>2025/09/02 17:06:25.869,C:\projetos\repositorios\escales\frames\uFraLocalidades.dfm=C:\projetos\repositorios\escales\Unit1.dfm</Transaction>
+    <Transaction>2025/09/02 17:06:25.869,C:\projetos\repositorios\escales\frames\uFraLocalidades.pas=C:\projetos\repositorios\escales\Unit1.pas</Transaction>
   </Transactions>
 </BorlandProject>
