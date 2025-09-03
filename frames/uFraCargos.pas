@@ -32,7 +32,7 @@ uses
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client, FireDAC.Comp.DataSet,
   FireDAC.UI.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Phys,
   FireDAC.Phys.PG, FireDAC.Phys.PGDef, FireDAC.VCLUI.Wait,
-  FireDAC.Stan.StorageBin, cxButtonEdit, uModeloBase;
+  FireDAC.Stan.StorageBin, cxButtonEdit, uModeloBase, dxSkinWXI;
 
 type
   TFraCargos = class(TFraModelo)
@@ -163,7 +163,7 @@ begin
   try
     if Cargo.TotalReg(vArrStrings) > 0 then
     begin
-      raise EXEscales.Create('Não foi possível realizar a exclusão. Registro é usado em outras tabelas');
+      raise EXEscales.Create('Não foi possível realizar a exclusão. Registro é usado em outras tabelas. ', vCodException);
       Abort;
     end;
   finally
@@ -196,7 +196,7 @@ begin
 
   if Trim(edtNome.Text) = EmptyStr then
   begin
-    raise ExCargosException.Create('Para realizar a ' + vEstado + ' é necessário o campo: NOME', vCodException);
+    raise ExCargosException.Create('Para realizar a ' + vEstado + ' é necessário o campo: NOME. ', vCodException);
     Abort;
   end;
 end;

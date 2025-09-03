@@ -11,9 +11,7 @@ object frmPrincipal: TfrmPrincipal
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
-  OldCreateOrder = True
   WindowState = wsMaximized
-  PixelsPerInch = 96
   TextHeight = 15
   object gbPrincipal: TcxGroupBox
     Left = 0
@@ -155,7 +153,7 @@ object frmPrincipal: TfrmPrincipal
             Caption = 'Lembretes'
           end
           object dxNavBarCadastroLocalidades: TdxNavBarItem
-            Caption = 'Localidades'
+            Action = actCadastroLocalidades
           end
           object dxNavBarCadastroObreiros: TdxNavBarItem
             Action = actCadastroObreiros
@@ -237,6 +235,11 @@ object frmPrincipal: TfrmPrincipal
       Category = 'Dashboard'
       AutoCheck = True
       Caption = 'Dashboard'
+    end
+    object actCadastroLocalidades: TAction
+      Category = 'Cadastros'
+      Caption = 'Localidades'
+      OnExecute = actCadastroLocalidadesExecute
     end
   end
 end

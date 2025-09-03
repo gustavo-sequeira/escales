@@ -10,15 +10,15 @@ uses
   AdvSmoothStepControl, AdvUtil, Vcl.Grids, AdvObj, BaseGrid, AdvGrid,
   AdvGridWorkbook, cxTextEdit, cxMemo, tmsAdvGridExcel, System.ImageList,
   Vcl.ImgList, cxImageList, dxCore, cxClasses, dxSkinsForm, dxSkinWhiteprint,
-  dxSkinLondonLiquidSky, dxSkinMcSkin, cxSplitter, cxStyles, cxCustomData,
-  cxFilter, cxData, cxDataStorage, cxNavigator, dxDateRanges,
-  dxScrollbarAnnotations, Data.DB, cxDBData, FireDAC.Stan.Intf,
-  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
-  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Comp.DataSet,
+  cxSplitter, cxStyles, cxCustomData, cxFilter, cxData, cxDataStorage,
+  cxNavigator, dxDateRanges, dxScrollbarAnnotations, Data.DB, cxDBData,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Comp.DataSet,
   FireDAC.Comp.Client, cxGridLevel, cxGridCustomView, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxGrid, uLibary, dxSkinOffice2010Blue,
   dxNavBarCollns, dxNavBarBase, dxNavBar, cxLabel, Vcl.ExtCtrls, System.Actions,
-  Vcl.ActnList, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ActnMan, cxLocalization;
+  Vcl.ActnList, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ActnMan, cxLocalization,
+  dxSkinWXI;
 
 type
   TfrmPrincipal = class(TForm)
@@ -50,13 +50,14 @@ type
     actCadastroCargos: TAction;
     actCadastroObreiros: TAction;
     Action1: TAction;
+    actCadastroLocalidades: TAction;
     procedure actCadastroCargosExecute(Sender: TObject);
     procedure actCadastroObreirosExecute(Sender: TObject);
     procedure dxNavBarDashboardClick(Sender: TObject);
+    procedure actCadastroLocalidadesExecute(Sender: TObject);
 
   private
     { Private declarations }
-    lib: TLibary;
   public
     { Public declarations }
     procedure ControleFrame(pFrame: string; pLimparTodos: Boolean = False);
@@ -68,7 +69,7 @@ var
 implementation
 
 uses
-  uFraObreiros, uFraModelo, uFraCargos;
+  uFraObreiros, uFraModelo, uFraCargos, uFraLocalidades;
 
 {$R *.dfm}
 
@@ -79,6 +80,11 @@ begin
   ControleFrame('cargos');
 end;
 
+procedure TfrmPrincipal.actCadastroLocalidadesExecute(Sender: TObject);
+begin
+  ControleFrame('localidades');
+end;
+
 procedure TfrmPrincipal.actCadastroObreirosExecute(Sender: TObject);
 begin
   ControleFrame('obreiros');
@@ -86,7 +92,7 @@ end;
 
 procedure TfrmPrincipal.ControleFrame(pFrame: string; pLimparTodos: Boolean = False);
 var
-  f: TFraModelo;
+  fCargo, fObreiro, fLocalidade: TFraModelo;
   i: Integer;
 begin
 
@@ -103,6 +109,11 @@ begin
       begin
         if TfraCargos(gbTerciarioCenter.Controls[i]).emTransacao then
           Exit;
+      end
+      else if pFrame = 'localidades' then
+      begin
+        if TfraLocalidades(gbTerciarioCenter.Controls[i]).emTransacao then
+          Exit;
       end;
 
       gbTerciarioCenter.Controls[i].Free;
@@ -114,19 +125,31 @@ begin
     begin
  //     if TfraObreiros(gbTerciarioCenter.Controls[i]).emTransacao then
  //       Exit;
-      f := TfraObreiros.Create(Self);
+      fObreiro := TfraObreiros.Create(Self);
+      fObreiro.Parent := gbTerciarioCenter;
+      fObreiro.Align := alClient;
+      fObreiro.pcFramePrincipal.ActivePageIndex := 0;
     end
     else if pFrame = 'cargos' then
     begin
  //     if TfraCargos(TControl(FindComponent('TfraCargos'))).emTransacao then
  //       Exit;
-      f := TfraCargos.Create(Self)
+      fCargo := TfraCargos.Create(Self);
+      fCargo.Parent := gbTerciarioCenter;
+      fCargo.Align := alClient;
+      fCargo.pcFramePrincipal.ActivePageIndex := 0;
+
     end
-    else
-      f := TFraModelo.Create(Self);
-    f.Parent := gbTerciarioCenter;
-    f.Align := alClient;
-    f.pcFramePrincipal.ActivePageIndex := 0;
+    else if pFrame = 'localidades' then
+    begin
+ //     if TfraCargos(TControl(FindComponent('TfraCargos'))).emTransacao then
+ //       Exit;
+      fLocalidade := TfraLocalidades.Create(Self);
+      fLocalidade.Parent := gbTerciarioCenter;
+      fLocalidade.Align := alClient;
+      fLocalidade.pcFramePrincipal.ActivePageIndex := 0;
+
+    end;
   end;
 end;
 

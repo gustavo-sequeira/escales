@@ -53,6 +53,12 @@ inherited FraObreiros: TFraObreiros
               Options.Editing = False
               Width = 150
             end
+            inherited grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
+              DataBinding.IsNullValueType = True
+            end
+            inherited grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn
+              DataBinding.IsNullValueType = True
+            end
           end
         end
       end
@@ -174,7 +180,7 @@ inherited FraObreiros: TFraObreiros
               object edtNome: TcxTextEdit
                 AlignWithMargins = True
                 Left = 5
-                Top = 61
+                Top = 53
                 Margins.Bottom = 0
                 Align = alTop
                 ParentFont = False
@@ -191,7 +197,7 @@ inherited FraObreiros: TFraObreiros
               object cbCargo: TcxComboBox
                 AlignWithMargins = True
                 Left = 5
-                Top = 33
+                Top = 29
                 Margins.Bottom = 0
                 Align = alTop
                 ParentFont = False
@@ -203,12 +209,13 @@ inherited FraObreiros: TFraObreiros
                 Style.Font.Style = []
                 Style.IsFontAssigned = True
                 TabOrder = 1
+                ExplicitTop = 33
                 Width = 314
               end
               object dtDataNascimento: TcxDateEdit
                 AlignWithMargins = True
                 Left = 5
-                Top = 89
+                Top = 77
                 Margins.Bottom = 0
                 Align = alTop
                 ParentFont = False
@@ -220,16 +227,17 @@ inherited FraObreiros: TFraObreiros
                 Style.Font.Style = []
                 Style.IsFontAssigned = True
                 TabOrder = 3
+                ExplicitTop = 89
                 Width = 314
               end
               object cxGroupBox3: TcxGroupBox
                 Left = 2
-                Top = 206
+                Top = 190
                 Align = alTop
                 PanelStyle.Active = True
                 Style.BorderStyle = ebsNone
                 Style.TransparentBorder = True
-                TabOrder = 7
+                TabOrder = 8
                 Transparent = True
                 Height = 21
                 Width = 320
@@ -420,12 +428,12 @@ inherited FraObreiros: TFraObreiros
               end
               object cxGroupBox4: TcxGroupBox
                 Left = 2
-                Top = 143
+                Top = 127
                 Align = alTop
                 PanelStyle.Active = True
                 Style.BorderStyle = ebsNone
                 Style.TransparentBorder = True
-                TabOrder = 4
+                TabOrder = 5
                 Transparent = True
                 Height = 21
                 Width = 320
@@ -684,12 +692,12 @@ inherited FraObreiros: TFraObreiros
               end
               object cxGroupBox5: TcxGroupBox
                 Left = 2
-                Top = 185
+                Top = 169
                 Align = alTop
                 PanelStyle.Active = True
                 Style.BorderStyle = ebsNone
                 Style.TransparentBorder = True
-                TabOrder = 6
+                TabOrder = 7
                 Transparent = True
                 Height = 21
                 Width = 320
@@ -880,12 +888,12 @@ inherited FraObreiros: TFraObreiros
               end
               object cxGroupBox6: TcxGroupBox
                 Left = 2
-                Top = 164
+                Top = 148
                 Align = alTop
                 PanelStyle.Active = True
                 Style.BorderStyle = ebsNone
                 Style.TransparentBorder = True
-                TabOrder = 5
+                TabOrder = 6
                 Transparent = True
                 Height = 21
                 Width = 320
@@ -1077,13 +1085,14 @@ inherited FraObreiros: TFraObreiros
               object cxGroupBox7: TcxGroupBox
                 AlignWithMargins = True
                 Left = 5
-                Top = 117
+                Top = 101
                 Align = alTop
                 PanelStyle.Active = True
                 Style.BorderStyle = ebsNone
                 Style.TransparentBorder = False
-                TabOrder = 8
+                TabOrder = 4
                 Transparent = True
+                ExplicitTop = 117
                 Height = 23
                 Width = 314
                 object cbTelefone: TcxComboBox
@@ -1093,6 +1102,7 @@ inherited FraObreiros: TFraObreiros
                   Properties.DropDownListStyle = lsFixedList
                   Style.TransparentBorder = True
                   TabOrder = 0
+                  ExplicitHeight = 21
                   Width = 245
                 end
                 object cxImage1: TcxImage

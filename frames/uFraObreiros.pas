@@ -33,7 +33,7 @@ uses
   FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   FireDAC.Phys.PGDef, FireDAC.UI.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool,
   FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.PG, FireDAC.VCLUI.Wait,
-  FireDAC.DApt, Vcl.ExtCtrls, cxCheckBox, cxImage, dxGDIPlusClasses;
+  FireDAC.DApt, Vcl.ExtCtrls, cxCheckBox, cxImage, dxGDIPlusClasses, dxSkinWXI;
 
 type
   TFraObreiros = class(TFraModelo)
@@ -933,8 +933,38 @@ begin
 end;
 
 procedure TFraObreiros.ValidarAntesExcluir;
+var
+  vArrStrings: TArray<TFKInfo>;
+  vEstado: string;
+  vCodException: Integer;
+  Obreiro: TObreiros;
 begin
   inherited;
+
+  vEstado := 'exclusão';
+  vCodException := 3001;
+
+  SetLength(vArrStrings, 1);
+
+  vArrStrings[0].tabela := 'disponibilidades';
+  vArrStrings[0].chaveEstrangeira := 'codigo_obreiro';
+
+  vArrStrings[1].tabela := 'escalados';
+  vArrStrings[1].chaveEstrangeira := 'codigo_obreiro';
+
+  vArrStrings[2].tabela := 'telefones';
+  vArrStrings[2].chaveEstrangeira := 'codigo_obreiro';
+
+  Obreiro := TObreiros.Create();
+  try
+    if Obreiro.TotalReg(vArrStrings) > 0 then
+    begin
+      raise EXEscales.Create('Não foi possível realizar a exclusão. Registro é usado em outras tabelas. ', vCodException);
+      Abort;
+    end;
+  finally
+    Obreiro.Free;
+  end;
 end;
 
 procedure TFraObreiros.ValidarAntesSalvar;
@@ -956,7 +986,7 @@ begin
 
   if Trim(edtNome.Text) = EmptyStr then
   begin
-    raise ExObreirosException.Create('Para realizar a ' + vEstado + ' é necessário o campo: NOME', vCodException);
+    raise ExObreirosException.Create('Para realizar a ' + vEstado + ' é necessário o campo: NOME. ', vCodException);
     Abort;
   end;
 end;

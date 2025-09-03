@@ -20,7 +20,8 @@ type
   ExDisponibilidadesException = class(EXEscales);
   ExObreirosException = class(EXEscales);
   EConexaoBDException = class(EXEscales);
-  EPermissaoException = class(EXEscales);
+  ExPermissaoException = class(EXEscales);
+  ExLocalidadesException = class(EXEscales);
 
 implementation
 

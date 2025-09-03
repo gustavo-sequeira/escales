@@ -2,11 +2,20 @@ inherited FraLocalidades: TFraLocalidades
   inherited gbPrincipal: TcxGroupBox
     Caption = 'Localidades'
     inherited pcFramePrincipal: TcxPageControl
-      Properties.ActivePage = tsManutencao
       inherited tsConsulta: TcxTabSheet
         ExplicitTop = 26
         ExplicitWidth = 634
         ExplicitHeight = 430
+        inherited grdFramePrincial: TcxGrid
+          inherited grdFramePrincialDBTableView1: TcxGridDBTableView
+            inherited grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
+              DataBinding.IsNullValueType = True
+            end
+            inherited grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn
+              DataBinding.IsNullValueType = True
+            end
+          end
+        end
       end
       inherited tsManutencao: TcxTabSheet
         inherited gbFramePrincipal: TcxGroupBox
@@ -19,8 +28,6 @@ inherited FraLocalidades: TFraLocalidades
                 Caption = 'C'#243'digo'
                 Properties.Alignment.Horz = taLeftJustify
                 Transparent = True
-                ExplicitLeft = 4
-                ExplicitTop = 10
               end
               object cxLabel1: TcxLabel
                 Left = 2
@@ -29,8 +36,6 @@ inherited FraLocalidades: TFraLocalidades
                 Caption = 'Nome'
                 Properties.Alignment.Horz = taLeftJustify
                 Transparent = True
-                ExplicitTop = 50
-                ExplicitWidth = 8
               end
               object cxLabel3: TcxLabel
                 Left = 2
@@ -39,8 +44,6 @@ inherited FraLocalidades: TFraLocalidades
                 Caption = 'Descri'#231#227'o'
                 Properties.Alignment.Horz = taLeftJustify
                 Transparent = True
-                ExplicitTop = 74
-                ExplicitWidth = 8
               end
             end
             inherited cxGroupBox2: TcxGroupBox
@@ -85,7 +88,6 @@ inherited FraLocalidades: TFraLocalidades
                 Style.Font.Style = []
                 Style.IsFontAssigned = True
                 TabOrder = 2
-                ExplicitTop = 77
                 Height = 89
                 Width = 248
               end
@@ -100,5 +102,25 @@ inherited FraLocalidades: TFraLocalidades
   end
   inherited cxStyleRepository1: TcxStyleRepository
     PixelsPerInch = 96
+  end
+  object FDPhysPgDriverLink1: TFDPhysPgDriverLink
+    Left = 152
+    Top = 392
+  end
+  object FDQuery1: TFDQuery
+    Connection = FDConnection
+    Left = 96
+    Top = 400
+  end
+  object FDConnection: TFDConnection
+    Params.Strings = (
+      'User_Name=postgres'
+      'Database=escales'
+      'Password=postgres'
+      'Server=127.0.0.1'
+      'DriverID=PG')
+    LoginPrompt = False
+    Left = 120
+    Top = 328
   end
 end

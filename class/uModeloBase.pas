@@ -186,6 +186,8 @@ begin
     RType := Ctx.GetType(Self.ClassType);
     PrimaryKeyValue := GetPrimaryKeyValue;
 
+
+
     for Prop in RType.GetProperties do
     begin
       if (Prop.Visibility <> mvPublished) then
@@ -195,7 +197,6 @@ begin
       for Attr in Prop.GetAttributes do
         if Attr is TPrimaryKeyAttribute then
         begin
-          IsPrimaryKey := True;
           if TPrimaryKeyAttribute(Attr).AutoIncrement and (PrimaryKeyValue = 0) then
             IsPrimaryKey := True
           else

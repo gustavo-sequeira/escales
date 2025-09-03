@@ -10,12 +10,12 @@ object dmPrincipal: TdmPrincipal
       'Server=127.0.0.1'
       'DriverID=PG')
     LoginPrompt = False
-    Left = 128
-    Top = 80
+    Left = 88
+    Top = 64
   end
   object FDPhysPgDriverLink1: TFDPhysPgDriverLink
-    Left = 168
-    Top = 136
+    Left = 120
+    Top = 128
   end
   object cxLocalizer1: TcxLocalizer
     Left = 204
@@ -23,7 +23,7 @@ object dmPrincipal: TdmPrincipal
   end
   object FDQuery1: TFDQuery
     Connection = FDConnection
-    Left = 248
-    Top = 40
+    Left = 64
+    Top = 136
   end
 end

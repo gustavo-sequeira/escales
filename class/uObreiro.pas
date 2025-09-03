@@ -5,6 +5,8 @@ interface
 uses
   uModeloBase, uCargo;
 
+
+  {$M+}
 type
   TObreiros = class(TModeloBase)
   private
