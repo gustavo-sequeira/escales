@@ -2,7 +2,6 @@ inherited FraVersiculos: TFraVersiculos
   inherited gbPrincipal: TcxGroupBox
     Caption = 'VERS'#205'CULOS'
     inherited pcFramePrincipal: TcxPageControl
-      Properties.ActivePage = tsManutencao
       inherited tsConsulta: TcxTabSheet
         ExplicitTop = 26
         ExplicitWidth = 634
@@ -18,12 +17,14 @@ inherited FraVersiculos: TFraVersiculos
             object grdFramePrincialDBTableView1status: TcxGridDBColumn [1]
               Caption = 'Status'
               DataBinding.FieldName = 'status'
+              HeaderAlignmentHorz = taCenter
               Options.Editing = False
               Width = 60
             end
             object grdFramePrincialDBTableView1versiculo: TcxGridDBColumn [2]
               Caption = 'Vers'#237'culo'
               DataBinding.FieldName = 'versiculo'
+              HeaderAlignmentHorz = taCenter
               Options.Editing = False
               Width = 630
             end
