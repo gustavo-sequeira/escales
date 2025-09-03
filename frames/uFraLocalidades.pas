@@ -3,18 +3,18 @@ unit uFraLocalidades;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uFraModelo, cxGraphics, cxControls,
-  cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit, dxSkinsCore,
-  dxSkinOffice2010Blue, dxBarBuiltInMenu, cxStyles, cxCustomData, cxFilter,
-  cxData, cxDataStorage, cxNavigator, dxDateRanges, dxScrollbarAnnotations,
-  Data.DB, cxDBData, Vcl.Menus, FireDAC.Stan.Intf, FireDAC.Stan.Option,
-  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
-  FireDAC.DApt.Intf, cxClasses, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  System.ImageList, Vcl.ImgList, cxImageList, Vcl.StdCtrls, cxButtons,
-  cxGridLevel, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
-  cxGridCustomView, cxGrid, cxPC, cxGroupBox, cxMemo, cxTextEdit, cxLabel,
-  dxSkinWXI, FireDAC.Phys.PGDef, FireDAC.Stan.Async, FireDAC.DApt,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uFraModelo,
+  cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer,
+  cxEdit, dxSkinsCore, dxSkinOffice2010Blue, dxBarBuiltInMenu, cxStyles,
+  cxCustomData, cxFilter, cxData, cxDataStorage, cxNavigator, dxDateRanges,
+  dxScrollbarAnnotations, Data.DB, cxDBData, Vcl.Menus, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, cxClasses, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, System.ImageList, Vcl.ImgList, cxImageList, Vcl.StdCtrls,
+  cxButtons, cxGridLevel, cxGridCustomTableView, cxGridTableView,
+  cxGridDBTableView, cxGridCustomView, cxGrid, cxPC, cxGroupBox, cxMemo,
+  cxTextEdit, cxLabel, FireDAC.Phys.PGDef, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.UI.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Phys,
   FireDAC.Phys.PG, FireDAC.VCLUI.Wait;
 
@@ -26,9 +26,14 @@ type
     edtNome: TcxTextEdit;
     cxLabel3: TcxLabel;
     mmDescricao: TcxMemo;
-    FDPhysPgDriverLink1: TFDPhysPgDriverLink;
-    FDQuery1: TFDQuery;
-    FDConnection: TFDConnection;
+    FDMemTable1codigo: TIntegerField;
+    grdFramePrincialDBTableView1codigo: TcxGridDBColumn;
+    grdFramePrincialDBTableView1nome: TcxGridDBColumn;
+    grdFramePrincialDBTableView1descricao: TcxGridDBColumn;
+    FDMemTable1nome: TWideMemoField;
+    FDMemTable1descricao: TWideMemoField;
+    procedure btnFrameConfirmarClick(Sender: TObject);
+    procedure FDMemTable1AfterInsert(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -48,11 +53,40 @@ var
 implementation
 
 uses
-  uLocalidade, uEXEscales, uModeloBase;
+  uLocalidade, uEXEscales, uModeloBase, System.UITypes;
 
 {$R *.dfm}
 
 { TFraLocalidades }
+
+procedure TFraLocalidades.btnFrameConfirmarClick(Sender: TObject);
+var
+  Localidade: TLocalidades;
+begin
+  Localidade := TLocalidades.Create;
+  try
+    try
+      if trim(edtCodigo.Text) = EmptyStr then
+        Localidade.Codigo := 0
+      else
+        Localidade.Codigo := StrToInt(edtCodigo.Text);
+      Localidade.Nome := Trim(edtNome.Text);
+      Localidade.Descricao := Trim(mmDescricao.Text);
+      inherited;
+
+    except
+      on e: Exception do
+      begin
+        if Localidade.Codigo = 0 then
+          MessageDlg('Erro ao tentar incluir. ' + e.Message, mtError, [mbOK], 0)
+        else
+          MessageDlg('Erro ao tentar atualizar. ' + e.Message, mtError, [mbOK], 0);
+      end;
+    end;
+  finally
+    Localidade.Free;
+  end;
+end;
 
 procedure TFraLocalidades.EdicaoRegistro;
 begin
@@ -74,6 +108,13 @@ begin
   finally
     Localidade.Free;
   end;
+  inherited;
+end;
+
+procedure TFraLocalidades.FDMemTable1AfterInsert(DataSet: TDataSet);
+begin
+  edtCodigo.Text := '0';
+  edtCodigo.Enabled := False;
   inherited;
 end;
 
@@ -172,3 +213,4 @@ begin
 end;
 
 end.
+

@@ -19,7 +19,8 @@ uses
   uFraCargos in 'frames\uFraCargos.pas' {FraCargos: TFrame},
   uEXEscales in 'class\uEXEscales.pas',
   uFrmTelefone in 'uFrmTelefone.pas' {frmTelefone},
-  uFraLocalidades in 'frames\uFraLocalidades.pas' {FraLocalidades: TFrame};
+  uFraLocalidades in 'frames\uFraLocalidades.pas' {FraLocalidades: TFrame},
+  uFraVersiculos in 'frames\uFraVersiculos.pas' {FraVersiculos: TFrame};
 
 {$R *.res}
 

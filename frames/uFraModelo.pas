@@ -15,7 +15,7 @@ uses
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Comp.DataSet,
   FireDAC.Comp.Client, cxButtonEdit, cxMaskEdit, cxDropDownEdit, cxCheckBox,
-  cxRadioGroup, Vcl.ComCtrls, dxCore, cxDateUtils, cxCalendar, cxMemo, dxSkinWXI;
+  cxRadioGroup, Vcl.ComCtrls, dxCore, cxDateUtils, cxCalendar, cxMemo;
 
 type
   TFraModelo = class(TFrame)
@@ -68,7 +68,7 @@ type
 implementation
 
 uses
-  uDmPrincipal,  uLibary;
+  uDmPrincipal, uLibary, System.Types;
 
 {$R *.dfm}
 

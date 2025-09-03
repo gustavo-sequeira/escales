@@ -75,7 +75,6 @@ object FraModelo: TFraModelo
             Styles.ContentEven = zebradoEven
             Styles.ContentOdd = zebradoOdd
             object grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
               Options.Editing = False
               Options.Filtering = False
               Options.Focusing = False
@@ -85,7 +84,6 @@ object FraModelo: TFraModelo
               Width = 25
             end
             object grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
               Options.Editing = False
               Options.Filtering = False
               Options.Focusing = False

@@ -1,32 +1,31 @@
-inherited FraLocalidades: TFraLocalidades
+inherited FraVersiculos: TFraVersiculos
   inherited gbPrincipal: TcxGroupBox
-    Caption = 'Localidades'
+    Caption = 'VERS'#205'CULOS'
     inherited pcFramePrincipal: TcxPageControl
+      Properties.ActivePage = tsManutencao
       inherited tsConsulta: TcxTabSheet
         ExplicitTop = 26
         ExplicitWidth = 634
         ExplicitHeight = 430
         inherited grdFramePrincial: TcxGrid
           inherited grdFramePrincialDBTableView1: TcxGridDBTableView
+            Navigator.InfoPanel.DisplayMask = '[RecordIndex] de [RecordCount]'
             OptionsSelection.CellSelect = False
             object grdFramePrincialDBTableView1codigo: TcxGridDBColumn [0]
               DataBinding.FieldName = 'codigo'
               Visible = False
-              Options.Editing = False
             end
-            object grdFramePrincialDBTableView1nome: TcxGridDBColumn [1]
-              Caption = 'Nome'
-              DataBinding.FieldName = 'nome'
-              HeaderAlignmentHorz = taCenter
+            object grdFramePrincialDBTableView1status: TcxGridDBColumn [1]
+              Caption = 'Status'
+              DataBinding.FieldName = 'status'
               Options.Editing = False
-              Width = 250
+              Width = 60
             end
-            object grdFramePrincialDBTableView1descricao: TcxGridDBColumn [2]
-              Caption = 'Descri'#231#227'o'
-              DataBinding.FieldName = 'descricao'
-              HeaderAlignmentHorz = taCenter
+            object grdFramePrincialDBTableView1versiculo: TcxGridDBColumn [2]
+              Caption = 'Vers'#237'culo'
+              DataBinding.FieldName = 'versiculo'
               Options.Editing = False
-              Width = 450
+              Width = 630
             end
           end
         end
@@ -43,19 +42,19 @@ inherited FraLocalidades: TFraLocalidades
                 Properties.Alignment.Horz = taLeftJustify
                 Transparent = True
               end
-              object cxLabel1: TcxLabel
-                Left = 2
-                Top = 26
-                Align = alTop
-                Caption = 'Nome'
-                Properties.Alignment.Horz = taLeftJustify
-                Transparent = True
-              end
               object cxLabel3: TcxLabel
                 Left = 2
                 Top = 50
                 Align = alTop
-                Caption = 'Descri'#231#227'o'
+                Caption = 'Vers'#237'culo'
+                Properties.Alignment.Horz = taLeftJustify
+                Transparent = True
+              end
+              object cxLabel2: TcxLabel
+                Left = 2
+                Top = 26
+                Align = alTop
+                Caption = 'Status'
                 Properties.Alignment.Horz = taLeftJustify
                 Transparent = True
               end
@@ -75,23 +74,26 @@ inherited FraLocalidades: TFraLocalidades
                 TabOrder = 0
                 Width = 248
               end
-              object edtNome: TcxTextEdit
+              object chbStatus: TcxCheckBox
                 Left = 2
                 Top = 27
                 Align = alTop
                 ParentFont = False
+                Properties.Alignment = taCenter
                 Style.Font.Charset = DEFAULT_CHARSET
                 Style.Font.Color = clWindowText
                 Style.Font.Height = -13
                 Style.Font.Name = 'Segoe UI'
                 Style.Font.Style = []
+                Style.TransparentBorder = False
                 Style.IsFontAssigned = True
                 TabOrder = 1
+                Transparent = True
                 Width = 248
               end
               object mmDescricao: TcxMemo
                 Left = 2
-                Top = 52
+                Top = 46
                 Align = alTop
                 ParentFont = False
                 Properties.ScrollBars = ssVertical
@@ -102,7 +104,8 @@ inherited FraLocalidades: TFraLocalidades
                 Style.Font.Style = []
                 Style.IsFontAssigned = True
                 TabOrder = 2
-                Height = 89
+                ExplicitTop = 44
+                Height = 171
                 Width = 248
               end
             end
@@ -113,24 +116,20 @@ inherited FraLocalidades: TFraLocalidades
   end
   inherited cxImageList: TcxImageList
     FormatVersion = 1
-    DesignInfo = 28574172
   end
   inherited FDMemTable1: TFDMemTable
-    AfterInsert = FDMemTable1AfterInsert
     object FDMemTable1codigo: TIntegerField
       FieldName = 'codigo'
     end
-    object FDMemTable1nome: TWideMemoField
-      FieldName = 'nome'
-      BlobType = ftWideMemo
+    object FDMemTable1status: TIntegerField
+      FieldName = 'status'
     end
-    object FDMemTable1descricao: TWideMemoField
-      FieldName = 'descricao'
+    object FDMemTable1versiculo: TWideMemoField
+      FieldName = 'versiculo'
       BlobType = ftWideMemo
     end
   end
   inherited cxStyleRepository1: TcxStyleRepository
-    Left = 506
     PixelsPerInch = 96
   end
 end

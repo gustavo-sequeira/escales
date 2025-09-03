@@ -12,7 +12,6 @@ inherited FraCargos: TFraCargos
             Navigator.InfoPanel.DisplayMask = '[RecordIndex] de [RecordCount]'
             object grdFramePrincialDBTableView1codigo: TcxGridDBColumn [0]
               DataBinding.FieldName = 'codigo'
-              DataBinding.IsNullValueType = True
               Visible = False
               MinWidth = 64
               Options.Editing = False
@@ -23,7 +22,6 @@ inherited FraCargos: TFraCargos
             object grdFramePrincialDBTableView1abreviacao: TcxGridDBColumn [1]
               Caption = 'Abrevia'#231#227'o'
               DataBinding.FieldName = 'abreviacao'
-              DataBinding.IsNullValueType = True
               PropertiesClassName = 'TcxTextEditProperties'
               Properties.Alignment.Horz = taCenter
               HeaderAlignmentHorz = taCenter
@@ -36,7 +34,6 @@ inherited FraCargos: TFraCargos
             object grdFramePrincialDBTableView1nome: TcxGridDBColumn [2]
               Caption = 'Nome'
               DataBinding.FieldName = 'nome'
-              DataBinding.IsNullValueType = True
               HeaderAlignmentHorz = taCenter
               MinWidth = 150
               Options.Editing = False
@@ -48,7 +45,6 @@ inherited FraCargos: TFraCargos
             object grdFramePrincialDBTableView1descricao: TcxGridDBColumn [3]
               Caption = 'Descri'#231#227'o'
               DataBinding.FieldName = 'descricao'
-              DataBinding.IsNullValueType = True
               HeaderAlignmentHorz = taCenter
               MinWidth = 500
               Options.Editing = False
@@ -56,12 +52,6 @@ inherited FraCargos: TFraCargos
               Options.HorzSizing = False
               Options.Moving = False
               Width = 500
-            end
-            inherited grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
-            end
-            inherited grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
             end
           end
         end

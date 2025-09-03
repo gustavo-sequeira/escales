@@ -17,8 +17,7 @@ uses
   FireDAC.Comp.Client, cxGridLevel, cxGridCustomView, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxGrid, uLibary, dxSkinOffice2010Blue,
   dxNavBarCollns, dxNavBarBase, dxNavBar, cxLabel, Vcl.ExtCtrls, System.Actions,
-  Vcl.ActnList, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ActnMan, cxLocalization,
-  dxSkinWXI;
+  Vcl.ActnList, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ActnMan, cxLocalization;
 
 type
   TfrmPrincipal = class(TForm)
@@ -51,10 +50,12 @@ type
     actCadastroObreiros: TAction;
     Action1: TAction;
     actCadastroLocalidades: TAction;
+    actCadastroVersiculos: TAction;
     procedure actCadastroCargosExecute(Sender: TObject);
     procedure actCadastroObreirosExecute(Sender: TObject);
     procedure dxNavBarDashboardClick(Sender: TObject);
     procedure actCadastroLocalidadesExecute(Sender: TObject);
+    procedure actCadastroVersiculosExecute(Sender: TObject);
 
   private
     { Private declarations }
@@ -69,7 +70,7 @@ var
 implementation
 
 uses
-  uFraObreiros, uFraModelo, uFraCargos, uFraLocalidades;
+  uFraObreiros, uFraModelo, uFraCargos, uFraLocalidades, uFraVersiculos;
 
 {$R *.dfm}
 
@@ -90,9 +91,14 @@ begin
   ControleFrame('obreiros');
 end;
 
+procedure TfrmPrincipal.actCadastroVersiculosExecute(Sender: TObject);
+begin
+  ControleFrame('versiculos');
+end;
+
 procedure TfrmPrincipal.ControleFrame(pFrame: string; pLimparTodos: Boolean = False);
 var
-  fCargo, fObreiro, fLocalidade: TFraModelo;
+  fCargo, fObreiro, fLocalidade, fVersiculo: TFraModelo;
   i: Integer;
 begin
 
@@ -114,11 +120,17 @@ begin
       begin
         if TfraLocalidades(gbTerciarioCenter.Controls[i]).emTransacao then
           Exit;
+      end
+      else if pFrame = 'versiculos' then
+      begin
+        if TFraVersiculos(gbTerciarioCenter.Controls[i]).emTransacao then
+          Exit;
       end;
 
       gbTerciarioCenter.Controls[i].Free;
     end;
   end;
+
   if not (pLimparTodos) then
   begin
     if pFrame = 'obreiros' then
@@ -148,6 +160,16 @@ begin
       fLocalidade.Parent := gbTerciarioCenter;
       fLocalidade.Align := alClient;
       fLocalidade.pcFramePrincipal.ActivePageIndex := 0;
+
+    end
+    else if pFrame = 'versiculos' then
+    begin
+ //     if TfraCargos(TControl(FindComponent('TfraCargos'))).emTransacao then
+ //       Exit;
+      fVersiculo := TfraVersiculos.Create(Self);
+      fVersiculo.Parent := gbTerciarioCenter;
+      fVersiculo.Align := alClient;
+      fVersiculo.pcFramePrincipal.ActivePageIndex := 0;
 
     end;
   end;
