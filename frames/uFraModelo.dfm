@@ -38,9 +38,6 @@ object FraModelo: TFraModelo
         Caption = 'Consulta'
         ImageIndex = 0
         OnResize = tsConsultaResize
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object grdFramePrincial: TcxGrid
           AlignWithMargins = True
           Left = 72

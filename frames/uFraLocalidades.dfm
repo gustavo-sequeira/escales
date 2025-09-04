@@ -77,7 +77,7 @@ inherited FraLocalidades: TFraLocalidades
               end
               object edtNome: TcxTextEdit
                 Left = 2
-                Top = 27
+                Top = 23
                 Align = alTop
                 ParentFont = False
                 Style.Font.Charset = DEFAULT_CHARSET
@@ -87,11 +87,12 @@ inherited FraLocalidades: TFraLocalidades
                 Style.Font.Style = []
                 Style.IsFontAssigned = True
                 TabOrder = 1
+                ExplicitTop = 27
                 Width = 248
               end
               object mmDescricao: TcxMemo
                 Left = 2
-                Top = 52
+                Top = 44
                 Align = alTop
                 ParentFont = False
                 Properties.ScrollBars = ssVertical
@@ -102,6 +103,7 @@ inherited FraLocalidades: TFraLocalidades
                 Style.Font.Style = []
                 Style.IsFontAssigned = True
                 TabOrder = 2
+                ExplicitTop = 52
                 Height = 89
                 Width = 248
               end

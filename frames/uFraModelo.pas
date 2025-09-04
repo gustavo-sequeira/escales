@@ -101,7 +101,6 @@ end;
 procedure TFraModelo.ExclusaoRegistro;
 begin
   ValidarAntesExcluir;
-  PreencherGrid;
 end;
 
 procedure TFraModelo.FDMemTable1BeforeInsert(DataSet: TDataSet);

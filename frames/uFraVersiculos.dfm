@@ -2,10 +2,8 @@ inherited FraVersiculos: TFraVersiculos
   inherited gbPrincipal: TcxGroupBox
     Caption = 'VERS'#205'CULOS'
     inherited pcFramePrincipal: TcxPageControl
+      Properties.ActivePage = tsManutencao
       inherited tsConsulta: TcxTabSheet
-        ExplicitTop = 26
-        ExplicitWidth = 634
-        ExplicitHeight = 430
         inherited grdFramePrincial: TcxGrid
           inherited grdFramePrincialDBTableView1: TcxGridDBTableView
             Navigator.InfoPanel.DisplayMask = '[RecordIndex] de [RecordCount]'

@@ -101,6 +101,7 @@ procedure TFraLocalidades.ExclusaoRegistro;
 var
   Localidade: TLocalidades;
 begin
+  inherited;
   Localidade := TLocalidades.Create;
   try
     Localidade.Codigo := FDMemTable1.FieldByName('codigo').AsInteger;
@@ -108,7 +109,6 @@ begin
   finally
     Localidade.Free;
   end;
-  inherited;
 end;
 
 procedure TFraLocalidades.FDMemTable1AfterInsert(DataSet: TDataSet);

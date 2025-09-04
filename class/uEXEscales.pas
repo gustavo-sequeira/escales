@@ -22,6 +22,7 @@ type
   EConexaoBDException = class(EXEscales);
   ExPermissaoException = class(EXEscales);
   ExLocalidadesException = class(EXEscales);
+  ExVersiculosException = class(EXEscales);
 
 implementation
 

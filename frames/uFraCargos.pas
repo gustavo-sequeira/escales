@@ -108,6 +108,7 @@ procedure TFraCargos.ExclusaoRegistro;
 var
   Cargo: TCargos;
 begin
+  inherited;
   Cargo := TCargos.Create;
   try
     Cargo.Codigo := FDMemTable1.FieldByName('codigo').AsInteger;
@@ -115,7 +116,6 @@ begin
   finally
     Cargo.Free;
   end;
-  inherited;
 end;
 
 procedure TFraCargos.FDMemTable1BeforeInsert(DataSet: TDataSet);

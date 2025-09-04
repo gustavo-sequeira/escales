@@ -49,7 +49,7 @@ var
 
 implementation
 
-uses uVersiculo, System.Math;
+uses uVersiculo, System.Math, uExEscales;
 
 {$R *.dfm}
 
@@ -65,9 +65,17 @@ begin
 end;
 
 procedure TFraVersiculos.ExclusaoRegistro;
+var
+  Versiculo: TVersiculos;
 begin
   inherited;
-
+  Versiculo := TVersiculos.Create;
+  try
+    Versiculo.Codigo := FDMemTable1.FieldByName('codigo').AsInteger;
+    Versiculo.Delete;
+  finally
+    Versiculo.Free;
+  end;
 end;
 
 procedure TFraVersiculos.FDMemTable1BeforeInsert(DataSet: TDataSet);
@@ -126,9 +134,28 @@ begin
 end;
 
 procedure TFraVersiculos.ValidarAntesSalvar;
+var
+  vEstado: string;
+  vCodException: Integer;
 begin
   inherited;
+  if ((Trim(edtCodigo.Text) = EmptyStr) or (Trim(edtCodigo.Text) = '0')) then
+  begin
+    vEstado := 'inclusão';
+    vCodException := 1001;
+  end
+  else
+  begin
+    vEstado := 'alteração';
+    vCodException := 2001;
+  end;
 
+  if Trim(mmDescricao.Text) = EmptyStr then
+  begin
+    raise ExVersiculosException.Create('Para realizar a ' + vEstado + ' é necessário o campo: NOME. ', vCodException);
+    Abort;
+  end;
 end;
+
 
 end.
