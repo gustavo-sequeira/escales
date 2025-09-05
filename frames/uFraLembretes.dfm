@@ -1,14 +1,15 @@
-inherited FraVersiculos: TFraVersiculos
+inherited FraLembretes: TFraLembretes
   inherited gbPrincipal: TcxGroupBox
-    Caption = 'VERS'#205'CULOS'
+    Caption = 'LEMBRETES'
     inherited pcFramePrincipal: TcxPageControl
       inherited tsConsulta: TcxTabSheet
-        ExplicitTop = 26
-        ExplicitWidth = 634
-        ExplicitHeight = 430
         inherited grdFramePrincial: TcxGrid
           inherited grdFramePrincialDBTableView1: TcxGridDBTableView
             Navigator.InfoPanel.DisplayMask = '[RecordIndex] de [RecordCount]'
+            OptionsData.Appending = True
+            OptionsData.Deleting = False
+            OptionsData.DeletingConfirmation = False
+            OptionsData.Editing = False
             OptionsSelection.CellSelect = False
             object grdFramePrincialDBTableView1codigo: TcxGridDBColumn [0]
               DataBinding.FieldName = 'codigo'
@@ -20,25 +21,16 @@ inherited FraVersiculos: TFraVersiculos
               PropertiesClassName = 'TcxTextEditProperties'
               Properties.Alignment.Horz = taCenter
               HeaderAlignmentHorz = taCenter
-              Options.Editing = False
-              Options.Moving = False
               Width = 100
             end
             object grdFramePrincialDBTableView1status: TcxGridDBColumn [2]
-              Caption = 'Status'
               DataBinding.FieldName = 'status'
               Visible = False
-              HeaderAlignmentHorz = taCenter
-              Options.Editing = False
-              Options.Filtering = False
-              Width = 60
             end
-            object grdFramePrincialDBTableView1versiculo: TcxGridDBColumn [3]
-              Caption = 'Vers'#237'culo'
-              DataBinding.FieldName = 'versiculo'
+            object grdFramePrincialDBTableView1lembrete: TcxGridDBColumn [3]
+              Caption = 'Lembrete'
+              DataBinding.FieldName = 'lembrete'
               HeaderAlignmentHorz = taCenter
-              Options.Editing = False
-              Options.Moving = False
               Width = 600
             end
             inherited grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
@@ -62,19 +54,19 @@ inherited FraVersiculos: TFraVersiculos
                 Properties.Alignment.Horz = taLeftJustify
                 Transparent = True
               end
-              object cxLabel3: TcxLabel
-                Left = 2
-                Top = 50
-                Align = alTop
-                Caption = 'Vers'#237'culo'
-                Properties.Alignment.Horz = taLeftJustify
-                Transparent = True
-              end
               object cxLabel2: TcxLabel
                 Left = 2
                 Top = 26
                 Align = alTop
                 Caption = 'Status'
+                Properties.Alignment.Horz = taLeftJustify
+                Transparent = True
+              end
+              object cxLabel3: TcxLabel
+                Left = 2
+                Top = 50
+                Align = alTop
+                Caption = 'Lembrete'
                 Properties.Alignment.Horz = taLeftJustify
                 Transparent = True
               end
@@ -144,14 +136,14 @@ inherited FraVersiculos: TFraVersiculos
     object FDMemTable1status: TIntegerField
       FieldName = 'status'
     end
-    object FDMemTable1versiculo: TWideMemoField
-      FieldName = 'versiculo'
-      BlobType = ftWideMemo
-    end
     object FDMemTable1desc_status: TStringField
       FieldKind = fkCalculated
       FieldName = 'desc_status'
       Calculated = True
+    end
+    object FDMemTable1lembrete: TWideMemoField
+      FieldName = 'lembrete'
+      BlobType = ftWideMemo
     end
   end
   inherited cxStyleRepository1: TcxStyleRepository

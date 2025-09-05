@@ -11,9 +11,7 @@ object frmPrincipal: TfrmPrincipal
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
-  OldCreateOrder = True
   WindowState = wsMaximized
-  PixelsPerInch = 96
   TextHeight = 15
   object gbPrincipal: TcxGroupBox
     Left = 0
@@ -104,7 +102,6 @@ object frmPrincipal: TfrmPrincipal
             Caption = 'Cadastros'
             SelectedLinkIndex = -1
             TopVisibleLinkIndex = 0
-            OptionsExpansion.Expanded = False
             Links = <
               item
                 Item = dxNavBarCadastroCargos
@@ -152,7 +149,7 @@ object frmPrincipal: TfrmPrincipal
             Caption = 'Escalas'
           end
           object dxNavBarCadastroLembretes: TdxNavBarItem
-            Caption = 'Lembretes'
+            Action = actCadastroLembretes
           end
           object dxNavBarCadastroLocalidades: TdxNavBarItem
             Action = actCadastroLocalidades
@@ -247,6 +244,11 @@ object frmPrincipal: TfrmPrincipal
       Category = 'Cadastros'
       Caption = 'Vers'#237'culos'
       OnExecute = actCadastroVersiculosExecute
+    end
+    object actCadastroLembretes: TAction
+      Category = 'Cadastros'
+      Caption = 'Lembretes'
+      OnExecute = actCadastroLembretesExecute
     end
   end
 end

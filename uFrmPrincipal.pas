@@ -17,7 +17,8 @@ uses
   FireDAC.Comp.Client, cxGridLevel, cxGridCustomView, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxGrid, uLibary, dxSkinOffice2010Blue,
   dxNavBarCollns, dxNavBarBase, dxNavBar, cxLabel, Vcl.ExtCtrls, System.Actions,
-  Vcl.ActnList, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ActnMan, cxLocalization;
+  Vcl.ActnList, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ActnMan, cxLocalization,
+  dxSkinWXI;
 
 type
   TfrmPrincipal = class(TForm)
@@ -51,11 +52,13 @@ type
     Action1: TAction;
     actCadastroLocalidades: TAction;
     actCadastroVersiculos: TAction;
+    actCadastroLembretes: TAction;
     procedure actCadastroCargosExecute(Sender: TObject);
     procedure actCadastroObreirosExecute(Sender: TObject);
     procedure dxNavBarDashboardClick(Sender: TObject);
     procedure actCadastroLocalidadesExecute(Sender: TObject);
     procedure actCadastroVersiculosExecute(Sender: TObject);
+    procedure actCadastroLembretesExecute(Sender: TObject);
 
   private
     { Private declarations }
@@ -70,7 +73,7 @@ var
 implementation
 
 uses
-  uFraObreiros, uFraModelo, uFraCargos, uFraLocalidades, uFraVersiculos;
+  uFraObreiros, uFraModelo, uFraCargos, uFraLocalidades, uFraVersiculos, uFraLembretes;
 
 {$R *.dfm}
 
@@ -96,9 +99,14 @@ begin
   ControleFrame('versiculos');
 end;
 
+procedure TfrmPrincipal.actCadastroLembretesExecute(Sender: TObject);
+begin
+  ControleFrame('lembretes');
+end;
+
 procedure TfrmPrincipal.ControleFrame(pFrame: string; pLimparTodos: Boolean = False);
 var
-  fCargo, fObreiro, fLocalidade, fVersiculo: TFraModelo;
+  fCargo, fObreiro, fLocalidade, fVersiculo, fLembrete: TFraModelo;
   i: Integer;
 begin
 
@@ -124,6 +132,11 @@ begin
       else if pFrame = 'versiculos' then
       begin
         if TFraVersiculos(gbTerciarioCenter.Controls[i]).emTransacao then
+          Exit;
+      end
+      else if pFrame = 'lembretes' then
+      begin
+        if TFraLembretes(gbTerciarioCenter.Controls[i]).emTransacao then
           Exit;
       end;
 
@@ -170,8 +183,17 @@ begin
       fVersiculo.Parent := gbTerciarioCenter;
       fVersiculo.Align := alClient;
       fVersiculo.pcFramePrincipal.ActivePageIndex := 0;
-
+    end
+    else if pFrame = 'lembretes' then
+    begin
+ //     if TfraCargos(TControl(FindComponent('TfraCargos'))).emTransacao then
+ //       Exit;
+      fLembrete := TfraLembretes.Create(Self);
+      fLembrete.Parent := gbTerciarioCenter;
+      fLembrete.Align := alClient;
+      fLembrete.pcFramePrincipal.ActivePageIndex := 0;
     end;
+
   end;
 end;
 

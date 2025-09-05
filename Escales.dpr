@@ -20,7 +20,8 @@ uses
   uEXEscales in 'class\uEXEscales.pas',
   uFrmTelefone in 'uFrmTelefone.pas' {frmTelefone},
   uFraLocalidades in 'frames\uFraLocalidades.pas' {FraLocalidades: TFrame},
-  uFraVersiculos in 'frames\uFraVersiculos.pas' {FraVersiculos: TFrame};
+  uFraVersiculos in 'frames\uFraVersiculos.pas' {FraVersiculos: TFrame},
+  uFraLembretes in 'frames\uFraLembretes.pas' {FraLembretes: TFrame};
 
 {$R *.res}
 

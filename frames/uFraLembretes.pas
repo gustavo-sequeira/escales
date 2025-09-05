@@ -1,4 +1,4 @@
-unit uFraVersiculos;
+unit uFraLembretes;
 
 interface
 
@@ -6,32 +6,32 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uFraModelo, cxGraphics, cxControls,
   cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit, dxSkinsCore,
-  dxSkinOffice2010Blue, dxBarBuiltInMenu, cxStyles, cxCustomData, cxFilter,
-  cxData, cxDataStorage, cxNavigator, dxDateRanges, dxScrollbarAnnotations,
-  Data.DB, cxDBData, Vcl.Menus, FireDAC.Stan.Intf, FireDAC.Stan.Option,
-  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
-  FireDAC.DApt.Intf, cxClasses, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  System.ImageList, Vcl.ImgList, cxImageList, Vcl.StdCtrls, cxButtons,
-  cxGridLevel, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
-  cxGridCustomView, cxGrid, cxPC, cxGroupBox, cxMemo, cxCheckBox, cxTextEdit,
-  cxLabel, dxSkinWXI;
+  dxSkinOffice2010Blue, dxSkinWXI, dxBarBuiltInMenu, cxStyles, cxCustomData,
+  cxFilter, cxData, cxDataStorage, cxNavigator, dxDateRanges,
+  dxScrollbarAnnotations, Data.DB, cxDBData, Vcl.Menus, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, cxClasses, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, System.ImageList, Vcl.ImgList, cxImageList, Vcl.StdCtrls,
+  cxButtons, cxGridLevel, cxGridCustomTableView, cxGridTableView,
+  cxGridDBTableView, cxGridCustomView, cxGrid, cxPC, cxGroupBox, cxLabel,
+  cxMemo, cxCheckBox, cxTextEdit;
 
 type
-  TFraVersiculos = class(TFraModelo)
+  TFraLembretes = class(TFraModelo)
     cxLabel4: TcxLabel;
-    cxLabel3: TcxLabel;
     cxLabel2: TcxLabel;
+    cxLabel3: TcxLabel;
     edtCodigo: TcxTextEdit;
     chbStatus: TcxCheckBox;
     mmDescricao: TcxMemo;
     FDMemTable1codigo: TIntegerField;
     FDMemTable1status: TIntegerField;
-    FDMemTable1versiculo: TWideMemoField;
+    FDMemTable1desc_status: TStringField;
     grdFramePrincialDBTableView1codigo: TcxGridDBColumn;
     grdFramePrincialDBTableView1status: TcxGridDBColumn;
-    grdFramePrincialDBTableView1versiculo: TcxGridDBColumn;
-    FDMemTable1desc_status: TStringField;
+    grdFramePrincialDBTableView1lembrete: TcxGridDBColumn;
     grdFramePrincialDBTableView1desc_status: TcxGridDBColumn;
+    FDMemTable1lembrete: TWideMemoField;
     procedure FDMemTable1BeforeInsert(DataSet: TDataSet);
     procedure FDMemTable1CalcFields(DataSet: TDataSet);
   private
@@ -47,61 +47,62 @@ type
   end;
 
 var
-  FraVersiculos: TFraVersiculos;
+  FraLembretes: TFraLembretes;
 
 implementation
 
-uses uVersiculo, System.Math, uExEscales, System.StrUtils;
+
+uses uLembrete, System.Math, uExEscales, System.StrUtils;
 
 {$R *.dfm}
 
-{ TFraVersiculos }
+{ TFraLembretes }
 
-procedure TFraVersiculos.EdicaoRegistro;
+procedure TFraLembretes.EdicaoRegistro;
 begin
   inherited;
   edtCodigo.Text := IntToStr(FDMemTable1.FieldByName('codigo').AsInteger);
   edtCodigo.Enabled := False;
   chbStatus.Checked := FDMemTable1.FieldByName('status').AsInteger = 1;
-  mmDescricao.Lines.Text := FDMemTable1.FieldByName('versiculo').AsString;
+  mmDescricao.Lines.Text := FDMemTable1.FieldByName('lembrete').AsString;
 end;
 
-procedure TFraVersiculos.ExclusaoRegistro;
+procedure TFraLembretes.ExclusaoRegistro;
 var
-  Versiculo: TVersiculos;
+  Lembrete: TLembretes;
 begin
   inherited;
-  Versiculo := TVersiculos.Create;
+  Lembrete := TLembretes.Create;
   try
-    Versiculo.Codigo := FDMemTable1.FieldByName('codigo').AsInteger;
-    Versiculo.Delete;
+    Lembrete.Codigo := FDMemTable1.FieldByName('codigo').AsInteger;
+    Lembrete.Delete;
     PreencherGrid;
   finally
-    Versiculo.Free;
+    Lembrete.Free;
   end;
 end;
 
-procedure TFraVersiculos.FDMemTable1BeforeInsert(DataSet: TDataSet);
+procedure TFraLembretes.FDMemTable1BeforeInsert(DataSet: TDataSet);
 begin
   edtCodigo.Text := '0';
   edtCodigo.Enabled := False;
   inherited;
 end;
 
-procedure TFraVersiculos.FDMemTable1CalcFields(DataSet: TDataSet);
+procedure TFraLembretes.FDMemTable1CalcFields(DataSet: TDataSet);
 begin
   inherited;
   FDMemTable1desc_status.AsString := ifthen(FDMemTable1status.AsInteger = 1, 'Ativo','Inativo');
 end;
 
-procedure TFraVersiculos.PreencherGrid;
+procedure TFraLembretes.PreencherGrid;
 var
-  Versiculo: TVersiculos;
+  Lembrete: TLembretes;
   Query: TFDQuery;
 begin
   inherited;
-  Versiculo := TVersiculos.Create;
-  Query := Versiculo.ListToQuery;
+  Lembrete := TLembretes.Create;
+  Query := Lembrete.ListToQuery;
 
   Query.Open;
   Query.FetchAll;
@@ -114,35 +115,34 @@ begin
         ShowMessage(e.Message);
     end;
   finally
-    Versiculo.Free;
+    Lembrete.Free;
     Query.Free;
   end;
 end;
 
-
-procedure TFraVersiculos.SalvarRegistro;
+procedure TFraLembretes.SalvarRegistro;
 var
-  Versiculo: TVersiculos;
+  Lembrete: TLembretes;
 begin
   inherited;
-  Versiculo := TVersiculos.Create;
+  Lembrete := TLembretes.Create;
   try
-    Versiculo.Codigo := StrToIntDef(edtCodigo.Text, 0);
-    Versiculo.Status :=  ifthen(chbStatus.Checked, 1, 0);
-    Versiculo.Versiculo := Trim(mmDescricao.Text);
-    Versiculo.Save;
+    Lembrete.Codigo := StrToIntDef(edtCodigo.Text, 0);
+    Lembrete.Status :=  ifthen(chbStatus.Checked, 1, 0);
+    Lembrete.Lembrete := Trim(mmDescricao.Text);
+    Lembrete.Save;
   finally
-    Versiculo.Free;
+    Lembrete.Free;
   end;
 end;
 
-procedure TFraVersiculos.ValidarAntesExcluir;
+procedure TFraLembretes.ValidarAntesExcluir;
 begin
   inherited;
 
 end;
 
-procedure TFraVersiculos.ValidarAntesSalvar;
+procedure TFraLembretes.ValidarAntesSalvar;
 var
   vEstado: string;
   vCodException: Integer;
@@ -161,10 +161,9 @@ begin
 
   if Trim(mmDescricao.Text) = EmptyStr then
   begin
-    raise ExVersiculosException.Create('Para realizar a ' + vEstado + ' é necessário o campo: VERSÍCULO. ', vCodException);
+    raise ExLembretesException.Create('Para realizar a ' + vEstado + ' é necessário o campo: LEMBRETE. ', vCodException);
     Abort;
   end;
 end;
-
 
 end.

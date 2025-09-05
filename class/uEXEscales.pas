@@ -23,6 +23,7 @@ type
   ExPermissaoException = class(EXEscales);
   ExLocalidadesException = class(EXEscales);
   ExVersiculosException = class(EXEscales);
+  ExLembretesException = class(EXEscales);
 
 implementation
 

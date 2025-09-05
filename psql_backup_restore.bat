@@ -40,7 +40,7 @@ set /p PGPASSWORD="Senha: "
 if not exist "%BACKUP_DIR%" mkdir "%BACKUP_DIR%"
 
 echo Executando backup de %DATABASE%...
-"%PGPATH%pg_dump.exe" -h %PGHOST% -p %PGPORT% -U %PGUSER% -F c -b -v -f "%BACKUP_DIR%%FILENAME%" %DATABASE%
+"%PGPATH%pg_dump.exe" -h %PGHOST% -p %PGPORT% -U %PGUSER% -F t -b -v -f "%BACKUP_DIR%%FILENAME%" %DATABASE%
 
 if %errorlevel% equ 0 (
     echo Backup concluido com sucesso!
@@ -110,7 +110,7 @@ echo Esta operacao pode demorar varios minutos...
 echo.
 
 REM Restaurar com opcoes para sobrescrever completamente
-"%PGPATH%pg_restore.exe" -h %PGHOST% -p %PGPORT% -U %PGUSER% -d %RESTORE_DB% --clean --if-exists --create --verbose "C:\Backups\PostgreSQL\%RESTORE_FILE%"
+"%PGPATH%pg_restore.exe" -h %PGHOST% -p %PGPORT% -U %PGUSER% -d %RESTORE_DB% --verbose "C:\Backups\PostgreSQL\%RESTORE_FILE%"
 
 if %errorlevel% equ 0 (
     echo.
