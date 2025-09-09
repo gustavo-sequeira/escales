@@ -54,6 +54,12 @@ inherited FraObreiros: TFraObreiros
               Options.Editing = False
               Width = 150
             end
+            inherited grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
+              DataBinding.IsNullValueType = True
+            end
+            inherited grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn
+              DataBinding.IsNullValueType = True
+            end
           end
         end
       end

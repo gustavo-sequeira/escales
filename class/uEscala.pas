@@ -6,14 +6,14 @@ uses
   uModeloBase, uLocalidade;
 
 type
-  TEscala = class(TModeloBase)
+  TEscalas = class(TModeloBase)
   private
     FCodigo: Integer;
     FLocalidade: TLocalidades;
     FData: TDate;
     FHorario: TTime;
     FTurno: string;
-  public
+  published
     property Codigo: Integer read FCodigo write FCodigo;
     property Localidade: TLocalidades read FLocalidade write FLocalidade;
     property Data: TDate read FData write FData;

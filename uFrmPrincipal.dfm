@@ -102,6 +102,7 @@ object frmPrincipal: TfrmPrincipal
             Caption = 'Cadastros'
             SelectedLinkIndex = -1
             TopVisibleLinkIndex = 0
+            OptionsExpansion.Expanded = False
             Links = <
               item
                 Item = dxNavBarCadastroCargos
@@ -146,7 +147,7 @@ object frmPrincipal: TfrmPrincipal
             Action = actCadastroCargos
           end
           object dxNavBarCadastroEscalas: TdxNavBarItem
-            Caption = 'Escalas'
+            Action = actCadastroEscalas
           end
           object dxNavBarCadastroLembretes: TdxNavBarItem
             Action = actCadastroLembretes
@@ -249,6 +250,11 @@ object frmPrincipal: TfrmPrincipal
       Category = 'Cadastros'
       Caption = 'Lembretes'
       OnExecute = actCadastroLembretesExecute
+    end
+    object actCadastroEscalas: TAction
+      Category = 'Cadastros'
+      Caption = 'Escalas'
+      OnExecute = actCadastroEscalasExecute
     end
   end
 end

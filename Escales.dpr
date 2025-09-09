@@ -21,7 +21,8 @@ uses
   uFrmTelefone in 'uFrmTelefone.pas' {frmTelefone},
   uFraLocalidades in 'frames\uFraLocalidades.pas' {FraLocalidades: TFrame},
   uFraVersiculos in 'frames\uFraVersiculos.pas' {FraVersiculos: TFrame},
-  uFraLembretes in 'frames\uFraLembretes.pas' {FraLembretes: TFrame};
+  uFraLembretes in 'frames\uFraLembretes.pas' {FraLembretes: TFrame},
+  uFraEscalas in 'frames\uFraEscalas.pas' {FraEscalas: TFrame};
 
 {$R *.res}
 

@@ -53,12 +53,14 @@ type
     actCadastroLocalidades: TAction;
     actCadastroVersiculos: TAction;
     actCadastroLembretes: TAction;
+    actCadastroEscalas: TAction;
     procedure actCadastroCargosExecute(Sender: TObject);
     procedure actCadastroObreirosExecute(Sender: TObject);
     procedure dxNavBarDashboardClick(Sender: TObject);
     procedure actCadastroLocalidadesExecute(Sender: TObject);
     procedure actCadastroVersiculosExecute(Sender: TObject);
     procedure actCadastroLembretesExecute(Sender: TObject);
+    procedure actCadastroEscalasExecute(Sender: TObject);
 
   private
     { Private declarations }
@@ -73,7 +75,8 @@ var
 implementation
 
 uses
-  uFraObreiros, uFraModelo, uFraCargos, uFraLocalidades, uFraVersiculos, uFraLembretes;
+  uFraObreiros, uFraModelo, uFraCargos, uFraLocalidades, uFraVersiculos,
+  uFraLembretes, uFraEscalas;
 
 {$R *.dfm}
 
@@ -99,6 +102,11 @@ begin
   ControleFrame('versiculos');
 end;
 
+procedure TfrmPrincipal.actCadastroEscalasExecute(Sender: TObject);
+begin
+  ControleFrame('escalas');
+end;
+
 procedure TfrmPrincipal.actCadastroLembretesExecute(Sender: TObject);
 begin
   ControleFrame('lembretes');
@@ -106,7 +114,7 @@ end;
 
 procedure TfrmPrincipal.ControleFrame(pFrame: string; pLimparTodos: Boolean = False);
 var
-  fCargo, fObreiro, fLocalidade, fVersiculo, fLembrete: TFraModelo;
+  fCargo, fObreiro, fLocalidade, fVersiculo, fLembrete, fEscala: TFraModelo;
   i: Integer;
 begin
 
@@ -137,6 +145,11 @@ begin
       else if pFrame = 'lembretes' then
       begin
         if TFraLembretes(gbTerciarioCenter.Controls[i]).emTransacao then
+          Exit;
+      end
+      else if pFrame = 'escalas' then
+      begin
+        if TFraEscalas(gbTerciarioCenter.Controls[i]).emTransacao then
           Exit;
       end;
 
@@ -192,6 +205,15 @@ begin
       fLembrete.Parent := gbTerciarioCenter;
       fLembrete.Align := alClient;
       fLembrete.pcFramePrincipal.ActivePageIndex := 0;
+    end
+    else if pFrame = 'escalas' then
+    begin
+ //     if TfraCargos(TControl(FindComponent('TfraCargos'))).emTransacao then
+ //       Exit;
+      fEscala := TfraEscalas.Create(Self);
+      fEscala.Parent := gbTerciarioCenter;
+      fEscala.Align := alClient;
+      fEscala.pcFramePrincipal.ActivePageIndex := 0;
     end;
 
   end;

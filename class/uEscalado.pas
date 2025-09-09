@@ -8,10 +8,10 @@ uses
 type
   TEscalado = class(TModeloBase)
   private
-    FEscala: TEscala;
+    FEscala: TEscalas;
     FObreiro: TObreiros;
   public
-    property Escala: TEscala read FEscala write FEscala;
+    property Escala: TEscalas read FEscala write FEscala;
     property Obreiro: TObreiros read FObreiro write FObreiro;
   end;
 

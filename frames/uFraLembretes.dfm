@@ -2,6 +2,7 @@ inherited FraLembretes: TFraLembretes
   inherited gbPrincipal: TcxGroupBox
     Caption = 'LEMBRETES'
     inherited pcFramePrincipal: TcxPageControl
+      Properties.ActivePage = tsManutencao
       inherited tsConsulta: TcxTabSheet
         inherited grdFramePrincial: TcxGrid
           inherited grdFramePrincialDBTableView1: TcxGridDBTableView
@@ -116,6 +117,7 @@ inherited FraLembretes: TFraLembretes
                 Style.Font.Style = []
                 Style.IsFontAssigned = True
                 TabOrder = 2
+                ExplicitTop = 44
                 Height = 171
                 Width = 248
               end
