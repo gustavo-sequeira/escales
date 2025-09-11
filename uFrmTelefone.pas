@@ -7,7 +7,7 @@ uses
   System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics,
   cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit,
   dxSkinsCore, dxSkinOffice2010Blue, cxGroupBox, Vcl.Menus, Vcl.StdCtrls,
-  cxButtons, cxCheckBox, cxTextEdit, cxMaskEdit, dxSkinWXI;
+  cxButtons, cxCheckBox, cxTextEdit, cxMaskEdit;
 
 type
   TfrmTelefone = class(TForm)

@@ -19,12 +19,6 @@ inherited FraEscalas: TFraEscalas
             object grdFramePrincialDBTableView1codigo: TcxGridDBColumn [0]
               DataBinding.FieldName = 'codigo'
             end
-            inherited grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
-            end
-            inherited grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
-            end
           end
         end
       end
@@ -350,7 +344,6 @@ inherited FraEscalas: TFraEscalas
                 StyleDisabled.LookAndFeel.NativeStyle = False
                 StyleFocused.LookAndFeel.NativeStyle = False
                 StyleHot.LookAndFeel.NativeStyle = False
-                StyleReadOnly.LookAndFeel.NativeStyle = False
                 TabOrder = 4
                 Height = 25
                 Width = 248
@@ -384,8 +377,6 @@ inherited FraEscalas: TFraEscalas
                   OptionsImage.ImageIndex = 5
                   OptionsImage.Images = cxImageList
                   TabOrder = 2
-                  OnClick = btnFrameConfirmarClick
-                  ExplicitLeft = 272
                 end
                 object cxButton2: TcxButton
                   AlignWithMargins = True
@@ -397,9 +388,8 @@ inherited FraEscalas: TFraEscalas
                   Caption = '&Manual'
                   OptionsImage.ImageIndex = 4
                   OptionsImage.Images = cxImageList
-                  TabOrder = 1
+                  TabOrder = 0
                   OnClick = btnFrameConfirmarClick
-                  ExplicitLeft = 75
                 end
                 object cxLabel1: TcxLabel
                   AlignWithMargins = True
@@ -414,10 +404,6 @@ inherited FraEscalas: TFraEscalas
                   Properties.Alignment.Horz = taCenter
                   Properties.Alignment.Vert = taVCenter
                   Transparent = True
-                  ExplicitLeft = 2
-                  ExplicitTop = 145
-                  ExplicitWidth = 384
-                  ExplicitHeight = 25
                   Height = 28
                   Width = 152
                   AnchorX = 79
@@ -530,7 +516,6 @@ inherited FraEscalas: TFraEscalas
           AFC7BA3B78C15E8D7903F3BF2E7182CD0CE0B8690EC6D82D998FF09A03544539
           45F83AFEC65D214095514E8D91204D9B2999579A696D2D012A30743C36A8317B
           0000000049454E44AE426082}
-        FileName = 'C:\Users\seque\Downloads\icons8-manual-16.png'
       end
       item
         ImageClass = 'TdxSmartImage'
@@ -544,7 +529,6 @@ inherited FraEscalas: TFraEscalas
           80B004309117AAA7F61732A0ADCF8E140EE4659633484A0EF1B14E2C0007ECF5
           B6A194C97316405ED0526ABC483F5F653F181E621D261F7E1BA6AFEB0E791E87
           FD0FB228FF0000000049454E44AE426082}
-        FileName = 'C:\Users\seque\Downloads\icons8-autom'#225'tico-16.png'
       end>
   end
   inherited FDMemTable1: TFDMemTable

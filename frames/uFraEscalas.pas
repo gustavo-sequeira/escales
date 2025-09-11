@@ -6,17 +6,17 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uFraModelo,
   cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer,
-  cxEdit, dxSkinsCore, dxSkinOffice2010Blue, dxSkinWXI, dxBarBuiltInMenu,
-  cxStyles, cxCustomData, cxFilter, cxData, cxDataStorage, cxNavigator,
-  dxDateRanges, dxScrollbarAnnotations, Data.DB, cxDBData, Vcl.Menus,
-  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
-  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, cxClasses,
-  FireDAC.Comp.DataSet, FireDAC.Comp.Client, System.ImageList, Vcl.ImgList,
-  cxImageList, Vcl.StdCtrls, cxButtons, cxGridLevel, cxGridCustomTableView,
-  cxGridTableView, cxGridDBTableView, cxGridCustomView, cxGrid, cxPC, cxGroupBox,
-  cxLabel, cxTextEdit, cxCheckBox, Vcl.ComCtrls, dxCore, cxDateUtils,
-  cxDropDownEdit, cxCalendar, cxMaskEdit, dxGDIPlusClasses, cxImage,
-  cxRadioGroup, cxSpinEdit, cxTimeEdit;
+  cxEdit, dxSkinsCore, dxSkinOffice2010Blue, dxBarBuiltInMenu, cxStyles,
+  cxCustomData, cxFilter, cxData, cxDataStorage, cxNavigator, dxDateRanges,
+  dxScrollbarAnnotations, Data.DB, cxDBData, Vcl.Menus, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, cxClasses, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, System.ImageList, Vcl.ImgList, cxImageList, Vcl.StdCtrls,
+  cxButtons, cxGridLevel, cxGridCustomTableView, cxGridTableView,
+  cxGridDBTableView, cxGridCustomView, cxGrid, cxPC, cxGroupBox, cxLabel,
+  cxTextEdit, cxCheckBox, Vcl.ComCtrls, dxCore, cxDateUtils, cxDropDownEdit,
+  cxCalendar, cxMaskEdit, dxGDIPlusClasses, cxImage, cxRadioGroup, cxSpinEdit,
+  cxTimeEdit;
 
 type
   TFraEscalas = class(TFraModelo)
@@ -77,7 +77,8 @@ var
 implementation
 
 uses
-  Math, System.DateUtils, uDmPrincipal, uEscala, uEscalado, uModeloBase, uEXEscales;
+  Math, System.DateUtils, uDmPrincipal, uEscala, uEscalado, uModeloBase,
+  uEXEscales;
 
 {$R *.dfm}
 
@@ -87,6 +88,7 @@ procedure TFraEscalas.AcaoCheckboxRepetir(checado: boolean);
 begin
   if checado then
   begin
+    cbDiasSemana.ItemIndex := -1;
     cbDiasSemana.Visible := True;
     cbDiasSemana.Align := alClient;
     dtData.Visible := False;
@@ -95,6 +97,7 @@ begin
   end
   else
   begin
+    dtData.Date := Now;
     cbDiasSemana.Visible := False;
     cbDiasSemana.Align := alNone;
     dtData.Visible := True;
@@ -339,8 +342,50 @@ begin
 end;
 
 procedure TFraEscalas.ValidarAntesSalvar;
+var
+  vEstado: string;
+  vCodException: Integer;
 begin
   inherited;
+  if ((Trim(edtCodigo.Text) = EmptyStr) or (Trim(edtCodigo.Text) = '0')) then
+  begin
+    vEstado := 'inclusão';
+    vCodException := 1001;
+  end
+  else
+  begin
+    vEstado := 'alteração';
+    vCodException := 2001;
+  end;
+
+  if Trim(cbSituacao.Text) = EmptyStr then
+  begin
+    raise ExEscalasException.Create('Para realizar a ' + vEstado + ' é necessário o campo: SITUAÇÃO. ', vCodException);
+    Abort;
+  end;
+
+  if Trim(cbLocalidade.Text) = EmptyStr then
+  begin
+    raise ExEscalasException.Create('Para realizar a ' + vEstado + ' é necessário o campo: LOCALIDADE. ', vCodException);
+    Abort;
+  end;
+
+  if chbRepetir.Checked then
+  begin
+    if Trim(cbDiasSemana.Text) = EmptyStr then
+    begin
+      raise ExEscalasException.Create('Para realizar a ' + vEstado + ' é necessário o campo: DIA DA SEMANA. ', vCodException);
+      Abort;
+    end;
+  end
+  else
+  begin
+    if dtData.Text = '30/12/1899' then
+    begin
+      raise ExEscalasException.Create('Para realizar a ' + vEstado + ' é necessário o campo: DATA. ', vCodException);
+      Abort;
+    end;
+  end;
 
 end;
 
