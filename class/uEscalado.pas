@@ -5,18 +5,18 @@ interface
 uses
   uModeloBase, uEscala, uObreiro, uLocalidade, uCargo;
 
+  {$M+}
 type
-  TEscalado = class(TModeloBase)
+  TEscalados = class(TModeloBase)
   private
     FEscala: TEscalas;
     FObreiro: TObreiros;
-  public
+  published
     property Escala: TEscalas read FEscala write FEscala;
     property Obreiro: TObreiros read FObreiro write FObreiro;
   end;
 
 implementation
-
 
 end.
 

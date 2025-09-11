@@ -163,7 +163,7 @@ begin
   try
     if Cargo.TotalReg(vArrStrings) > 0 then
     begin
-      raise EXEscales.Create('Não foi possível realizar a exclusão. Registro é usado em outras tabelas. ', vCodException);
+      raise ExCargosException.Create('Não foi possível realizar a exclusão. Registro é usado em outras tabelas. ', vCodException);
       Abort;
     end;
   finally

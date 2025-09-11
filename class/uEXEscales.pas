@@ -24,6 +24,7 @@ type
   ExLocalidadesException = class(EXEscales);
   ExVersiculosException = class(EXEscales);
   ExLembretesException = class(EXEscales);
+  ExEscalasException = class(EXEscales);
 
 implementation
 
