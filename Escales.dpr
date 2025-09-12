@@ -22,7 +22,8 @@ uses
   uFraLocalidades in 'frames\uFraLocalidades.pas' {FraLocalidades: TFrame},
   uFraVersiculos in 'frames\uFraVersiculos.pas' {FraVersiculos: TFrame},
   uFraLembretes in 'frames\uFraLembretes.pas' {FraLembretes: TFrame},
-  uFraEscalas in 'frames\uFraEscalas.pas' {FraEscalas: TFrame};
+  uFraEscalas in 'frames\uFraEscalas.pas' {FraEscalas: TFrame},
+  uFrmInclusaoObreiroEscala in 'uFrmInclusaoObreiroEscala.pas' {frmInclusaoObreiroEscala};
 
 {$R *.res}
 

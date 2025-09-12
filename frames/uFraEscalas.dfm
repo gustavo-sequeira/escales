@@ -6,18 +6,43 @@ inherited FraEscalas: TFraEscalas
     ExplicitHeight = 594
     Height = 594
     inherited pcFramePrincipal: TcxPageControl
-      Height = 570
+      Height = 572
       Properties.ActivePage = tsManutencao
       ExplicitHeight = 570
-      ClientRectBottom = 570
+      ClientRectBottom = 572
       inherited tsConsulta: TcxTabSheet
-        ExplicitTop = 26
-        ExplicitWidth = 634
         ExplicitHeight = 544
         inherited grdFramePrincial: TcxGrid
           inherited grdFramePrincialDBTableView1: TcxGridDBTableView
             object grdFramePrincialDBTableView1codigo: TcxGridDBColumn [0]
               DataBinding.FieldName = 'codigo'
+            end
+            object grdFramePrincialDBTableView1situacao: TcxGridDBColumn [1]
+              DataBinding.FieldName = 'situacao'
+            end
+            object grdFramePrincialDBTableView1data: TcxGridDBColumn [2]
+              DataBinding.FieldName = 'data'
+            end
+            object grdFramePrincialDBTableView1dia: TcxGridDBColumn [3]
+              DataBinding.FieldName = 'dia'
+            end
+            object grdFramePrincialDBTableView1turno: TcxGridDBColumn [4]
+              DataBinding.FieldName = 'turno'
+            end
+            object grdFramePrincialDBTableView1horario: TcxGridDBColumn [5]
+              DataBinding.FieldName = 'horario'
+            end
+            object grdFramePrincialDBTableView1repete: TcxGridDBColumn [6]
+              DataBinding.FieldName = 'repete'
+            end
+            object grdFramePrincialDBTableView1codigo_localidade: TcxGridDBColumn [7]
+              DataBinding.FieldName = 'codigo_localidade'
+            end
+            object grdFramePrincialDBTableView1nome_localidade: TcxGridDBColumn [8]
+              DataBinding.FieldName = 'nome_localidade'
+            end
+            object grdFramePrincialDBTableView1data_dia: TcxGridDBColumn [9]
+              DataBinding.FieldName = 'data_dia'
             end
           end
         end
@@ -195,7 +220,7 @@ inherited FraEscalas: TFraEscalas
                   Margins.Bottom = 0
                   Align = alTop
                   AutoSize = False
-                  Caption = 'MANH'#195
+                  Caption = 'Manh'#227
                   ParentFont = False
                   Style.Font.Charset = DEFAULT_CHARSET
                   Style.Font.Color = clWindowText
@@ -359,42 +384,51 @@ inherited FraEscalas: TFraEscalas
               Width = 402
               object cxGroupBox4: TcxGroupBox
                 AlignWithMargins = True
-                Left = 6
-                Top = 6
+                Left = 5
+                Top = 5
                 Align = alTop
                 PanelStyle.Active = True
                 TabOrder = 0
+                ExplicitLeft = 6
+                ExplicitTop = 6
+                ExplicitWidth = 390
                 Height = 37
-                Width = 390
+                Width = 392
                 object cxButton1: TcxButton
                   AlignWithMargins = True
-                  Left = 274
-                  Top = 6
+                  Left = 277
+                  Top = 5
                   Width = 110
-                  Height = 25
+                  Height = 27
                   Align = alRight
                   Caption = '&Autom'#225'tico'
                   OptionsImage.ImageIndex = 5
                   OptionsImage.Images = cxImageList
                   TabOrder = 2
+                  ExplicitLeft = 274
+                  ExplicitTop = 6
+                  ExplicitHeight = 25
                 end
                 object cxButton2: TcxButton
                   AlignWithMargins = True
-                  Left = 158
-                  Top = 6
+                  Left = 161
+                  Top = 5
                   Width = 110
-                  Height = 25
+                  Height = 27
                   Align = alRight
                   Caption = '&Manual'
                   OptionsImage.ImageIndex = 4
                   OptionsImage.Images = cxImageList
                   TabOrder = 0
-                  OnClick = btnFrameConfirmarClick
+                  OnClick = cxButton2Click
+                  ExplicitLeft = 158
+                  ExplicitTop = 6
+                  ExplicitHeight = 25
                 end
                 object cxLabel1: TcxLabel
                   AlignWithMargins = True
-                  Left = 3
-                  Top = 6
+                  Left = 2
+                  Top = 5
                   Margins.Left = 0
                   Margins.Right = 0
                   Margins.Bottom = 0
@@ -404,24 +438,34 @@ inherited FraEscalas: TFraEscalas
                   Properties.Alignment.Horz = taCenter
                   Properties.Alignment.Vert = taVCenter
                   Transparent = True
-                  Height = 28
-                  Width = 152
-                  AnchorX = 79
+                  ExplicitLeft = 3
+                  ExplicitTop = 6
+                  ExplicitWidth = 152
+                  ExplicitHeight = 28
+                  Height = 30
+                  Width = 156
+                  AnchorX = 80
                   AnchorY = 20
                 end
               end
               object cxGrid1: TcxGrid
                 AlignWithMargins = True
-                Left = 6
-                Top = 49
-                Width = 390
-                Height = 123
+                Left = 5
+                Top = 48
+                Width = 392
+                Height = 125
                 Align = alClient
                 TabOrder = 1
+                ExplicitLeft = 6
+                ExplicitTop = 49
+                ExplicitWidth = 390
+                ExplicitHeight = 123
                 object cxGrid1DBTableView1: TcxGridDBTableView
                   Navigator.Buttons.CustomButtons = <>
                   Navigator.InfoPanel.DisplayMask = '[RecordIndex] de [RecordCount]'
                   ScrollbarAnnotations.CustomAnnotations = <>
+                  OnCustomDrawCell = cxGrid1DBTableView1CustomDrawCell
+                  DataController.DataSource = dsGridEscalados
                   DataController.Summary.DefaultGroupSummaryItems = <>
                   DataController.Summary.FooterSummaryItems = <>
                   DataController.Summary.SummaryGroups = <>
@@ -429,7 +473,21 @@ inherited FraEscalas: TFraEscalas
                   OptionsData.Deleting = False
                   OptionsData.DeletingConfirmation = False
                   OptionsData.Editing = False
+                  OptionsSelection.CellSelect = False
                   OptionsView.GroupByBox = False
+                  OptionsView.Header = False
+                  object cxGrid1DBTableView1nome: TcxGridDBColumn
+                    Caption = 'Nome'
+                    DataBinding.FieldName = 'nome'
+                    PropertiesClassName = 'TcxTextEditProperties'
+                    MinWidth = 400
+                    Options.Editing = False
+                    Options.HorzSizing = False
+                    Width = 400
+                  end
+                  object cxGrid1DBTableView1Exclusao: TcxGridDBColumn
+                    Width = 34
+                  end
                 end
                 object cxGrid1Level1: TcxGridLevel
                   GridView = cxGrid1DBTableView1
@@ -451,6 +509,7 @@ inherited FraEscalas: TFraEscalas
   end
   inherited cxImageList: TcxImageList
     FormatVersion = 1
+    DesignInfo = 36045216
     ImageInfo = <
       item
         ImageClass = 'TdxSmartImage'
@@ -532,20 +591,54 @@ inherited FraEscalas: TFraEscalas
       end>
   end
   inherited FDMemTable1: TFDMemTable
-    Active = True
+    StoreDefs = True
+    Left = 536
+    Top = 550
     object FDMemTable1codigo: TIntegerField
       FieldName = 'codigo'
     end
+    object FDMemTable1data: TDateField
+      FieldName = 'data'
+    end
+    object FDMemTable1repete: TIntegerField
+      FieldName = 'repete'
+    end
+    object FDMemTable1codigo_localidade: TIntegerField
+      FieldName = 'codigo_localidade'
+    end
+    object FDMemTable1situacao: TWideMemoField
+      FieldName = 'situacao'
+      BlobType = ftWideMemo
+    end
+    object FDMemTable1dia: TWideMemoField
+      FieldName = 'dia'
+      BlobType = ftWideMemo
+    end
+    object FDMemTable1turno: TWideMemoField
+      FieldName = 'turno'
+      BlobType = ftWideMemo
+    end
+    object FDMemTable1horario: TTimeField
+      FieldName = 'horario'
+    end
+  end
+  inherited DataSource1: TDataSource
+    Left = 476
+    Top = 550
   end
   inherited cxStyleRepository1: TcxStyleRepository
+    Left = 446
+    Top = 550
     PixelsPerInch = 96
   end
   object dsGridEscalados: TDataSource
     DataSet = memGridEscalados
-    Left = 360
-    Top = 480
+    Left = 506
+    Top = 550
   end
   object memGridEscalados: TFDMemTable
+    FieldDefs = <>
+    IndexDefs = <>
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     ResourceOptions.AssignedValues = [rvSilentMode]
@@ -553,7 +646,12 @@ inherited FraEscalas: TFraEscalas
     UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
-    Left = 248
-    Top = 488
+    StoreDefs = True
+    Left = 566
+    Top = 550
+    object memGridEscaladosnome: TWideMemoField
+      FieldName = 'nome'
+      BlobType = ftWideMemo
+    end
   end
 end

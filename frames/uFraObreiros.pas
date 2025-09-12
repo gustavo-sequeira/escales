@@ -741,11 +741,9 @@ procedure TFraObreiros.PosicionarItemIndexCargo(ACodigoCargo: integer);
 begin
   dmPrincipal.FDQuery1.Close;
   dmPrincipal.FDQuery1.SQL.Clear;
-//dmPrincipal.FDQuery1.SQL.Add('   	  WITH params AS (SELECT :codigo ::int AS codigo) ');
   dmPrincipal.FDQuery1.SQL.Add('	select abreviacao||''-''||nome as nome_cargo ');
   dmPrincipal.FDQuery1.SQL.Add('	  from cargos ');
   dmPrincipal.FDQuery1.SQL.Add('   where codigo = :codigo ');
-//dmPrincipal.FDQuery1.SQL.Add('inner join params p on c.codigo = p.codigo ');
   dmPrincipal.FDQuery1.ParamByName('codigo').AsInteger := ACodigoCargo;
   dmPrincipal.FDQuery1.Open;
 

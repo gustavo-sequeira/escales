@@ -48,9 +48,33 @@ type
     cxLabel1: TcxLabel;
     dsGridEscalados: TDataSource;
     memGridEscalados: TFDMemTable;
+    FDMemTable1data: TDateField;
+    FDMemTable1repete: TIntegerField;
+    FDMemTable1codigo_localidade: TIntegerField;
+    grdFramePrincialDBTableView1situacao: TcxGridDBColumn;
+    grdFramePrincialDBTableView1data: TcxGridDBColumn;
+    grdFramePrincialDBTableView1dia: TcxGridDBColumn;
+    grdFramePrincialDBTableView1turno: TcxGridDBColumn;
+    grdFramePrincialDBTableView1horario: TcxGridDBColumn;
+    grdFramePrincialDBTableView1repete: TcxGridDBColumn;
+    grdFramePrincialDBTableView1codigo_localidade: TcxGridDBColumn;
+    FDMemTable1situacao: TWideMemoField;
+    FDMemTable1dia: TWideMemoField;
+    FDMemTable1turno: TWideMemoField;
+    grdFramePrincialDBTableView1nome_localidade: TcxGridDBColumn;
+    grdFramePrincialDBTableView1data_dia: TcxGridDBColumn;
+    FDMemTable1horario: TTimeField;
+    memGridEscaladosnome: TWideMemoField;
+    cxGrid1DBTableView1nome: TcxGridDBColumn;
+    cxGrid1DBTableView1Exclusao: TcxGridDBColumn;
     procedure tsManutencaoShow(Sender: TObject);
     procedure hrHorarioPropertiesChange(Sender: TObject);
     procedure chbRepetirPropertiesChange(Sender: TObject);
+    procedure cxButton2Click(Sender: TObject);
+    procedure FDMemTable1BeforeInsert(DataSet: TDataSet);
+    procedure cxGrid1DBTableView1CustomDrawCell(Sender: TcxCustomGridTableView;
+      ACanvas: TcxCanvas; AViewInfo: TcxGridTableDataCellViewInfo;
+      var ADone: Boolean);
   private
     { Private declarations }
   public
@@ -78,7 +102,7 @@ implementation
 
 uses
   Math, System.DateUtils, uDmPrincipal, uEscala, uEscalado, uModeloBase,
-  uEXEscales;
+  uEXEscales, uLocalidade, uFrmInclusaoObreiroEscala ;
 
 {$R *.dfm}
 
@@ -135,6 +159,52 @@ begin
   AcaoCheckboxRepetir(chbRepetir.Checked);
 end;
 
+procedure TFraEscalas.cxButton2Click(Sender: TObject);
+var
+  frmInclusaoObreiroEscala : TFrmInclusaoObreiroEscala;
+begin
+  inherited;
+  frmInclusaoObreiroEscala := TFrmInclusaoObreiroEscala.Create(Self);
+  try
+    frmInclusaoObreiroEscala.ShowModal;
+    if frmInclusaoObreiroEscala.ModalResult = mrOk then
+    begin
+      memGridEscalados.Active := True;
+      memGridEscalados.Insert;
+      memGridEscalados.FieldByName('nome').AsString := frmInclusaoObreiroEscala.cbNome.Text;
+      memGridEscalados.Post;
+    end;
+  finally
+    frmInclusaoObreiroEscala.Free;
+  end;
+end;
+
+procedure TFraEscalas.cxGrid1DBTableView1CustomDrawCell(
+  Sender: TcxCustomGridTableView; ACanvas: TcxCanvas;
+  AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
+var
+  ImgIndex: Integer;
+  X, Y: Integer;
+begin
+  // Desenha só para as colunas de ação
+   if AViewInfo.Item = cxGrid1DBTableView1Exclusao then
+    ImgIndex := 3 // lixeira
+   else
+    Exit;
+
+  // Fundo da célula
+  ACanvas.FillRect(AViewInfo.Bounds);
+
+  // Centralizar o ícone
+  X := AViewInfo.Bounds.Left + (AViewInfo.Bounds.Width - cxImageList.Width) div 2;
+  Y := AViewInfo.Bounds.Top + (AViewInfo.Bounds.Height - cxImageList.Height) div 2;
+
+  // Desenhar ícone
+  cxImageList.Draw(ACanvas.Canvas, X, Y, ImgIndex, True);
+
+  ADone := True; // evita que o grid redesenhe por cima
+end;
+
 procedure TFraEscalas.EdicaoRegistro;
 begin
   inherited;
@@ -161,6 +231,13 @@ begin
   end;
 end;
 
+procedure TFraEscalas.FDMemTable1BeforeInsert(DataSet: TDataSet);
+begin
+  edtCodigo.Text := '0';
+  edtCodigo.Enabled := False;
+  inherited;
+end;
+
 procedure TFraEscalas.hrHorarioPropertiesChange(Sender: TObject);
 begin
   inherited;
@@ -168,11 +245,11 @@ begin
   begin
 
     if (HourOf(hrHorario.Time) >= 6) {06:00} and (HourOf(hrHorario.Time) < 12) then
-      lbTurno.Caption := 'MANHÃ'
+      lbTurno.Caption := 'Manhã'
     else if (HourOf(hrHorario.Time) >= 12) and (HourOf(hrHorario.Time) < 18) then
-      lbTurno.Caption := 'TARDE'
+      lbTurno.Caption := 'Tarde'
     else
-      lbTurno.Caption := 'NOITE';
+      lbTurno.Caption := 'Noite';
   end
   else
     lbTurno.Caption := ''; // caso não tenha valor
@@ -251,14 +328,17 @@ end;
 procedure TFraEscalas.SalvarRegistro;
 var
   Escala: TEscalas;
+  Localidade: TLocalidades;
 begin
   inherited;
 
   Escala := TEscalas.Create;
+  Localidade := TLocalidades.Create;
   try
     Escala.Codigo := StrToIntDef(edtCodigo.Text, 0);
     Escala.Situacao := cbSituacao.Text;
-    Escala.Localidade.LoadFromField('NOME', cbLocalidade.Text);
+    Localidade.LoadFromField('NOME', cbLocalidade.Text);
+    Escala.Localidade := Localidade;
     Escala.Data := dtData.Date;
     Escala.Dia := cbDiasSemana.Text;
     Escala.Repete := ifthen(chbRepetir.Checked, 1, 0);
@@ -267,6 +347,7 @@ begin
     Escala.Save;
     SalvarEscalados(Escala.Codigo);
   finally
+    Localidade.Free;
     Escala.Free;
   end;
 end;

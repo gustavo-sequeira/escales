@@ -325,7 +325,9 @@ begin
             if Prop.PropertyType.Handle = TypeInfo(TDate) then
               AQuery.ParamByName(PName).DataType := ftDate
             else if Prop.PropertyType.Handle = TypeInfo(TDateTime) then
-              AQuery.ParamByName(PName).DataType := ftDateTime;
+              AQuery.ParamByName(PName).DataType := ftDateTime
+            else if Prop.PropertyType.Handle = TypeInfo(TTime) then
+              AQuery.ParamByName(PName).DataType := ftTime;
 
             AQuery.ParamByName(PName).Value := Val;
           end;
