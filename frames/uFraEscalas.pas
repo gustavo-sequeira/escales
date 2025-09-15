@@ -153,6 +153,15 @@ end;
 procedure TFraEscalas.chbRepetirPropertiesChange(Sender: TObject);
 begin
   inherited;
+  if not(memGridEscalados.IsEmpty) then
+  begin
+    if Application.MessageBox('Ao optar por essa mudança, os escalados desse dia serão removidos. Deseja continuar?',
+      'Escales', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = IDYES then
+    begin
+      memGridEscalados.EmptyDataSet;
+    end;
+  end;
+
   AcaoCheckboxRepetir(chbRepetir.Checked);
 end;
 
