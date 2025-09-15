@@ -8,12 +8,14 @@ uses
 type
   TLibary = class
   public
-    function MesValido(const AMes: string): Boolean;
-    function RetornarPalavra(const Texto: string; Posicao: integer): string;
-    function AnoValido(const Texto: string; out Ano: Integer): Boolean;
-    function MelhorarTexto(const TextoOriginal: string): string;
-    function SegundosAleatorios: Integer;
-    function GerarMensagemLembrete(const Nome: string; const Horario: string): string;
+    class function RemoveAcentos(const Texto: string): string; static;
+    class function DiaDaSemana(Data: TDateTime): string; static;
+    class function MesValido(const AMes: string): Boolean;
+    class function RetornarPalavra(const Texto: string; Posicao: integer): string;
+    class function AnoValido(const Texto: string; out Ano: Integer): Boolean;
+    class function MelhorarTexto(const TextoOriginal: string): string;
+    class function SegundosAleatorios: Integer;
+    class function GerarMensagemLembrete(const Nome: string; const Horario: string): string;
     class procedure MudarCorLabelEnter(pLabel: TcxLabel);
     class procedure MudarCorLabelLeave(pLabel: TcxLabel);
     class function ValidarTelefone(const pTelefone: string; out pMensagem: string): boolean;
@@ -24,9 +26,9 @@ implementation
 uses
   System.Net.URLClient, System.Net.HttpClient, System.Net.HttpClientComponent,
   Vcl.Graphics, System.SysUtils, System.StrUtils, System.JSON, System.Classes,
-  System.Generics.Collections, System.RegularExpressions;
+  System.Generics.Collections, System.RegularExpressions, DateUtils;
 
-function TLibary.MesValido(const AMes: string): Boolean;
+class function TLibary.MesValido(const AMes: string): Boolean;
 const
   Meses: array[1..12] of string = ('janeiro', 'fevereiro', 'marco', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro');
 var
@@ -102,7 +104,7 @@ begin
   end;
 end;
 
-function TLibary.RetornarPalavra(const Texto: string; Posicao: integer): string;
+class function TLibary.RetornarPalavra(const Texto: string; Posicao: integer): string;
 var
   Lista: TStringList;
 begin
@@ -120,12 +122,12 @@ begin
   end;
 end;
 
-function TLibary.AnoValido(const Texto: string; out Ano: Integer): Boolean;
+class function TLibary.AnoValido(const Texto: string; out Ano: Integer): Boolean;
 begin
   Result := TryStrToInt(Texto, Ano) and (Ano >= 2025) and (Ano <= 2030);
 end;
 
-function TLibary.MelhorarTexto(const TextoOriginal: string): string;
+class function TLibary.MelhorarTexto(const TextoOriginal: string): string;
 const
   API_KEY = 'SUA_CHAVE_AQUI';
   URL = 'https://api.openai.com/v1/chat/completions';
@@ -169,13 +171,20 @@ begin
   end;
 end;
 
-function TLibary.SegundosAleatorios: Integer;
+class function TLibary.SegundosAleatorios: Integer;
 begin
   Randomize;
   Result := Random(20) + 1;
 end;
 
-function TLibary.GerarMensagemLembrete(const Nome: string; const Horario: string): string;
+class function TLibary.DiaDaSemana(Data: TDateTime): string;
+const
+  Dias: array[1..7] of string = ('Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado');
+begin
+  Result := Dias[DayOfTheWeek(Data)];
+end;
+
+class function TLibary.GerarMensagemLembrete(const Nome: string; const Horario: string): string;
 const
   Versiculos: array[0..3] of string = ('"Sede firmes e constantes, sempre abundantes na obra do Senhor." (1Co 15:58)', '"Rogai, pois, ao Senhor da seara que envie obreiros para a sua seara." (Mt 9:38)', '"Cada um exerça o dom que recebeu para servir aos outros." (1Pe 4:10)', '"Tudo quanto fizerdes, fazei-o de coração, como ao Senhor." (Cl 3:23)');
   Mensagens: array[0..3] of string = ('Que alegria tê-lo servindo ao Senhor conosco!', 'Que sua dedicação inspire e edifique a todos!', 'Deus fortaleça seu coração neste serviço!', 'Que sua presença seja canal de bênção nesta obra!');
@@ -186,7 +195,23 @@ begin
   Versiculo := Versiculos[Random(Length(Versiculos))];
   Saudacao := Mensagens[Random(Length(Mensagens))];
 
-  Result := Format('Olá, irmão/irmã %s! Você está escalado para o culto às %s. %s %s', [Nome, Horario, Versiculo, Saudacao]);
+  Result := Format('Olá, irmão %s! Você está escalado para o culto às %s. %s %s', [Nome, Horario, Versiculo, Saudacao]);
+end;
+
+class function TLibary.RemoveAcentos(const Texto: string): string;
+var
+  s: string;
+begin
+  s := Trim(Texto);
+  if s = '' then
+  begin
+    Result := '';
+    Exit;
+  end;
+
+  s := LowerCase(RemoveAcentos(s));
+
+  Result := UpperCase(s[1]) + Copy(s, 2, MaxInt);
 end;
 
 end.

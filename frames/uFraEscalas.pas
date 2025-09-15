@@ -37,13 +37,11 @@ type
     cxLabel6: TcxLabel;
     edtCodigo: TcxTextEdit;
     cbSituacao: TcxComboBox;
-    cxGroupBox7: TcxGroupBox;
     cbLocalidade: TcxComboBox;
     cxGroupBox5: TcxGroupBox;
     dtData: TcxDateEdit;
     chbRepetir: TcxCheckBox;
     cbDiasSemana: TcxComboBox;
-    lbTurno: TcxLabel;
     hrHorario: TcxTimeEdit;
     cxLabel1: TcxLabel;
     dsGridEscalados: TDataSource;
@@ -67,14 +65,13 @@ type
     memGridEscaladosnome: TWideMemoField;
     cxGrid1DBTableView1nome: TcxGridDBColumn;
     cxGrid1DBTableView1Exclusao: TcxGridDBColumn;
+    lbTurno: TcxLabel;
     procedure tsManutencaoShow(Sender: TObject);
     procedure hrHorarioPropertiesChange(Sender: TObject);
     procedure chbRepetirPropertiesChange(Sender: TObject);
     procedure cxButton2Click(Sender: TObject);
     procedure FDMemTable1BeforeInsert(DataSet: TDataSet);
-    procedure cxGrid1DBTableView1CustomDrawCell(Sender: TcxCustomGridTableView;
-      ACanvas: TcxCanvas; AViewInfo: TcxGridTableDataCellViewInfo;
-      var ADone: Boolean);
+    procedure cxGrid1DBTableView1CustomDrawCell(Sender: TcxCustomGridTableView; ACanvas: TcxCanvas; AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
   private
     { Private declarations }
   public
@@ -102,7 +99,7 @@ implementation
 
 uses
   Math, System.DateUtils, uDmPrincipal, uEscala, uEscalado, uModeloBase,
-  uEXEscales, uLocalidade, uFrmInclusaoObreiroEscala ;
+  uEXEscales, uLocalidade, uFrmInclusaoObreiroEscala, System.Types, uLibary;
 
 {$R *.dfm}
 
@@ -161,12 +158,23 @@ end;
 
 procedure TFraEscalas.cxButton2Click(Sender: TObject);
 var
-  frmInclusaoObreiroEscala : TFrmInclusaoObreiroEscala;
+  frmInclusaoObreiroEscala: TFrmInclusaoObreiroEscala;
 begin
   inherited;
   frmInclusaoObreiroEscala := TFrmInclusaoObreiroEscala.Create(Self);
   try
+    if chbRepetir.Checked then
+      frmInclusaoObreiroEscala.FDia := cbDiasSemana.Text
+    else
+    begin
+      frmInclusaoObreiroEscala.FDia := LowerCase(FormatDateTime('dddd', dtData.Date));
+      frmInclusaoObreiroEscala.FDia := UpperCase(Copy(frmInclusaoObreiroEscala.FDia,1,1))+LowerCase(Copy(frmInclusaoObreiroEscala.FDia,2,Length(frmInclusaoObreiroEscala.FDia)));
+    end;
+    frmInclusaoObreiroEscala.FTurno := lbTurno.Caption;
+    frmInclusaoObreiroEscala.FCodigoObreiro := StrToIntDef(edtCodigo.Text,0);
+
     frmInclusaoObreiroEscala.ShowModal;
+
     if frmInclusaoObreiroEscala.ModalResult = mrOk then
     begin
       memGridEscalados.Active := True;
@@ -179,17 +187,15 @@ begin
   end;
 end;
 
-procedure TFraEscalas.cxGrid1DBTableView1CustomDrawCell(
-  Sender: TcxCustomGridTableView; ACanvas: TcxCanvas;
-  AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
+procedure TFraEscalas.cxGrid1DBTableView1CustomDrawCell(Sender: TcxCustomGridTableView; ACanvas: TcxCanvas; AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
 var
   ImgIndex: Integer;
   X, Y: Integer;
 begin
   // Desenha só para as colunas de ação
-   if AViewInfo.Item = cxGrid1DBTableView1Exclusao then
+  if AViewInfo.Item = cxGrid1DBTableView1Exclusao then
     ImgIndex := 3 // lixeira
-   else
+  else
     Exit;
 
   // Fundo da célula

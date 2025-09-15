@@ -6,11 +6,13 @@ inherited FraEscalas: TFraEscalas
     ExplicitHeight = 594
     Height = 594
     inherited pcFramePrincipal: TcxPageControl
-      Height = 572
+      Height = 570
       Properties.ActivePage = tsManutencao
       ExplicitHeight = 570
-      ClientRectBottom = 572
+      ClientRectBottom = 570
       inherited tsConsulta: TcxTabSheet
+        ExplicitTop = 26
+        ExplicitWidth = 634
         ExplicitHeight = 544
         inherited grdFramePrincial: TcxGrid
           inherited grdFramePrincialDBTableView1: TcxGridDBTableView
@@ -106,8 +108,9 @@ inherited FraEscalas: TFraEscalas
               object cxLabel3: TcxLabel
                 AlignWithMargins = True
                 Left = 2
-                Top = 145
+                Top = 142
                 Margins.Left = 0
+                Margins.Top = 0
                 Margins.Right = 0
                 Margins.Bottom = 0
                 Align = alTop
@@ -115,6 +118,7 @@ inherited FraEscalas: TFraEscalas
                 Caption = 'Turno'
                 Properties.Alignment.Horz = taLeftJustify
                 Transparent = True
+                ExplicitLeft = 4
                 Height = 25
                 Width = 146
               end
@@ -130,6 +134,7 @@ inherited FraEscalas: TFraEscalas
                 Caption = 'Hor'#225'rio'
                 Properties.Alignment.Horz = taLeftJustify
                 Transparent = True
+                ExplicitLeft = 1
                 Height = 25
                 Width = 146
               end
@@ -194,48 +199,6 @@ inherited FraEscalas: TFraEscalas
                 Style.IsFontAssigned = True
                 TabOrder = 1
                 Width = 248
-              end
-              object cxGroupBox7: TcxGroupBox
-                AlignWithMargins = True
-                Left = 2
-                Top = 143
-                Margins.Left = 0
-                Margins.Right = 0
-                Margins.Bottom = 0
-                Align = alTop
-                PanelStyle.Active = True
-                Style.BorderStyle = ebsNone
-                Style.TransparentBorder = False
-                TabOrder = 5
-                Transparent = True
-                ExplicitTop = 139
-                Height = 23
-                Width = 248
-                object lbTurno: TcxLabel
-                  AlignWithMargins = True
-                  Left = 0
-                  Top = 3
-                  Margins.Left = 0
-                  Margins.Right = 0
-                  Margins.Bottom = 0
-                  Align = alTop
-                  AutoSize = False
-                  Caption = 'Manh'#227
-                  ParentFont = False
-                  Style.Font.Charset = DEFAULT_CHARSET
-                  Style.Font.Color = clWindowText
-                  Style.Font.Height = -12
-                  Style.Font.Name = 'Segoe UI'
-                  Style.Font.Style = [fsBold]
-                  Style.IsFontAssigned = True
-                  Properties.Alignment.Horz = taCenter
-                  Properties.Alignment.Vert = taVCenter
-                  Transparent = True
-                  Height = 25
-                  Width = 248
-                  AnchorX = 124
-                  AnchorY = 16
-                end
               end
               object cbLocalidade: TcxComboBox
                 AlignWithMargins = True
@@ -373,6 +336,28 @@ inherited FraEscalas: TFraEscalas
                 Height = 25
                 Width = 248
               end
+              object lbTurno: TcxLabel
+                AlignWithMargins = True
+                Left = 2
+                Top = 143
+                Margins.Left = 0
+                Margins.Right = 0
+                Margins.Bottom = 0
+                Align = alTop
+                Caption = 'Manh'#227
+                ParentFont = False
+                Style.Font.Charset = DEFAULT_CHARSET
+                Style.Font.Color = clWindowText
+                Style.Font.Height = -12
+                Style.Font.Name = 'Segoe UI'
+                Style.Font.Style = [fsBold]
+                Style.IsFontAssigned = True
+                Properties.Alignment.Horz = taCenter
+                Properties.Alignment.Vert = taVCenter
+                Transparent = True
+                AnchorX = 126
+                AnchorY = 153
+              end
             end
             object cxGroupBox3: TcxGroupBox
               Left = 2
@@ -384,51 +369,42 @@ inherited FraEscalas: TFraEscalas
               Width = 402
               object cxGroupBox4: TcxGroupBox
                 AlignWithMargins = True
-                Left = 5
-                Top = 5
+                Left = 6
+                Top = 6
                 Align = alTop
                 PanelStyle.Active = True
                 TabOrder = 0
-                ExplicitLeft = 6
-                ExplicitTop = 6
-                ExplicitWidth = 390
                 Height = 37
-                Width = 392
+                Width = 390
                 object cxButton1: TcxButton
                   AlignWithMargins = True
-                  Left = 277
-                  Top = 5
+                  Left = 274
+                  Top = 6
                   Width = 110
-                  Height = 27
+                  Height = 25
                   Align = alRight
                   Caption = '&Autom'#225'tico'
                   OptionsImage.ImageIndex = 5
                   OptionsImage.Images = cxImageList
                   TabOrder = 2
-                  ExplicitLeft = 274
-                  ExplicitTop = 6
-                  ExplicitHeight = 25
                 end
                 object cxButton2: TcxButton
                   AlignWithMargins = True
-                  Left = 161
-                  Top = 5
+                  Left = 158
+                  Top = 6
                   Width = 110
-                  Height = 27
+                  Height = 25
                   Align = alRight
                   Caption = '&Manual'
                   OptionsImage.ImageIndex = 4
                   OptionsImage.Images = cxImageList
                   TabOrder = 0
                   OnClick = cxButton2Click
-                  ExplicitLeft = 158
-                  ExplicitTop = 6
-                  ExplicitHeight = 25
                 end
                 object cxLabel1: TcxLabel
                   AlignWithMargins = True
-                  Left = 2
-                  Top = 5
+                  Left = 3
+                  Top = 6
                   Margins.Left = 0
                   Margins.Right = 0
                   Margins.Bottom = 0
@@ -438,28 +414,20 @@ inherited FraEscalas: TFraEscalas
                   Properties.Alignment.Horz = taCenter
                   Properties.Alignment.Vert = taVCenter
                   Transparent = True
-                  ExplicitLeft = 3
-                  ExplicitTop = 6
-                  ExplicitWidth = 152
-                  ExplicitHeight = 28
-                  Height = 30
-                  Width = 156
-                  AnchorX = 80
+                  Height = 28
+                  Width = 152
+                  AnchorX = 79
                   AnchorY = 20
                 end
               end
               object cxGrid1: TcxGrid
                 AlignWithMargins = True
-                Left = 5
-                Top = 48
-                Width = 392
-                Height = 125
+                Left = 6
+                Top = 49
+                Width = 390
+                Height = 123
                 Align = alClient
                 TabOrder = 1
-                ExplicitLeft = 6
-                ExplicitTop = 49
-                ExplicitWidth = 390
-                ExplicitHeight = 123
                 object cxGrid1DBTableView1: TcxGridDBTableView
                   Navigator.Buttons.CustomButtons = <>
                   Navigator.InfoPanel.DisplayMask = '[RecordIndex] de [RecordCount]'
