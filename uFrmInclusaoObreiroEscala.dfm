@@ -12,10 +12,8 @@ object frmInclusaoObreiroEscala: TfrmInclusaoObreiroEscala
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   Position = poScreenCenter
   OnShow = FormShow
-  PixelsPerInch = 96
   TextHeight = 13
   object cxGroupBox1: TcxGroupBox
     Left = 0
@@ -40,7 +38,7 @@ object frmInclusaoObreiroEscala: TfrmInclusaoObreiroEscala
       Caption = '&Confirmar'
       ModalResult = 1
       OptionsImage.ImageIndex = 0
-      TabOrder = 0
+      TabOrder = 2
     end
     object cxButton1: TcxButton
       Left = 159
@@ -50,7 +48,7 @@ object frmInclusaoObreiroEscala: TfrmInclusaoObreiroEscala
       Caption = 'C&ancelar'
       ModalResult = 2
       OptionsImage.ImageIndex = 0
-      TabOrder = 1
+      TabOrder = 3
     end
     object cbNome: TcxComboBox
       Left = 14
@@ -58,13 +56,14 @@ object frmInclusaoObreiroEscala: TfrmInclusaoObreiroEscala
       AutoSize = False
       ParentFont = False
       Properties.DropDownListStyle = lsFixedList
+      Properties.OnDrawItem = cbNomePropertiesDrawItem
       Style.Font.Charset = DEFAULT_CHARSET
       Style.Font.Color = clWindowText
       Style.Font.Height = -13
       Style.Font.Name = 'Tahoma'
       Style.Font.Style = []
       Style.IsFontAssigned = True
-      TabOrder = 2
+      TabOrder = 0
       Height = 24
       Width = 275
     end
@@ -81,8 +80,9 @@ object frmInclusaoObreiroEscala: TfrmInclusaoObreiroEscala
       Style.Font.Style = []
       Style.TransparentBorder = False
       Style.IsFontAssigned = True
-      TabOrder = 3
+      TabOrder = 1
       Transparent = True
+      OnClick = cxCheckBox1Click
     end
   end
 end

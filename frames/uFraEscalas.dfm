@@ -42,9 +42,17 @@ inherited FraEscalas: TFraEscalas
             end
             object grdFramePrincialDBTableView1nome_localidade: TcxGridDBColumn [8]
               DataBinding.FieldName = 'nome_localidade'
+              DataBinding.IsNullValueType = True
             end
             object grdFramePrincialDBTableView1data_dia: TcxGridDBColumn [9]
               DataBinding.FieldName = 'data_dia'
+              DataBinding.IsNullValueType = True
+            end
+            inherited grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
+              DataBinding.IsNullValueType = True
+            end
+            inherited grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn
+              DataBinding.IsNullValueType = True
             end
           end
         end
@@ -118,7 +126,6 @@ inherited FraEscalas: TFraEscalas
                 Caption = 'Turno'
                 Properties.Alignment.Horz = taLeftJustify
                 Transparent = True
-                ExplicitLeft = 4
                 Height = 25
                 Width = 146
               end
@@ -134,7 +141,6 @@ inherited FraEscalas: TFraEscalas
                 Caption = 'Hor'#225'rio'
                 Properties.Alignment.Horz = taLeftJustify
                 Transparent = True
-                ExplicitLeft = 1
                 Height = 25
                 Width = 146
               end
@@ -253,6 +259,7 @@ inherited FraEscalas: TFraEscalas
                   Style.Font.Style = []
                   Style.IsFontAssigned = True
                   TabOrder = 0
+                  OnEditing = dtDataEditing
                   Width = 167
                 end
                 object chbRepetir: TcxCheckBox
@@ -263,7 +270,6 @@ inherited FraEscalas: TFraEscalas
                   AutoSize = False
                   Caption = 'Repetir?'
                   ParentFont = False
-                  Properties.OnChange = chbRepetirPropertiesChange
                   Style.Font.Charset = DEFAULT_CHARSET
                   Style.Font.Color = clWindowText
                   Style.Font.Height = -12
@@ -273,6 +279,7 @@ inherited FraEscalas: TFraEscalas
                   Style.IsFontAssigned = True
                   TabOrder = 2
                   Transparent = True
+                  OnClick = chbRepetirClick
                   Height = 17
                   Width = 75
                 end
@@ -303,6 +310,7 @@ inherited FraEscalas: TFraEscalas
                   Style.IsFontAssigned = True
                   TabOrder = 1
                   Visible = False
+                  OnEditing = cbDiasSemanaEditing
                   Width = 91
                 end
               end
@@ -332,7 +340,9 @@ inherited FraEscalas: TFraEscalas
                 StyleDisabled.LookAndFeel.NativeStyle = False
                 StyleFocused.LookAndFeel.NativeStyle = False
                 StyleHot.LookAndFeel.NativeStyle = False
+                StyleReadOnly.LookAndFeel.NativeStyle = False
                 TabOrder = 4
+                OnEditing = hrHorarioEditing
                 Height = 25
                 Width = 248
               end
@@ -398,7 +408,7 @@ inherited FraEscalas: TFraEscalas
                   Caption = '&Manual'
                   OptionsImage.ImageIndex = 4
                   OptionsImage.Images = cxImageList
-                  TabOrder = 0
+                  TabOrder = 1
                   OnClick = cxButton2Click
                 end
                 object cxLabel1: TcxLabel
@@ -454,6 +464,7 @@ inherited FraEscalas: TFraEscalas
                     Width = 400
                   end
                   object cxGrid1DBTableView1Exclusao: TcxGridDBColumn
+                    DataBinding.IsNullValueType = True
                     Width = 34
                   end
                 end

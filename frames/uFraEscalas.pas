@@ -16,7 +16,7 @@ uses
   cxGridDBTableView, cxGridCustomView, cxGrid, cxPC, cxGroupBox, cxLabel,
   cxTextEdit, cxCheckBox, Vcl.ComCtrls, dxCore, cxDateUtils, cxDropDownEdit,
   cxCalendar, cxMaskEdit, dxGDIPlusClasses, cxImage, cxRadioGroup, cxSpinEdit,
-  cxTimeEdit;
+  cxTimeEdit, dxSkinWXI;
 
 type
   TFraEscalas = class(TFraModelo)
@@ -68,10 +68,13 @@ type
     lbTurno: TcxLabel;
     procedure tsManutencaoShow(Sender: TObject);
     procedure hrHorarioPropertiesChange(Sender: TObject);
-    procedure chbRepetirPropertiesChange(Sender: TObject);
     procedure cxButton2Click(Sender: TObject);
     procedure FDMemTable1BeforeInsert(DataSet: TDataSet);
     procedure cxGrid1DBTableView1CustomDrawCell(Sender: TcxCustomGridTableView; ACanvas: TcxCanvas; AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
+    procedure chbRepetirClick(Sender: TObject);
+    procedure cbDiasSemanaEditing(Sender: TObject; var CanEdit: Boolean);
+    procedure dtDataEditing(Sender: TObject; var CanEdit: Boolean);
+    procedure hrHorarioEditing(Sender: TObject; var CanEdit: Boolean);
   private
     { Private declarations }
   public
@@ -150,19 +153,41 @@ begin
   end;
 end;
 
-procedure TFraEscalas.chbRepetirPropertiesChange(Sender: TObject);
+procedure TFraEscalas.cbDiasSemanaEditing(Sender: TObject;
+  var CanEdit: Boolean);
 begin
   inherited;
-  if not(memGridEscalados.IsEmpty) then
+   if not (memGridEscalados.IsEmpty) then
   begin
-    if Application.MessageBox('Ao optar por essa mudança, os escalados desse dia serão removidos. Deseja continuar?',
-      'Escales', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = IDYES then
+    if Application.MessageBox('Ao optar por essa mudança, os escalados desse dia serão removidos. Deseja continuar?', 'Escales', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = IDYES then
     begin
       memGridEscalados.EmptyDataSet;
+    end
+    else
+    begin
+      CanEdit := False;
     end;
   end;
+end;
 
-  AcaoCheckboxRepetir(chbRepetir.Checked);
+procedure TFraEscalas.chbRepetirClick(Sender: TObject);
+begin
+ // inherited;
+  if not (memGridEscalados.IsEmpty) then
+  begin
+    if Application.MessageBox('Ao optar por essa mudança, os escalados desse dia serão removidos. Deseja continuar?', 'Escales', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = IDYES then
+    begin
+      memGridEscalados.EmptyDataSet;
+      AcaoCheckboxRepetir(chbRepetir.Checked);
+    end
+    else
+    begin
+      TcxCheckBox(Sender).EditValue := not VarAsType(TcxCheckBox(Sender).EditValue, varBoolean);
+      Abort
+    end;
+  end
+  else
+    AcaoCheckboxRepetir(chbRepetir.Checked);
 end;
 
 procedure TFraEscalas.cxButton2Click(Sender: TObject);
@@ -170,6 +195,14 @@ var
   frmInclusaoObreiroEscala: TFrmInclusaoObreiroEscala;
 begin
   inherited;
+  if (chbRepetir.Checked) and (cbDiasSemana.Text = EmptyStr) then
+  begin
+     Application.MessageBox('Informe o dia da semana', 'Escales', MB_OK +
+       MB_ICONWARNING);
+     cbDiasSemana.SetFocus;
+     Abort;
+  end;
+
   frmInclusaoObreiroEscala := TFrmInclusaoObreiroEscala.Create(Self);
   try
     if chbRepetir.Checked then
@@ -177,10 +210,10 @@ begin
     else
     begin
       frmInclusaoObreiroEscala.FDia := LowerCase(FormatDateTime('dddd', dtData.Date));
-      frmInclusaoObreiroEscala.FDia := UpperCase(Copy(frmInclusaoObreiroEscala.FDia,1,1))+LowerCase(Copy(frmInclusaoObreiroEscala.FDia,2,Length(frmInclusaoObreiroEscala.FDia)));
+      frmInclusaoObreiroEscala.FDia := UpperCase(Copy(frmInclusaoObreiroEscala.FDia, 1, 1)) + LowerCase(Copy(frmInclusaoObreiroEscala.FDia, 2, Length(frmInclusaoObreiroEscala.FDia)));
     end;
     frmInclusaoObreiroEscala.FTurno := lbTurno.Caption;
-    frmInclusaoObreiroEscala.FCodigoObreiro := StrToIntDef(edtCodigo.Text,0);
+    frmInclusaoObreiroEscala.FCodigoObreiro := StrToIntDef(edtCodigo.Text, 0);
 
     frmInclusaoObreiroEscala.ShowModal;
 
@@ -220,6 +253,22 @@ begin
   ADone := True; // evita que o grid redesenhe por cima
 end;
 
+procedure TFraEscalas.dtDataEditing(Sender: TObject; var CanEdit: Boolean);
+begin
+  inherited;
+   if not (memGridEscalados.IsEmpty) then
+  begin
+    if Application.MessageBox('Ao optar por essa mudança, os escalados desse dia serão removidos. Deseja continuar?', 'Escales', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = IDYES then
+    begin
+      memGridEscalados.EmptyDataSet;
+    end
+    else
+    begin
+      CanEdit := False;
+    end;
+  end;
+end;
+
 procedure TFraEscalas.EdicaoRegistro;
 begin
   inherited;
@@ -251,6 +300,22 @@ begin
   edtCodigo.Text := '0';
   edtCodigo.Enabled := False;
   inherited;
+end;
+
+procedure TFraEscalas.hrHorarioEditing(Sender: TObject; var CanEdit: Boolean);
+begin
+  inherited;
+   if not (memGridEscalados.IsEmpty) then
+  begin
+    if Application.MessageBox('Ao optar por essa mudança, os escalados desse dia serão removidos. Deseja continuar?', 'Escales', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = IDYES then
+    begin
+      memGridEscalados.EmptyDataSet;
+    end
+    else
+    begin
+      CanEdit := False;
+    end;
+  end;
 end;
 
 procedure TFraEscalas.hrHorarioPropertiesChange(Sender: TObject);
