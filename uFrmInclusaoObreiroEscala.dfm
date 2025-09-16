@@ -12,8 +12,11 @@ object frmInclusaoObreiroEscala: TfrmInclusaoObreiroEscala
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  OldCreateOrder = True
   Position = poScreenCenter
+  OnClose = FormClose
   OnShow = FormShow
+  PixelsPerInch = 96
   TextHeight = 13
   object cxGroupBox1: TcxGroupBox
     Left = 0
@@ -39,6 +42,7 @@ object frmInclusaoObreiroEscala: TfrmInclusaoObreiroEscala
       ModalResult = 1
       OptionsImage.ImageIndex = 0
       TabOrder = 2
+      OnClick = btnFrameConfirmarClick
     end
     object cxButton1: TcxButton
       Left = 159
@@ -56,7 +60,6 @@ object frmInclusaoObreiroEscala: TfrmInclusaoObreiroEscala
       AutoSize = False
       ParentFont = False
       Properties.DropDownListStyle = lsFixedList
-      Properties.OnDrawItem = cbNomePropertiesDrawItem
       Style.Font.Charset = DEFAULT_CHARSET
       Style.Font.Color = clWindowText
       Style.Font.Height = -13

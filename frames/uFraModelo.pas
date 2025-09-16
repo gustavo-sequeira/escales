@@ -15,7 +15,8 @@ uses
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Comp.DataSet,
   FireDAC.Comp.Client, cxButtonEdit, cxMaskEdit, cxDropDownEdit, cxCheckBox,
-  cxRadioGroup, Vcl.ComCtrls, dxCore, cxDateUtils, cxCalendar, cxMemo, dxSkinWXI;
+  cxRadioGroup, Vcl.ComCtrls, dxCore, cxDateUtils, cxCalendar, cxMemo,
+  Vcl.ExtCtrls, PNGImage;
 
 type
   TFraModelo = class(TFrame)
@@ -40,6 +41,8 @@ type
     cxStyleRepository1: TcxStyleRepository;
     zebradoEven: TcxStyle;
     zebradoOdd: TcxStyle;
+    PaintBox1: TPaintBox;
+    PaintBox2: TPaintBox;
     procedure tsManutencaoShow(Sender: TObject);
     procedure btnFrameConfirmarClick(Sender: TObject);
     procedure btnFrameCancelarClick(Sender: TObject);
@@ -48,8 +51,11 @@ type
     procedure FDMemTable1BeforeInsert(DataSet: TDataSet);
     procedure grdFramePrincialDBTableView1CustomDrawCell(Sender: TcxCustomGridTableView; ACanvas: TcxCanvas; AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
     procedure grdFramePrincialDBTableView1CellClick(Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
+    procedure PaintBox1Paint(Sender: TObject);
+    procedure PaintBox2Paint(Sender: TObject);
   private
     { Private declarations }
+    FImg: TPngImage;
 
   public
     { Public declarations }
@@ -90,6 +96,10 @@ end;
 constructor TFraModelo.Create(AOwner: TComponent);
 begin
   inherited;
+// Carrega a imagem
+  FImg := TPngImage.Create;
+  FImg.LoadFromFile('C:\projetos\repositorios\escales\Win32\Debug\logo1.png');
+
   PreencherGrid;
 end;
 
@@ -214,6 +224,58 @@ begin
 
     if Ctrl is TWinControl then
       LimparControlesContainer(TWinControl(Ctrl)); // Recursão
+  end;
+end;
+
+procedure TFraModelo.PaintBox1Paint(Sender: TObject);
+var
+  X, Y: Integer;
+  StartX: Integer;
+  ExtraWidth, ExtraHeight: Integer;
+begin
+
+  ExtraWidth  := PaintBox1.Width + FImg.Width;
+  ExtraHeight := PaintBox1.Height + FImg.Height;
+
+  Y := -FImg.Height;
+  StartX := 0;
+
+  while Y < ExtraHeight do
+  begin
+    X := -FImg.Width + StartX;
+    while X < ExtraWidth do
+    begin
+      PaintBox1.Canvas.Draw(X, Y, FImg);
+      X := X + FImg.Width;
+    end;
+    Y := Y + FImg.Height;
+    StartX := (StartX + FImg.Width) mod FImg.Width;
+  end;
+end;
+
+procedure TFraModelo.PaintBox2Paint(Sender: TObject);
+var
+  X, Y: Integer;
+  StartX: Integer;
+  ExtraWidth, ExtraHeight: Integer;
+begin
+
+  ExtraWidth  := PaintBox2.Width + FImg.Width;
+  ExtraHeight := PaintBox2.Height + FImg.Height;
+
+  Y := -FImg.Height;
+  StartX := 0;
+
+  while Y < ExtraHeight do
+  begin
+    X := -FImg.Width + StartX;
+    while X < ExtraWidth do
+    begin
+      PaintBox2.Canvas.Draw(X, Y, FImg);
+      X := X + FImg.Width;
+    end;
+    Y := Y + FImg.Height;
+    StartX := (StartX + FImg.Width) mod FImg.Width;
   end;
 end;
 

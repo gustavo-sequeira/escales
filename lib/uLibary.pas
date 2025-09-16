@@ -19,6 +19,7 @@ type
     class procedure MudarCorLabelEnter(pLabel: TcxLabel);
     class procedure MudarCorLabelLeave(pLabel: TcxLabel);
     class function ValidarTelefone(const pTelefone: string; out pMensagem: string): boolean;
+
   end;
 
 implementation
@@ -26,7 +27,8 @@ implementation
 uses
   System.Net.URLClient, System.Net.HttpClient, System.Net.HttpClientComponent,
   Vcl.Graphics, System.SysUtils, System.StrUtils, System.JSON, System.Classes,
-  System.Generics.Collections, System.RegularExpressions, DateUtils;
+  System.Generics.Collections, System.RegularExpressions, DateUtils,
+  FireDAC.Comp.Client, uDmPrincipal;
 
 class function TLibary.MesValido(const AMes: string): Boolean;
 const

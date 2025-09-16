@@ -21,12 +21,15 @@ type
     { Private declarations }
   public
     { Public declarations }
+    function GetParamValue(pNome: String): Variant;
   end;
 
 var
   dmPrincipal: TdmPrincipal;
 
 implementation
+
+uses System.Variants;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -42,5 +45,21 @@ begin
 
 end;
 
+function TdmPrincipal.GetParamValue(pNome: String): Variant;
+begin
+  Result := Null;
+  FDQuery1.Close;
+  FDQuery1.SQL.Clear;
+  FDQuery1.SQL.Add('  select valor ');
+  FDQuery1.SQL.Add('    from parametros ' );
+  FDQuery1.SQL.Add('   where nome = :nome ');
+  FDQuery1.ParamByName('nome').AsString := pNome;
+  FDQuery1.Open;
+
+  if not(FDQuery1.IsEmpty) then
+  begin
+    Result := FDQuery1.FieldByName('valor').AsVariant;
+  end;
+end;
 end.
 

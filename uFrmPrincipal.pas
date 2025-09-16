@@ -17,8 +17,7 @@ uses
   FireDAC.Comp.Client, cxGridLevel, cxGridCustomView, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxGrid, uLibary, dxSkinOffice2010Blue,
   dxNavBarCollns, dxNavBarBase, dxNavBar, cxLabel, Vcl.ExtCtrls, System.Actions,
-  Vcl.ActnList, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ActnMan, cxLocalization,
-  dxSkinWXI;
+  Vcl.ActnList, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ActnMan, cxLocalization;
 
 type
   TfrmPrincipal = class(TForm)
@@ -76,7 +75,7 @@ implementation
 
 uses
   uFraObreiros, uFraModelo, uFraCargos, uFraLocalidades, uFraVersiculos,
-  uFraLembretes, uFraEscalas;
+  uFraLembretes, uFraEscalas, Vcl.Imaging.pngimage;
 
 {$R *.dfm}
 

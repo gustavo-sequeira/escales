@@ -1,4 +1,5 @@
 object dmPrincipal: TdmPrincipal
+  OldCreateOrder = True
   OnCreate = DataModuleCreate
   Height = 279
   Width = 364

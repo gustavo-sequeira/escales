@@ -16,7 +16,7 @@ uses
   cxGridDBTableView, cxGridCustomView, cxGrid, cxPC, cxGroupBox, cxLabel,
   cxTextEdit, cxCheckBox, Vcl.ComCtrls, dxCore, cxDateUtils, cxDropDownEdit,
   cxCalendar, cxMaskEdit, dxGDIPlusClasses, cxImage, cxRadioGroup, cxSpinEdit,
-  cxTimeEdit, dxSkinWXI;
+  cxTimeEdit, Vcl.ExtCtrls;
 
 type
   TFraEscalas = class(TFraModelo)
@@ -76,6 +76,8 @@ type
     procedure dtDataEditing(Sender: TObject; var CanEdit: Boolean);
     procedure hrHorarioEditing(Sender: TObject; var CanEdit: Boolean);
     procedure cbLocalidadeEditing(Sender: TObject; var CanEdit: Boolean);
+    procedure cxGrid1DBTableView1CellClick(Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
+    procedure cxButton1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -209,11 +211,92 @@ begin
     AcaoCheckboxRepetir(chbRepetir.Checked);
 end;
 
+procedure TFraEscalas.cxButton1Click(Sender: TObject);
+var
+  vQtdEscalados: Integer;
+  vCampo: string;
+begin
+  inherited;
+
+  vQtdEscalados := 0;
+
+  if (lbTurno.Caption = 'Manhã') then
+    vQtdEscalados := VarAsType(dmPrincipal.GetParamValue('QTD_ESCALADOS_MANHA'), varInteger)
+  else if (lbTurno.Caption = 'Tarde') then
+    vQtdEscalados := VarAsType(dmPrincipal.GetParamValue('QTD_ESCALADOS_TARDE'), varInteger)
+  else if (lbTurno.Caption = 'Noite') then
+    vQtdEscalados := VarAsType(dmPrincipal.GetParamValue('QTD_ESCALADOS_NOITE'), varInteger);
+
+  if chbRepetir.Checked then
+    vCampo := cbDiasSemana.Text
+  else
+  begin
+    vCampo := LowerCase(FormatDateTime('dddd', dtData.Date));
+    vCampo := UpperCase(Copy(vCampo, 1, 1)) + LowerCase(Copy(vCampo, 2, Length(vCampo)));
+  end;
+
+  vCampo := StringReplace(Copy(LowerCase(lbTurno.Caption), 1, 1) + Copy(vCampo, 1, 3), 'á', 'a', []);
+
+  dmPrincipal.FDQuery1.Close;
+  dmPrincipal.FDQuery1.SQL.Clear;
+  dmPrincipal.FDQuery1.SQL.Add('     select c.abreviacao||''. ''||o.nome  as nome, "' + vCampo + '" campo ');
+  dmPrincipal.FDQuery1.SQL.Add(' 	     from public.obreiros o ');
+  dmPrincipal.FDQuery1.SQL.Add(' inner join public.disponibilidades d ');
+  dmPrincipal.FDQuery1.SQL.Add('         on (o.codigo = d.codigo_obreiro) ');
+  dmPrincipal.FDQuery1.SQL.Add(' inner join public.cargos c ');
+  dmPrincipal.FDQuery1.SQL.Add('         on (o.codigo_cargo = c.codigo) ');
+  dmPrincipal.FDQuery1.SQL.Add('  left join public.ranking_escalas r ');
+  dmPrincipal.FDQuery1.SQL.Add('	       on r.codigo_obreiro = o.codigo ');
+  dmPrincipal.FDQuery1.SQL.Add('      where "' + vCampo + '" = 1 ');
+  dmPrincipal.FDQuery1.SQL.Add('   order by r.ranking, o.nome ');
+  dmPrincipal.FDQuery1.SQL.Add('      limit ' + IntToStr(vQtdEscalados));
+  dmPrincipal.FDQuery1.Open;
+
+  if not (dmPrincipal.FDQuery1.IsEmpty) then
+  begin
+    dmPrincipal.FDQuery1.First;
+    memGridEscalados.Active := True;
+
+    while not dmPrincipal.FDQuery1.Eof do
+    begin
+      if memGridEscalados.RecordCount < vQtdEscalados then
+      begin
+        if not (memGridEscalados.Locate('nome', dmPrincipal.FDQuery1.FieldByName('nome').AsString, [])) then
+        begin
+          memGridEscalados.Insert;
+          memGridEscalados.FieldByName('nome').AsString := dmPrincipal.FDQuery1.FieldByName('nome').AsString;
+          memGridEscalados.Post;
+        end;
+        dmPrincipal.FDQuery1.Next;
+      end
+      else
+        Break;
+    end;
+  end;
+end;
+
 procedure TFraEscalas.cxButton2Click(Sender: TObject);
 var
   frmInclusaoObreiroEscala: TFrmInclusaoObreiroEscala;
+  vQtdEscalados: Integer;
 begin
   inherited;
+
+  vQtdEscalados := 0;
+
+  if (lbTurno.Caption = 'Manhã') then
+    vQtdEscalados := VarAsType(dmPrincipal.GetParamValue('QTD_ESCALADOS_MANHA'), varInteger)
+  else if (lbTurno.Caption = 'Tarde') then
+    vQtdEscalados := VarAsType(dmPrincipal.GetParamValue('QTD_ESCALADOS_TARDE'), varInteger)
+  else if (lbTurno.Caption = 'Noite') then
+    vQtdEscalados := VarAsType(dmPrincipal.GetParamValue('QTD_ESCALADOS_NOITE'), varInteger);
+
+  if memGridEscalados.RecordCount >= vQtdEscalados then
+  begin
+    Application.MessageBox('O limite de obreiros para esta escala já foi atingido.', 'Escales', MB_OK + MB_ICONWARNING + MB_DEFBUTTON2);
+    Abort;
+  end;
+
   if (chbRepetir.Checked) and (cbDiasSemana.Text = EmptyStr) then
   begin
     Application.MessageBox('Informe o dia da semana', 'Escales', MB_OK + MB_ICONWARNING);
@@ -244,6 +327,20 @@ begin
     end;
   finally
     frmInclusaoObreiroEscala.Free;
+  end;
+end;
+
+procedure TFraEscalas.cxGrid1DBTableView1CellClick(Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
+begin
+  inherited;
+  if ACellViewInfo.Item = cxGrid1DBTableView1Exclusao then
+  begin
+    if Application.MessageBox('Deseja excluir este registro?', 'Escales', MB_YESNO + MB_ICONQUESTION) = IDYES then
+    begin
+      memGridEscalados.Delete;
+    end;
+
+    AHandled := True;
   end;
 end;
 
@@ -453,6 +550,9 @@ end;
 procedure TFraEscalas.tsManutencaoShow(Sender: TObject);
 begin
   inherited;
+  if not (memGridEscalados.IsEmpty) then
+    memGridEscalados.EmptyDataSet;
+
   // aumentar o tamano do segundo frame (componentes em tela)
   gbFrameSecundario.Height := gbFramePrincipal.Height - (Round(gbFramePrincipal.Height * 0.15) + (btnFrameCancelar.Height));
 
