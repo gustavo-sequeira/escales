@@ -75,6 +75,7 @@ type
     procedure cbDiasSemanaEditing(Sender: TObject; var CanEdit: Boolean);
     procedure dtDataEditing(Sender: TObject; var CanEdit: Boolean);
     procedure hrHorarioEditing(Sender: TObject; var CanEdit: Boolean);
+    procedure cbLocalidadeEditing(Sender: TObject; var CanEdit: Boolean);
   private
     { Private declarations }
   public
@@ -153,11 +154,10 @@ begin
   end;
 end;
 
-procedure TFraEscalas.cbDiasSemanaEditing(Sender: TObject;
-  var CanEdit: Boolean);
+procedure TFraEscalas.cbDiasSemanaEditing(Sender: TObject; var CanEdit: Boolean);
 begin
   inherited;
-   if not (memGridEscalados.IsEmpty) then
+  if not (memGridEscalados.IsEmpty) then
   begin
     if Application.MessageBox('Ao optar por essa mudança, os escalados desse dia serão removidos. Deseja continuar?', 'Escales', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = IDYES then
     begin
@@ -166,6 +166,25 @@ begin
     else
     begin
       CanEdit := False;
+    end;
+  end;
+end;
+
+procedure TFraEscalas.cbLocalidadeEditing(Sender: TObject; var CanEdit: Boolean);
+begin
+  inherited;
+  begin
+    inherited;
+    if not (memGridEscalados.IsEmpty) then
+    begin
+      if Application.MessageBox('Ao optar por essa mudança, os escalados desse dia serão removidos. Deseja continuar?', 'Escales', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = IDYES then
+      begin
+        memGridEscalados.EmptyDataSet;
+      end
+      else
+      begin
+        CanEdit := False;
+      end;
     end;
   end;
 end;
@@ -197,10 +216,9 @@ begin
   inherited;
   if (chbRepetir.Checked) and (cbDiasSemana.Text = EmptyStr) then
   begin
-     Application.MessageBox('Informe o dia da semana', 'Escales', MB_OK +
-       MB_ICONWARNING);
-     cbDiasSemana.SetFocus;
-     Abort;
+    Application.MessageBox('Informe o dia da semana', 'Escales', MB_OK + MB_ICONWARNING);
+    cbDiasSemana.SetFocus;
+    Abort;
   end;
 
   frmInclusaoObreiroEscala := TFrmInclusaoObreiroEscala.Create(Self);
@@ -256,7 +274,7 @@ end;
 procedure TFraEscalas.dtDataEditing(Sender: TObject; var CanEdit: Boolean);
 begin
   inherited;
-   if not (memGridEscalados.IsEmpty) then
+  if not (memGridEscalados.IsEmpty) then
   begin
     if Application.MessageBox('Ao optar por essa mudança, os escalados desse dia serão removidos. Deseja continuar?', 'Escales', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = IDYES then
     begin
@@ -305,7 +323,7 @@ end;
 procedure TFraEscalas.hrHorarioEditing(Sender: TObject; var CanEdit: Boolean);
 begin
   inherited;
-   if not (memGridEscalados.IsEmpty) then
+  if not (memGridEscalados.IsEmpty) then
   begin
     if Application.MessageBox('Ao optar por essa mudança, os escalados desse dia serão removidos. Deseja continuar?', 'Escales', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = IDYES then
     begin

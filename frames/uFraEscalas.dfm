@@ -226,6 +226,7 @@ inherited FraEscalas: TFraEscalas
                 Style.Font.Style = []
                 Style.IsFontAssigned = True
                 TabOrder = 2
+                OnEditing = cbLocalidadeEditing
                 Width = 248
               end
               object cxGroupBox5: TcxGroupBox
