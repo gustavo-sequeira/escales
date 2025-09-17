@@ -642,10 +642,12 @@ begin
 
   vWhere := ' WHERE 1 = 1 ';
 
-  for vQuantidadeTabelas := 0 to Length(AArrStrings) do
+  for vQuantidadeTabelas := 0 to Length(AArrStrings)-1 do
   begin
-    vWhere := ' AND (' + AArrStrings[vQuantidadeTabelas].chaveEstrangeira + ' = ' + IntToStr(PrimaryKeyValue) + ')';
-    vQuery.Open(Format('SELECT Count(*) QTD FROM %s %s ', [AArrStrings[vQuantidadeTabelas].tabela, vWhere]));
+    vWhere := ' (' + AArrStrings[vQuantidadeTabelas].chaveEstrangeira + ' = ' + IntToStr(PrimaryKeyValue) + ')';
+    vQuery.SQL.Clear;
+    vQuery.SQL.Add(Format('SELECT Count(*) QTD FROM %s WHERE %s ', [AArrStrings[vQuantidadeTabelas].tabela, vWhere]));
+    vQuery.Open;
     TotalRegistros := TotalRegistros + vQuery.FieldByName('QTD').AsInteger;
   end;
   Result := TotalRegistros;

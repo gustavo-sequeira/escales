@@ -14,7 +14,7 @@ uses
   System.ImageList, Vcl.ImgList, cxImageList, Vcl.StdCtrls, cxButtons,
   cxGridLevel, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
   cxGridCustomView, cxGrid, cxPC, cxGroupBox, cxMemo, cxCheckBox, cxTextEdit,
-  cxLabel;
+  cxLabel, dxSkinWXI, Vcl.ExtCtrls;
 
 type
   TFraVersiculos = class(TFraModelo)
@@ -83,9 +83,9 @@ end;
 
 procedure TFraVersiculos.FDMemTable1BeforeInsert(DataSet: TDataSet);
 begin
+  inherited;
   edtCodigo.Text := '0';
   edtCodigo.Enabled := False;
-  inherited;
 end;
 
 procedure TFraVersiculos.FDMemTable1CalcFields(DataSet: TDataSet);

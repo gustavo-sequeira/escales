@@ -16,7 +16,7 @@ uses
   cxGridDBTableView, cxGridCustomView, cxGrid, cxPC, cxGroupBox, cxLabel,
   cxTextEdit, cxCheckBox, Vcl.ComCtrls, dxCore, cxDateUtils, cxDropDownEdit,
   cxCalendar, cxMaskEdit, dxGDIPlusClasses, cxImage, cxRadioGroup, cxSpinEdit,
-  cxTimeEdit, Vcl.ExtCtrls;
+  cxTimeEdit, Vcl.ExtCtrls, dxSkinWXI;
 
 type
   TFraEscalas = class(TFraModelo)
@@ -412,9 +412,14 @@ end;
 
 procedure TFraEscalas.FDMemTable1BeforeInsert(DataSet: TDataSet);
 begin
+  inherited;
   edtCodigo.Text := '0';
   edtCodigo.Enabled := False;
-  inherited;
+
+  cbSituacao.ItemIndex := 0;
+  hrHorario.Time := Now;
+  dtData.Date := now;
+
 end;
 
 procedure TFraEscalas.hrHorarioEditing(Sender: TObject; var CanEdit: Boolean);
@@ -600,7 +605,7 @@ var
 begin
   inherited;
 
-  vEstado := 'exclusão';
+ { vEstado := 'exclusão';
   vCodException := 3001;
 
   SetLength(vArrStrings, 1);
@@ -617,7 +622,7 @@ begin
     end;
   finally
     Escala.Free;
-  end;
+  end; }
 end;
 
 procedure TFraEscalas.ValidarAntesSalvar;

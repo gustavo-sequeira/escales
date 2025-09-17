@@ -16,7 +16,7 @@ uses
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Comp.DataSet,
   FireDAC.Comp.Client, cxButtonEdit, cxMaskEdit, cxDropDownEdit, cxCheckBox,
   cxRadioGroup, Vcl.ComCtrls, dxCore, cxDateUtils, cxCalendar, cxMemo,
-  Vcl.ExtCtrls, PNGImage;
+  Vcl.ExtCtrls, PNGImage, dxSkinWXI;
 
 type
   TFraModelo = class(TFrame)
@@ -98,7 +98,7 @@ begin
   inherited;
 // Carrega a imagem
   FImg := TPngImage.Create;
-  FImg.LoadFromFile('C:\projetos\repositorios\escales\Win32\Debug\logo1.png');
+  FImg.LoadFromFile(IncludeTrailingPathDelimiter(ExtractFilePath(ParamStr(0)))+'logo1.png');
 
   PreencherGrid;
 end;
@@ -118,7 +118,7 @@ begin
   pcFramePrincipal.ActivePage := tsManutencao;
   emTransacao := True;
   LimparControlesFrame;
-  Abort;
+ // Abort;
 end;
 
 procedure TFraModelo.grdFramePrincialDBTableView1CellClick(Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);

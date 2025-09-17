@@ -2,7 +2,6 @@ inherited FraLembretes: TFraLembretes
   inherited gbPrincipal: TcxGroupBox
     Caption = 'LEMBRETES'
     inherited pcFramePrincipal: TcxPageControl
-      Properties.ActivePage = tsManutencao
       inherited tsConsulta: TcxTabSheet
         inherited grdFramePrincial: TcxGrid
           inherited grdFramePrincialDBTableView1: TcxGridDBTableView
@@ -33,6 +32,12 @@ inherited FraLembretes: TFraLembretes
               DataBinding.FieldName = 'lembrete'
               HeaderAlignmentHorz = taCenter
               Width = 600
+            end
+            inherited grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
+              DataBinding.IsNullValueType = True
+            end
+            inherited grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn
+              DataBinding.IsNullValueType = True
             end
           end
         end
@@ -83,7 +88,7 @@ inherited FraLembretes: TFraLembretes
               end
               object chbStatus: TcxCheckBox
                 Left = 2
-                Top = 23
+                Top = 27
                 Align = alTop
                 ParentFont = False
                 Properties.Alignment = taCenter
@@ -96,12 +101,11 @@ inherited FraLembretes: TFraLembretes
                 Style.IsFontAssigned = True
                 TabOrder = 1
                 Transparent = True
-                ExplicitTop = 27
                 Width = 248
               end
               object mmDescricao: TcxMemo
                 Left = 2
-                Top = 44
+                Top = 46
                 Align = alTop
                 ParentFont = False
                 Properties.ScrollBars = ssVertical

@@ -10,9 +10,12 @@ inherited FraEscalas: TFraEscalas
       ExplicitHeight = 570
       ClientRectBottom = 570
       inherited tsConsulta: TcxTabSheet
+        ExplicitTop = 26
+        ExplicitWidth = 634
         ExplicitHeight = 544
         inherited PaintBox1: TPaintBox
           Height = 544
+          ExplicitHeight = 544
         end
         inherited grdFramePrincial: TcxGrid
           inherited grdFramePrincialDBTableView1: TcxGridDBTableView
@@ -42,9 +45,17 @@ inherited FraEscalas: TFraEscalas
             end
             object grdFramePrincialDBTableView1nome_localidade: TcxGridDBColumn [8]
               DataBinding.FieldName = 'nome_localidade'
+              DataBinding.IsNullValueType = True
             end
             object grdFramePrincialDBTableView1data_dia: TcxGridDBColumn [9]
               DataBinding.FieldName = 'data_dia'
+              DataBinding.IsNullValueType = True
+            end
+            inherited grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
+              DataBinding.IsNullValueType = True
+            end
+            inherited grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn
+              DataBinding.IsNullValueType = True
             end
           end
         end
@@ -53,6 +64,7 @@ inherited FraEscalas: TFraEscalas
         ExplicitHeight = 544
         inherited PaintBox2: TPaintBox
           Height = 544
+          ExplicitHeight = 544
         end
         inherited gbFramePrincipal: TcxGroupBox
           ExplicitHeight = 462
@@ -187,6 +199,7 @@ inherited FraEscalas: TFraEscalas
                 ParentFont = False
                 Properties.Alignment.Horz = taCenter
                 Properties.DropDownListStyle = lsFixedList
+                Properties.DropDownRows = 2
                 Properties.Items.Strings = (
                   'Confirmado'
                   'Cancelado')
@@ -336,6 +349,7 @@ inherited FraEscalas: TFraEscalas
                 StyleDisabled.LookAndFeel.NativeStyle = False
                 StyleFocused.LookAndFeel.NativeStyle = False
                 StyleHot.LookAndFeel.NativeStyle = False
+                StyleReadOnly.LookAndFeel.NativeStyle = False
                 TabOrder = 4
                 OnEditing = hrHorarioEditing
                 Height = 25
@@ -404,7 +418,7 @@ inherited FraEscalas: TFraEscalas
                   Caption = '&Manual'
                   OptionsImage.ImageIndex = 4
                   OptionsImage.Images = cxImageList
-                  TabOrder = 0
+                  TabOrder = 1
                   OnClick = cxButton2Click
                 end
                 object cxLabel1: TcxLabel
@@ -461,6 +475,7 @@ inherited FraEscalas: TFraEscalas
                     Width = 400
                   end
                   object cxGrid1DBTableView1Exclusao: TcxGridDBColumn
+                    DataBinding.IsNullValueType = True
                     Width = 34
                   end
                 end

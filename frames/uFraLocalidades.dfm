@@ -28,6 +28,12 @@ inherited FraLocalidades: TFraLocalidades
               Options.Editing = False
               Width = 450
             end
+            inherited grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
+              DataBinding.IsNullValueType = True
+            end
+            inherited grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn
+              DataBinding.IsNullValueType = True
+            end
           end
         end
       end
@@ -77,7 +83,7 @@ inherited FraLocalidades: TFraLocalidades
               end
               object edtNome: TcxTextEdit
                 Left = 2
-                Top = 23
+                Top = 27
                 Align = alTop
                 ParentFont = False
                 Style.Font.Charset = DEFAULT_CHARSET
@@ -87,12 +93,11 @@ inherited FraLocalidades: TFraLocalidades
                 Style.Font.Style = []
                 Style.IsFontAssigned = True
                 TabOrder = 1
-                ExplicitTop = 27
                 Width = 248
               end
               object mmDescricao: TcxMemo
                 Left = 2
-                Top = 44
+                Top = 52
                 Align = alTop
                 ParentFont = False
                 Properties.ScrollBars = ssVertical
@@ -103,7 +108,6 @@ inherited FraLocalidades: TFraLocalidades
                 Style.Font.Style = []
                 Style.IsFontAssigned = True
                 TabOrder = 2
-                ExplicitTop = 52
                 Height = 89
                 Width = 248
               end
@@ -118,7 +122,6 @@ inherited FraLocalidades: TFraLocalidades
     DesignInfo = 28574172
   end
   inherited FDMemTable1: TFDMemTable
-    AfterInsert = FDMemTable1AfterInsert
     object FDMemTable1codigo: TIntegerField
       FieldName = 'codigo'
     end

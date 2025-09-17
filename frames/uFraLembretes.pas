@@ -14,7 +14,7 @@ uses
   FireDAC.Comp.Client, System.ImageList, Vcl.ImgList, cxImageList, Vcl.StdCtrls,
   cxButtons, cxGridLevel, cxGridCustomTableView, cxGridTableView,
   cxGridDBTableView, cxGridCustomView, cxGrid, cxPC, cxGroupBox, cxLabel,
-  cxMemo, cxCheckBox, cxTextEdit;
+  cxMemo, cxCheckBox, cxTextEdit, dxSkinWXI, Vcl.ExtCtrls;
 
 type
   TFraLembretes = class(TFraModelo)
@@ -84,9 +84,9 @@ end;
 
 procedure TFraLembretes.FDMemTable1BeforeInsert(DataSet: TDataSet);
 begin
+  inherited;
   edtCodigo.Text := '0';
   edtCodigo.Enabled := False;
-  inherited;
 end;
 
 procedure TFraLembretes.FDMemTable1CalcFields(DataSet: TDataSet);

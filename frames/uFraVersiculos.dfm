@@ -41,6 +41,12 @@ inherited FraVersiculos: TFraVersiculos
               Options.Moving = False
               Width = 600
             end
+            inherited grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
+              DataBinding.IsNullValueType = True
+            end
+            inherited grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn
+              DataBinding.IsNullValueType = True
+            end
           end
         end
       end
@@ -63,7 +69,6 @@ inherited FraVersiculos: TFraVersiculos
                 Caption = 'Vers'#237'culo'
                 Properties.Alignment.Horz = taLeftJustify
                 Transparent = True
-                ExplicitTop = 47
               end
               object cxLabel2: TcxLabel
                 Left = 2
@@ -91,7 +96,7 @@ inherited FraVersiculos: TFraVersiculos
               end
               object chbStatus: TcxCheckBox
                 Left = 2
-                Top = 23
+                Top = 27
                 Align = alTop
                 ParentFont = False
                 Properties.Alignment = taCenter
@@ -104,12 +109,11 @@ inherited FraVersiculos: TFraVersiculos
                 Style.IsFontAssigned = True
                 TabOrder = 1
                 Transparent = True
-                ExplicitTop = 27
                 Width = 248
               end
               object mmDescricao: TcxMemo
                 Left = 2
-                Top = 44
+                Top = 46
                 Align = alTop
                 ParentFont = False
                 Properties.ScrollBars = ssVertical
@@ -120,7 +124,6 @@ inherited FraVersiculos: TFraVersiculos
                 Style.Font.Style = []
                 Style.IsFontAssigned = True
                 TabOrder = 2
-                ExplicitTop = 46
                 Height = 171
                 Width = 248
               end

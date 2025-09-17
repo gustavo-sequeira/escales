@@ -16,7 +16,7 @@ uses
   cxGridDBTableView, cxGridCustomView, cxGrid, cxPC, cxGroupBox, cxMemo,
   cxTextEdit, cxLabel, FireDAC.Phys.PGDef, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.UI.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Phys,
-  FireDAC.Phys.PG, FireDAC.VCLUI.Wait;
+  FireDAC.Phys.PG, FireDAC.VCLUI.Wait, dxSkinWXI, Vcl.ExtCtrls;
 
 type
   TFraLocalidades = class(TFraModelo)
@@ -33,7 +33,7 @@ type
     FDMemTable1nome: TWideMemoField;
     FDMemTable1descricao: TWideMemoField;
     procedure btnFrameConfirmarClick(Sender: TObject);
-    procedure FDMemTable1AfterInsert(DataSet: TDataSet);
+    procedure FDMemTable1BeforeInsert(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -111,11 +111,11 @@ begin
   end;
 end;
 
-procedure TFraLocalidades.FDMemTable1AfterInsert(DataSet: TDataSet);
+procedure TFraLocalidades.FDMemTable1BeforeInsert(DataSet: TDataSet);
 begin
+  inherited;
   edtCodigo.Text := '0';
   edtCodigo.Enabled := False;
-  inherited;
 end;
 
 procedure TFraLocalidades.PreencherGrid;

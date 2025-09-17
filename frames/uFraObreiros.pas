@@ -33,7 +33,7 @@ uses
   FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   FireDAC.Phys.PGDef, FireDAC.UI.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool,
   FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.PG, FireDAC.VCLUI.Wait,
-  FireDAC.DApt, Vcl.ExtCtrls, cxCheckBox, cxImage, dxGDIPlusClasses;
+  FireDAC.DApt, Vcl.ExtCtrls, cxCheckBox, cxImage, dxGDIPlusClasses, dxSkinWXI;
 
 type
   TFraObreiros = class(TFraModelo)
@@ -435,7 +435,6 @@ begin
     FDMemTable2.Delete;
   end;
 
-
   cbTelefone.Properties.Items.Delete(vIndextelefone);
 
   if vIndextelefone < cbTelefone.Properties.Items.Count then
@@ -723,9 +722,10 @@ end;
 
 procedure TFraObreiros.FDMemTable1BeforeInsert(DataSet: TDataSet);
 begin
+  inherited;
   edtCodigo.Text := '0';
   edtCodigo.Enabled := False;
-  inherited;
+
 end;
 
 procedure TFraObreiros.FDMemTable1CalcFields(DataSet: TDataSet);
