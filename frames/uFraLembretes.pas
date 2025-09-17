@@ -14,7 +14,7 @@ uses
   FireDAC.Comp.Client, System.ImageList, Vcl.ImgList, cxImageList, Vcl.StdCtrls,
   cxButtons, cxGridLevel, cxGridCustomTableView, cxGridTableView,
   cxGridDBTableView, cxGridCustomView, cxGrid, cxPC, cxGroupBox, cxLabel,
-  cxMemo, cxCheckBox, cxTextEdit, dxSkinWXI, Vcl.ExtCtrls;
+  cxMemo, cxCheckBox, cxTextEdit, Vcl.ExtCtrls;
 
 type
   TFraLembretes = class(TFraModelo)

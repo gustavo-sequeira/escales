@@ -6,14 +6,20 @@ inherited FraLembretes: TFraLembretes
         inherited grdFramePrincial: TcxGrid
           inherited grdFramePrincialDBTableView1: TcxGridDBTableView
             Navigator.InfoPanel.DisplayMask = '[RecordIndex] de [RecordCount]'
-            OptionsData.Appending = True
+            OptionsData.CancelOnExit = False
             OptionsData.Deleting = False
             OptionsData.DeletingConfirmation = False
             OptionsData.Editing = False
             OptionsSelection.CellSelect = False
             object grdFramePrincialDBTableView1codigo: TcxGridDBColumn [0]
+              Caption = 'C'#243'digo'
               DataBinding.FieldName = 'codigo'
               Visible = False
+              MinWidth = 74
+              Options.Focusing = False
+              Options.Grouping = False
+              Options.HorzSizing = False
+              Options.Moving = False
             end
             object grdFramePrincialDBTableView1desc_status: TcxGridDBColumn [1]
               Caption = 'Status'
@@ -21,23 +27,43 @@ inherited FraLembretes: TFraLembretes
               PropertiesClassName = 'TcxTextEditProperties'
               Properties.Alignment.Horz = taCenter
               HeaderAlignmentHorz = taCenter
+              MinWidth = 100
+              Options.Focusing = False
+              Options.Grouping = False
+              Options.HorzSizing = False
+              Options.Moving = False
               Width = 100
             end
             object grdFramePrincialDBTableView1status: TcxGridDBColumn [2]
               DataBinding.FieldName = 'status'
               Visible = False
+              MinWidth = 74
+              Options.Filtering = False
+              Options.Focusing = False
+              Options.Grouping = False
+              Options.HorzSizing = False
+              Options.Moving = False
             end
             object grdFramePrincialDBTableView1lembrete: TcxGridDBColumn [3]
               Caption = 'Lembrete'
               DataBinding.FieldName = 'lembrete'
               HeaderAlignmentHorz = taCenter
+              MinWidth = 600
+              Options.Focusing = False
+              Options.Grouping = False
+              Options.HorzSizing = False
+              Options.Moving = False
               Width = 600
             end
             inherited grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
+              MinWidth = 25
+              Options.Grouping = False
+              Options.HorzSizing = False
             end
             inherited grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
+              MinWidth = 25
+              Options.Grouping = False
+              Options.HorzSizing = False
             end
           end
         end
@@ -77,6 +103,7 @@ inherited FraLembretes: TFraLembretes
                 Top = 2
                 Align = alTop
                 ParentFont = False
+                Properties.Alignment.Horz = taCenter
                 Style.Font.Charset = DEFAULT_CHARSET
                 Style.Font.Color = clWindowText
                 Style.Font.Height = -13
@@ -116,6 +143,7 @@ inherited FraLembretes: TFraLembretes
                 Style.Font.Style = []
                 Style.IsFontAssigned = True
                 TabOrder = 2
+                ExplicitTop = 44
                 Height = 171
                 Width = 248
               end

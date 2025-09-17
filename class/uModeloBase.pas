@@ -640,8 +640,6 @@ begin
   PrimaryKeyValue := GetPrimaryKeyValue;
   TotalRegistros := 0;
 
-  vWhere := ' WHERE 1 = 1 ';
-
   for vQuantidadeTabelas := 0 to Length(AArrStrings)-1 do
   begin
     vWhere := ' (' + AArrStrings[vQuantidadeTabelas].chaveEstrangeira + ' = ' + IntToStr(PrimaryKeyValue) + ')';

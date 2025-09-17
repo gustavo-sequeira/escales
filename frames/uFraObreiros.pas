@@ -33,7 +33,7 @@ uses
   FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   FireDAC.Phys.PGDef, FireDAC.UI.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool,
   FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.PG, FireDAC.VCLUI.Wait,
-  FireDAC.DApt, Vcl.ExtCtrls, cxCheckBox, cxImage, dxGDIPlusClasses, dxSkinWXI;
+  FireDAC.DApt, Vcl.ExtCtrls, cxCheckBox, cxImage, dxGDIPlusClasses;
 
 type
   TFraObreiros = class(TFraModelo)
@@ -715,6 +715,7 @@ begin
   try
     Obreiro.Codigo := FDMemTable1.FieldByName('codigo').AsInteger;
     Obreiro.Delete;
+    PreencherGrid;
   finally
     Obreiro.Free;
   end;
@@ -942,7 +943,7 @@ begin
   vEstado := 'exclusão';
   vCodException := 3001;
 
-  SetLength(vArrStrings, 1);
+  SetLength(vArrStrings, 3);
 
   vArrStrings[0].tabela := 'disponibilidades';
   vArrStrings[0].chaveEstrangeira := 'codigo_obreiro';
@@ -955,6 +956,7 @@ begin
 
   Obreiro := TObreiros.Create();
   try
+    Obreiro.Codigo := FDMemTable1.FieldByName('codigo').AsInteger;
     if Obreiro.TotalReg(vArrStrings) > 0 then
     begin
       raise EXEscales.Create('Não foi possível realizar a exclusão. Registro é usado em outras tabelas. ', vCodException);

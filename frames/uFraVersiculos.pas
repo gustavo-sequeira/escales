@@ -14,7 +14,7 @@ uses
   System.ImageList, Vcl.ImgList, cxImageList, Vcl.StdCtrls, cxButtons,
   cxGridLevel, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
   cxGridCustomView, cxGrid, cxPC, cxGroupBox, cxMemo, cxCheckBox, cxTextEdit,
-  cxLabel, dxSkinWXI, Vcl.ExtCtrls;
+  cxLabel, Vcl.ExtCtrls;
 
 type
   TFraVersiculos = class(TFraModelo)

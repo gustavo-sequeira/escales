@@ -32,7 +32,7 @@ uses
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client, FireDAC.Comp.DataSet,
   FireDAC.UI.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Phys,
   FireDAC.Phys.PG, FireDAC.Phys.PGDef, FireDAC.VCLUI.Wait,
-  FireDAC.Stan.StorageBin, cxButtonEdit, uModeloBase, dxSkinWXI, Vcl.ExtCtrls;
+  FireDAC.Stan.StorageBin, cxButtonEdit, uModeloBase, Vcl.ExtCtrls;
 
 type
   TFraCargos = class(TFraModelo)
@@ -113,6 +113,7 @@ begin
   try
     Cargo.Codigo := FDMemTable1.FieldByName('codigo').AsInteger;
     Cargo.Delete;
+    PreencherGrid;
   finally
     Cargo.Free;
   end;
@@ -161,6 +162,7 @@ begin
 
   Cargo := TCargos.Create();
   try
+    Cargo.Codigo := FDMemTable1.FieldByName('codigo').AsInteger;
     if Cargo.TotalReg(vArrStrings) > 0 then
     begin
       raise ExCargosException.Create('Não foi possível realizar a exclusão. Registro é usado em outras tabelas. ', vCodException);

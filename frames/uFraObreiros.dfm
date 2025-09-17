@@ -7,10 +7,15 @@ inherited FraObreiros: TFraObreiros
     Width = 898
     inherited pcFramePrincipal: TcxPageControl
       Width = 892
+      Properties.ActivePage = tsManutencao
       ExplicitWidth = 892
       ClientRectRight = 892
       inherited tsConsulta: TcxTabSheet
         ExplicitWidth = 892
+        inherited PaintBox1: TPaintBox
+          Width = 892
+          ExplicitWidth = 892
+        end
         inherited grdFramePrincial: TcxGrid
           inherited grdFramePrincialDBTableView1: TcxGridDBTableView
             Navigator.InfoPanel.DisplayMask = '[RecordIndex] de [RecordCount]'
@@ -51,12 +56,6 @@ inherited FraObreiros: TFraObreiros
               Options.Editing = False
               Width = 150
             end
-            inherited grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
-            end
-            inherited grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
-            end
           end
         end
       end
@@ -64,6 +63,7 @@ inherited FraObreiros: TFraObreiros
         ExplicitWidth = 892
         inherited PaintBox2: TPaintBox
           Width = 892
+          ExplicitWidth = 892
         end
         inherited gbFramePrincipal: TcxGroupBox
           Top = 0
@@ -169,6 +169,7 @@ inherited FraObreiros: TFraObreiros
                 Margins.Bottom = 0
                 Align = alTop
                 ParentFont = False
+                Properties.Alignment.Horz = taCenter
                 Style.Font.Charset = DEFAULT_CHARSET
                 Style.Font.Color = clWindowText
                 Style.Font.Height = -13
@@ -238,6 +239,7 @@ inherited FraObreiros: TFraObreiros
                 Style.TransparentBorder = True
                 TabOrder = 8
                 Transparent = True
+                ExplicitTop = 190
                 Height = 21
                 Width = 320
                 object Bevel1: TBevel
@@ -434,6 +436,7 @@ inherited FraObreiros: TFraObreiros
                 Style.TransparentBorder = True
                 TabOrder = 5
                 Transparent = True
+                ExplicitTop = 127
                 Height = 21
                 Width = 320
                 object Bevel3: TBevel
@@ -698,6 +701,7 @@ inherited FraObreiros: TFraObreiros
                 Style.TransparentBorder = True
                 TabOrder = 7
                 Transparent = True
+                ExplicitTop = 169
                 Height = 21
                 Width = 320
                 object Bevel15: TBevel
@@ -894,6 +898,7 @@ inherited FraObreiros: TFraObreiros
                 Style.TransparentBorder = True
                 TabOrder = 6
                 Transparent = True
+                ExplicitTop = 148
                 Height = 21
                 Width = 320
                 object Bevel22: TBevel
@@ -1091,6 +1096,7 @@ inherited FraObreiros: TFraObreiros
                 Style.TransparentBorder = False
                 TabOrder = 4
                 Transparent = True
+                ExplicitTop = 101
                 Height = 23
                 Width = 314
                 object cbTelefone: TcxComboBox

@@ -2,17 +2,26 @@ inherited FraVersiculos: TFraVersiculos
   inherited gbPrincipal: TcxGroupBox
     Caption = 'VERS'#205'CULOS'
     inherited pcFramePrincipal: TcxPageControl
+      Properties.ActivePage = tsManutencao
       inherited tsConsulta: TcxTabSheet
-        ExplicitTop = 26
-        ExplicitWidth = 634
-        ExplicitHeight = 430
         inherited grdFramePrincial: TcxGrid
           inherited grdFramePrincialDBTableView1: TcxGridDBTableView
             Navigator.InfoPanel.DisplayMask = '[RecordIndex] de [RecordCount]'
+            OptionsData.CancelOnExit = False
+            OptionsData.Deleting = False
+            OptionsData.DeletingConfirmation = False
+            OptionsData.Editing = False
             OptionsSelection.CellSelect = False
             object grdFramePrincialDBTableView1codigo: TcxGridDBColumn [0]
+              Caption = 'C'#243'digo'
               DataBinding.FieldName = 'codigo'
               Visible = False
+              MinWidth = 74
+              Options.Editing = False
+              Options.Focusing = False
+              Options.Grouping = False
+              Options.HorzSizing = False
+              Options.Moving = False
             end
             object grdFramePrincialDBTableView1desc_status: TcxGridDBColumn [1]
               Caption = 'Status'
@@ -20,7 +29,11 @@ inherited FraVersiculos: TFraVersiculos
               PropertiesClassName = 'TcxTextEditProperties'
               Properties.Alignment.Horz = taCenter
               HeaderAlignmentHorz = taCenter
+              MinWidth = 100
               Options.Editing = False
+              Options.Focusing = False
+              Options.Grouping = False
+              Options.HorzSizing = False
               Options.Moving = False
               Width = 100
             end
@@ -31,21 +44,28 @@ inherited FraVersiculos: TFraVersiculos
               HeaderAlignmentHorz = taCenter
               Options.Editing = False
               Options.Filtering = False
+              Options.Focusing = False
+              Options.Grouping = False
+              Options.Moving = False
               Width = 60
             end
             object grdFramePrincialDBTableView1versiculo: TcxGridDBColumn [3]
               Caption = 'Vers'#237'culo'
               DataBinding.FieldName = 'versiculo'
               HeaderAlignmentHorz = taCenter
+              MinWidth = 600
               Options.Editing = False
+              Options.Focusing = False
+              Options.Grouping = False
+              Options.HorzSizing = False
               Options.Moving = False
               Width = 600
             end
             inherited grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
+              Options.Grouping = False
             end
             inherited grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
+              Options.Grouping = False
             end
           end
         end
@@ -85,6 +105,7 @@ inherited FraVersiculos: TFraVersiculos
                 Top = 2
                 Align = alTop
                 ParentFont = False
+                Properties.Alignment.Horz = taCenter
                 Style.Font.Charset = DEFAULT_CHARSET
                 Style.Font.Color = clWindowText
                 Style.Font.Height = -13
@@ -124,6 +145,7 @@ inherited FraVersiculos: TFraVersiculos
                 Style.Font.Style = []
                 Style.IsFontAssigned = True
                 TabOrder = 2
+                ExplicitTop = 44
                 Height = 171
                 Width = 248
               end

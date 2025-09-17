@@ -2,37 +2,57 @@ inherited FraLocalidades: TFraLocalidades
   inherited gbPrincipal: TcxGroupBox
     Caption = 'Localidades'
     inherited pcFramePrincipal: TcxPageControl
+      Properties.ActivePage = tsManutencao
       inherited tsConsulta: TcxTabSheet
-        ExplicitTop = 26
-        ExplicitWidth = 634
-        ExplicitHeight = 430
         inherited grdFramePrincial: TcxGrid
           inherited grdFramePrincialDBTableView1: TcxGridDBTableView
+            OptionsData.CancelOnExit = False
+            OptionsData.Deleting = False
+            OptionsData.DeletingConfirmation = False
+            OptionsData.Editing = False
             OptionsSelection.CellSelect = False
             object grdFramePrincialDBTableView1codigo: TcxGridDBColumn [0]
+              Caption = 'C'#243'digo'
               DataBinding.FieldName = 'codigo'
               Visible = False
+              MinWidth = 74
               Options.Editing = False
+              Options.Focusing = False
+              Options.Grouping = False
+              Options.HorzSizing = False
+              Options.Moving = False
             end
             object grdFramePrincialDBTableView1nome: TcxGridDBColumn [1]
               Caption = 'Nome'
               DataBinding.FieldName = 'nome'
               HeaderAlignmentHorz = taCenter
+              MinWidth = 250
               Options.Editing = False
+              Options.Focusing = False
+              Options.Grouping = False
+              Options.HorzSizing = False
+              Options.Moving = False
               Width = 250
             end
             object grdFramePrincialDBTableView1descricao: TcxGridDBColumn [2]
               Caption = 'Descri'#231#227'o'
               DataBinding.FieldName = 'descricao'
               HeaderAlignmentHorz = taCenter
+              MinWidth = 450
               Options.Editing = False
+              Options.Focusing = False
+              Options.Grouping = False
+              Options.HorzSizing = False
+              Options.Moving = False
               Width = 450
             end
             inherited grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
+              MinWidth = 25
+              Options.HorzSizing = False
             end
             inherited grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
+              MinWidth = 25
+              Options.HorzSizing = False
             end
           end
         end
@@ -72,6 +92,7 @@ inherited FraLocalidades: TFraLocalidades
                 Top = 2
                 Align = alTop
                 ParentFont = False
+                Properties.Alignment.Horz = taCenter
                 Style.Font.Charset = DEFAULT_CHARSET
                 Style.Font.Color = clWindowText
                 Style.Font.Height = -13
@@ -108,6 +129,7 @@ inherited FraLocalidades: TFraLocalidades
                 Style.Font.Style = []
                 Style.IsFontAssigned = True
                 TabOrder = 2
+                ExplicitTop = 44
                 Height = 89
                 Width = 248
               end

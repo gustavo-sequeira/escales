@@ -16,7 +16,7 @@ uses
   cxGridDBTableView, cxGridCustomView, cxGrid, cxPC, cxGroupBox, cxLabel,
   cxTextEdit, cxCheckBox, Vcl.ComCtrls, dxCore, cxDateUtils, cxDropDownEdit,
   cxCalendar, cxMaskEdit, dxGDIPlusClasses, cxImage, cxRadioGroup, cxSpinEdit,
-  cxTimeEdit, Vcl.ExtCtrls, dxSkinWXI;
+  cxTimeEdit, Vcl.ExtCtrls;
 
 type
   TFraEscalas = class(TFraModelo)
@@ -66,6 +66,10 @@ type
     cxGrid1DBTableView1nome: TcxGridDBColumn;
     cxGrid1DBTableView1Exclusao: TcxGridDBColumn;
     lbTurno: TcxLabel;
+    FDMemTable1nome_localidade: TWideMemoField;
+    FDMemTable1data_dia: TWideMemoField;
+    FDMemTable1desc_repete: TWideMemoField;
+    grdFramePrincialDBTableView1desc_repete: TcxGridDBColumn;
     procedure tsManutencaoShow(Sender: TObject);
     procedure hrHorarioPropertiesChange(Sender: TObject);
     procedure cxButton2Click(Sender: TObject);
@@ -78,6 +82,7 @@ type
     procedure cbLocalidadeEditing(Sender: TObject; var CanEdit: Boolean);
     procedure cxGrid1DBTableView1CellClick(Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
     procedure cxButton1Click(Sender: TObject);
+    procedure FDMemTable1CalcFields(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -104,8 +109,9 @@ var
 implementation
 
 uses
-  Math, System.DateUtils, uDmPrincipal, uEscala, uEscalado, uModeloBase,
-  uEXEscales, uLocalidade, uFrmInclusaoObreiroEscala, System.Types, uLibary;
+  System.DateUtils, uDmPrincipal, uEscala, uEscalado, uModeloBase,
+  uEXEscales, uLocalidade, uFrmInclusaoObreiroEscala, System.Types, uLibary,
+  System.StrUtils, Math;
 
 {$R *.dfm}
 
@@ -405,6 +411,7 @@ begin
   try
     Escala.Codigo := FDMemTable1.FieldByName('codigo').AsInteger;
     Escala.Delete;
+    PreencherGrid;
   finally
     Escala.Free;
   end;
@@ -420,6 +427,20 @@ begin
   hrHorario.Time := Now;
   dtData.Date := now;
 
+end;
+
+procedure TFraEscalas.FDMemTable1CalcFields(DataSet: TDataSet);
+begin
+  inherited;
+
+  FDMemTable1nome_localidade.AsString := 'ddddd';
+
+  FDMemTable1desc_repete.AsString := IfThen(FDMemTable1repete.AsInteger = 1, 'Sim', 'Não');
+
+  if (FDMemTable1repete.AsInteger = 1) then
+    FDMemTable1data_dia.AsString := FDMemTable1dia.AsString
+  else
+    FDMemTable1data_dia.AsString := DateToStr(FDMemTable1data.AsDateTime);
 end;
 
 procedure TFraEscalas.hrHorarioEditing(Sender: TObject; var CanEdit: Boolean);
@@ -597,32 +618,9 @@ begin
 end;
 
 procedure TFraEscalas.ValidarAntesExcluir;
-var
-  vArrStrings: TArray<TFKInfo>;
-  vEstado: string;
-  vCodException: Integer;
-  Escala: TEscalas;
 begin
   inherited;
 
- { vEstado := 'exclusão';
-  vCodException := 3001;
-
-  SetLength(vArrStrings, 1);
-
-  vArrStrings[0].tabela := 'escalados';
-  vArrStrings[0].chaveEstrangeira := 'codigo_escala';
-
-  Escala := TEscalas.Create();
-  try
-    if Escala.TotalReg(vArrStrings) > 0 then
-    begin
-      raise EXEscales.Create('Não foi possível realizar a exclusão. Registro é usado em outras tabelas. ', vCodException);
-      Abort;
-    end;
-  finally
-    Escala.Free;
-  end; }
 end;
 
 procedure TFraEscalas.ValidarAntesSalvar;

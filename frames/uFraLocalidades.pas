@@ -16,7 +16,7 @@ uses
   cxGridDBTableView, cxGridCustomView, cxGrid, cxPC, cxGroupBox, cxMemo,
   cxTextEdit, cxLabel, FireDAC.Phys.PGDef, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.UI.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Phys,
-  FireDAC.Phys.PG, FireDAC.VCLUI.Wait, dxSkinWXI, Vcl.ExtCtrls;
+  FireDAC.Phys.PG, FireDAC.VCLUI.Wait, Vcl.ExtCtrls;
 
 type
   TFraLocalidades = class(TFraModelo)
@@ -106,6 +106,7 @@ begin
   try
     Localidade.Codigo := FDMemTable1.FieldByName('codigo').AsInteger;
     Localidade.Delete;
+    PreencherGrid;
   finally
     Localidade.Free;
   end;
@@ -178,6 +179,7 @@ begin
 
   Localidades := TLocalidades.Create();
   try
+    Localidades.Codigo := FDMemTable1.FieldByName('codigo').AsInteger;
     if Localidades.TotalReg(vArrStrings) > 0 then
     begin
       raise EXEscales.Create('Não foi possível realizar a exclusão. Registro é usado em outras tabelas. ', vCodException);

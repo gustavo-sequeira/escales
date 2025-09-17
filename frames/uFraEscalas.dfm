@@ -10,8 +10,6 @@ inherited FraEscalas: TFraEscalas
       ExplicitHeight = 570
       ClientRectBottom = 570
       inherited tsConsulta: TcxTabSheet
-        ExplicitTop = 26
-        ExplicitWidth = 634
         ExplicitHeight = 544
         inherited PaintBox1: TPaintBox
           Height = 544
@@ -19,43 +17,134 @@ inherited FraEscalas: TFraEscalas
         end
         inherited grdFramePrincial: TcxGrid
           inherited grdFramePrincialDBTableView1: TcxGridDBTableView
+            OptionsData.CancelOnExit = False
+            OptionsData.Deleting = False
+            OptionsData.DeletingConfirmation = False
+            OptionsData.Editing = False
             object grdFramePrincialDBTableView1codigo: TcxGridDBColumn [0]
+              Caption = 'C'#243'digo'
               DataBinding.FieldName = 'codigo'
+              MinWidth = 74
+              Options.Editing = False
+              Options.Focusing = False
+              Options.ExpressionEditing = False
+              Options.Grouping = False
+              Options.HorzSizing = False
+              Options.Moving = False
             end
             object grdFramePrincialDBTableView1situacao: TcxGridDBColumn [1]
+              Caption = 'Situa'#231#227'o'
               DataBinding.FieldName = 'situacao'
+              MinWidth = 74
+              Options.Editing = False
+              Options.Focusing = False
+              Options.ExpressionEditing = False
+              Options.Grouping = False
+              Options.HorzSizing = False
+              Options.Moving = False
             end
             object grdFramePrincialDBTableView1data: TcxGridDBColumn [2]
               DataBinding.FieldName = 'data'
+              Visible = False
+              MinWidth = 74
+              Options.Editing = False
+              Options.Filtering = False
+              Options.Focusing = False
+              Options.ExpressionEditing = False
+              Options.Grouping = False
+              Options.HorzSizing = False
+              Options.Moving = False
             end
             object grdFramePrincialDBTableView1dia: TcxGridDBColumn [3]
               DataBinding.FieldName = 'dia'
+              Visible = False
+              MinWidth = 74
+              Options.Editing = False
+              Options.Filtering = False
+              Options.Focusing = False
+              Options.ExpressionEditing = False
+              Options.Grouping = False
+              Options.HorzSizing = False
+              Options.Moving = False
             end
             object grdFramePrincialDBTableView1turno: TcxGridDBColumn [4]
+              Caption = 'Turno'
               DataBinding.FieldName = 'turno'
+              MinWidth = 74
+              Options.Editing = False
+              Options.Focusing = False
+              Options.ExpressionEditing = False
+              Options.Grouping = False
+              Options.HorzSizing = False
+              Options.Moving = False
             end
             object grdFramePrincialDBTableView1horario: TcxGridDBColumn [5]
+              Caption = 'Hor'#225'rio'
               DataBinding.FieldName = 'horario'
+              MinWidth = 74
+              Options.Editing = False
+              Options.Focusing = False
+              Options.ExpressionEditing = False
+              Options.Grouping = False
+              Options.HorzSizing = False
+              Options.Moving = False
             end
             object grdFramePrincialDBTableView1repete: TcxGridDBColumn [6]
+              Caption = 'Repete'
               DataBinding.FieldName = 'repete'
+              MinWidth = 74
+              Options.Editing = False
+              Options.Focusing = False
+              Options.ExpressionEditing = False
+              Options.Grouping = False
+              Options.HorzSizing = False
+              Options.Moving = False
             end
             object grdFramePrincialDBTableView1codigo_localidade: TcxGridDBColumn [7]
               DataBinding.FieldName = 'codigo_localidade'
+              Visible = False
+              MinWidth = 74
+              Options.Editing = False
+              Options.Filtering = False
+              Options.Focusing = False
+              Options.ExpressionEditing = False
+              Options.Grouping = False
+              Options.HorzSizing = False
+              Options.Moving = False
             end
             object grdFramePrincialDBTableView1nome_localidade: TcxGridDBColumn [8]
               DataBinding.FieldName = 'nome_localidade'
-              DataBinding.IsNullValueType = True
+              PropertiesClassName = 'TcxTextEditProperties'
+              Properties.Alignment.Horz = taCenter
+              HeaderAlignmentHorz = taCenter
+              MinWidth = 74
+              Options.Focusing = False
+              Options.Grouping = False
+              Options.HorzSizing = False
+              Options.Moving = False
             end
             object grdFramePrincialDBTableView1data_dia: TcxGridDBColumn [9]
               DataBinding.FieldName = 'data_dia'
-              DataBinding.IsNullValueType = True
+              MinWidth = 74
+              Options.Editing = False
+              Options.Focusing = False
+              Options.ExpressionEditing = False
+              Options.Grouping = False
+              Options.HorzSizing = False
+              Options.Moving = False
             end
             inherited grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
+              MinWidth = 25
+              Options.Grouping = False
+              Options.HorzSizing = False
             end
             inherited grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
+              MinWidth = 25
+              Options.Grouping = False
+              Options.HorzSizing = False
+            end
+            object grdFramePrincialDBTableView1desc_repete: TcxGridDBColumn
+              DataBinding.FieldName = 'desc_repete'
             end
           end
         end
@@ -179,6 +268,7 @@ inherited FraEscalas: TFraEscalas
                 Margins.Bottom = 0
                 Align = alTop
                 ParentFont = False
+                Properties.Alignment.Horz = taCenter
                 Style.Font.Charset = DEFAULT_CHARSET
                 Style.Font.Color = clWindowText
                 Style.Font.Height = -13
@@ -349,7 +439,6 @@ inherited FraEscalas: TFraEscalas
                 StyleDisabled.LookAndFeel.NativeStyle = False
                 StyleFocused.LookAndFeel.NativeStyle = False
                 StyleHot.LookAndFeel.NativeStyle = False
-                StyleReadOnly.LookAndFeel.NativeStyle = False
                 TabOrder = 4
                 OnEditing = hrHorarioEditing
                 Height = 25
@@ -418,7 +507,7 @@ inherited FraEscalas: TFraEscalas
                   Caption = '&Manual'
                   OptionsImage.ImageIndex = 4
                   OptionsImage.Images = cxImageList
-                  TabOrder = 1
+                  TabOrder = 0
                   OnClick = cxButton2Click
                 end
                 object cxLabel1: TcxLabel
@@ -475,7 +564,6 @@ inherited FraEscalas: TFraEscalas
                     Width = 400
                   end
                   object cxGrid1DBTableView1Exclusao: TcxGridDBColumn
-                    DataBinding.IsNullValueType = True
                     Width = 34
                   end
                 end
@@ -581,20 +669,11 @@ inherited FraEscalas: TFraEscalas
       end>
   end
   inherited FDMemTable1: TFDMemTable
-    StoreDefs = True
+    OnCalcFields = FDMemTable1CalcFields
     Left = 536
     Top = 550
     object FDMemTable1codigo: TIntegerField
       FieldName = 'codigo'
-    end
-    object FDMemTable1data: TDateField
-      FieldName = 'data'
-    end
-    object FDMemTable1repete: TIntegerField
-      FieldName = 'repete'
-    end
-    object FDMemTable1codigo_localidade: TIntegerField
-      FieldName = 'codigo_localidade'
     end
     object FDMemTable1situacao: TWideMemoField
       FieldName = 'situacao'
@@ -604,12 +683,39 @@ inherited FraEscalas: TFraEscalas
       FieldName = 'dia'
       BlobType = ftWideMemo
     end
+    object FDMemTable1data: TDateField
+      FieldName = 'data'
+    end
     object FDMemTable1turno: TWideMemoField
       FieldName = 'turno'
       BlobType = ftWideMemo
     end
     object FDMemTable1horario: TTimeField
       FieldName = 'horario'
+    end
+    object FDMemTable1repete: TIntegerField
+      FieldName = 'repete'
+    end
+    object FDMemTable1codigo_localidade: TIntegerField
+      FieldName = 'codigo_localidade'
+    end
+    object FDMemTable1nome_localidade: TWideMemoField
+      FieldKind = fkCalculated
+      FieldName = 'nome_localidade'
+      BlobType = ftWideString
+      Calculated = True
+    end
+    object FDMemTable1data_dia: TWideMemoField
+      FieldKind = fkCalculated
+      FieldName = 'data_dia'
+      BlobType = ftWideString
+      Calculated = True
+    end
+    object FDMemTable1desc_repete: TWideMemoField
+      FieldKind = fkCalculated
+      FieldName = 'desc_repete'
+      BlobType = ftWideString
+      Calculated = True
     end
   end
   inherited DataSource1: TDataSource

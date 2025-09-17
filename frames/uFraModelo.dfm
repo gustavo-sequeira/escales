@@ -26,7 +26,7 @@ object FraModelo: TFraModelo
       Height = 456
       Align = alClient
       TabOrder = 0
-      Properties.ActivePage = tsManutencao
+      Properties.ActivePage = tsConsulta
       Properties.CustomButtons.Buttons = <>
       Properties.Style = 8
       LookAndFeel.NativeStyle = False
@@ -38,15 +38,13 @@ object FraModelo: TFraModelo
         Caption = 'Consulta'
         ImageIndex = 0
         OnResize = tsConsultaResize
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object PaintBox1: TPaintBox
           Left = 0
           Top = 0
           Width = 634
           Height = 430
           Align = alClient
+          Visible = False
           OnPaint = PaintBox1Paint
           ExplicitLeft = 32
           ExplicitTop = 72
@@ -87,7 +85,6 @@ object FraModelo: TFraModelo
             Styles.ContentEven = zebradoEven
             Styles.ContentOdd = zebradoOdd
             object grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
               Options.Editing = False
               Options.Filtering = False
               Options.Focusing = False
@@ -97,7 +94,6 @@ object FraModelo: TFraModelo
               Width = 25
             end
             object grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
               Options.Editing = False
               Options.Filtering = False
               Options.Focusing = False
@@ -116,12 +112,16 @@ object FraModelo: TFraModelo
         Caption = 'Manuten'#231#227'o'
         ImageIndex = 1
         OnShow = tsManutencaoShow
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object PaintBox2: TPaintBox
           Left = 0
           Top = 0
           Width = 634
           Height = 430
           Align = alClient
+          Visible = False
           OnPaint = PaintBox2Paint
           ExplicitLeft = 32
           ExplicitTop = 72
