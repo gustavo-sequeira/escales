@@ -66,10 +66,10 @@ type
     cxGrid1DBTableView1nome: TcxGridDBColumn;
     cxGrid1DBTableView1Exclusao: TcxGridDBColumn;
     lbTurno: TcxLabel;
-    FDMemTable1nome_localidade: TWideMemoField;
-    FDMemTable1data_dia: TWideMemoField;
-    FDMemTable1desc_repete: TWideMemoField;
     grdFramePrincialDBTableView1desc_repete: TcxGridDBColumn;
+    FDMemTable1nome_localidade: TStringField;
+    FDMemTable1data_dia: TStringField;
+    FDMemTable1desc_repete: TStringField;
     procedure tsManutencaoShow(Sender: TObject);
     procedure hrHorarioPropertiesChange(Sender: TObject);
     procedure cxButton2Click(Sender: TObject);
@@ -83,8 +83,6 @@ type
     procedure cxGrid1DBTableView1CellClick(Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
     procedure cxButton1Click(Sender: TObject);
     procedure FDMemTable1CalcFields(DataSet: TDataSet);
-  private
-    { Private declarations }
   public
     { Public declarations }
     procedure EdicaoRegistro; override;
@@ -101,6 +99,8 @@ type
     procedure PosicionarItemIndexDiaDaSemana;
     procedure PreencherGridEscalados;
     procedure SalvarEscalados(CodigoEscala: Integer);
+    function PesquisarCodigoObreiro(ANomeObreiro: string): Integer;
+    function PesquisarLocalidade(ACodigoLocalidade: integer): string;
   end;
 
 var
@@ -109,13 +109,48 @@ var
 implementation
 
 uses
-  System.DateUtils, uDmPrincipal, uEscala, uEscalado, uModeloBase,
-  uEXEscales, uLocalidade, uFrmInclusaoObreiroEscala, System.Types, uLibary,
-  System.StrUtils, Math;
+  System.DateUtils, uDmPrincipal, uEscala, uEscalado, uModeloBase, uEXEscales,
+  uLocalidade, uFrmInclusaoObreiroEscala, System.Types, uLibary, System.StrUtils,
+  Math;
 
 {$R *.dfm}
 
 { TFraEscalas }
+
+function TFraEscalas.PesquisarCodigoObreiro(ANomeObreiro: string): Integer;
+begin
+  Result := 0;
+  dmPrincipal.FDQuery1.Close;
+  dmPrincipal.FDQuery1.SQL.Clear;
+  dmPrincipal.FDQuery1.SQL.Add('  select codigo ');
+  dmPrincipal.FDQuery1.SQL.Add('    from obreiros');
+  dmPrincipal.FDQuery1.SQL.Add('   where lower(nome) = lower(:nome)');
+  dmPrincipal.FDQuery1.ParamByName('nome').AsString := Trim(Copy(ANomeObreiro, Pos('. ', ANomeObreiro) + 2, Length(ANomeObreiro)));
+  dmPrincipal.FDQuery1.Open;
+
+  if dmPrincipal.FDQuery1.IsEmpty then
+    Exit;
+
+  Result := dmPrincipal.FDQuery1.Fields[0].AsInteger;
+end;
+
+function TFraEscalas.PesquisarLocalidade(ACodigoLocalidade: integer): string;
+begin
+  Result := EmptyStr;
+  dmPrincipal.FDQuery1.Close;
+  dmPrincipal.FDQuery1.SQL.Clear;
+  dmPrincipal.FDQuery1.SQL.Add('  select nome ');
+  dmPrincipal.FDQuery1.SQL.Add('    from localidades');
+  dmPrincipal.FDQuery1.SQL.Add('   where codigo = :codigo');
+  dmPrincipal.FDQuery1.ParamByName('codigo').AsInteger := ACodigoLocalidade;
+  dmPrincipal.FDQuery1.Open;
+
+  if dmPrincipal.FDQuery1.IsEmpty then
+    Exit;
+
+  Result := dmPrincipal.FDQuery1.Fields[0].AsString;
+
+end;
 
 procedure TFraEscalas.AcaoCheckboxRepetir(checado: boolean);
 begin
@@ -165,7 +200,7 @@ end;
 procedure TFraEscalas.cbDiasSemanaEditing(Sender: TObject; var CanEdit: Boolean);
 begin
   inherited;
-  if not (memGridEscalados.IsEmpty) then
+  if not (memGridEscalados.IsEmpty) and ((Trim(edtCodigo.Text) = EmptyStr) or (Trim(edtCodigo.Text) = '0')) then
   begin
     if Application.MessageBox('Ao optar por essa mudança, os escalados desse dia serão removidos. Deseja continuar?', 'Escales', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = IDYES then
     begin
@@ -183,7 +218,7 @@ begin
   inherited;
   begin
     inherited;
-    if not (memGridEscalados.IsEmpty) then
+    if not (memGridEscalados.IsEmpty) and ((Trim(edtCodigo.Text) = EmptyStr) or (Trim(edtCodigo.Text) = '0')) then
     begin
       if Application.MessageBox('Ao optar por essa mudança, os escalados desse dia serão removidos. Deseja continuar?', 'Escales', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = IDYES then
       begin
@@ -200,7 +235,7 @@ end;
 procedure TFraEscalas.chbRepetirClick(Sender: TObject);
 begin
  // inherited;
-  if not (memGridEscalados.IsEmpty) then
+  if not (memGridEscalados.IsEmpty) and ((Trim(edtCodigo.Text) = EmptyStr) or (Trim(edtCodigo.Text) = '0')) then
   begin
     if Application.MessageBox('Ao optar por essa mudança, os escalados desse dia serão removidos. Deseja continuar?', 'Escales', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = IDYES then
     begin
@@ -377,7 +412,7 @@ end;
 procedure TFraEscalas.dtDataEditing(Sender: TObject; var CanEdit: Boolean);
 begin
   inherited;
-  if not (memGridEscalados.IsEmpty) then
+  if not (memGridEscalados.IsEmpty) and ((Trim(edtCodigo.Text) = EmptyStr) or (Trim(edtCodigo.Text) = '0')) then
   begin
     if Application.MessageBox('Ao optar por essa mudança, os escalados desse dia serão removidos. Deseja continuar?', 'Escales', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = IDYES then
     begin
@@ -394,12 +429,15 @@ procedure TFraEscalas.EdicaoRegistro;
 begin
   inherited;
   edtCodigo.Text := IntToStr(FDMemTable1.FieldByName('codigo').AsInteger);
+  edtCodigo.Enabled := False;
   chbRepetir.Checked := FDMemTable1.FieldByName('repete').AsInteger = 1;
   if chbRepetir.Checked then
     PosicionarItemIndexDiaDaSemana
   else
     dtData.Date := FDMemTable1.FieldByName('data').AsDateTime;
   hrHorario.Time := FDMemTable1.FieldByName('horario').AsVariant;
+
+  PreencherGridEscalados;
 end;
 
 procedure TFraEscalas.ExclusaoRegistro;
@@ -424,8 +462,13 @@ begin
   edtCodigo.Enabled := False;
 
   cbSituacao.ItemIndex := 0;
+
+  cbLocalidade.SetFocus;
+
   hrHorario.Time := Now;
   dtData.Date := now;
+
+  memGridEscalados.EmptyDataSet;
 
 end;
 
@@ -433,20 +476,20 @@ procedure TFraEscalas.FDMemTable1CalcFields(DataSet: TDataSet);
 begin
   inherited;
 
-  FDMemTable1nome_localidade.AsString := 'ddddd';
+  FDMemTable1nome_localidade.AsString := PesquisarLocalidade(FDMemTable1codigo_localidade.AsInteger);
 
   FDMemTable1desc_repete.AsString := IfThen(FDMemTable1repete.AsInteger = 1, 'Sim', 'Não');
 
   if (FDMemTable1repete.AsInteger = 1) then
     FDMemTable1data_dia.AsString := FDMemTable1dia.AsString
   else
-    FDMemTable1data_dia.AsString := DateToStr(FDMemTable1data.AsDateTime);
+    FDMemTable1data_dia.AsString := DateToStr(FDMemTable1.FieldByName('data').AsDateTime);
 end;
 
 procedure TFraEscalas.hrHorarioEditing(Sender: TObject; var CanEdit: Boolean);
 begin
   inherited;
-  if not (memGridEscalados.IsEmpty) then
+  if not (memGridEscalados.IsEmpty) and ((Trim(edtCodigo.Text) = EmptyStr) or (Trim(edtCodigo.Text) = '0')) then
   begin
     if Application.MessageBox('Ao optar por essa mudança, os escalados desse dia serão removidos. Deseja continuar?', 'Escales', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = IDYES then
     begin
@@ -502,47 +545,82 @@ begin
 end;
 
 procedure TFraEscalas.PreencherGridEscalados;
+var
+  Query: TFDQuery;
 begin
+  Query := TFDQuery.Create(Self);
+  Query.Connection := dmPrincipal.FDConnection;
 
+//  memGridEscalados.DisableControls;
+  memGridEscalados.Active := True;
+  memGridEscalados.EmptyDataSet;
+
+  try
+
+    Query.Close;
+    Query.SQL.Clear;
+    Query.SQL.Add('     select c.abreviacao||''. ''||o.nome  as nome ');
+    Query.SQL.Add(' 	     from obreiros o ');
+    Query.SQL.Add(' inner join escalados e ');
+    Query.SQL.Add('         on (o.codigo = e.codigo_obreiro) ');
+    Query.SQL.Add(' inner join cargos c ');
+    Query.SQL.Add('         on (o.codigo_cargo = c.codigo) ');
+    Query.SQL.Add('      where e.codigo_escala = :escala ');
+    Query.SQL.Add('   order by o.nome ');
+    Query.ParamByName('escala').AsInteger := StrToInt(edtCodigo.Text);
+
+    Query.Open;
+    Query.FetchAll;
+    if not (Query.IsEmpty) then
+    begin
+      Query.First;
+      while not (Query.Eof) do
+      begin
+        memGridEscalados.Insert;
+        memGridEscalados.FieldByName('nome').AsString := Query.FieldByName('nome').AsString;
+        memGridEscalados.Post;
+        Query.Next;
+      end;
+    end;
+  finally
+  //  memGridEscalados.EnableControls;
+    Query.Free;
+  end;
 end;
 
 procedure TFraEscalas.SalvarEscalados(CodigoEscala: Integer);
 var
-  Escalados: TEscalados;
   Query: TFDQuery;
 begin
   inherited;
 
-  Escalados := TEscalados.Create;
-  Query := Escalados.ListToQuery('codigo_escala = ' + IntToStr(CodigoEscala));
+  Query := TFDQuery.Create(Self);
+  Query.Connection := dmPrincipal.FDConnection;
 
   memGridEscalados.DisableControls;
   memGridEscalados.First;
 
   try
 
-    Query.Open;
-    Query.FetchAll;
-    if not (Query.IsEmpty) then
-    begin
-      Query.Close;
-      Query.SQL.Clear;
-      Query.SQL.Add(' delete from escalados where codigo_escala = :escala');
-      Query.ParamByName('escala').AsInteger := CodigoEscala;
-      Query.ExecSQL;
-    end;
+    Query.Close;
+    Query.SQL.Clear;
+    Query.SQL.Add(' delete from escalados where codigo_escala = :escala');
+    Query.ParamByName('escala').AsInteger := CodigoEscala;
+    Query.ExecSQL;
 
     while not (memGridEscalados.Eof) do
     begin
-      Escalados.Escala.Codigo := CodigoEscala;
-      Escalados.Obreiro.Codigo := memGridEscalados.FieldByName('codigo_obreiro').AsInteger;
-      Escalados.Save;
+      Query.Close;
+      Query.SQL.Clear;
+      Query.SQL.Add(' insert into escalados (codigo_escala, codigo_obreiro) values (:escala, :obreiro) ');
+      Query.ParamByName('obreiro').AsInteger := PesquisarCodigoObreiro(memGridEscalados.FieldByName('nome').AsString);
+      Query.ParamByName('escala').AsInteger := CodigoEscala;
+      Query.ExecSQL;
       memGridEscalados.Next;
     end;
   finally
     memGridEscalados.DisableControls;
     Query.Free;
-    Escalados.Free;
   end;
 end;
 
@@ -576,8 +654,8 @@ end;
 procedure TFraEscalas.tsManutencaoShow(Sender: TObject);
 begin
   inherited;
-  if not (memGridEscalados.IsEmpty) then
-    memGridEscalados.EmptyDataSet;
+//  if not (memGridEscalados.IsEmpty) then
+//    memGridEscalados.EmptyDataSet;
 
   // aumentar o tamano do segundo frame (componentes em tela)
   gbFrameSecundario.Height := gbFramePrincipal.Height - (Round(gbFramePrincipal.Height * 0.15) + (btnFrameCancelar.Height));
@@ -593,7 +671,7 @@ end;
 
 procedure TFraEscalas.PosicionarItemIndexDiaDaSemana;
 begin
-  cbDiasSemana.ItemIndex := cbDiasSemana.Properties.Items.IndexOf(dmPrincipal.FDQuery1.FieldByName('dia').AsString);
+  cbDiasSemana.ItemIndex := cbDiasSemana.Properties.Items.IndexOf(FDMemTable1.FieldByName('data_dia').AsString);
 end;
 
 procedure TFraEscalas.PosicionarItemIndexLocalidade(ACodigoLocalidade: integer);
@@ -614,7 +692,7 @@ end;
 
 procedure TFraEscalas.PosicionarItemIndexStatus;
 begin
-  cbSituacao.ItemIndex := cbSituacao.Properties.Items.IndexOf(dmPrincipal.FDQuery1.FieldByName('situacao').AsString);
+  cbSituacao.ItemIndex := cbSituacao.Properties.Items.IndexOf(FDMemTable1.FieldByName('situacao').AsString);
 end;
 
 procedure TFraEscalas.ValidarAntesExcluir;
@@ -667,6 +745,12 @@ begin
       raise ExEscalasException.Create('Para realizar a ' + vEstado + ' é necessário o campo: DATA. ', vCodException);
       Abort;
     end;
+  end;
+
+  if memGridEscalados.IsEmpty then
+  begin
+    raise ExEscalasException.Create('Para realizar a ' + vEstado + ' é necessário que exista escalados. ', vCodException);
+    Abort;
   end;
 
 end;

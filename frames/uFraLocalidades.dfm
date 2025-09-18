@@ -1,6 +1,6 @@
 inherited FraLocalidades: TFraLocalidades
   inherited gbPrincipal: TcxGroupBox
-    Caption = 'Localidades'
+    Caption = 'LOCALIDADES'
     inherited pcFramePrincipal: TcxPageControl
       Properties.ActivePage = tsManutencao
       inherited tsConsulta: TcxTabSheet
@@ -129,7 +129,6 @@ inherited FraLocalidades: TFraLocalidades
                 Style.Font.Style = []
                 Style.IsFontAssigned = True
                 TabOrder = 2
-                ExplicitTop = 44
                 Height = 89
                 Width = 248
               end

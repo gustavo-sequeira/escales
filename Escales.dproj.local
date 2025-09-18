@@ -2,24 +2,24 @@
 <BorlandProject>
 	<Transactions>
     <Transaction>2025/08/18 21:40:02.000.424,=C:\projetos\repositorios\portfolio\escales\Unit1.pas</Transaction>
-    <Transaction>2025/08/18 21:44:24.000.957,C:\projetos\repositorios\portfolio\escales\class\EXEscales.pas=C:\projetos\repositorios\portfolio\escales\Unit1.pas</Transaction>
-    <Transaction>2025/08/18 21:45:17.000.451,C:\projetos\repositorios\portfolio\escales\class\uEXEscales.pas=C:\projetos\repositorios\portfolio\escales\class\EXEscales.pas</Transaction>
+    <Transaction>2025/08/18 21:44:24.000.957,C:\projetos\repositorios\portfolio\escales\Unit1.pas=C:\projetos\repositorios\portfolio\escales\class\EXEscales.pas</Transaction>
+    <Transaction>2025/08/18 21:45:17.000.451,C:\projetos\repositorios\portfolio\escales\class\EXEscales.pas=C:\projetos\repositorios\portfolio\escales\class\uEXEscales.pas</Transaction>
     <Transaction>2025/09/02 17:05:44.000.139,=C:\projetos\repositorios\escales\Unit1.pas</Transaction>
-    <Transaction>2025/09/02 17:06:25.000.869,C:\projetos\repositorios\escales\Unit1.dfm=C:\projetos\repositorios\escales\frames\uFraLocalidades.dfm</Transaction>
-    <Transaction>2025/09/02 17:06:25.000.869,C:\projetos\repositorios\escales\Unit1.pas=C:\projetos\repositorios\escales\frames\uFraLocalidades.pas</Transaction>
+    <Transaction>2025/09/02 17:06:25.000.869,C:\projetos\repositorios\escales\frames\uFraLocalidades.pas=C:\projetos\repositorios\escales\Unit1.pas</Transaction>
+    <Transaction>2025/09/02 17:06:25.000.869,C:\projetos\repositorios\escales\frames\uFraLocalidades.dfm=C:\projetos\repositorios\escales\Unit1.dfm</Transaction>
     <Transaction>2025/09/03 16:53:13.000.151,=C:\projetos\repositorios\escales\Unit1.pas</Transaction>
-    <Transaction>2025/09/03 16:54:49.000.723,C:\projetos\repositorios\escales\Unit1.dfm=C:\projetos\repositorios\escales\frames\uFraVersiculos.dfm</Transaction>
-    <Transaction>2025/09/03 16:54:49.000.723,C:\projetos\repositorios\escales\Unit1.pas=C:\projetos\repositorios\escales\frames\uFraVersiculos.pas</Transaction>
+    <Transaction>2025/09/03 16:54:49.000.723,C:\projetos\repositorios\escales\frames\uFraVersiculos.pas=C:\projetos\repositorios\escales\Unit1.pas</Transaction>
+    <Transaction>2025/09/03 16:54:49.000.723,C:\projetos\repositorios\escales\frames\uFraVersiculos.dfm=C:\projetos\repositorios\escales\Unit1.dfm</Transaction>
     <Transaction>2025/09/04 22:24:33.000.005,=C:\projetos\repositorios\portfolio\escales\Unit1.pas</Transaction>
     <Transaction>2025/09/04 22:27:36.000.246,=C:\projetos\repositorios\portfolio\escales\Unit1.pas</Transaction>
-    <Transaction>2025/09/04 22:27:49.000.843,C:\projetos\repositorios\portfolio\escales\frames\uFraLembretes.dfm=C:\projetos\repositorios\portfolio\escales\Unit1.dfm</Transaction>
-    <Transaction>2025/09/04 22:27:49.000.843,C:\projetos\repositorios\portfolio\escales\frames\uFraLembretes.pas=C:\projetos\repositorios\portfolio\escales\Unit1.pas</Transaction>
+    <Transaction>2025/09/04 22:27:49.000.843,C:\projetos\repositorios\portfolio\escales\Unit1.pas=C:\projetos\repositorios\portfolio\escales\frames\uFraLembretes.pas</Transaction>
+    <Transaction>2025/09/04 22:27:49.000.843,C:\projetos\repositorios\portfolio\escales\Unit1.dfm=C:\projetos\repositorios\portfolio\escales\frames\uFraLembretes.dfm</Transaction>
     <Transaction>2025/09/08 19:18:40.000.710,=C:\projetos\repositorios\portfolio\escales\Unit1.pas</Transaction>
-    <Transaction>2025/09/08 19:19:32.000.301,C:\projetos\repositorios\portfolio\escales\Unit1.pas=C:\projetos\repositorios\portfolio\escales\frames\uFraEscalas.pas</Transaction>
-    <Transaction>2025/09/08 19:19:32.000.301,C:\projetos\repositorios\portfolio\escales\Unit1.dfm=C:\projetos\repositorios\portfolio\escales\frames\uFraEscalas.dfm</Transaction>
+    <Transaction>2025/09/08 19:19:32.000.301,C:\projetos\repositorios\portfolio\escales\frames\uFraEscalas.dfm=C:\projetos\repositorios\portfolio\escales\Unit1.dfm</Transaction>
+    <Transaction>2025/09/08 19:19:32.000.301,C:\projetos\repositorios\portfolio\escales\frames\uFraEscalas.pas=C:\projetos\repositorios\portfolio\escales\Unit1.pas</Transaction>
     <Transaction>2025/09/12 10:39:48.000.836,=C:\projetos\repositorios\escales\Unit1.pas</Transaction>
-    <Transaction>2025/09/12 10:41:25.000.255,C:\projetos\repositorios\escales\Unit1.dfm=C:\projetos\repositorios\escales\uFrmInclusaoObreiroEscala.dfm</Transaction>
-    <Transaction>2025/09/12 10:41:25.000.255,C:\projetos\repositorios\escales\Unit1.pas=C:\projetos\repositorios\escales\uFrmInclusaoObreiroEscala.pas</Transaction>
+    <Transaction>2025/09/12 10:41:25.000.255,C:\projetos\repositorios\escales\uFrmInclusaoObreiroEscala.pas=C:\projetos\repositorios\escales\Unit1.pas</Transaction>
+    <Transaction>2025/09/12 10:41:25.000.255,C:\projetos\repositorios\escales\uFrmInclusaoObreiroEscala.dfm=C:\projetos\repositorios\escales\Unit1.dfm</Transaction>
   </Transactions>
 	<BT_BuildType>Debug</BT_BuildType>
 </BorlandProject>
