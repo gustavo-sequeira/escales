@@ -959,7 +959,7 @@ begin
     Obreiro.Codigo := FDMemTable1.FieldByName('codigo').AsInteger;
     if Obreiro.TotalReg(vArrStrings) > 0 then
     begin
-      raise EXEscales.Create('Não foi possível realizar a exclusão. Registro é usado em outras tabelas. ', vCodException);
+      raise ExEscalas.Create('Não foi possível realizar a exclusão. Registro é usado em outras tabelas. ', vCodException);
       Abort;
     end;
   finally
@@ -984,9 +984,21 @@ begin
     vCodException := 2001;
   end;
 
+  if Trim(cbCargo.Text) = EmptyStr then
+  begin
+    raise ExObreirosException.Create('Para realizar a ' + vEstado + ' é necessário o campo: CARGO. ', vCodException);
+    Abort;
+  end;
+
   if Trim(edtNome.Text) = EmptyStr then
   begin
     raise ExObreirosException.Create('Para realizar a ' + vEstado + ' é necessário o campo: NOME. ', vCodException);
+    Abort;
+  end;
+
+  if (cbTelefone.Properties.Items.Count = 0) then
+  begin
+    raise ExObreirosException.Create('Para realizar a ' + vEstado + ' é necessário o campo: TELEFONE. ', vCodException);
     Abort;
   end;
 end;

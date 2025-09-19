@@ -2,10 +2,10 @@ inherited FraLocalidades: TFraLocalidades
   inherited gbPrincipal: TcxGroupBox
     Caption = 'LOCALIDADES'
     inherited pcFramePrincipal: TcxPageControl
-      Properties.ActivePage = tsManutencao
       inherited tsConsulta: TcxTabSheet
         inherited grdFramePrincial: TcxGrid
           inherited grdFramePrincialDBTableView1: TcxGridDBTableView
+            Navigator.InfoPanel.DisplayMask = '[RecordIndex] de [RecordCount]'
             OptionsData.CancelOnExit = False
             OptionsData.Deleting = False
             OptionsData.DeletingConfirmation = False

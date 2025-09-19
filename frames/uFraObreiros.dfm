@@ -19,8 +19,15 @@ inherited FraObreiros: TFraObreiros
         inherited grdFramePrincial: TcxGrid
           inherited grdFramePrincialDBTableView1: TcxGridDBTableView
             Navigator.InfoPanel.DisplayMask = '[RecordIndex] de [RecordCount]'
+            OptionsCustomize.ColumnHorzSizing = False
+            OptionsCustomize.ColumnMoving = False
+            OptionsData.CancelOnExit = False
+            OptionsData.Deleting = False
+            OptionsData.DeletingConfirmation = False
+            OptionsData.Editing = False
             OptionsSelection.CellSelect = False
             object grdFramePrincialDBTableView1codigo: TcxGridDBColumn [0]
+              Caption = 'C'#243'digo'
               DataBinding.FieldName = 'codigo'
               Visible = False
             end
@@ -239,7 +246,6 @@ inherited FraObreiros: TFraObreiros
                 Style.TransparentBorder = True
                 TabOrder = 8
                 Transparent = True
-                ExplicitTop = 190
                 Height = 21
                 Width = 320
                 object Bevel1: TBevel
@@ -436,7 +442,6 @@ inherited FraObreiros: TFraObreiros
                 Style.TransparentBorder = True
                 TabOrder = 5
                 Transparent = True
-                ExplicitTop = 127
                 Height = 21
                 Width = 320
                 object Bevel3: TBevel
@@ -701,7 +706,6 @@ inherited FraObreiros: TFraObreiros
                 Style.TransparentBorder = True
                 TabOrder = 7
                 Transparent = True
-                ExplicitTop = 169
                 Height = 21
                 Width = 320
                 object Bevel15: TBevel
@@ -898,7 +902,6 @@ inherited FraObreiros: TFraObreiros
                 Style.TransparentBorder = True
                 TabOrder = 6
                 Transparent = True
-                ExplicitTop = 148
                 Height = 21
                 Width = 320
                 object Bevel22: TBevel
@@ -1096,7 +1099,6 @@ inherited FraObreiros: TFraObreiros
                 Style.TransparentBorder = False
                 TabOrder = 4
                 Transparent = True
-                ExplicitTop = 101
                 Height = 23
                 Width = 314
                 object cbTelefone: TcxComboBox

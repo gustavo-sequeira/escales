@@ -4,6 +4,9 @@ inherited FraVersiculos: TFraVersiculos
     inherited pcFramePrincipal: TcxPageControl
       Properties.ActivePage = tsManutencao
       inherited tsConsulta: TcxTabSheet
+        ExplicitTop = 26
+        ExplicitWidth = 634
+        ExplicitHeight = 430
         inherited grdFramePrincial: TcxGrid
           inherited grdFramePrincialDBTableView1: TcxGridDBTableView
             Navigator.InfoPanel.DisplayMask = '[RecordIndex] de [RecordCount]'
@@ -121,6 +124,7 @@ inherited FraVersiculos: TFraVersiculos
                 Align = alTop
                 ParentFont = False
                 Properties.Alignment = taCenter
+                State = cbsChecked
                 Style.Font.Charset = DEFAULT_CHARSET
                 Style.Font.Color = clWindowText
                 Style.Font.Height = -13
@@ -145,7 +149,6 @@ inherited FraVersiculos: TFraVersiculos
                 Style.Font.Style = []
                 Style.IsFontAssigned = True
                 TabOrder = 2
-                ExplicitTop = 44
                 Height = 171
                 Width = 248
               end

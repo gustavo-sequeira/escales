@@ -182,7 +182,7 @@ begin
     Localidades.Codigo := FDMemTable1.FieldByName('codigo').AsInteger;
     if Localidades.TotalReg(vArrStrings) > 0 then
     begin
-      raise EXEscales.Create('Não foi possível realizar a exclusão. Registro é usado em outras tabelas. ', vCodException);
+      raise ExEscalas.Create('Não foi possível realizar a exclusão. Registro é usado em outras tabelas. ', vCodException);
       Abort;
     end;
   finally

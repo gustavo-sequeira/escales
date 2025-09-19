@@ -7,7 +7,7 @@ uses
 
 type
   // Exceção base da aplicação
-  EXEscales = class(Exception)
+  ExEscalas = class(Exception)
   private
     FCodigoErro: Integer;
   public
@@ -16,21 +16,21 @@ type
   end;
 
 
-  ExCargosException = class(EXEscales);
-  ExDisponibilidadesException = class(EXEscales);
-  ExObreirosException = class(EXEscales);
-  EConexaoBDException = class(EXEscales);
-  ExPermissaoException = class(EXEscales);
-  ExLocalidadesException = class(EXEscales);
-  ExVersiculosException = class(EXEscales);
-  ExLembretesException = class(EXEscales);
-  ExEscalasException = class(EXEscales);
+  ExCargosException = class(ExEscalas);
+  ExDisponibilidadesException = class(ExEscalas);
+  ExObreirosException = class(ExEscalas);
+  EConexaoBDException = class(ExEscalas);
+  ExPermissaoException = class(ExEscalas);
+  ExLocalidadesException = class(ExEscalas);
+  ExVersiculosException = class(ExEscalas);
+  ExLembretesException = class(ExEscalas);
+  ExEscalasException = class(ExEscalas);
 
 implementation
 
 { EXEscales }
 
-constructor EXEscales.Create(const Msg: string; ACodigoErro: Integer);
+constructor ExEscalas.Create(const Msg: string; ACodigoErro: Integer);
 begin
   inherited Create(Msg);
   FCodigoErro := ACodigoErro;
