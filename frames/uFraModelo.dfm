@@ -20,10 +20,10 @@ object FraModelo: TFraModelo
     Height = 480
     Width = 640
     object pcFramePrincipal: TcxPageControl
-      Left = 3
-      Top = 17
-      Width = 634
-      Height = 456
+      Left = 2
+      Top = 20
+      Width = 636
+      Height = 458
       Align = alClient
       TabOrder = 0
       Properties.ActivePage = tsConsulta
@@ -31,8 +31,8 @@ object FraModelo: TFraModelo
       Properties.Style = 8
       LookAndFeel.NativeStyle = False
       OnResize = pcFramePrincipalResize
-      ClientRectBottom = 456
-      ClientRectRight = 634
+      ClientRectBottom = 458
+      ClientRectRight = 636
       ClientRectTop = 26
       object tsConsulta: TcxTabSheet
         Caption = 'Consulta'
@@ -41,8 +41,8 @@ object FraModelo: TFraModelo
         object PaintBox1: TPaintBox
           Left = 0
           Top = 0
-          Width = 634
-          Height = 430
+          Width = 636
+          Height = 432
           Align = alClient
           Visible = False
           OnPaint = PaintBox1Paint
@@ -85,6 +85,7 @@ object FraModelo: TFraModelo
             Styles.ContentEven = zebradoEven
             Styles.ContentOdd = zebradoOdd
             object grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
+              DataBinding.IsNullValueType = True
               Options.Editing = False
               Options.Filtering = False
               Options.Focusing = False
@@ -94,6 +95,7 @@ object FraModelo: TFraModelo
               Width = 25
             end
             object grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn
+              DataBinding.IsNullValueType = True
               Options.Editing = False
               Options.Filtering = False
               Options.Focusing = False

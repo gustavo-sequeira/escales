@@ -33,7 +33,7 @@ uses
   FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   FireDAC.Phys.PGDef, FireDAC.UI.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool,
   FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.PG, FireDAC.VCLUI.Wait,
-  FireDAC.DApt, Vcl.ExtCtrls, cxCheckBox, cxImage, dxGDIPlusClasses;
+  FireDAC.DApt, Vcl.ExtCtrls, cxCheckBox, cxImage, dxGDIPlusClasses, dxSkinWXI;
 
 type
   TFraObreiros = class(TFraModelo)
@@ -711,6 +711,22 @@ var
 begin
   inherited;
 
+  dmPrincipal.FDQuery1.Close;
+  dmPrincipal.FDQuery1.SQL.Clear;
+  dmPrincipal.FDQuery1.SQL.Add('	delete ');
+  dmPrincipal.FDQuery1.SQL.Add('	  from disponibilidades ');
+  dmPrincipal.FDQuery1.SQL.Add('   where codigo_obreiro = :codigo ');
+  dmPrincipal.FDQuery1.ParamByName('codigo').AsInteger := FDMemTable1.FieldByName('codigo').AsInteger;
+  dmPrincipal.FDQuery1.ExecSQL;
+
+  dmPrincipal.FDQuery1.Close;
+  dmPrincipal.FDQuery1.SQL.Clear;
+  dmPrincipal.FDQuery1.SQL.Add('	delete ');
+  dmPrincipal.FDQuery1.SQL.Add('	  from telefones ');
+  dmPrincipal.FDQuery1.SQL.Add('   where codigo_obreiro = :codigo ');
+  dmPrincipal.FDQuery1.ParamByName('codigo').AsInteger := FDMemTable1.FieldByName('codigo').AsInteger;
+  dmPrincipal.FDQuery1.ExecSQL;
+
   Obreiro := TObreiros.Create;
   try
     Obreiro.Codigo := FDMemTable1.FieldByName('codigo').AsInteger;
@@ -943,16 +959,10 @@ begin
   vEstado := 'exclusão';
   vCodException := 3001;
 
-  SetLength(vArrStrings, 3);
+  SetLength(vArrStrings, 1);
 
-  vArrStrings[0].tabela := 'disponibilidades';
+  vArrStrings[0].tabela := 'escalados';
   vArrStrings[0].chaveEstrangeira := 'codigo_obreiro';
-
-  vArrStrings[1].tabela := 'escalados';
-  vArrStrings[1].chaveEstrangeira := 'codigo_obreiro';
-
-  vArrStrings[2].tabela := 'telefones';
-  vArrStrings[2].chaveEstrangeira := 'codigo_obreiro';
 
   Obreiro := TObreiros.Create();
   try

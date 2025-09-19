@@ -16,7 +16,7 @@ uses
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Comp.DataSet,
   FireDAC.Comp.Client, cxButtonEdit, cxMaskEdit, cxDropDownEdit, cxCheckBox,
   cxRadioGroup, Vcl.ComCtrls, dxCore, cxDateUtils, cxCalendar, cxMemo,
-  Vcl.ExtCtrls, PNGImage;
+  Vcl.ExtCtrls, PNGImage, dxSkinWXI;
 
 type
   TFraModelo = class(TFrame)
@@ -74,7 +74,7 @@ type
 implementation
 
 uses
-  uDmPrincipal, uLibary, System.Types;
+  uDmPrincipal, uLibary, System.Types, System.IOUtils;
 
 {$R *.dfm}
 
@@ -98,7 +98,7 @@ begin
   inherited;
 // Carrega a imagem
   FImg := TPngImage.Create;
-  FImg.LoadFromFile('C:\projetos\repositorios\escales\Win32\Debug\logo1.png');
+  FImg.LoadFromFile(TPath.GetDirectoryName(ParamStr(0)) + PathDelim + 'logo1.png');
 
   PreencherGrid;
 end;
@@ -233,7 +233,7 @@ var
   ExtraWidth, ExtraHeight: Integer;
 begin
 
-  ExtraWidth  := PaintBox1.Width + FImg.Width;
+  ExtraWidth := PaintBox1.Width + FImg.Width;
   ExtraHeight := PaintBox1.Height + FImg.Height;
 
   Y := -FImg.Height;
@@ -259,7 +259,7 @@ var
   ExtraWidth, ExtraHeight: Integer;
 begin
 
-  ExtraWidth  := PaintBox2.Width + FImg.Width;
+  ExtraWidth := PaintBox2.Width + FImg.Width;
   ExtraHeight := PaintBox2.Height + FImg.Height;
 
   Y := -FImg.Height;
