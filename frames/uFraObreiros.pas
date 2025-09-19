@@ -996,7 +996,7 @@ begin
     Abort;
   end;
 
-  if (cbTelefone.Properties.Items.Count = 0) then
+  if Trim(cbTelefone.Text) = EmptyStr then
   begin
     raise ExObreirosException.Create('Para realizar a ' + vEstado + ' é necessário o campo: TELEFONE. ', vCodException);
     Abort;
