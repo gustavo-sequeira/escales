@@ -462,7 +462,6 @@ begin
   dmPrincipal.FDQuery1.ParamByName('codigo').AsInteger := FDMemTable1.FieldByName('codigo').AsInteger;
   dmPrincipal.FDQuery1.ExecSQL;
 
-
   Escala := TEscalas.Create;
   try
     Escala.Codigo := FDMemTable1.FieldByName('codigo').AsInteger;
@@ -480,15 +479,18 @@ begin
   edtCodigo.Enabled := False;
   edtCodigo.Text := EmptyStr;
   cbSituacao.ItemIndex := 0;
+
+  if memGridEscalados.Active then
+  begin
+    memGridEscalados.Close;
+  end;
+
   inherited;
 
   cbLocalidade.SetFocus;
 
   hrHorario.Time := Now;
   dtData.Date := now;
-
-  if memGridEscalados.Active then
-    memGridEscalados.EmptyDataSet;
 
 end;
 

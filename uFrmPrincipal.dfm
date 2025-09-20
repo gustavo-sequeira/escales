@@ -2,7 +2,7 @@ object frmPrincipal: TfrmPrincipal
   Left = 0
   Top = 0
   BorderIcons = [biSystemMenu, biMinimize]
-  Caption = 'frmPrincipal'
+  Caption = 'Escalas'
   ClientHeight = 530
   ClientWidth = 624
   Color = clBtnFace

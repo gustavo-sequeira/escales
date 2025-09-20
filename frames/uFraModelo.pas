@@ -225,9 +225,6 @@ begin
     if Ctrl is TWinControl then
       LimparControlesContainer(TWinControl(Ctrl)); // Recursão
 
-    if not (FDMemTable1.IsEmpty) and (Self.Tag = 0) then
-      FDMemTable1.EmptyDataSet;
-
   end;
 end;
 

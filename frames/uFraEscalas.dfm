@@ -8,9 +8,10 @@ inherited FraEscalas: TFraEscalas
     inherited pcFramePrincipal: TcxPageControl
       Height = 570
       Properties.ActivePage = tsManutencao
-      ExplicitHeight = 572
+      ExplicitHeight = 570
       ClientRectBottom = 570
       inherited tsConsulta: TcxTabSheet
+        ExplicitTop = 0
         ExplicitWidth = 636
         ExplicitHeight = 546
         inherited PaintBox1: TPaintBox
@@ -187,7 +188,7 @@ inherited FraEscalas: TFraEscalas
         end
       end
       inherited tsManutencao: TcxTabSheet
-        ExplicitHeight = 546
+        ExplicitHeight = 544
         inherited PaintBox2: TPaintBox
           Height = 544
           ExplicitHeight = 544
@@ -520,9 +521,6 @@ inherited FraEscalas: TFraEscalas
                 Align = alTop
                 PanelStyle.Active = True
                 TabOrder = 0
-                ExplicitLeft = 5
-                ExplicitTop = 5
-                ExplicitWidth = 392
                 Height = 37
                 Width = 390
                 object cxButton1: TcxButton
@@ -537,9 +535,6 @@ inherited FraEscalas: TFraEscalas
                   OptionsImage.Images = cxImageList
                   TabOrder = 2
                   OnClick = cxButton1Click
-                  ExplicitLeft = 277
-                  ExplicitTop = 5
-                  ExplicitHeight = 27
                 end
                 object cxButton2: TcxButton
                   AlignWithMargins = True
@@ -553,9 +548,6 @@ inherited FraEscalas: TFraEscalas
                   OptionsImage.Images = cxImageList
                   TabOrder = 1
                   OnClick = cxButton2Click
-                  ExplicitLeft = 161
-                  ExplicitTop = 5
-                  ExplicitHeight = 27
                 end
                 object cxLabel1: TcxLabel
                   AlignWithMargins = True
@@ -570,10 +562,6 @@ inherited FraEscalas: TFraEscalas
                   Properties.Alignment.Horz = taCenter
                   Properties.Alignment.Vert = taVCenter
                   Transparent = True
-                  ExplicitLeft = 2
-                  ExplicitTop = 5
-                  ExplicitWidth = 156
-                  ExplicitHeight = 30
                   Height = 28
                   Width = 152
                   AnchorX = 79
@@ -588,10 +576,6 @@ inherited FraEscalas: TFraEscalas
                 Height = 123
                 Align = alClient
                 TabOrder = 1
-                ExplicitLeft = 5
-                ExplicitTop = 48
-                ExplicitWidth = 392
-                ExplicitHeight = 125
                 object cxGrid1DBTableView1: TcxGridDBTableView
                   Navigator.Buttons.CustomButtons = <>
                   Navigator.InfoPanel.DisplayMask = '[RecordIndex] de [RecordCount]'

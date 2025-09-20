@@ -114,6 +114,9 @@ object FraModelo: TFraModelo
         Caption = 'Manuten'#231#227'o'
         ImageIndex = 1
         OnShow = tsManutencaoShow
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object PaintBox2: TPaintBox
           Left = 0
           Top = 0
