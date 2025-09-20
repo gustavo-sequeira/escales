@@ -16,7 +16,7 @@ uses
   cxGridDBTableView, cxGridCustomView, cxGrid, cxPC, cxGroupBox, cxLabel,
   cxTextEdit, cxCheckBox, Vcl.ComCtrls, dxCore, cxDateUtils, cxDropDownEdit,
   cxCalendar, cxMaskEdit, dxGDIPlusClasses, cxImage, cxRadioGroup, cxSpinEdit,
-  cxTimeEdit, Vcl.ExtCtrls;
+  cxTimeEdit, Vcl.ExtCtrls, dxSkinWXI;
 
 type
   TFraEscalas = class(TFraModelo)
@@ -195,12 +195,13 @@ begin
     cbLocalidade.Properties.Items.Add(dmPrincipal.FDQuery1.FieldByName('nome').AsString);
     dmPrincipal.FDQuery1.Next;
   end;
+
 end;
 
 procedure TFraEscalas.cbDiasSemanaEditing(Sender: TObject; var CanEdit: Boolean);
 begin
   inherited;
-  if not (memGridEscalados.IsEmpty) and ((Trim(edtCodigo.Text) = EmptyStr) or (Trim(edtCodigo.Text) = '0')) then
+  if not (memGridEscalados.IsEmpty) and (not (Trim(edtCodigo.Text) = EmptyStr) or not (Trim(edtCodigo.Text) = '0')) then
   begin
     if Application.MessageBox('Ao optar por essa mudança, os escalados desse dia serão removidos. Deseja continuar?', 'Escales', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = IDYES then
     begin
@@ -217,8 +218,7 @@ procedure TFraEscalas.cbLocalidadeEditing(Sender: TObject; var CanEdit: Boolean)
 begin
   inherited;
   begin
-    inherited;
-    if not (memGridEscalados.IsEmpty) and ((Trim(edtCodigo.Text) = EmptyStr) or (Trim(edtCodigo.Text) = '0')) then
+    if not (memGridEscalados.IsEmpty) and (not (Trim(edtCodigo.Text) = EmptyStr) or not (Trim(edtCodigo.Text) = '0')) and (Self.Tag = 0) then
     begin
       if Application.MessageBox('Ao optar por essa mudança, os escalados desse dia serão removidos. Deseja continuar?', 'Escales', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = IDYES then
       begin
@@ -235,7 +235,7 @@ end;
 procedure TFraEscalas.chbRepetirClick(Sender: TObject);
 begin
  // inherited;
-  if not (memGridEscalados.IsEmpty) and ((Trim(edtCodigo.Text) = EmptyStr) or (Trim(edtCodigo.Text) = '0')) then
+  if not (memGridEscalados.IsEmpty) and (not (Trim(edtCodigo.Text) = EmptyStr) or not (Trim(edtCodigo.Text) = '0')) then
   begin
     if Application.MessageBox('Ao optar por essa mudança, os escalados desse dia serão removidos. Deseja continuar?', 'Escales', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = IDYES then
     begin
@@ -258,6 +258,13 @@ var
   vCampo: string;
 begin
   inherited;
+
+  if (chbRepetir.Checked) and (cbDiasSemana.Text = EmptyStr) then
+  begin
+    Application.MessageBox('Informe o dia da semana', 'Escales', MB_OK + MB_ICONWARNING);
+    cbDiasSemana.SetFocus;
+    Abort;
+  end;
 
   vQtdEscalados := 0;
 
@@ -412,7 +419,7 @@ end;
 procedure TFraEscalas.dtDataEditing(Sender: TObject; var CanEdit: Boolean);
 begin
   inherited;
-  if not (memGridEscalados.IsEmpty) and ((Trim(edtCodigo.Text) = EmptyStr) or (Trim(edtCodigo.Text) = '0')) then
+  if not (memGridEscalados.IsEmpty) and (not (Trim(edtCodigo.Text) = EmptyStr) or not (Trim(edtCodigo.Text) = '0')) then
   begin
     if Application.MessageBox('Ao optar por essa mudança, os escalados desse dia serão removidos. Deseja continuar?', 'Escales', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = IDYES then
     begin
@@ -427,6 +434,7 @@ end;
 
 procedure TFraEscalas.EdicaoRegistro;
 begin
+  Self.Tag := 1;
   inherited;
   edtCodigo.Text := IntToStr(FDMemTable1.FieldByName('codigo').AsInteger);
   edtCodigo.Enabled := False;
@@ -445,6 +453,16 @@ var
   Escala: TEscalas;
 begin
   inherited;
+
+  dmPrincipal.FDQuery1.Close;
+  dmPrincipal.FDQuery1.SQL.Clear;
+  dmPrincipal.FDQuery1.SQL.Add('	delete ');
+  dmPrincipal.FDQuery1.SQL.Add('	  from escalados ');
+  dmPrincipal.FDQuery1.SQL.Add('   where codigo_escala = :codigo ');
+  dmPrincipal.FDQuery1.ParamByName('codigo').AsInteger := FDMemTable1.FieldByName('codigo').AsInteger;
+  dmPrincipal.FDQuery1.ExecSQL;
+
+
   Escala := TEscalas.Create;
   try
     Escala.Codigo := FDMemTable1.FieldByName('codigo').AsInteger;
@@ -457,18 +475,20 @@ end;
 
 procedure TFraEscalas.FDMemTable1BeforeInsert(DataSet: TDataSet);
 begin
-  inherited;
-  edtCodigo.Text := '0';
-  edtCodigo.Enabled := False;
+  Self.Tag := 1;
 
+  edtCodigo.Enabled := False;
+  edtCodigo.Text := EmptyStr;
   cbSituacao.ItemIndex := 0;
+  inherited;
 
   cbLocalidade.SetFocus;
 
   hrHorario.Time := Now;
   dtData.Date := now;
 
-  memGridEscalados.EmptyDataSet;
+  if memGridEscalados.Active then
+    memGridEscalados.EmptyDataSet;
 
 end;
 
@@ -489,7 +509,7 @@ end;
 procedure TFraEscalas.hrHorarioEditing(Sender: TObject; var CanEdit: Boolean);
 begin
   inherited;
-  if not (memGridEscalados.IsEmpty) and ((Trim(edtCodigo.Text) = EmptyStr) or (Trim(edtCodigo.Text) = '0')) then
+  if not (memGridEscalados.IsEmpty) and (not (Trim(edtCodigo.Text) = EmptyStr) or not (Trim(edtCodigo.Text) = '0')) then
   begin
     if Application.MessageBox('Ao optar por essa mudança, os escalados desse dia serão removidos. Deseja continuar?', 'Escales', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = IDYES then
     begin
@@ -551,7 +571,6 @@ begin
   Query := TFDQuery.Create(Self);
   Query.Connection := dmPrincipal.FDConnection;
 
-//  memGridEscalados.DisableControls;
   memGridEscalados.Active := True;
   memGridEscalados.EmptyDataSet;
 
@@ -583,7 +602,6 @@ begin
       end;
     end;
   finally
-  //  memGridEscalados.EnableControls;
     Query.Free;
   end;
 end;
@@ -654,8 +672,6 @@ end;
 procedure TFraEscalas.tsManutencaoShow(Sender: TObject);
 begin
   inherited;
-//  if not (memGridEscalados.IsEmpty) then
-//    memGridEscalados.EmptyDataSet;
 
   // aumentar o tamano do segundo frame (componentes em tela)
   gbFrameSecundario.Height := gbFramePrincipal.Height - (Round(gbFramePrincipal.Height * 0.15) + (btnFrameCancelar.Height));
@@ -666,6 +682,7 @@ begin
   begin
     PosicionarItemIndexStatus;
     PosicionarItemIndexLocalidade(FDMemTable1.FieldByName('codigo_localidade').AsInteger);
+    Self.Tag := 0;
   end;
 end;
 

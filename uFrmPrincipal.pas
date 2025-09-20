@@ -17,7 +17,8 @@ uses
   FireDAC.Comp.Client, cxGridLevel, cxGridCustomView, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxGrid, uLibary, dxSkinOffice2010Blue,
   dxNavBarCollns, dxNavBarBase, dxNavBar, cxLabel, Vcl.ExtCtrls, System.Actions,
-  Vcl.ActnList, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ActnMan, cxLocalization  ;
+  Vcl.ActnList, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ActnMan, cxLocalization,
+  dxSkinWXI;
 
 type
   TfrmPrincipal = class(TForm)
@@ -65,7 +66,7 @@ type
     { Private declarations }
   public
     { Public declarations }
-    procedure ControleFrame(pFrame: string; pLimparTodos: Boolean = False);
+    procedure ControleFrame(pFrame: string; pLimparTodos: Boolean = False; pDispensaValidacao: Boolean = False);
   end;
 
 var
@@ -75,7 +76,7 @@ implementation
 
 uses
   uFraObreiros, uFraModelo, uFraCargos, uFraLocalidades, uFraVersiculos,
-  uFraLembretes, uFraEscalas, Vcl.Imaging.pngimage;
+  uFraLembretes, uFraEscalas, Vcl.Imaging.pngimage, Math;
 
 {$R *.dfm}
 
@@ -103,7 +104,7 @@ end;
 
 procedure TfrmPrincipal.actCadastroEscalasExecute(Sender: TObject);
 begin
-  ControleFrame('escalas');
+  ControleFrame('escalas',False,True);
 end;
 
 procedure TfrmPrincipal.actCadastroLembretesExecute(Sender: TObject);
@@ -111,7 +112,7 @@ begin
   ControleFrame('lembretes');
 end;
 
-procedure TfrmPrincipal.ControleFrame(pFrame: string; pLimparTodos: Boolean = False);
+procedure TfrmPrincipal.ControleFrame(pFrame: string; pLimparTodos: Boolean = False; pDispensaValidacao: Boolean = False);
 var
   fCargo, fObreiro, fLocalidade, fVersiculo, fLembrete, fEscala: TFraModelo;
   i: Integer;
@@ -213,6 +214,7 @@ begin
       fEscala.Parent := gbTerciarioCenter;
       fEscala.Align := alClient;
       fEscala.pcFramePrincipal.ActivePageIndex := 0;
+      fEscala.Tag := IfThen(pDispensaValidacao, 1, 0);
     end;
 
   end;
