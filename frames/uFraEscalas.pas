@@ -16,7 +16,7 @@ uses
   cxGridDBTableView, cxGridCustomView, cxGrid, cxPC, cxGroupBox, cxLabel,
   cxTextEdit, cxCheckBox, Vcl.ComCtrls, dxCore, cxDateUtils, cxDropDownEdit,
   cxCalendar, cxMaskEdit, dxGDIPlusClasses, cxImage, cxRadioGroup, cxSpinEdit,
-  cxTimeEdit, Vcl.ExtCtrls, dxSkinWXI;
+  cxTimeEdit, Vcl.ExtCtrls;
 
 type
   TFraEscalas = class(TFraModelo)
@@ -83,8 +83,12 @@ type
     procedure cxGrid1DBTableView1CellClick(Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
     procedure cxButton1Click(Sender: TObject);
     procedure FDMemTable1CalcFields(DataSet: TDataSet);
+    procedure grdFramePrincialDBTableView1CellClick(Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
+    procedure cbLocalidadeEnter(Sender: TObject);
+    procedure btnFrameCancelarClick(Sender: TObject);
   public
     { Public declarations }
+    FHabilitaValidacaoAntesSalvar: Boolean;
     procedure EdicaoRegistro; override;
     procedure SalvarRegistro; override;
     procedure ExclusaoRegistro; override;
@@ -174,6 +178,12 @@ begin
   end;
 end;
 
+procedure TFraEscalas.btnFrameCancelarClick(Sender: TObject);
+begin
+  inherited;
+  memGridEscalados.EmptyDataSet;
+end;
+
 procedure TFraEscalas.CarregarComboLocalidades;
 begin
   cbLocalidade.Properties.Items.Clear;
@@ -218,7 +228,7 @@ procedure TFraEscalas.cbLocalidadeEditing(Sender: TObject; var CanEdit: Boolean)
 begin
   inherited;
   begin
-    if not (memGridEscalados.IsEmpty) and (not (Trim(edtCodigo.Text) = EmptyStr) or not (Trim(edtCodigo.Text) = '0')) and (Self.Tag = 0) then
+    if not (memGridEscalados.IsEmpty) and (not (Trim(edtCodigo.Text) = EmptyStr) or not (Trim(edtCodigo.Text) = '0')) and (FHabilitaValidacaoAntesSalvar) then
     begin
       if Application.MessageBox('Ao optar por essa mudança, os escalados desse dia serão removidos. Deseja continuar?', 'Escales', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = IDYES then
       begin
@@ -230,6 +240,12 @@ begin
       end;
     end;
   end;
+end;
+
+procedure TFraEscalas.cbLocalidadeEnter(Sender: TObject);
+begin
+  inherited;
+FHabilitaValidacaoAntesSalvar := True;
 end;
 
 procedure TFraEscalas.chbRepetirClick(Sender: TObject);
@@ -258,6 +274,12 @@ var
   vCampo: string;
 begin
   inherited;
+  if Trim(cbLocalidade.Text) = EmptyStr then
+  begin
+    Application.MessageBox('Informe a localidade', 'Escales', MB_OK + MB_ICONWARNING);
+    cbLocalidade.SetFocus;
+    Abort;
+  end;
 
   if (chbRepetir.Checked) and (cbDiasSemana.Text = EmptyStr) then
   begin
@@ -342,6 +364,13 @@ begin
   if memGridEscalados.RecordCount >= vQtdEscalados then
   begin
     Application.MessageBox('O limite de obreiros para esta escala já foi atingido.', 'Escales', MB_OK + MB_ICONWARNING + MB_DEFBUTTON2);
+    Abort;
+  end;
+
+  if Trim(cbLocalidade.Text) = EmptyStr then
+  begin
+    Application.MessageBox('Informe a localidade', 'Escales', MB_OK + MB_ICONWARNING);
+    cbLocalidade.SetFocus;
     Abort;
   end;
 
@@ -434,7 +463,6 @@ end;
 
 procedure TFraEscalas.EdicaoRegistro;
 begin
-  Self.Tag := 1;
   inherited;
   edtCodigo.Text := IntToStr(FDMemTable1.FieldByName('codigo').AsInteger);
   edtCodigo.Enabled := False;
@@ -474,16 +502,10 @@ end;
 
 procedure TFraEscalas.FDMemTable1BeforeInsert(DataSet: TDataSet);
 begin
-  Self.Tag := 1;
-
+  FHabilitaValidacaoAntesSalvar := true;
   edtCodigo.Enabled := False;
   edtCodigo.Text := EmptyStr;
   cbSituacao.ItemIndex := 0;
-
-  if memGridEscalados.Active then
-  begin
-    memGridEscalados.Close;
-  end;
 
   inherited;
 
@@ -506,6 +528,12 @@ begin
     FDMemTable1data_dia.AsString := FDMemTable1dia.AsString
   else
     FDMemTable1data_dia.AsString := DateToStr(FDMemTable1.FieldByName('data').AsDateTime);
+end;
+
+procedure TFraEscalas.grdFramePrincialDBTableView1CellClick(Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
+begin
+  FHabilitaValidacaoAntesSalvar := False;
+  inherited;
 end;
 
 procedure TFraEscalas.hrHorarioEditing(Sender: TObject; var CanEdit: Boolean);
@@ -639,7 +667,8 @@ begin
       memGridEscalados.Next;
     end;
   finally
-    memGridEscalados.DisableControls;
+    memGridEscalados.EmptyDataSet;
+    memGridEscalados.EnableControls;
     Query.Free;
   end;
 end;
@@ -684,7 +713,6 @@ begin
   begin
     PosicionarItemIndexStatus;
     PosicionarItemIndexLocalidade(FDMemTable1.FieldByName('codigo_localidade').AsInteger);
-    Self.Tag := 0;
   end;
 end;
 

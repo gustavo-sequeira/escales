@@ -17,8 +17,7 @@ uses
   FireDAC.Comp.Client, cxGridLevel, cxGridCustomView, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxGrid, uLibary, dxSkinOffice2010Blue,
   dxNavBarCollns, dxNavBarBase, dxNavBar, cxLabel, Vcl.ExtCtrls, System.Actions,
-  Vcl.ActnList, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ActnMan, cxLocalization,
-  dxSkinWXI;
+  Vcl.ActnList, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ActnMan, cxLocalization;
 
 type
   TfrmPrincipal = class(TForm)
@@ -54,6 +53,7 @@ type
     actCadastroVersiculos: TAction;
     actCadastroLembretes: TAction;
     actCadastroEscalas: TAction;
+    actConfiguracaoParametros: TAction;
     procedure actCadastroCargosExecute(Sender: TObject);
     procedure actCadastroObreirosExecute(Sender: TObject);
     procedure dxNavBarDashboardClick(Sender: TObject);
@@ -61,12 +61,13 @@ type
     procedure actCadastroVersiculosExecute(Sender: TObject);
     procedure actCadastroLembretesExecute(Sender: TObject);
     procedure actCadastroEscalasExecute(Sender: TObject);
+    procedure actConfiguracaoParametrosExecute(Sender: TObject);
 
   private
     { Private declarations }
   public
     { Public declarations }
-    procedure ControleFrame(pFrame: string; pLimparTodos: Boolean = False; pDispensaValidacao: Boolean = False);
+    procedure ControleFrame(pFrame: string; pLimparTodos: Boolean = False);
   end;
 
 var
@@ -76,7 +77,7 @@ implementation
 
 uses
   uFraObreiros, uFraModelo, uFraCargos, uFraLocalidades, uFraVersiculos,
-  uFraLembretes, uFraEscalas, Vcl.Imaging.pngimage, Math;
+  uFraLembretes, uFraEscalas, Vcl.Imaging.pngimage, Math, uFraParametros;
 
 {$R *.dfm}
 
@@ -102,9 +103,14 @@ begin
   ControleFrame('versiculos');
 end;
 
+procedure TfrmPrincipal.actConfiguracaoParametrosExecute(Sender: TObject);
+begin
+  ControleFrame('parametros');
+end;
+
 procedure TfrmPrincipal.actCadastroEscalasExecute(Sender: TObject);
 begin
-  ControleFrame('escalas',False,True);
+  ControleFrame('escalas');
 end;
 
 procedure TfrmPrincipal.actCadastroLembretesExecute(Sender: TObject);
@@ -112,9 +118,9 @@ begin
   ControleFrame('lembretes');
 end;
 
-procedure TfrmPrincipal.ControleFrame(pFrame: string; pLimparTodos: Boolean = False; pDispensaValidacao: Boolean = False);
+procedure TfrmPrincipal.ControleFrame(pFrame: string; pLimparTodos: Boolean = False);
 var
-  fCargo, fObreiro, fLocalidade, fVersiculo, fLembrete, fEscala: TFraModelo;
+  fCargo, fObreiro, fLocalidade, fVersiculo, fLembrete, fEscala, fParametros: TFraModelo;
   i: Integer;
 begin
 
@@ -150,6 +156,11 @@ begin
       else if pFrame = 'escalas' then
       begin
         if TFraEscalas(gbTerciarioCenter.Controls[i]).emTransacao then
+          Exit;
+      end
+      else if pFrame = 'parametros' then
+      begin
+        if TFraParametros(gbTerciarioCenter.Controls[i]).emTransacao then
           Exit;
       end;
 
@@ -214,9 +225,13 @@ begin
       fEscala.Parent := gbTerciarioCenter;
       fEscala.Align := alClient;
       fEscala.pcFramePrincipal.ActivePageIndex := 0;
-      fEscala.Tag := IfThen(pDispensaValidacao, 1, 0);
-    end;
-
+    end
+    else if pFrame = 'parametros' then
+    begin
+      fParametros := TFraParametros.Create(Self);
+      fParametros.Parent := gbTerciarioCenter;
+      fParametros.Align := alClient;
+      fParametros.pcFramePrincipal.ActivePageIndex := 0;    end;
   end;
 end;
 

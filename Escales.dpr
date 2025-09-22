@@ -23,7 +23,8 @@ uses
   uFraVersiculos in 'frames\uFraVersiculos.pas' {FraVersiculos: TFrame},
   uFraLembretes in 'frames\uFraLembretes.pas' {FraLembretes: TFrame},
   uFraEscalas in 'frames\uFraEscalas.pas' {FraEscalas: TFrame},
-  uFrmInclusaoObreiroEscala in 'uFrmInclusaoObreiroEscala.pas' {frmInclusaoObreiroEscala};
+  uFrmInclusaoObreiroEscala in 'uFrmInclusaoObreiroEscala.pas' {frmInclusaoObreiroEscala},
+  uFraParametros in 'frames\uFraParametros.pas' {FraParametros: TFrame};
 
 {$R *.res}
 

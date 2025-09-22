@@ -11,9 +11,7 @@ inherited FraEscalas: TFraEscalas
       ExplicitHeight = 570
       ClientRectBottom = 570
       inherited tsConsulta: TcxTabSheet
-        ExplicitTop = 0
-        ExplicitWidth = 636
-        ExplicitHeight = 546
+        ExplicitHeight = 544
         inherited PaintBox1: TPaintBox
           Height = 544
           ExplicitHeight = 544
@@ -173,13 +171,11 @@ inherited FraEscalas: TFraEscalas
               Width = 270
             end
             inherited grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
               MinWidth = 25
               Options.Grouping = False
               Options.HorzSizing = False
             end
             inherited grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
               MinWidth = 25
               Options.Grouping = False
               Options.HorzSizing = False
@@ -363,6 +359,7 @@ inherited FraEscalas: TFraEscalas
                 Style.IsFontAssigned = True
                 TabOrder = 2
                 OnEditing = cbLocalidadeEditing
+                OnEnter = cbLocalidadeEnter
                 Width = 248
               end
               object cxGroupBox5: TcxGroupBox
@@ -477,7 +474,6 @@ inherited FraEscalas: TFraEscalas
                 StyleDisabled.LookAndFeel.NativeStyle = False
                 StyleFocused.LookAndFeel.NativeStyle = False
                 StyleHot.LookAndFeel.NativeStyle = False
-                StyleReadOnly.LookAndFeel.NativeStyle = False
                 TabOrder = 4
                 OnEditing = hrHorarioEditing
                 Height = 25
@@ -546,8 +542,9 @@ inherited FraEscalas: TFraEscalas
                   Caption = '&Manual'
                   OptionsImage.ImageIndex = 4
                   OptionsImage.Images = cxImageList
-                  TabOrder = 1
+                  TabOrder = 0
                   OnClick = cxButton2Click
+                  ExplicitTop = 9
                 end
                 object cxLabel1: TcxLabel
                   AlignWithMargins = True
@@ -603,7 +600,6 @@ inherited FraEscalas: TFraEscalas
                     Width = 400
                   end
                   object cxGrid1DBTableView1Exclusao: TcxGridDBColumn
-                    DataBinding.IsNullValueType = True
                     Width = 34
                   end
                 end

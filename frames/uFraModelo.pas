@@ -16,7 +16,7 @@ uses
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Comp.DataSet,
   FireDAC.Comp.Client, cxButtonEdit, cxMaskEdit, cxDropDownEdit, cxCheckBox,
   cxRadioGroup, Vcl.ComCtrls, dxCore, cxDateUtils, cxCalendar, cxMemo,
-  Vcl.ExtCtrls, PNGImage, dxSkinWXI;
+  Vcl.ExtCtrls, PNGImage;
 
 type
   TFraModelo = class(TFrame)
@@ -115,7 +115,6 @@ end;
 
 procedure TFraModelo.FDMemTable1BeforeInsert(DataSet: TDataSet);
 begin
-//  Self.Tag := 1;
   pcFramePrincipal.ActivePage := tsManutencao;
   emTransacao := True;
   LimparControlesFrame;

@@ -6,10 +6,10 @@ inherited FraObreiros: TFraObreiros
     ExplicitWidth = 898
     Width = 898
     inherited pcFramePrincipal: TcxPageControl
-      Width = 894
+      Width = 892
       Properties.ActivePage = tsManutencao
       ExplicitWidth = 894
-      ClientRectRight = 894
+      ClientRectRight = 892
       inherited tsConsulta: TcxTabSheet
         ExplicitWidth = 892
         inherited PaintBox1: TPaintBox
@@ -63,19 +63,13 @@ inherited FraObreiros: TFraObreiros
               Options.Editing = False
               Width = 150
             end
-            inherited grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
-            end
-            inherited grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
-            end
           end
         end
       end
       inherited tsManutencao: TcxTabSheet
-        ExplicitWidth = 894
+        ExplicitWidth = 892
         inherited PaintBox2: TPaintBox
-          Width = 894
+          Width = 892
           ExplicitWidth = 892
         end
         inherited gbFramePrincipal: TcxGroupBox
@@ -195,7 +189,7 @@ inherited FraObreiros: TFraObreiros
               object edtNome: TcxTextEdit
                 AlignWithMargins = True
                 Left = 5
-                Top = 61
+                Top = 53
                 Margins.Bottom = 0
                 Align = alTop
                 ParentFont = False
@@ -212,7 +206,7 @@ inherited FraObreiros: TFraObreiros
               object cbCargo: TcxComboBox
                 AlignWithMargins = True
                 Left = 5
-                Top = 33
+                Top = 29
                 Margins.Bottom = 0
                 Align = alTop
                 ParentFont = False
@@ -224,12 +218,13 @@ inherited FraObreiros: TFraObreiros
                 Style.Font.Style = []
                 Style.IsFontAssigned = True
                 TabOrder = 1
+                ExplicitTop = 33
                 Width = 314
               end
               object dtDataNascimento: TcxDateEdit
                 AlignWithMargins = True
                 Left = 5
-                Top = 89
+                Top = 77
                 Margins.Bottom = 0
                 Align = alTop
                 ParentFont = False
@@ -241,11 +236,12 @@ inherited FraObreiros: TFraObreiros
                 Style.Font.Style = []
                 Style.IsFontAssigned = True
                 TabOrder = 3
+                ExplicitTop = 89
                 Width = 314
               end
               object cxGroupBox3: TcxGroupBox
                 Left = 2
-                Top = 206
+                Top = 190
                 Align = alTop
                 PanelStyle.Active = True
                 Style.BorderStyle = ebsNone
@@ -255,85 +251,74 @@ inherited FraObreiros: TFraObreiros
                 Height = 21
                 Width = 320
                 object Bevel1: TBevel
-                  Left = 73
-                  Top = 2
+                  Left = 72
+                  Top = 3
                   Width = 2
-                  Height = 17
+                  Height = 15
                   Align = alRight
                   Shape = bsRightLine
                   ExplicitLeft = 0
-                  ExplicitTop = 3
-                  ExplicitHeight = 15
                 end
                 object Bevel2: TBevel
-                  Left = 283
-                  Top = 2
+                  Left = 282
+                  Top = 3
                   Width = 2
-                  Height = 17
+                  Height = 15
                   Align = alRight
                   Shape = bsRightLine
                   ExplicitLeft = 290
                   ExplicitTop = 6
-                  ExplicitHeight = 15
                 end
                 object Bevel4: TBevel
-                  Left = 108
-                  Top = 2
+                  Left = 107
+                  Top = 3
                   Width = 2
-                  Height = 17
+                  Height = 15
                   Align = alRight
                   Shape = bsRightLine
                   ExplicitLeft = 288
-                  ExplicitTop = 3
                   ExplicitHeight = 63
                 end
                 object Bevel5: TBevel
-                  Left = 248
-                  Top = 2
+                  Left = 247
+                  Top = 3
                   Width = 2
-                  Height = 17
+                  Height = 15
                   Align = alRight
                   Shape = bsRightLine
                   ExplicitLeft = 276
                   ExplicitTop = 6
-                  ExplicitHeight = 15
                 end
                 object Bevel6: TBevel
-                  Left = 178
-                  Top = 2
+                  Left = 177
+                  Top = 3
                   Width = 2
-                  Height = 17
+                  Height = 15
                   Align = alRight
                   Shape = bsRightLine
                   ExplicitLeft = 183
-                  ExplicitTop = 3
-                  ExplicitHeight = 15
                 end
                 object Bevel7: TBevel
-                  Left = 143
-                  Top = 2
+                  Left = 142
+                  Top = 3
                   Width = 2
-                  Height = 17
+                  Height = 15
                   Align = alRight
                   Shape = bsRightLine
                   ExplicitLeft = 148
-                  ExplicitTop = 3
-                  ExplicitHeight = 15
                 end
                 object Bevel8: TBevel
-                  Left = 213
-                  Top = 2
+                  Left = 212
+                  Top = 3
                   Width = 2
-                  Height = 17
+                  Height = 15
                   Align = alRight
                   Shape = bsRightLine
                   ExplicitLeft = 243
-                  ExplicitTop = 3
-                  ExplicitHeight = 15
                 end
                 object cxLabel6: TcxLabel
-                  Left = 2
-                  Top = 2
+                  Left = 3
+                  Top = 3
                   Cursor = crHandPoint
                   Align = alClient
                   Caption = 'NOITE'
@@ -352,8 +337,8 @@ inherited FraObreiros: TFraObreiros
                   AnchorX = 38
                 end
                 object chbDomNoite: TcxCheckBox
-                  Left = 75
-                  Top = 2
+                  Left = 74
+                  Top = 3
                   Align = alRight
                   AutoSize = False
                   Properties.Alignment = taCenter
@@ -362,12 +347,15 @@ inherited FraObreiros: TFraObreiros
                   Style.TransparentBorder = False
                   TabOrder = 1
                   Transparent = True
-                  Height = 17
+                  ExplicitLeft = 75
+                  ExplicitTop = 2
+                  ExplicitHeight = 17
+                  Height = 15
                   Width = 33
                 end
                 object chbSegNoite: TcxCheckBox
-                  Left = 110
-                  Top = 2
+                  Left = 109
+                  Top = 3
                   Align = alRight
                   AutoSize = False
                   Properties.Alignment = taCenter
@@ -376,12 +364,15 @@ inherited FraObreiros: TFraObreiros
                   Style.TransparentBorder = False
                   TabOrder = 2
                   Transparent = True
-                  Height = 17
+                  ExplicitLeft = 110
+                  ExplicitTop = 2
+                  ExplicitHeight = 17
+                  Height = 15
                   Width = 33
                 end
                 object chbTerNoite: TcxCheckBox
-                  Left = 145
-                  Top = 2
+                  Left = 144
+                  Top = 3
                   Align = alRight
                   AutoSize = False
                   Properties.Alignment = taCenter
@@ -390,12 +381,15 @@ inherited FraObreiros: TFraObreiros
                   Style.TransparentBorder = False
                   TabOrder = 3
                   Transparent = True
-                  Height = 17
+                  ExplicitLeft = 145
+                  ExplicitTop = 2
+                  ExplicitHeight = 17
+                  Height = 15
                   Width = 33
                 end
                 object chbQuaNoite: TcxCheckBox
-                  Left = 180
-                  Top = 2
+                  Left = 179
+                  Top = 3
                   Align = alRight
                   AutoSize = False
                   Properties.Alignment = taCenter
@@ -404,12 +398,15 @@ inherited FraObreiros: TFraObreiros
                   Style.TransparentBorder = False
                   TabOrder = 4
                   Transparent = True
-                  Height = 17
+                  ExplicitLeft = 180
+                  ExplicitTop = 2
+                  ExplicitHeight = 17
+                  Height = 15
                   Width = 33
                 end
                 object chbQuiNoite: TcxCheckBox
-                  Left = 215
-                  Top = 2
+                  Left = 214
+                  Top = 3
                   Align = alRight
                   AutoSize = False
                   Properties.Alignment = taCenter
@@ -418,12 +415,15 @@ inherited FraObreiros: TFraObreiros
                   Style.TransparentBorder = False
                   TabOrder = 5
                   Transparent = True
-                  Height = 17
+                  ExplicitLeft = 215
+                  ExplicitTop = 2
+                  ExplicitHeight = 17
+                  Height = 15
                   Width = 33
                 end
                 object chbSexNoite: TcxCheckBox
-                  Left = 250
-                  Top = 2
+                  Left = 249
+                  Top = 3
                   Align = alRight
                   AutoSize = False
                   Properties.Alignment = taCenter
@@ -432,12 +432,15 @@ inherited FraObreiros: TFraObreiros
                   Style.TransparentBorder = False
                   TabOrder = 6
                   Transparent = True
-                  Height = 17
+                  ExplicitLeft = 250
+                  ExplicitTop = 2
+                  ExplicitHeight = 17
+                  Height = 15
                   Width = 33
                 end
                 object chbSabNoite: TcxCheckBox
-                  Left = 285
-                  Top = 2
+                  Left = 284
+                  Top = 3
                   Align = alRight
                   AutoSize = False
                   Properties.Alignment = taCenter
@@ -446,13 +449,16 @@ inherited FraObreiros: TFraObreiros
                   Style.TransparentBorder = False
                   TabOrder = 7
                   Transparent = True
-                  Height = 17
+                  ExplicitLeft = 285
+                  ExplicitTop = 2
+                  ExplicitHeight = 17
+                  Height = 15
                   Width = 33
                 end
               end
               object cxGroupBox4: TcxGroupBox
                 Left = 2
-                Top = 143
+                Top = 127
                 Align = alTop
                 PanelStyle.Active = True
                 Style.BorderStyle = ebsNone
@@ -462,85 +468,78 @@ inherited FraObreiros: TFraObreiros
                 Height = 21
                 Width = 320
                 object Bevel3: TBevel
-                  Left = 143
-                  Top = 2
+                  Left = 142
+                  Top = 3
                   Width = 2
-                  Height = 17
+                  Height = 15
                   Align = alRight
                   Shape = bsRightLine
                   ExplicitLeft = 179
-                  ExplicitTop = 3
                   ExplicitHeight = 63
                 end
                 object Bevel9: TBevel
-                  Left = 248
-                  Top = 2
+                  Left = 247
+                  Top = 3
                   Width = 2
-                  Height = 17
+                  Height = 15
                   Align = alRight
                   Shape = bsRightLine
                   ExplicitLeft = 298
-                  ExplicitTop = 3
                   ExplicitHeight = 63
                 end
                 object Bevel10: TBevel
-                  Left = 283
-                  Top = 2
+                  Left = 282
+                  Top = 3
                   Width = 2
-                  Height = 17
+                  Height = 15
                   Align = alRight
                   Shape = bsRightLine
                   ExplicitLeft = 288
-                  ExplicitTop = 3
                   ExplicitHeight = 63
                 end
                 object Bevel11: TBevel
-                  Left = 213
-                  Top = 2
+                  Left = 212
+                  Top = 3
                   Width = 2
-                  Height = 17
+                  Height = 15
                   Align = alRight
                   Shape = bsRightLine
                   ExplicitLeft = 226
-                  ExplicitTop = 3
                   ExplicitHeight = 63
                 end
                 object Bevel12: TBevel
-                  Left = 178
-                  Top = 2
+                  Left = 177
+                  Top = 3
                   Width = 2
-                  Height = 17
+                  Height = 15
                   Align = alRight
                   Shape = bsRightLine
                   ExplicitLeft = 198
-                  ExplicitTop = 3
                   ExplicitHeight = 63
                 end
                 object Bevel13: TBevel
-                  Left = 108
-                  Top = 2
+                  Left = 107
+                  Top = 3
                   Width = 2
-                  Height = 17
+                  Height = 15
                   Align = alRight
                   Shape = bsRightLine
                   ExplicitLeft = 164
-                  ExplicitTop = 3
                   ExplicitHeight = 63
                 end
                 object Bevel14: TBevel
-                  Left = 73
-                  Top = 2
+                  Left = 72
+                  Top = 3
                   Width = 2
-                  Height = 17
+                  Height = 15
                   Align = alRight
                   Shape = bsRightLine
                   ExplicitLeft = 42
-                  ExplicitTop = 3
                   ExplicitHeight = 63
                 end
                 object cxLabel14: TcxLabel
-                  Left = 2
-                  Top = 2
+                  Left = 3
+                  Top = 3
                   Cursor = crHandPoint
                   Align = alClient
                   Caption = 'TURNO / DIA'
@@ -560,8 +559,8 @@ inherited FraObreiros: TFraObreiros
                   AnchorX = 38
                 end
                 object cxLabel15: TcxLabel
-                  Left = 110
-                  Top = 2
+                  Left = 109
+                  Top = 3
                   Cursor = crHandPoint
                   Align = alRight
                   AutoSize = False
@@ -578,13 +577,13 @@ inherited FraObreiros: TFraObreiros
                   OnClick = cxLabel15Click
                   OnMouseEnter = cxLabel15MouseEnter
                   OnMouseLeave = cxLabel15MouseLeave
-                  Height = 17
+                  Height = 15
                   Width = 33
-                  AnchorX = 127
+                  AnchorX = 126
                 end
                 object cxLabel16: TcxLabel
-                  Left = 145
-                  Top = 2
+                  Left = 144
+                  Top = 3
                   Cursor = crHandPoint
                   Align = alRight
                   AutoSize = False
@@ -601,13 +600,13 @@ inherited FraObreiros: TFraObreiros
                   OnClick = cxLabel16Click
                   OnMouseEnter = cxLabel16MouseEnter
                   OnMouseLeave = cxLabel16MouseLeave
-                  Height = 17
+                  Height = 15
                   Width = 33
-                  AnchorX = 162
+                  AnchorX = 161
                 end
                 object cxLabel17: TcxLabel
-                  Left = 75
-                  Top = 2
+                  Left = 74
+                  Top = 3
                   Cursor = crHandPoint
                   Align = alRight
                   AutoSize = False
@@ -624,13 +623,13 @@ inherited FraObreiros: TFraObreiros
                   OnClick = cxLabel17Click
                   OnMouseEnter = cxLabel17MouseEnter
                   OnMouseLeave = cxLabel17MouseLeave
-                  Height = 17
+                  Height = 15
                   Width = 33
-                  AnchorX = 92
+                  AnchorX = 91
                 end
                 object cxLabel18: TcxLabel
-                  Left = 250
-                  Top = 2
+                  Left = 249
+                  Top = 3
                   Cursor = crHandPoint
                   Align = alRight
                   AutoSize = False
@@ -647,13 +646,13 @@ inherited FraObreiros: TFraObreiros
                   OnClick = cxLabel18Click
                   OnMouseEnter = cxLabel18MouseEnter
                   OnMouseLeave = cxLabel18MouseLeave
-                  Height = 17
+                  Height = 15
                   Width = 33
-                  AnchorX = 267
+                  AnchorX = 266
                 end
                 object cxLabel19: TcxLabel
-                  Left = 215
-                  Top = 2
+                  Left = 214
+                  Top = 3
                   Cursor = crHandPoint
                   Align = alRight
                   AutoSize = False
@@ -670,13 +669,13 @@ inherited FraObreiros: TFraObreiros
                   OnClick = cxLabel19Click
                   OnMouseEnter = cxLabel19MouseEnter
                   OnMouseLeave = cxLabel19MouseLeave
-                  Height = 17
+                  Height = 15
                   Width = 33
-                  AnchorX = 232
+                  AnchorX = 231
                 end
                 object cxLabel20: TcxLabel
-                  Left = 180
-                  Top = 2
+                  Left = 179
+                  Top = 3
                   Cursor = crHandPoint
                   Align = alRight
                   AutoSize = False
@@ -693,13 +692,13 @@ inherited FraObreiros: TFraObreiros
                   OnClick = cxLabel20Click
                   OnMouseEnter = cxLabel20MouseEnter
                   OnMouseLeave = cxLabel20MouseLeave
-                  Height = 17
+                  Height = 15
                   Width = 33
-                  AnchorX = 197
+                  AnchorX = 196
                 end
                 object cxLabel21: TcxLabel
-                  Left = 285
-                  Top = 2
+                  Left = 284
+                  Top = 3
                   Cursor = crHandPoint
                   Align = alRight
                   AutoSize = False
@@ -716,14 +715,14 @@ inherited FraObreiros: TFraObreiros
                   OnClick = cxLabel21Click
                   OnMouseEnter = cxLabel21MouseEnter
                   OnMouseLeave = cxLabel21MouseLeave
-                  Height = 17
+                  Height = 15
                   Width = 33
-                  AnchorX = 302
+                  AnchorX = 301
                 end
               end
               object cxGroupBox5: TcxGroupBox
                 Left = 2
-                Top = 185
+                Top = 169
                 Align = alTop
                 PanelStyle.Active = True
                 Style.BorderStyle = ebsNone
@@ -733,85 +732,74 @@ inherited FraObreiros: TFraObreiros
                 Height = 21
                 Width = 320
                 object Bevel15: TBevel
-                  Left = 73
-                  Top = 2
+                  Left = 72
+                  Top = 3
                   Width = 2
-                  Height = 17
+                  Height = 15
                   Align = alRight
                   Shape = bsRightLine
                   ExplicitLeft = 0
-                  ExplicitTop = 3
-                  ExplicitHeight = 15
                 end
                 object Bevel16: TBevel
-                  Left = 283
-                  Top = 2
+                  Left = 282
+                  Top = 3
                   Width = 2
-                  Height = 17
+                  Height = 15
                   Align = alRight
                   Shape = bsRightLine
                   ExplicitLeft = 290
                   ExplicitTop = 6
-                  ExplicitHeight = 15
                 end
                 object Bevel17: TBevel
-                  Left = 108
-                  Top = 2
+                  Left = 107
+                  Top = 3
                   Width = 2
-                  Height = 17
+                  Height = 15
                   Align = alRight
                   Shape = bsRightLine
                   ExplicitLeft = 288
-                  ExplicitTop = 3
                   ExplicitHeight = 63
                 end
                 object Bevel18: TBevel
-                  Left = 248
-                  Top = 2
+                  Left = 247
+                  Top = 3
                   Width = 2
-                  Height = 17
+                  Height = 15
                   Align = alRight
                   Shape = bsRightLine
                   ExplicitLeft = 276
                   ExplicitTop = 6
-                  ExplicitHeight = 15
                 end
                 object Bevel19: TBevel
-                  Left = 178
-                  Top = 2
+                  Left = 177
+                  Top = 3
                   Width = 2
-                  Height = 17
+                  Height = 15
                   Align = alRight
                   Shape = bsRightLine
                   ExplicitLeft = 183
-                  ExplicitTop = 3
-                  ExplicitHeight = 15
                 end
                 object Bevel20: TBevel
-                  Left = 143
-                  Top = 2
+                  Left = 142
+                  Top = 3
                   Width = 2
-                  Height = 17
+                  Height = 15
                   Align = alRight
                   Shape = bsRightLine
                   ExplicitLeft = 148
-                  ExplicitTop = 3
-                  ExplicitHeight = 15
                 end
                 object Bevel21: TBevel
-                  Left = 213
-                  Top = 2
+                  Left = 212
+                  Top = 3
                   Width = 2
-                  Height = 17
+                  Height = 15
                   Align = alRight
                   Shape = bsRightLine
                   ExplicitLeft = 243
-                  ExplicitTop = 3
-                  ExplicitHeight = 15
                 end
                 object cxLabel7: TcxLabel
-                  Left = 2
-                  Top = 2
+                  Left = 3
+                  Top = 3
                   Cursor = crHandPoint
                   Align = alClient
                   Caption = 'TARDE'
@@ -830,8 +818,8 @@ inherited FraObreiros: TFraObreiros
                   AnchorX = 38
                 end
                 object chbDomTarde: TcxCheckBox
-                  Left = 75
-                  Top = 2
+                  Left = 74
+                  Top = 3
                   Align = alRight
                   AutoSize = False
                   Properties.Alignment = taCenter
@@ -840,12 +828,15 @@ inherited FraObreiros: TFraObreiros
                   Style.TransparentBorder = False
                   TabOrder = 1
                   Transparent = True
-                  Height = 17
+                  ExplicitLeft = 75
+                  ExplicitTop = 2
+                  ExplicitHeight = 17
+                  Height = 15
                   Width = 33
                 end
                 object chbSegTarde: TcxCheckBox
-                  Left = 110
-                  Top = 2
+                  Left = 109
+                  Top = 3
                   Align = alRight
                   AutoSize = False
                   Properties.Alignment = taCenter
@@ -854,12 +845,15 @@ inherited FraObreiros: TFraObreiros
                   Style.TransparentBorder = False
                   TabOrder = 2
                   Transparent = True
-                  Height = 17
+                  ExplicitLeft = 110
+                  ExplicitTop = 2
+                  ExplicitHeight = 17
+                  Height = 15
                   Width = 33
                 end
                 object chbTerTarde: TcxCheckBox
-                  Left = 145
-                  Top = 2
+                  Left = 144
+                  Top = 3
                   Align = alRight
                   AutoSize = False
                   Properties.Alignment = taCenter
@@ -868,12 +862,15 @@ inherited FraObreiros: TFraObreiros
                   Style.TransparentBorder = False
                   TabOrder = 3
                   Transparent = True
-                  Height = 17
+                  ExplicitLeft = 145
+                  ExplicitTop = 2
+                  ExplicitHeight = 17
+                  Height = 15
                   Width = 33
                 end
                 object chbQuaTarde: TcxCheckBox
-                  Left = 180
-                  Top = 2
+                  Left = 179
+                  Top = 3
                   Align = alRight
                   AutoSize = False
                   Properties.Alignment = taCenter
@@ -882,12 +879,15 @@ inherited FraObreiros: TFraObreiros
                   Style.TransparentBorder = False
                   TabOrder = 4
                   Transparent = True
-                  Height = 17
+                  ExplicitLeft = 180
+                  ExplicitTop = 2
+                  ExplicitHeight = 17
+                  Height = 15
                   Width = 33
                 end
                 object chbQuiTarde: TcxCheckBox
-                  Left = 215
-                  Top = 2
+                  Left = 214
+                  Top = 3
                   Align = alRight
                   AutoSize = False
                   Properties.Alignment = taCenter
@@ -896,12 +896,15 @@ inherited FraObreiros: TFraObreiros
                   Style.TransparentBorder = False
                   TabOrder = 5
                   Transparent = True
-                  Height = 17
+                  ExplicitLeft = 215
+                  ExplicitTop = 2
+                  ExplicitHeight = 17
+                  Height = 15
                   Width = 33
                 end
                 object chbSexTarde: TcxCheckBox
-                  Left = 250
-                  Top = 2
+                  Left = 249
+                  Top = 3
                   Align = alRight
                   AutoSize = False
                   Properties.Alignment = taCenter
@@ -910,12 +913,15 @@ inherited FraObreiros: TFraObreiros
                   Style.TransparentBorder = False
                   TabOrder = 6
                   Transparent = True
-                  Height = 17
+                  ExplicitLeft = 250
+                  ExplicitTop = 2
+                  ExplicitHeight = 17
+                  Height = 15
                   Width = 33
                 end
                 object chbSabTarde: TcxCheckBox
-                  Left = 285
-                  Top = 2
+                  Left = 284
+                  Top = 3
                   Align = alRight
                   AutoSize = False
                   Properties.Alignment = taCenter
@@ -924,13 +930,16 @@ inherited FraObreiros: TFraObreiros
                   Style.TransparentBorder = False
                   TabOrder = 7
                   Transparent = True
-                  Height = 17
+                  ExplicitLeft = 285
+                  ExplicitTop = 2
+                  ExplicitHeight = 17
+                  Height = 15
                   Width = 33
                 end
               end
               object cxGroupBox6: TcxGroupBox
                 Left = 2
-                Top = 164
+                Top = 148
                 Align = alTop
                 PanelStyle.Active = True
                 Style.BorderStyle = ebsNone
@@ -940,85 +949,74 @@ inherited FraObreiros: TFraObreiros
                 Height = 21
                 Width = 320
                 object Bevel22: TBevel
-                  Left = 73
-                  Top = 2
+                  Left = 72
+                  Top = 3
                   Width = 2
-                  Height = 17
+                  Height = 15
                   Align = alRight
                   Shape = bsRightLine
                   ExplicitLeft = 0
-                  ExplicitTop = 3
-                  ExplicitHeight = 15
                 end
                 object Bevel23: TBevel
-                  Left = 283
-                  Top = 2
+                  Left = 282
+                  Top = 3
                   Width = 2
-                  Height = 17
+                  Height = 15
                   Align = alRight
                   Shape = bsRightLine
                   ExplicitLeft = 290
                   ExplicitTop = 6
-                  ExplicitHeight = 15
                 end
                 object Bevel24: TBevel
-                  Left = 108
-                  Top = 2
+                  Left = 107
+                  Top = 3
                   Width = 2
-                  Height = 17
+                  Height = 15
                   Align = alRight
                   Shape = bsRightLine
                   ExplicitLeft = 288
-                  ExplicitTop = 3
                   ExplicitHeight = 63
                 end
                 object Bevel25: TBevel
-                  Left = 248
-                  Top = 2
+                  Left = 247
+                  Top = 3
                   Width = 2
-                  Height = 17
+                  Height = 15
                   Align = alRight
                   Shape = bsRightLine
                   ExplicitLeft = 276
                   ExplicitTop = 6
-                  ExplicitHeight = 15
                 end
                 object Bevel26: TBevel
-                  Left = 178
-                  Top = 2
+                  Left = 177
+                  Top = 3
                   Width = 2
-                  Height = 17
+                  Height = 15
                   Align = alRight
                   Shape = bsRightLine
                   ExplicitLeft = 183
-                  ExplicitTop = 3
-                  ExplicitHeight = 15
                 end
                 object Bevel27: TBevel
-                  Left = 143
-                  Top = 2
+                  Left = 142
+                  Top = 3
                   Width = 2
-                  Height = 17
+                  Height = 15
                   Align = alRight
                   Shape = bsRightLine
                   ExplicitLeft = 148
-                  ExplicitTop = 3
-                  ExplicitHeight = 15
                 end
                 object Bevel28: TBevel
-                  Left = 213
-                  Top = 2
+                  Left = 212
+                  Top = 3
                   Width = 2
-                  Height = 17
+                  Height = 15
                   Align = alRight
                   Shape = bsRightLine
                   ExplicitLeft = 243
-                  ExplicitTop = 3
-                  ExplicitHeight = 15
                 end
                 object cxLabel8: TcxLabel
-                  Left = 2
-                  Top = 2
+                  Left = 3
+                  Top = 3
                   Cursor = crHandPoint
                   Align = alClient
                   Caption = 'MANH'#195
@@ -1037,8 +1035,8 @@ inherited FraObreiros: TFraObreiros
                   AnchorX = 38
                 end
                 object chbDomManha: TcxCheckBox
-                  Left = 75
-                  Top = 2
+                  Left = 74
+                  Top = 3
                   Align = alRight
                   AutoSize = False
                   Properties.Alignment = taCenter
@@ -1047,12 +1045,15 @@ inherited FraObreiros: TFraObreiros
                   Style.TransparentBorder = False
                   TabOrder = 1
                   Transparent = True
-                  Height = 17
+                  ExplicitLeft = 75
+                  ExplicitTop = 2
+                  ExplicitHeight = 17
+                  Height = 15
                   Width = 33
                 end
                 object chbSegManha: TcxCheckBox
-                  Left = 110
-                  Top = 2
+                  Left = 109
+                  Top = 3
                   Align = alRight
                   AutoSize = False
                   Properties.Alignment = taCenter
@@ -1061,12 +1062,15 @@ inherited FraObreiros: TFraObreiros
                   Style.TransparentBorder = False
                   TabOrder = 2
                   Transparent = True
-                  Height = 17
+                  ExplicitLeft = 110
+                  ExplicitTop = 2
+                  ExplicitHeight = 17
+                  Height = 15
                   Width = 33
                 end
                 object chbTerManha: TcxCheckBox
-                  Left = 145
-                  Top = 2
+                  Left = 144
+                  Top = 3
                   Align = alRight
                   AutoSize = False
                   Properties.Alignment = taCenter
@@ -1075,12 +1079,15 @@ inherited FraObreiros: TFraObreiros
                   Style.TransparentBorder = False
                   TabOrder = 3
                   Transparent = True
-                  Height = 17
+                  ExplicitLeft = 145
+                  ExplicitTop = 2
+                  ExplicitHeight = 17
+                  Height = 15
                   Width = 33
                 end
                 object chbQuaManha: TcxCheckBox
-                  Left = 180
-                  Top = 2
+                  Left = 179
+                  Top = 3
                   Align = alRight
                   AutoSize = False
                   Properties.Alignment = taCenter
@@ -1089,12 +1096,15 @@ inherited FraObreiros: TFraObreiros
                   Style.TransparentBorder = False
                   TabOrder = 4
                   Transparent = True
-                  Height = 17
+                  ExplicitLeft = 180
+                  ExplicitTop = 2
+                  ExplicitHeight = 17
+                  Height = 15
                   Width = 33
                 end
                 object chbQuiManha: TcxCheckBox
-                  Left = 215
-                  Top = 2
+                  Left = 214
+                  Top = 3
                   Align = alRight
                   AutoSize = False
                   Properties.Alignment = taCenter
@@ -1103,12 +1113,15 @@ inherited FraObreiros: TFraObreiros
                   Style.TransparentBorder = False
                   TabOrder = 5
                   Transparent = True
-                  Height = 17
+                  ExplicitLeft = 215
+                  ExplicitTop = 2
+                  ExplicitHeight = 17
+                  Height = 15
                   Width = 33
                 end
                 object chbSexManha: TcxCheckBox
-                  Left = 250
-                  Top = 2
+                  Left = 249
+                  Top = 3
                   Align = alRight
                   AutoSize = False
                   Properties.Alignment = taCenter
@@ -1117,12 +1130,15 @@ inherited FraObreiros: TFraObreiros
                   Style.TransparentBorder = False
                   TabOrder = 6
                   Transparent = True
-                  Height = 17
+                  ExplicitLeft = 250
+                  ExplicitTop = 2
+                  ExplicitHeight = 17
+                  Height = 15
                   Width = 33
                 end
                 object chbSabManha: TcxCheckBox
-                  Left = 285
-                  Top = 2
+                  Left = 284
+                  Top = 3
                   Align = alRight
                   AutoSize = False
                   Properties.Alignment = taCenter
@@ -1131,20 +1147,24 @@ inherited FraObreiros: TFraObreiros
                   Style.TransparentBorder = False
                   TabOrder = 7
                   Transparent = True
-                  Height = 17
+                  ExplicitLeft = 285
+                  ExplicitTop = 2
+                  ExplicitHeight = 17
+                  Height = 15
                   Width = 33
                 end
               end
               object cxGroupBox7: TcxGroupBox
                 AlignWithMargins = True
                 Left = 5
-                Top = 117
+                Top = 101
                 Align = alTop
                 PanelStyle.Active = True
                 Style.BorderStyle = ebsNone
                 Style.TransparentBorder = False
                 TabOrder = 4
                 Transparent = True
+                ExplicitTop = 117
                 Height = 23
                 Width = 314
                 object cbTelefone: TcxComboBox
@@ -1154,6 +1174,7 @@ inherited FraObreiros: TFraObreiros
                   Properties.DropDownListStyle = lsFixedList
                   Style.TransparentBorder = True
                   TabOrder = 0
+                  ExplicitHeight = 21
                   Width = 245
                 end
                 object cxImage1: TcxImage
