@@ -2,6 +2,48 @@ inherited FraParametros: TFraParametros
   inherited gbPrincipal: TcxGroupBox
     Caption = 'PAR'#194'METROS'
     inherited pcFramePrincipal: TcxPageControl
+      Properties.ActivePage = tsManutencao
+      inherited tsConsulta: TcxTabSheet
+        inherited grdFramePrincial: TcxGrid
+          inherited grdFramePrincialDBTableView1: TcxGridDBTableView
+            Navigator.InfoPanel.DisplayMask = '[RecordIndex] de [RecordCount]'
+            OptionsData.CancelOnExit = False
+            OptionsData.Deleting = False
+            OptionsData.DeletingConfirmation = False
+            OptionsData.Editing = False
+            OptionsSelection.CellSelect = False
+            object grdFramePrincialDBTableView1nome: TcxGridDBColumn [0]
+              Caption = 'Par'#226'metro'
+              DataBinding.FieldName = 'nome'
+              PropertiesClassName = 'TcxTextEditProperties'
+              Properties.Alignment.Horz = taLeftJustify
+              HeaderAlignmentHorz = taCenter
+              MinWidth = 360
+              Options.Editing = False
+              Options.Grouping = False
+              Options.HorzSizing = False
+              Options.Moving = False
+              Width = 360
+            end
+            object grdFramePrincialDBTableView1valor: TcxGridDBColumn [1]
+              Caption = 'Valor'
+              DataBinding.FieldName = 'valor'
+              PropertiesClassName = 'TcxTextEditProperties'
+              Properties.Alignment.Horz = taCenter
+              HeaderAlignmentHorz = taCenter
+              MinWidth = 360
+              Options.Editing = False
+              Options.Grouping = False
+              Options.HorzSizing = False
+              Options.Moving = False
+              Width = 360
+            end
+            inherited grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn
+              Visible = False
+            end
+          end
+        end
+      end
       inherited tsManutencao: TcxTabSheet
         inherited gbFramePrincipal: TcxGroupBox
           inherited gbFrameSecundario: TcxGroupBox
@@ -37,7 +79,7 @@ inherited FraParametros: TFraParametros
               end
             end
             inherited cxGroupBox2: TcxGroupBox
-              object edtNome: TcxTextEdit
+              object edtValor: TcxTextEdit
                 AlignWithMargins = True
                 Left = 5
                 Top = 27
@@ -87,6 +129,16 @@ inherited FraParametros: TFraParametros
   end
   inherited cxImageList: TcxImageList
     FormatVersion = 1
+  end
+  inherited FDMemTable1: TFDMemTable
+    object FDMemTable1nome: TWideMemoField
+      FieldName = 'nome'
+      BlobType = ftWideMemo
+    end
+    object FDMemTable1valor: TWideMemoField
+      FieldName = 'valor'
+      BlobType = ftWideMemo
+    end
   end
   inherited cxStyleRepository1: TcxStyleRepository
     PixelsPerInch = 96
