@@ -16,7 +16,7 @@ uses
   cxGridDBTableView, cxGridCustomView, cxGrid, cxPC, cxGroupBox, cxLabel,
   cxTextEdit, cxCheckBox, Vcl.ComCtrls, dxCore, cxDateUtils, cxDropDownEdit,
   cxCalendar, cxMaskEdit, dxGDIPlusClasses, cxImage, cxRadioGroup, cxSpinEdit,
-  cxTimeEdit, Vcl.ExtCtrls, dxSkinWXI;
+  cxTimeEdit, Vcl.ExtCtrls;
 
 type
   TFraEscalas = class(TFraModelo)

@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
-  Vcl.ExtCtrls, Vcl.Imaging.pngimage;
+  Vcl.ExtCtrls, Vcl.Imaging.pngimage, acPNG;
 
 type
   TfrmSplash = class(TForm)
@@ -61,7 +61,7 @@ begin
   begin
     Self.AlphaBlendValue := Self.AlphaBlendValue + 5;
    // Repaint;
-    Sleep(10);
+    Sleep(50);
     Application.ProcessMessages;
   end;
 end;
@@ -72,7 +72,7 @@ begin
   begin
     Self.AlphaBlendValue := Self.AlphaBlendValue - 5;
    // Repaint;
-    Sleep(10);
+    Sleep(50);
     Application.ProcessMessages;
   end;
   Hide;

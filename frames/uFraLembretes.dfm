@@ -57,13 +57,11 @@ inherited FraLembretes: TFraLembretes
               Width = 600
             end
             inherited grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
               MinWidth = 25
               Options.Grouping = False
               Options.HorzSizing = False
             end
             inherited grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
               MinWidth = 25
               Options.Grouping = False
               Options.HorzSizing = False
@@ -118,7 +116,7 @@ inherited FraLembretes: TFraLembretes
               end
               object chbStatus: TcxCheckBox
                 Left = 2
-                Top = 27
+                Top = 23
                 Align = alTop
                 ParentFont = False
                 Properties.Alignment = taCenter
@@ -131,11 +129,12 @@ inherited FraLembretes: TFraLembretes
                 Style.IsFontAssigned = True
                 TabOrder = 1
                 Transparent = True
+                ExplicitTop = 27
                 Width = 248
               end
               object mmDescricao: TcxMemo
                 Left = 2
-                Top = 46
+                Top = 44
                 Align = alTop
                 ParentFont = False
                 Properties.ScrollBars = ssVertical
@@ -146,6 +145,7 @@ inherited FraLembretes: TFraLembretes
                 Style.Font.Style = []
                 Style.IsFontAssigned = True
                 TabOrder = 2
+                ExplicitTop = 46
                 Height = 171
                 Width = 248
               end

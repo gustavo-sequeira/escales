@@ -3,6 +3,8 @@ object FraModelo: TFraModelo
   Top = 0
   Width = 640
   Height = 480
+  DoubleBuffered = True
+  ParentDoubleBuffered = False
   TabOrder = 0
   object gbPrincipal: TcxGroupBox
     Left = 0
@@ -20,10 +22,10 @@ object FraModelo: TFraModelo
     Height = 480
     Width = 640
     object pcFramePrincipal: TcxPageControl
-      Left = 3
-      Top = 17
-      Width = 634
-      Height = 456
+      Left = 2
+      Top = 20
+      Width = 636
+      Height = 458
       Align = alClient
       TabOrder = 0
       Properties.ActivePage = tsManutencao
@@ -31,8 +33,8 @@ object FraModelo: TFraModelo
       Properties.Style = 8
       LookAndFeel.NativeStyle = False
       OnResize = pcFramePrincipalResize
-      ClientRectBottom = 456
-      ClientRectRight = 634
+      ClientRectBottom = 458
+      ClientRectRight = 636
       ClientRectTop = 26
       object tsConsulta: TcxTabSheet
         Caption = 'Consulta'
@@ -41,8 +43,8 @@ object FraModelo: TFraModelo
         object pbConsulta: TPaintBox
           Left = 0
           Top = 0
-          Width = 634
-          Height = 430
+          Width = 636
+          Height = 432
           Align = alClient
           Visible = False
           OnPaint = pbConsultaPaint
@@ -85,7 +87,6 @@ object FraModelo: TFraModelo
             Styles.ContentEven = zebradoEven
             Styles.ContentOdd = zebradoOdd
             object grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
               Options.Editing = False
               Options.Filtering = False
               Options.Focusing = False
@@ -95,7 +96,6 @@ object FraModelo: TFraModelo
               Width = 25
             end
             object grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
               Options.Editing = False
               Options.Filtering = False
               Options.Focusing = False
@@ -117,8 +117,8 @@ object FraModelo: TFraModelo
         object pbManutencao: TPaintBox
           Left = 0
           Top = 0
-          Width = 634
-          Height = 430
+          Width = 636
+          Height = 432
           Align = alClient
           Visible = False
           OnPaint = pbManutencaoPaint
@@ -136,10 +136,10 @@ object FraModelo: TFraModelo
           Height = 374
           Width = 577
           object Image1: TImage
-            Left = 3
-            Top = 3
-            Width = 571
-            Height = 368
+            Left = 2
+            Top = 2
+            Width = 573
+            Height = 370
             Align = alClient
             AutoSize = True
             Center = True
@@ -46215,6 +46215,8 @@ object FraModelo: TFraModelo
             Stretch = True
             Transparent = True
             Visible = False
+            ExplicitLeft = 3
+            ExplicitTop = 3
             ExplicitWidth = 1024
             ExplicitHeight = 1024
           end

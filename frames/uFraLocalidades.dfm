@@ -3,9 +3,6 @@ inherited FraLocalidades: TFraLocalidades
     Caption = 'LOCALIDADES'
     inherited pcFramePrincipal: TcxPageControl
       inherited tsConsulta: TcxTabSheet
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         inherited grdFramePrincial: TcxGrid
           inherited grdFramePrincialDBTableView1: TcxGridDBTableView
             Navigator.InfoPanel.DisplayMask = '[RecordIndex] de [RecordCount]'
@@ -50,12 +47,10 @@ inherited FraLocalidades: TFraLocalidades
               Width = 450
             end
             inherited grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
               MinWidth = 25
               Options.HorzSizing = False
             end
             inherited grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
               MinWidth = 25
               Options.HorzSizing = False
             end
@@ -109,7 +104,7 @@ inherited FraLocalidades: TFraLocalidades
               end
               object edtNome: TcxTextEdit
                 Left = 2
-                Top = 27
+                Top = 23
                 Align = alTop
                 ParentFont = False
                 Style.Font.Charset = DEFAULT_CHARSET
@@ -119,11 +114,12 @@ inherited FraLocalidades: TFraLocalidades
                 Style.Font.Style = []
                 Style.IsFontAssigned = True
                 TabOrder = 1
+                ExplicitTop = 27
                 Width = 248
               end
               object mmDescricao: TcxMemo
                 Left = 2
-                Top = 52
+                Top = 44
                 Align = alTop
                 ParentFont = False
                 Properties.ScrollBars = ssVertical
@@ -134,6 +130,7 @@ inherited FraLocalidades: TFraLocalidades
                 Style.Font.Style = []
                 Style.IsFontAssigned = True
                 TabOrder = 2
+                ExplicitTop = 52
                 Height = 89
                 Width = 248
               end

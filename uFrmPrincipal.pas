@@ -18,7 +18,7 @@ uses
   cxGridTableView, cxGridDBTableView, cxGrid, uLibary, dxSkinOffice2010Blue,
   dxNavBarCollns, dxNavBarBase, dxNavBar, cxLabel, Vcl.ExtCtrls, System.Actions,
   Vcl.ActnList, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ActnMan, cxLocalization,
-  dxSkinWXI, Vcl.Imaging.pngimage;
+  Vcl.Imaging.pngimage;
 
 type
   TfrmPrincipal = class(TForm)
@@ -82,7 +82,8 @@ implementation
 
 uses
   uFraObreiros, uFraModelo, uFraCargos, uFraLocalidades, uFraVersiculos,
-  uFraLembretes, uFraEscalas, Math, uFraParametros,System.IOUtils, uDmPrincipal;
+  uFraLembretes, uFraEscalas, Math, uFraParametros,System.IOUtils, uDmPrincipal,
+  uFrmSplash;
 
 {$R *.dfm}
 
@@ -241,7 +242,18 @@ begin
 end;
 
 constructor TfrmPrincipal.Create(AOwner: TComponent);
+var
+  frmSplash: TfrmSplash;
 begin
+  if VarAsType(dmPrincipal.GetParamValue('SPLASH'), varInteger) = 1 then
+  begin
+    frmSplash := TfrmSplash.Create(Self);
+    try
+      frmSplash.Show;
+    finally
+      frmSplash.Free;
+    end;
+  end;
   inherited;
   FImg := TPngImage.Create;
   FImg.LoadFromFile(TPath.GetDirectoryName(ParamStr(0)) + PathDelim + 'logo.png');

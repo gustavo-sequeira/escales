@@ -16,7 +16,7 @@ uses
   cxGridDBTableView, cxGridCustomView, cxGrid, cxPC, cxGroupBox, cxMemo,
   cxTextEdit, cxLabel, FireDAC.Phys.PGDef, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.UI.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Phys,
-  FireDAC.Phys.PG, FireDAC.VCLUI.Wait, Vcl.ExtCtrls, dxSkinWXI;
+  FireDAC.Phys.PG, FireDAC.VCLUI.Wait, Vcl.ExtCtrls, dxGDIPlusClasses;
 
 type
   TFraLocalidades = class(TFraModelo)

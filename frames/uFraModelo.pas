@@ -16,7 +16,7 @@ uses
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Comp.DataSet,
   FireDAC.Comp.Client, cxButtonEdit, cxMaskEdit, cxDropDownEdit, cxCheckBox,
   cxRadioGroup, Vcl.ComCtrls, dxCore, cxDateUtils, cxCalendar, cxMemo,
-  Vcl.ExtCtrls, PNGImage, dxSkinWXI, dxGDIPlusClasses;
+  Vcl.ExtCtrls, PNGImage, dxGDIPlusClasses;
 
 type
   TFraModelo = class(TFrame)
@@ -109,6 +109,7 @@ begin
   vImgBackgroudFrame := VarAsType(dmPrincipal.GetParamValue('IMG_FUNDO_FRAMES'), varInteger) = 1;
   pbConsulta.Visible := vImgBackgroudFrame;
   pbManutencao.Visible := vImgBackgroudFrame;
+//  Image1.Visible := vImgBackgroudFrame;
 
   PreencherGrid;
 end;

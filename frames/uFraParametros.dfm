@@ -39,11 +39,7 @@ inherited FraParametros: TFraParametros
               Options.Moving = False
               Width = 360
             end
-            inherited grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
-            end
             inherited grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
               Visible = False
             end
           end

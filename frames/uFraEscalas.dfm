@@ -6,12 +6,10 @@ inherited FraEscalas: TFraEscalas
     ExplicitHeight = 594
     Height = 594
     inherited pcFramePrincipal: TcxPageControl
-      Height = 570
+      Height = 572
       ExplicitHeight = 570
-      ClientRectBottom = 570
+      ClientRectBottom = 572
       inherited tsConsulta: TcxTabSheet
-        ExplicitTop = 0
-        ExplicitWidth = 0
         ExplicitHeight = 544
         inherited pbConsulta: TPaintBox
           Height = 544
@@ -172,13 +170,11 @@ inherited FraEscalas: TFraEscalas
               Width = 270
             end
             inherited grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
               MinWidth = 25
               Options.Grouping = False
               Options.HorzSizing = False
             end
             inherited grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn
-              DataBinding.IsNullValueType = True
               MinWidth = 25
               Options.Grouping = False
               Options.HorzSizing = False
@@ -189,12 +185,15 @@ inherited FraEscalas: TFraEscalas
       inherited tsManutencao: TcxTabSheet
         ExplicitHeight = 544
         inherited pbManutencao: TPaintBox
-          Height = 544
+          Height = 546
           ExplicitHeight = 544
         end
         inherited gbFramePrincipal: TcxGroupBox
           ExplicitHeight = 462
           Height = 462
+          inherited Image1: TImage
+            Height = 458
+          end
           inherited gbFrameSecundario: TcxGroupBox
             ExplicitHeight = 355
             Height = 355
@@ -318,7 +317,7 @@ inherited FraEscalas: TFraEscalas
               object cbSituacao: TcxComboBox
                 AlignWithMargins = True
                 Left = 2
-                Top = 33
+                Top = 29
                 Margins.Left = 0
                 Margins.Right = 0
                 Margins.Bottom = 0
@@ -339,12 +338,13 @@ inherited FraEscalas: TFraEscalas
                 Style.Font.Style = []
                 Style.IsFontAssigned = True
                 TabOrder = 1
+                ExplicitTop = 33
                 Width = 248
               end
               object cbLocalidade: TcxComboBox
                 AlignWithMargins = True
                 Left = 2
-                Top = 61
+                Top = 53
                 Margins.Left = 0
                 Margins.Right = 0
                 Margins.Bottom = 0
@@ -363,12 +363,13 @@ inherited FraEscalas: TFraEscalas
                 TabOrder = 2
                 OnEditing = cbLocalidadeEditing
                 OnEnter = cbLocalidadeEnter
+                ExplicitTop = 61
                 Width = 248
               end
               object cxGroupBox5: TcxGroupBox
                 AlignWithMargins = True
                 Left = 2
-                Top = 89
+                Top = 77
                 Margins.Left = 0
                 Margins.Right = 0
                 Margins.Bottom = 0
@@ -397,6 +398,7 @@ inherited FraEscalas: TFraEscalas
                   Style.IsFontAssigned = True
                   TabOrder = 0
                   OnEditing = dtDataEditing
+                  ExplicitHeight = 21
                   Width = 167
                 end
                 object chbRepetir: TcxCheckBox
@@ -454,7 +456,7 @@ inherited FraEscalas: TFraEscalas
               object hrHorario: TcxTimeEdit
                 AlignWithMargins = True
                 Left = 2
-                Top = 115
+                Top = 103
                 Margins.Left = 0
                 Margins.Right = 0
                 Margins.Bottom = 0
@@ -477,7 +479,6 @@ inherited FraEscalas: TFraEscalas
                 StyleDisabled.LookAndFeel.NativeStyle = False
                 StyleFocused.LookAndFeel.NativeStyle = False
                 StyleHot.LookAndFeel.NativeStyle = False
-                StyleReadOnly.LookAndFeel.NativeStyle = False
                 TabOrder = 4
                 OnEditing = hrHorarioEditing
                 Height = 25
@@ -486,7 +487,7 @@ inherited FraEscalas: TFraEscalas
               object lbTurno: TcxLabel
                 AlignWithMargins = True
                 Left = 2
-                Top = 143
+                Top = 131
                 Margins.Left = 0
                 Margins.Right = 0
                 Margins.Bottom = 0
@@ -503,7 +504,7 @@ inherited FraEscalas: TFraEscalas
                 Properties.Alignment.Vert = taVCenter
                 Transparent = True
                 AnchorX = 126
-                AnchorY = 153
+                AnchorY = 141
               end
             end
             object cxGroupBox3: TcxGroupBox
@@ -516,43 +517,52 @@ inherited FraEscalas: TFraEscalas
               Width = 402
               object cxGroupBox4: TcxGroupBox
                 AlignWithMargins = True
-                Left = 6
-                Top = 6
+                Left = 5
+                Top = 5
                 Align = alTop
                 PanelStyle.Active = True
                 TabOrder = 0
+                ExplicitLeft = 6
+                ExplicitTop = 6
+                ExplicitWidth = 390
                 Height = 37
-                Width = 390
+                Width = 392
                 object cxButton1: TcxButton
                   AlignWithMargins = True
-                  Left = 274
-                  Top = 6
+                  Left = 277
+                  Top = 5
                   Width = 110
-                  Height = 25
+                  Height = 27
                   Align = alRight
                   Caption = '&Autom'#225'tico'
                   OptionsImage.ImageIndex = 5
                   OptionsImage.Images = cxImageList
                   TabOrder = 2
                   OnClick = cxButton1Click
+                  ExplicitLeft = 274
+                  ExplicitTop = 6
+                  ExplicitHeight = 25
                 end
                 object cxButton2: TcxButton
                   AlignWithMargins = True
-                  Left = 158
-                  Top = 6
+                  Left = 161
+                  Top = 5
                   Width = 110
-                  Height = 25
+                  Height = 27
                   Align = alRight
                   Caption = '&Manual'
                   OptionsImage.ImageIndex = 4
                   OptionsImage.Images = cxImageList
-                  TabOrder = 1
+                  TabOrder = 0
                   OnClick = cxButton2Click
+                  ExplicitLeft = 158
+                  ExplicitTop = 6
+                  ExplicitHeight = 25
                 end
                 object cxLabel1: TcxLabel
                   AlignWithMargins = True
-                  Left = 3
-                  Top = 6
+                  Left = 2
+                  Top = 5
                   Margins.Left = 0
                   Margins.Right = 0
                   Margins.Bottom = 0
@@ -562,20 +572,28 @@ inherited FraEscalas: TFraEscalas
                   Properties.Alignment.Horz = taCenter
                   Properties.Alignment.Vert = taVCenter
                   Transparent = True
-                  Height = 28
-                  Width = 152
-                  AnchorX = 79
+                  ExplicitLeft = 3
+                  ExplicitTop = 6
+                  ExplicitWidth = 152
+                  ExplicitHeight = 28
+                  Height = 30
+                  Width = 156
+                  AnchorX = 80
                   AnchorY = 20
                 end
               end
               object cxGrid1: TcxGrid
                 AlignWithMargins = True
-                Left = 6
-                Top = 49
-                Width = 390
-                Height = 123
+                Left = 5
+                Top = 48
+                Width = 392
+                Height = 125
                 Align = alClient
                 TabOrder = 1
+                ExplicitLeft = 6
+                ExplicitTop = 49
+                ExplicitWidth = 390
+                ExplicitHeight = 123
                 object cxGrid1DBTableView1: TcxGridDBTableView
                   Navigator.Buttons.CustomButtons = <>
                   Navigator.InfoPanel.DisplayMask = '[RecordIndex] de [RecordCount]'
@@ -603,7 +621,6 @@ inherited FraEscalas: TFraEscalas
                     Width = 400
                   end
                   object cxGrid1DBTableView1Exclusao: TcxGridDBColumn
-                    DataBinding.IsNullValueType = True
                     Width = 34
                   end
                 end

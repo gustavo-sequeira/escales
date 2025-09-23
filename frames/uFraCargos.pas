@@ -32,7 +32,8 @@ uses
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client, FireDAC.Comp.DataSet,
   FireDAC.UI.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Phys,
   FireDAC.Phys.PG, FireDAC.Phys.PGDef, FireDAC.VCLUI.Wait,
-  FireDAC.Stan.StorageBin, cxButtonEdit, uModeloBase, Vcl.ExtCtrls, dxSkinWXI;
+  FireDAC.Stan.StorageBin, cxButtonEdit, uModeloBase, Vcl.ExtCtrls,
+  dxGDIPlusClasses;
 
 type
   TFraCargos = class(TFraModelo)

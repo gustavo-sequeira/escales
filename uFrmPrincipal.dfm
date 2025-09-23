@@ -11,7 +11,9 @@ object frmPrincipal: TfrmPrincipal
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  OldCreateOrder = True
   WindowState = wsMaximized
+  PixelsPerInch = 96
   TextHeight = 15
   object gbPrincipal: TcxGroupBox
     Left = 0
@@ -19,7 +21,6 @@ object frmPrincipal: TfrmPrincipal
     Align = alClient
     PanelStyle.Active = True
     TabOrder = 0
-    ExplicitWidth = 624
     Height = 530
     Width = 869
     object gbSecundarioTop: TcxGroupBox
@@ -28,7 +29,6 @@ object frmPrincipal: TfrmPrincipal
       Align = alTop
       PanelStyle.Active = True
       TabOrder = 0
-      ExplicitWidth = 618
       Height = 105
       Width = 863
     end
@@ -38,7 +38,6 @@ object frmPrincipal: TfrmPrincipal
       Align = alClient
       PanelStyle.Active = True
       TabOrder = 1
-      ExplicitWidth = 618
       Height = 314
       Width = 863
       object gbTerciarioLeft: TcxGroupBox
@@ -191,7 +190,6 @@ object frmPrincipal: TfrmPrincipal
         Align = alClient
         PanelStyle.Active = True
         TabOrder = 1
-        ExplicitWidth = 242
         Height = 308
         Width = 487
         object pbPrincipal: TPaintBox
@@ -213,7 +211,6 @@ object frmPrincipal: TfrmPrincipal
         Align = alRight
         PanelStyle.Active = True
         TabOrder = 2
-        ExplicitLeft = 430
         Height = 308
         Width = 185
       end
@@ -224,7 +221,6 @@ object frmPrincipal: TfrmPrincipal
       Align = alBottom
       PanelStyle.Active = True
       TabOrder = 2
-      ExplicitWidth = 618
       Height = 105
       Width = 863
     end
