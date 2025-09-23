@@ -18,7 +18,7 @@ uses
   cxGridTableView, cxGridDBTableView, cxGrid, uLibary, dxSkinOffice2010Blue,
   dxNavBarCollns, dxNavBarBase, dxNavBar, cxLabel, Vcl.ExtCtrls, System.Actions,
   Vcl.ActnList, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ActnMan, cxLocalization,
-  Vcl.Imaging.pngimage;
+  Vcl.Imaging.pngimage, dxGDIPlusClasses;
 
 type
   TfrmPrincipal = class(TForm)
@@ -56,6 +56,7 @@ type
     actCadastroEscalas: TAction;
     actConfiguracaoParametros: TAction;
     pbPrincipal: TPaintBox;
+    Image1: TImage;
     procedure actCadastroCargosExecute(Sender: TObject);
     procedure actCadastroObreirosExecute(Sender: TObject);
     procedure dxNavBarDashboardClick(Sender: TObject);

@@ -109,7 +109,7 @@ begin
   vImgBackgroudFrame := VarAsType(dmPrincipal.GetParamValue('IMG_FUNDO_FRAMES'), varInteger) = 1;
   pbConsulta.Visible := vImgBackgroudFrame;
   pbManutencao.Visible := vImgBackgroudFrame;
-//  Image1.Visible := vImgBackgroudFrame;
+//Image1.Visible := vImgBackgroudFrame;
 
   PreencherGrid;
 end;
