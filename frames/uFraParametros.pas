@@ -14,7 +14,7 @@ uses
   FireDAC.Comp.Client, System.ImageList, Vcl.ImgList, cxImageList, Vcl.StdCtrls,
   cxButtons, cxGridLevel, cxGridCustomTableView, cxGridTableView,
   cxGridDBTableView, cxGridCustomView, cxGrid, Vcl.ExtCtrls, cxPC, cxGroupBox,
-  cxTextEdit, cxLabel;
+  cxTextEdit, cxLabel, dxSkinWXI;
 
 type
   TFraParametros = class(TFraModelo)

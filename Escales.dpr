@@ -24,14 +24,15 @@ uses
   uFraLembretes in 'frames\uFraLembretes.pas' {FraLembretes: TFrame},
   uFraEscalas in 'frames\uFraEscalas.pas' {FraEscalas: TFrame},
   uFrmInclusaoObreiroEscala in 'uFrmInclusaoObreiroEscala.pas' {frmInclusaoObreiroEscala},
-  uFraParametros in 'frames\uFraParametros.pas' {FraParametros: TFrame};
+  uFraParametros in 'frames\uFraParametros.pas' {FraParametros: TFrame},
+  uFrmSplash in 'uFrmSplash.pas' {frmSplash};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TfrmPrincipal, frmPrincipal);
   Application.CreateForm(TdmPrincipal, dmPrincipal);
+  Application.CreateForm(TfrmPrincipal, frmPrincipal);
   Application.Run;
 end.

@@ -33,7 +33,7 @@ uses
   FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   FireDAC.Phys.PGDef, FireDAC.UI.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool,
   FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.PG, FireDAC.VCLUI.Wait,
-  FireDAC.DApt, Vcl.ExtCtrls, cxCheckBox, cxImage, dxGDIPlusClasses;
+  FireDAC.DApt, Vcl.ExtCtrls, cxCheckBox, cxImage, dxGDIPlusClasses, dxSkinWXI;
 
 type
   TFraObreiros = class(TFraModelo)

@@ -3,6 +3,9 @@ inherited FraLocalidades: TFraLocalidades
     Caption = 'LOCALIDADES'
     inherited pcFramePrincipal: TcxPageControl
       inherited tsConsulta: TcxTabSheet
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         inherited grdFramePrincial: TcxGrid
           inherited grdFramePrincialDBTableView1: TcxGridDBTableView
             Navigator.InfoPanel.DisplayMask = '[RecordIndex] de [RecordCount]'
@@ -47,10 +50,12 @@ inherited FraLocalidades: TFraLocalidades
               Width = 450
             end
             inherited grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
+              DataBinding.IsNullValueType = True
               MinWidth = 25
               Options.HorzSizing = False
             end
             inherited grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn
+              DataBinding.IsNullValueType = True
               MinWidth = 25
               Options.HorzSizing = False
             end

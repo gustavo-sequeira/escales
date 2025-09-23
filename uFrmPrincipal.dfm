@@ -4,16 +4,14 @@ object frmPrincipal: TfrmPrincipal
   BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'Escalas'
   ClientHeight = 530
-  ClientWidth = 624
+  ClientWidth = 869
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
-  OldCreateOrder = True
   WindowState = wsMaximized
-  PixelsPerInch = 96
   TextHeight = 15
   object gbPrincipal: TcxGroupBox
     Left = 0
@@ -21,16 +19,18 @@ object frmPrincipal: TfrmPrincipal
     Align = alClient
     PanelStyle.Active = True
     TabOrder = 0
+    ExplicitWidth = 624
     Height = 530
-    Width = 624
+    Width = 869
     object gbSecundarioTop: TcxGroupBox
       Left = 3
       Top = 3
       Align = alTop
       PanelStyle.Active = True
       TabOrder = 0
+      ExplicitWidth = 618
       Height = 105
-      Width = 618
+      Width = 863
     end
     object gbSecundarioCenter: TcxGroupBox
       Left = 3
@@ -38,8 +38,9 @@ object frmPrincipal: TfrmPrincipal
       Align = alClient
       PanelStyle.Active = True
       TabOrder = 1
+      ExplicitWidth = 618
       Height = 314
-      Width = 618
+      Width = 863
       object gbTerciarioLeft: TcxGroupBox
         Left = 3
         Top = 3
@@ -190,15 +191,29 @@ object frmPrincipal: TfrmPrincipal
         Align = alClient
         PanelStyle.Active = True
         TabOrder = 1
+        ExplicitWidth = 242
         Height = 308
-        Width = 242
+        Width = 487
+        object pbPrincipal: TPaintBox
+          Left = 3
+          Top = 3
+          Width = 481
+          Height = 302
+          Align = alClient
+          OnPaint = pbPrincipalPaint
+          ExplicitLeft = 104
+          ExplicitTop = 96
+          ExplicitWidth = 105
+          ExplicitHeight = 105
+        end
       end
       object gbTerciarioRight: TcxGroupBox
-        Left = 430
+        Left = 675
         Top = 3
         Align = alRight
         PanelStyle.Active = True
         TabOrder = 2
+        ExplicitLeft = 430
         Height = 308
         Width = 185
       end
@@ -209,8 +224,9 @@ object frmPrincipal: TfrmPrincipal
       Align = alBottom
       PanelStyle.Active = True
       TabOrder = 2
+      ExplicitWidth = 618
       Height = 105
-      Width = 618
+      Width = 863
     end
   end
   object dxSkinController1: TdxSkinController
@@ -219,7 +235,7 @@ object frmPrincipal: TfrmPrincipal
     Left = 550
     Top = 486
   end
-  object ActionManager1: TActionManager
+  object p: TActionManager
     Left = 520
     Top = 486
     StyleName = 'Platform Default'

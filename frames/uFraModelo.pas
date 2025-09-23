@@ -16,7 +16,7 @@ uses
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Comp.DataSet,
   FireDAC.Comp.Client, cxButtonEdit, cxMaskEdit, cxDropDownEdit, cxCheckBox,
   cxRadioGroup, Vcl.ComCtrls, dxCore, cxDateUtils, cxCalendar, cxMemo,
-  Vcl.ExtCtrls, PNGImage;
+  Vcl.ExtCtrls, PNGImage, dxSkinWXI, dxGDIPlusClasses;
 
 type
   TFraModelo = class(TFrame)
@@ -41,8 +41,9 @@ type
     cxStyleRepository1: TcxStyleRepository;
     zebradoEven: TcxStyle;
     zebradoOdd: TcxStyle;
-    PaintBox1: TPaintBox;
-    PaintBox2: TPaintBox;
+    pbConsulta: TPaintBox;
+    pbManutencao: TPaintBox;
+    Image1: TImage;
     procedure tsManutencaoShow(Sender: TObject);
     procedure btnFrameConfirmarClick(Sender: TObject);
     procedure btnFrameCancelarClick(Sender: TObject);
@@ -51,8 +52,8 @@ type
     procedure FDMemTable1BeforeInsert(DataSet: TDataSet);
     procedure grdFramePrincialDBTableView1CustomDrawCell(Sender: TcxCustomGridTableView; ACanvas: TcxCanvas; AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
     procedure grdFramePrincialDBTableView1CellClick(Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
-    procedure PaintBox1Paint(Sender: TObject);
-    procedure PaintBox2Paint(Sender: TObject);
+    procedure pbConsultaPaint(Sender: TObject);
+    procedure pbManutencaoPaint(Sender: TObject);
   private
     { Private declarations }
     FImg: TPngImage;
@@ -91,14 +92,23 @@ begin
   emTransacao := False;
   PreencherGrid;
   pcFramePrincipal.ActivePage := tsConsulta;
+
+  Self.Invalidate;
+  Self.Repaint;
 end;
 
 constructor TFraModelo.Create(AOwner: TComponent);
+var
+  vImgBackgroudFrame: Boolean;
 begin
   inherited;
 // Carrega a imagem
   FImg := TPngImage.Create;
   FImg.LoadFromFile(TPath.GetDirectoryName(ParamStr(0)) + PathDelim + 'logo1.png');
+
+  vImgBackgroudFrame := VarAsType(dmPrincipal.GetParamValue('IMG_FUNDO_FRAMES'), varInteger) = 1;
+  pbConsulta.Visible := vImgBackgroudFrame;
+  pbManutencao.Visible := vImgBackgroudFrame;
 
   PreencherGrid;
 end;
@@ -227,15 +237,15 @@ begin
   end;
 end;
 
-procedure TFraModelo.PaintBox1Paint(Sender: TObject);
+procedure TFraModelo.pbConsultaPaint(Sender: TObject);
 var
   X, Y: Integer;
   StartX: Integer;
   ExtraWidth, ExtraHeight: Integer;
 begin
 
-  ExtraWidth := PaintBox1.Width + FImg.Width;
-  ExtraHeight := PaintBox1.Height + FImg.Height;
+  ExtraWidth := pbConsulta.Width + FImg.Width;
+  ExtraHeight := pbConsulta.Height + FImg.Height;
 
   Y := -FImg.Height;
   StartX := 0;
@@ -245,7 +255,7 @@ begin
     X := -FImg.Width + StartX;
     while X < ExtraWidth do
     begin
-      PaintBox1.Canvas.Draw(X, Y, FImg);
+      pbConsulta.Canvas.Draw(X, Y, FImg);
       X := X + FImg.Width;
     end;
     Y := Y + FImg.Height;
@@ -253,15 +263,15 @@ begin
   end;
 end;
 
-procedure TFraModelo.PaintBox2Paint(Sender: TObject);
+procedure TFraModelo.pbManutencaoPaint(Sender: TObject);
 var
   X, Y: Integer;
   StartX: Integer;
   ExtraWidth, ExtraHeight: Integer;
 begin
 
-  ExtraWidth := PaintBox2.Width + FImg.Width;
-  ExtraHeight := PaintBox2.Height + FImg.Height;
+  ExtraWidth := pbManutencao.Width + FImg.Width;
+  ExtraHeight := pbManutencao.Height + FImg.Height;
 
   Y := -FImg.Height;
   StartX := 0;
@@ -271,7 +281,7 @@ begin
     X := -FImg.Width + StartX;
     while X < ExtraWidth do
     begin
-      PaintBox2.Canvas.Draw(X, Y, FImg);
+      pbManutencao.Canvas.Draw(X, Y, FImg);
       X := X + FImg.Width;
     end;
     Y := Y + FImg.Height;

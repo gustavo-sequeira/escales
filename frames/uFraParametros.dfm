@@ -2,7 +2,7 @@ inherited FraParametros: TFraParametros
   inherited gbPrincipal: TcxGroupBox
     Caption = 'PAR'#194'METROS'
     inherited pcFramePrincipal: TcxPageControl
-      Properties.ActivePage = tsManutencao
+      Properties.ActivePage = tsConsulta
       inherited tsConsulta: TcxTabSheet
         inherited grdFramePrincial: TcxGrid
           inherited grdFramePrincialDBTableView1: TcxGridDBTableView
@@ -11,6 +11,7 @@ inherited FraParametros: TFraParametros
             OptionsData.Deleting = False
             OptionsData.DeletingConfirmation = False
             OptionsData.Editing = False
+            OptionsData.Inserting = False
             OptionsSelection.CellSelect = False
             object grdFramePrincialDBTableView1nome: TcxGridDBColumn [0]
               Caption = 'Par'#226'metro'
@@ -38,7 +39,11 @@ inherited FraParametros: TFraParametros
               Options.Moving = False
               Width = 360
             end
+            inherited grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
+              DataBinding.IsNullValueType = True
+            end
             inherited grdFramePrincialDBTableView1ColExclusao: TcxGridDBColumn
+              DataBinding.IsNullValueType = True
               Visible = False
             end
           end
@@ -58,7 +63,6 @@ inherited FraParametros: TFraParametros
                 Caption = 'VALOR'
                 Properties.Alignment.Horz = taLeftJustify
                 Transparent = True
-                ExplicitTop = 61
                 Height = 25
                 Width = 140
               end
@@ -72,8 +76,6 @@ inherited FraParametros: TFraParametros
                 Caption = 'PAR'#194'MENTRO'
                 Properties.Alignment.Horz = taLeftJustify
                 Transparent = True
-                ExplicitLeft = 10
-                ExplicitTop = 13
                 Height = 25
                 Width = 140
               end
@@ -92,9 +94,7 @@ inherited FraParametros: TFraParametros
                 Style.Font.Name = 'Segoe UI'
                 Style.Font.Style = []
                 Style.IsFontAssigned = True
-                TabOrder = 0
-                ExplicitLeft = 6
-                ExplicitTop = 55
+                TabOrder = 1
                 Width = 242
               end
               object lbNomeParametro: TcxLabel
@@ -116,8 +116,6 @@ inherited FraParametros: TFraParametros
                 Properties.Alignment.Horz = taCenter
                 Properties.Alignment.Vert = taVCenter
                 Transparent = True
-                ExplicitTop = 143
-                ExplicitWidth = 7
                 AnchorX = 126
                 AnchorY = 15
               end

@@ -1,4 +1,4 @@
-unit uFrmPrincipal;
+﻿unit uFrmPrincipal;
 
 interface
 
@@ -17,7 +17,8 @@ uses
   FireDAC.Comp.Client, cxGridLevel, cxGridCustomView, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxGrid, uLibary, dxSkinOffice2010Blue,
   dxNavBarCollns, dxNavBarBase, dxNavBar, cxLabel, Vcl.ExtCtrls, System.Actions,
-  Vcl.ActnList, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ActnMan, cxLocalization;
+  Vcl.ActnList, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ActnMan, cxLocalization,
+  dxSkinWXI, Vcl.Imaging.pngimage;
 
 type
   TfrmPrincipal = class(TForm)
@@ -45,7 +46,7 @@ type
     dxNavBarDashboardControl: TdxNavBarGroupControl;
     dxNavBar1Item8: TdxNavBarItem;
     dxNavBar1Item9: TdxNavBarItem;
-    ActionManager1: TActionManager;
+    p: TActionManager;
     actCadastroCargos: TAction;
     actCadastroObreiros: TAction;
     Action1: TAction;
@@ -54,6 +55,7 @@ type
     actCadastroLembretes: TAction;
     actCadastroEscalas: TAction;
     actConfiguracaoParametros: TAction;
+    pbPrincipal: TPaintBox;
     procedure actCadastroCargosExecute(Sender: TObject);
     procedure actCadastroObreirosExecute(Sender: TObject);
     procedure dxNavBarDashboardClick(Sender: TObject);
@@ -62,11 +64,14 @@ type
     procedure actCadastroLembretesExecute(Sender: TObject);
     procedure actCadastroEscalasExecute(Sender: TObject);
     procedure actConfiguracaoParametrosExecute(Sender: TObject);
+    procedure pbPrincipalPaint(Sender: TObject);
 
   private
     { Private declarations }
+        FImg: TPngImage;
   public
     { Public declarations }
+    constructor Create(AOwner: TComponent); override;
     procedure ControleFrame(pFrame: string; pLimparTodos: Boolean = False);
   end;
 
@@ -77,7 +82,7 @@ implementation
 
 uses
   uFraObreiros, uFraModelo, uFraCargos, uFraLocalidades, uFraVersiculos,
-  uFraLembretes, uFraEscalas, Vcl.Imaging.pngimage, Math, uFraParametros;
+  uFraLembretes, uFraEscalas, Math, uFraParametros,System.IOUtils, uDmPrincipal;
 
 {$R *.dfm}
 
@@ -235,9 +240,53 @@ begin
   end;
 end;
 
+constructor TfrmPrincipal.Create(AOwner: TComponent);
+begin
+  inherited;
+  FImg := TPngImage.Create;
+  FImg.LoadFromFile(TPath.GetDirectoryName(ParamStr(0)) + PathDelim + 'logo.png');
+  pbPrincipal.Visible := VarAsType(dmPrincipal.GetParamValue('IMG_FUNDO_DASHBOARD'), varInteger) = 1;
+end;
+
 procedure TfrmPrincipal.dxNavBarDashboardClick(Sender: TObject);
 begin
   ControleFrame(EmptyStr, True);
+  pbPrincipal.Visible := VarAsType(dmPrincipal.GetParamValue('IMG_FUNDO_DASHBOARD'), varInteger) = 1;
+end;
+
+procedure TfrmPrincipal.pbPrincipalPaint(Sender: TObject);
+var
+  DestRect: TRect;
+  RatioImg, RatioBox: Double;
+  NewWidth, NewHeight: Integer;
+begin
+  if (FImg = nil) or FImg.Empty then Exit;
+
+  // proporção da imagem e do paintbox
+  RatioImg := FImg.Width / FImg.Height;
+  RatioBox := pbPrincipal.Width / pbPrincipal.Height;
+
+  if RatioImg > RatioBox then
+  begin
+    // imagem é mais "larga" → ajusta pela largura do paintbox
+    NewWidth := pbPrincipal.Width;
+    NewHeight := Round(pbPrincipal.Width / RatioImg);
+  end
+  else
+  begin
+    // imagem é mais "alta" → ajusta pela altura do paintbox
+    NewHeight := pbPrincipal.Height;
+    NewWidth := Round(pbPrincipal.Height * RatioImg);
+  end;
+
+  // centraliza
+  DestRect.Left   := (pbPrincipal.Width - NewWidth) div 2;
+  DestRect.Top    := (pbPrincipal.Height - NewHeight) div 2;
+  DestRect.Right  := DestRect.Left + NewWidth;
+  DestRect.Bottom := DestRect.Top + NewHeight;
+
+  // desenha redimensionando
+  pbPrincipal.Canvas.StretchDraw(DestRect, FImg);
 end;
 
 end.
