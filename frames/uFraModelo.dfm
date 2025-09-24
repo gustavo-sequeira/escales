@@ -22,10 +22,10 @@ object FraModelo: TFraModelo
     Height = 480
     Width = 640
     object pcFramePrincipal: TcxPageControl
-      Left = 2
-      Top = 20
-      Width = 636
-      Height = 458
+      Left = 3
+      Top = 17
+      Width = 634
+      Height = 456
       Align = alClient
       TabOrder = 0
       Properties.ActivePage = tsManutencao
@@ -33,18 +33,24 @@ object FraModelo: TFraModelo
       Properties.Style = 8
       LookAndFeel.NativeStyle = False
       OnResize = pcFramePrincipalResize
-      ClientRectBottom = 458
-      ClientRectRight = 636
+      ExplicitLeft = 2
+      ExplicitTop = 20
+      ExplicitWidth = 636
+      ExplicitHeight = 458
+      ClientRectBottom = 456
+      ClientRectRight = 634
       ClientRectTop = 26
       object tsConsulta: TcxTabSheet
         Caption = 'Consulta'
         ImageIndex = 0
         OnResize = tsConsultaResize
+        ExplicitWidth = 636
+        ExplicitHeight = 432
         object pbConsulta: TPaintBox
           Left = 0
           Top = 0
-          Width = 636
-          Height = 432
+          Width = 634
+          Height = 430
           Align = alClient
           Visible = False
           OnPaint = pbConsultaPaint
@@ -114,11 +120,13 @@ object FraModelo: TFraModelo
         Caption = 'Manuten'#231#227'o'
         ImageIndex = 1
         OnShow = tsManutencaoShow
+        ExplicitWidth = 636
+        ExplicitHeight = 432
         object pbManutencao: TPaintBox
           Left = 0
           Top = 0
-          Width = 636
-          Height = 432
+          Width = 634
+          Height = 430
           Align = alClient
           Visible = False
           OnPaint = pbManutencaoPaint
@@ -136,10 +144,10 @@ object FraModelo: TFraModelo
           Height = 374
           Width = 577
           object Image1: TImage
-            Left = 2
-            Top = 2
-            Width = 573
-            Height = 370
+            Left = 3
+            Top = 3
+            Width = 571
+            Height = 368
             Align = alClient
             AutoSize = True
             Center = True
@@ -46215,8 +46223,6 @@ object FraModelo: TFraModelo
             Stretch = True
             Transparent = True
             Visible = False
-            ExplicitLeft = 3
-            ExplicitTop = 3
             ExplicitWidth = 1024
             ExplicitHeight = 1024
           end

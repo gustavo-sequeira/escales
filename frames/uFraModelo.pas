@@ -55,6 +55,7 @@ type
     procedure pbConsultaPaint(Sender: TObject);
     procedure pbManutencaoPaint(Sender: TObject);
   private
+
     { Private declarations }
     FImg: TPngImage;
 

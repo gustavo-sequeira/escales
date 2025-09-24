@@ -2597,6 +2597,7 @@ object frmPrincipal: TfrmPrincipal
             SelectedLinkIndex = -1
             TopVisibleLinkIndex = 0
             OptionsExpansion.Expanded = False
+            OnClick = dxNavBar1Group3Click
             Links = <>
           end
           object dxNavBarCadastroCargos: TdxNavBarItem

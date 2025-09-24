@@ -66,6 +66,7 @@ type
     procedure actCadastroEscalasExecute(Sender: TObject);
     procedure actConfiguracaoParametrosExecute(Sender: TObject);
     procedure pbPrincipalPaint(Sender: TObject);
+    procedure dxNavBar1Group3Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -84,7 +85,7 @@ implementation
 uses
   uFraObreiros, uFraModelo, uFraCargos, uFraLocalidades, uFraVersiculos,
   uFraLembretes, uFraEscalas, Math, uFraParametros,System.IOUtils, uDmPrincipal,
-  uFrmSplash;
+  uFrmSplash, uFrmRelatorioEscala;
 
 {$R *.dfm}
 
@@ -259,6 +260,28 @@ begin
   FImg := TPngImage.Create;
   FImg.LoadFromFile(TPath.GetDirectoryName(ParamStr(0)) + PathDelim + 'logo.png');
   pbPrincipal.Visible := VarAsType(dmPrincipal.GetParamValue('IMG_FUNDO_DASHBOARD'), varInteger) = 1;
+end;
+
+procedure TfrmPrincipal.dxNavBar1Group3Click(Sender: TObject);
+var
+  frmRelatorioEscalas: TFrmRelatorioEscala;
+begin
+  frmRelatorioEscala := TFrmRelatorioEscala.Create(Self);
+  try
+
+    dmPrincipal.FDQuery1.Close;
+    dmPrincipal.FDQuery1.SQL.Clear;
+    dmPrincipal.FDQuery1.sql.Add(' select * from localidades ');
+    dmPrincipal.FDQuery1.Open;
+
+
+ //   frmRelatorioEscala.frxDBDataset1.DataSet := dmPrincipal.FDQuery1;
+    frmRelatorioEscala.frxReport1.DataSet := frmRelatorioEscala.frxDBDataset1;
+    frmRelatorioEscala.frxReport1.ShowReport;
+
+  finally
+    FrmRelatorioEscala.Free;
+  end;
 end;
 
 procedure TfrmPrincipal.dxNavBarDashboardClick(Sender: TObject);
