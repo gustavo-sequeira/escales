@@ -275,8 +275,8 @@ begin
     dmPrincipal.FDQuery1.Open;
 
 
- //   frmRelatorioEscala.frxDBDataset1.DataSet := dmPrincipal.FDQuery1;
-    frmRelatorioEscala.frxReport1.DataSet := frmRelatorioEscala.frxDBDataset1;
+    frmRelatorioEscala.frxDBDataset1.DataSet := dmPrincipal.FDQuery1;
+//    frmRelatorioEscala.frxReport1.DataSet := frmRelatorioEscala.frxDBDataset1;
     frmRelatorioEscala.frxReport1.ShowReport;
 
   finally

@@ -14,10 +14,6 @@ type
   TFrmRelatorioEscala = class(TForm)
     frxReport1: TfrxReport;
     frxDBDataset1: TfrxDBDataset;
-    FDMemTable1: TFDMemTable;
-    FDMemTable1codigo: TIntegerField;
-    FDMemTable1nome: TStringField;
-    FDMemTable1descricao: TStringField;
   private
     { Private declarations }
   public

@@ -26,7 +26,9 @@ uses
   uFrmInclusaoObreiroEscala in 'uFrmInclusaoObreiroEscala.pas' {frmInclusaoObreiroEscala},
   uFraParametros in 'frames\uFraParametros.pas' {FraParametros: TFrame},
   uFrmSplash in 'uFrmSplash.pas' {frmSplash},
-  uFrmRelatorioEscala in 'uFrmRelatorioEscala.pas' {FrmRelatorioEscala};
+  uFrmRelatorioEscala in 'uFrmRelatorioEscala.pas' {FrmRelatorioEscala},
+  uEvento in 'class\uEvento.pas',
+  uFraEventos in 'frames\uFraEventos.pas' {FraEventos: TFrame};
 
 {$R *.res}
 
