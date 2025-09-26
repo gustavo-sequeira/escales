@@ -194,8 +194,6 @@ begin
   begin
     if pFrame = 'obreiros' then
     begin
- //     if TfraObreiros(gbTerciarioCenter.Controls[i]).emTransacao then
- //       Exit;
       fObreiro := TfraObreiros.Create(Self);
       fObreiro.Parent := gbTerciarioCenter;
       fObreiro.Align := alClient;
@@ -203,8 +201,6 @@ begin
     end
     else if pFrame = 'cargos' then
     begin
- //     if TfraCargos(TControl(FindComponent('TfraCargos'))).emTransacao then
- //       Exit;
       fCargo := TfraCargos.Create(Self);
       fCargo.Parent := gbTerciarioCenter;
       fCargo.Align := alClient;
@@ -213,8 +209,6 @@ begin
     end
     else if pFrame = 'localidades' then
     begin
- //     if TfraCargos(TControl(FindComponent('TfraCargos'))).emTransacao then
- //       Exit;
       fLocalidade := TfraLocalidades.Create(Self);
       fLocalidade.Parent := gbTerciarioCenter;
       fLocalidade.Align := alClient;
@@ -223,8 +217,6 @@ begin
     end
     else if pFrame = 'versiculos' then
     begin
- //     if TfraCargos(TControl(FindComponent('TfraCargos'))).emTransacao then
- //       Exit;
       fVersiculo := TfraVersiculos.Create(Self);
       fVersiculo.Parent := gbTerciarioCenter;
       fVersiculo.Align := alClient;
@@ -232,8 +224,6 @@ begin
     end
     else if pFrame = 'lembretes' then
     begin
- //     if TfraCargos(TControl(FindComponent('TfraCargos'))).emTransacao then
- //       Exit;
       fLembrete := TfraLembretes.Create(Self);
       fLembrete.Parent := gbTerciarioCenter;
       fLembrete.Align := alClient;
@@ -241,8 +231,6 @@ begin
     end
     else if pFrame = 'escalas' then
     begin
- //     if TfraCargos(TControl(FindComponent('TfraCargos'))).emTransacao then
- //       Exit;
       fEscala := TfraEscalas.Create(Self);
       fEscala.Parent := gbTerciarioCenter;
       fEscala.Align := alClient;
@@ -293,11 +281,24 @@ begin
 
     dmPrincipal.FDQuery1.Close;
     dmPrincipal.FDQuery1.SQL.Clear;
-    dmPrincipal.FDQuery1.sql.Add(' select * from localidades ');
+    dmPrincipal.FDQuery1.SQL.Add('   	select e.situacao, e.repete, e.dia, e.data, e.horario, e.turno, ');
+    dmPrincipal.FDQuery1.SQL.Add('	         e.codigo_evento, ev.nome as evento, l.nome as localidade, c.abreviacao, o.nome as obreiro ');
+    dmPrincipal.FDQuery1.SQL.Add('	    from escalas e ');
+    dmPrincipal.FDQuery1.SQL.Add('inner join eventos ev ');
+    dmPrincipal.FDQuery1.SQL.Add('        on e.codigo_evento = ev.codigo ');
+    dmPrincipal.FDQuery1.SQL.Add('inner join localidades l ');
+    dmPrincipal.FDQuery1.SQL.Add('        on e.codigo_localidade = l.codigo ');
+    dmPrincipal.FDQuery1.SQL.Add('inner join escalados es ');
+    dmPrincipal.FDQuery1.SQL.Add('        on e.codigo = es.codigo_escala ');
+    dmPrincipal.FDQuery1.SQL.Add('inner join obreiros o ');
+    dmPrincipal.FDQuery1.SQL.Add('        on es.codigo_obreiro = o.codigo ');
+    dmPrincipal.FDQuery1.SQL.Add('inner join cargos c ');
+    dmPrincipal.FDQuery1.SQL.Add('        on o.codigo_cargo = c.codigo ');
+    dmPrincipal.FDQuery1.SQL.Add('  order by e.data, e.horario, ev.nome, l.nome, o.nome ');
+
     dmPrincipal.FDQuery1.Open;
 
     frmRelatorioEscala.frxDBDataset1.DataSet := dmPrincipal.FDQuery1;
-//    frmRelatorioEscala.frxReport1.DataSet := frmRelatorioEscala.frxDBDataset1;
     frmRelatorioEscala.frxReport1.ShowReport;
 
   finally
