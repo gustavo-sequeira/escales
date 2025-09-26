@@ -3,13 +3,14 @@ unit uEscala;
 interface
 
 uses
-  uModeloBase, uLocalidade;
+  uModeloBase, uLocalidade, uEvento;
 
   {$M+}
 type
   TEscalas = class(TModeloBase)
   private
     FCodigo: Integer;
+    FEvento: TEventos;
     FLocalidade: TLocalidades;
     FData: TDate;
     FHorario: TTime;
@@ -20,6 +21,8 @@ type
   published
     [TPrimaryKey(True)]
     property Codigo: Integer read FCodigo write FCodigo;
+    [TForeignKey('Eventos', 'Codigo', 'codigo_evento')]
+    property Evento: TEventos read FEvento write FEvento;
     [TForeignKey('Localidades', 'Codigo', 'codigo_localidade')]
     property Localidade: TLocalidades read FLocalidade write FLocalidade;
     property Data: TDate read FData write FData;

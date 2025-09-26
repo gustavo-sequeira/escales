@@ -2561,6 +2561,9 @@ object frmPrincipal: TfrmPrincipal
             OptionsExpansion.Expanded = False
             Links = <
               item
+                Item = dxNavBarCadastroEventos
+              end
+              item
                 Item = dxNavBarCadastroCargos
               end
               item
@@ -2620,6 +2623,9 @@ object frmPrincipal: TfrmPrincipal
           end
           object dxNavBarCadastroVersiculos: TdxNavBarItem
             Action = actCadastroVersiculos
+          end
+          object dxNavBarCadastroEventos: TdxNavBarItem
+            Action = actCadastroEventos
           end
           object dxNavBar1Item8: TdxNavBarItem
             Action = actConfiguracaoParametros
@@ -2686,9 +2692,9 @@ object frmPrincipal: TfrmPrincipal
     Left = 550
     Top = 486
   end
-  object p: TActionManager
-    Left = 520
-    Top = 486
+  object ActionManager1: TActionManager
+    Left = 376
+    Top = 438
     StyleName = 'Platform Default'
     object actCadastroCargos: TAction
       Category = 'Cadastros'
@@ -2729,6 +2735,11 @@ object frmPrincipal: TfrmPrincipal
       Category = 'Configuracao'
       Caption = 'Sistema'
       OnExecute = actConfiguracaoParametrosExecute
+    end
+    object actCadastroEventos: TAction
+      Category = 'Cadastros'
+      Caption = 'Eventos'
+      OnExecute = actCadastroEventosExecute
     end
   end
 end

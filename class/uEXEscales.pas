@@ -25,6 +25,7 @@ type
   ExVersiculosException = class(ExEscalas);
   ExLembretesException = class(ExEscalas);
   ExEscalasException = class(ExEscalas);
+  ExEventosException = class(ExEscalas);
 
 implementation
 

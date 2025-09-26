@@ -6,10 +6,15 @@ inherited FraEscalas: TFraEscalas
     ExplicitHeight = 594
     Height = 594
     inherited pcFramePrincipal: TcxPageControl
-      Height = 572
+      Height = 570
+      ExplicitLeft = 3
+      ExplicitTop = 17
+      ExplicitWidth = 634
       ExplicitHeight = 570
-      ClientRectBottom = 572
+      ClientRectBottom = 570
       inherited tsConsulta: TcxTabSheet
+        ExplicitTop = 26
+        ExplicitWidth = 634
         ExplicitHeight = 544
         inherited pbConsulta: TPaintBox
           Height = 544
@@ -52,7 +57,22 @@ inherited FraEscalas: TFraEscalas
               Options.Moving = False
               Width = 90
             end
-            object grdFramePrincialDBTableView1desc_repete: TcxGridDBColumn [2]
+            object grdFramePrincialDBTableView1nome_evento: TcxGridDBColumn [2]
+              Caption = 'Evento'
+              DataBinding.FieldName = 'nome_evento'
+              PropertiesClassName = 'TcxTextEditProperties'
+              Properties.Alignment.Horz = taCenter
+              HeaderAlignmentHorz = taCenter
+              MinWidth = 120
+              Options.Editing = False
+              Options.Focusing = False
+              Options.ExpressionEditing = False
+              Options.Grouping = False
+              Options.HorzSizing = False
+              Options.Moving = False
+              Width = 120
+            end
+            object grdFramePrincialDBTableView1desc_repete: TcxGridDBColumn [3]
               Caption = 'Se repete?'
               DataBinding.FieldName = 'desc_repete'
               PropertiesClassName = 'TcxTextEditProperties'
@@ -65,7 +85,7 @@ inherited FraEscalas: TFraEscalas
               Options.Moving = False
               Width = 70
             end
-            object grdFramePrincialDBTableView1data_dia: TcxGridDBColumn [3]
+            object grdFramePrincialDBTableView1data_dia: TcxGridDBColumn [4]
               Caption = 'Data / Dia'
               DataBinding.FieldName = 'data_dia'
               PropertiesClassName = 'TcxTextEditProperties'
@@ -78,7 +98,7 @@ inherited FraEscalas: TFraEscalas
               Options.Moving = False
               Width = 90
             end
-            object grdFramePrincialDBTableView1data: TcxGridDBColumn [4]
+            object grdFramePrincialDBTableView1data: TcxGridDBColumn [5]
               DataBinding.FieldName = 'data'
               Visible = False
               MinWidth = 74
@@ -90,7 +110,7 @@ inherited FraEscalas: TFraEscalas
               Options.HorzSizing = False
               Options.Moving = False
             end
-            object grdFramePrincialDBTableView1dia: TcxGridDBColumn [5]
+            object grdFramePrincialDBTableView1dia: TcxGridDBColumn [6]
               DataBinding.FieldName = 'dia'
               Visible = False
               MinWidth = 74
@@ -102,7 +122,7 @@ inherited FraEscalas: TFraEscalas
               Options.HorzSizing = False
               Options.Moving = False
             end
-            object grdFramePrincialDBTableView1horario: TcxGridDBColumn [6]
+            object grdFramePrincialDBTableView1horario: TcxGridDBColumn [7]
               Caption = 'Hor'#225'rio'
               DataBinding.FieldName = 'horario'
               PropertiesClassName = 'TcxMaskEditProperties'
@@ -118,7 +138,7 @@ inherited FraEscalas: TFraEscalas
               Options.HorzSizing = False
               Options.Moving = False
             end
-            object grdFramePrincialDBTableView1turno: TcxGridDBColumn [7]
+            object grdFramePrincialDBTableView1turno: TcxGridDBColumn [8]
               Caption = 'Turno'
               DataBinding.FieldName = 'turno'
               PropertiesClassName = 'TcxTextEditProperties'
@@ -132,7 +152,7 @@ inherited FraEscalas: TFraEscalas
               Options.HorzSizing = False
               Options.Moving = False
             end
-            object grdFramePrincialDBTableView1repete: TcxGridDBColumn [8]
+            object grdFramePrincialDBTableView1repete: TcxGridDBColumn [9]
               Caption = 'Repete'
               DataBinding.FieldName = 'repete'
               Visible = False
@@ -144,7 +164,7 @@ inherited FraEscalas: TFraEscalas
               Options.HorzSizing = False
               Options.Moving = False
             end
-            object grdFramePrincialDBTableView1codigo_localidade: TcxGridDBColumn [9]
+            object grdFramePrincialDBTableView1codigo_localidade: TcxGridDBColumn [10]
               DataBinding.FieldName = 'codigo_localidade'
               Visible = False
               MinWidth = 74
@@ -156,18 +176,18 @@ inherited FraEscalas: TFraEscalas
               Options.HorzSizing = False
               Options.Moving = False
             end
-            object grdFramePrincialDBTableView1nome_localidade: TcxGridDBColumn [10]
+            object grdFramePrincialDBTableView1nome_localidade: TcxGridDBColumn [11]
               Caption = 'Localidade'
               DataBinding.FieldName = 'nome_localidade'
               PropertiesClassName = 'TcxTextEditProperties'
               Properties.Alignment.Horz = taLeftJustify
               HeaderAlignmentHorz = taCenter
-              MinWidth = 270
+              MinWidth = 200
               Options.Focusing = False
               Options.Grouping = False
               Options.HorzSizing = False
               Options.Moving = False
-              Width = 270
+              Width = 200
             end
             inherited grdFramePrincialDBTableView1ColEdicao: TcxGridDBColumn
               MinWidth = 25
@@ -179,20 +199,28 @@ inherited FraEscalas: TFraEscalas
               Options.Grouping = False
               Options.HorzSizing = False
             end
+            object grdFramePrincialDBTableView1codigo_evento: TcxGridDBColumn
+              DataBinding.FieldName = 'codigo_evento'
+              Visible = False
+              Options.Editing = False
+              Options.Filtering = False
+              Options.Grouping = False
+            end
           end
         end
       end
       inherited tsManutencao: TcxTabSheet
         ExplicitHeight = 544
         inherited pbManutencao: TPaintBox
-          Height = 546
+          Height = 544
           ExplicitHeight = 544
         end
         inherited gbFramePrincipal: TcxGroupBox
           ExplicitHeight = 462
           Height = 462
           inherited Image1: TImage
-            Height = 458
+            Height = 456
+            ExplicitHeight = 458
           end
           inherited gbFrameSecundario: TcxGroupBox
             ExplicitHeight = 355
@@ -218,7 +246,7 @@ inherited FraEscalas: TFraEscalas
               object cxLabel2: TcxLabel
                 AlignWithMargins = True
                 Left = 2
-                Top = 61
+                Top = 86
                 Margins.Left = 0
                 Margins.Right = 0
                 Margins.Bottom = 0
@@ -227,13 +255,14 @@ inherited FraEscalas: TFraEscalas
                 Caption = 'Localidade'
                 Properties.Alignment.Horz = taLeftJustify
                 Transparent = True
+                ExplicitTop = 61
                 Height = 25
                 Width = 146
               end
               object lbData: TcxLabel
                 AlignWithMargins = True
                 Left = 2
-                Top = 89
+                Top = 114
                 Margins.Left = 0
                 Margins.Right = 0
                 Margins.Bottom = 0
@@ -242,38 +271,41 @@ inherited FraEscalas: TFraEscalas
                 Caption = 'Data'
                 Properties.Alignment.Horz = taLeftJustify
                 Transparent = True
+                ExplicitTop = 89
                 Height = 25
                 Width = 146
               end
               object cxLabel3: TcxLabel
                 AlignWithMargins = True
                 Left = 2
-                Top = 142
+                Top = 58
                 Margins.Left = 0
                 Margins.Top = 0
                 Margins.Right = 0
                 Margins.Bottom = 0
                 Align = alTop
                 AutoSize = False
-                Caption = 'Turno'
+                Caption = 'Evento'
                 Properties.Alignment.Horz = taLeftJustify
                 Transparent = True
+                ExplicitLeft = 9
+                ExplicitTop = 46
                 Height = 25
                 Width = 146
               end
               object cxLabel5: TcxLabel
                 AlignWithMargins = True
                 Left = 2
-                Top = 117
+                Top = 142
                 Margins.Left = 0
                 Margins.Right = 0
                 Margins.Bottom = 0
                 Align = alTop
                 AutoSize = False
-                Caption = 'Hor'#225'rio'
+                Caption = 'Hor'#225'rio / Turno'
                 Properties.Alignment.Horz = taLeftJustify
                 Transparent = True
-                Height = 25
+                Height = 23
                 Width = 146
               end
               object cxLabel6: TcxLabel
@@ -317,7 +349,7 @@ inherited FraEscalas: TFraEscalas
               object cbSituacao: TcxComboBox
                 AlignWithMargins = True
                 Left = 2
-                Top = 29
+                Top = 33
                 Margins.Left = 0
                 Margins.Right = 0
                 Margins.Bottom = 0
@@ -338,13 +370,12 @@ inherited FraEscalas: TFraEscalas
                 Style.Font.Style = []
                 Style.IsFontAssigned = True
                 TabOrder = 1
-                ExplicitTop = 33
                 Width = 248
               end
               object cbLocalidade: TcxComboBox
                 AlignWithMargins = True
                 Left = 2
-                Top = 53
+                Top = 89
                 Margins.Left = 0
                 Margins.Right = 0
                 Margins.Bottom = 0
@@ -360,7 +391,7 @@ inherited FraEscalas: TFraEscalas
                 Style.Font.Name = 'Segoe UI'
                 Style.Font.Style = []
                 Style.IsFontAssigned = True
-                TabOrder = 2
+                TabOrder = 3
                 OnEditing = cbLocalidadeEditing
                 OnEnter = cbLocalidadeEnter
                 ExplicitTop = 61
@@ -369,7 +400,7 @@ inherited FraEscalas: TFraEscalas
               object cxGroupBox5: TcxGroupBox
                 AlignWithMargins = True
                 Left = 2
-                Top = 77
+                Top = 117
                 Margins.Left = 0
                 Margins.Right = 0
                 Margins.Bottom = 0
@@ -377,8 +408,9 @@ inherited FraEscalas: TFraEscalas
                 PanelStyle.Active = True
                 Style.BorderStyle = ebsNone
                 Style.TransparentBorder = False
-                TabOrder = 3
+                TabOrder = 4
                 Transparent = True
+                ExplicitTop = 89
                 Height = 23
                 Width = 248
                 object dtData: TcxDateEdit
@@ -398,7 +430,7 @@ inherited FraEscalas: TFraEscalas
                   Style.IsFontAssigned = True
                   TabOrder = 0
                   OnEditing = dtDataEditing
-                  ExplicitHeight = 21
+                  ExplicitLeft = -1
                   Width = 167
                 end
                 object chbRepetir: TcxCheckBox
@@ -453,58 +485,108 @@ inherited FraEscalas: TFraEscalas
                   Width = 91
                 end
               end
-              object hrHorario: TcxTimeEdit
+              object cxGroupBox6: TcxGroupBox
                 AlignWithMargins = True
                 Left = 2
-                Top = 103
+                Top = 143
                 Margins.Left = 0
                 Margins.Right = 0
                 Margins.Bottom = 0
                 Align = alTop
-                AutoSize = False
+                PanelStyle.Active = True
+                Style.BorderStyle = ebsNone
+                Style.TransparentBorder = False
+                TabOrder = 5
+                Transparent = True
+                Height = 23
+                Width = 248
+                object lbTurno: TcxLabel
+                  AlignWithMargins = True
+                  Left = 148
+                  Top = 0
+                  Margins.Left = 0
+                  Margins.Top = 0
+                  Margins.Right = 0
+                  Margins.Bottom = 0
+                  Align = alRight
+                  AutoSize = False
+                  Caption = 'Manh'#227
+                  ParentFont = False
+                  Style.Font.Charset = DEFAULT_CHARSET
+                  Style.Font.Color = clWindowText
+                  Style.Font.Height = -12
+                  Style.Font.Name = 'Segoe UI'
+                  Style.Font.Style = [fsBold]
+                  Style.IsFontAssigned = True
+                  Properties.Alignment.Horz = taCenter
+                  Properties.Alignment.Vert = taVCenter
+                  Transparent = True
+                  ExplicitLeft = 179
+                  ExplicitTop = 3
+                  ExplicitHeight = 19
+                  Height = 23
+                  Width = 100
+                  AnchorX = 198
+                  AnchorY = 12
+                end
+                object hrHorario: TcxTimeEdit
+                  Left = 0
+                  Top = 0
+                  Margins.Left = 0
+                  Margins.Top = 0
+                  Margins.Right = 0
+                  Margins.Bottom = 0
+                  Align = alClient
+                  AutoSize = False
+                  ParentFont = False
+                  Properties.Alignment.Horz = taCenter
+                  Properties.SpinButtons.Visible = False
+                  Properties.TimeFormat = tfHourMin
+                  Properties.UseCtrlIncrement = True
+                  Properties.UseLeftAlignmentOnEditing = False
+                  Properties.OnChange = hrHorarioPropertiesChange
+                  Style.Font.Charset = DEFAULT_CHARSET
+                  Style.Font.Color = clWindowText
+                  Style.Font.Height = -13
+                  Style.Font.Name = 'Segoe UI'
+                  Style.Font.Style = []
+                  Style.LookAndFeel.NativeStyle = False
+                  Style.IsFontAssigned = True
+                  StyleDisabled.LookAndFeel.NativeStyle = False
+                  StyleFocused.LookAndFeel.NativeStyle = False
+                  StyleHot.LookAndFeel.NativeStyle = False
+                  TabOrder = 0
+                  OnEditing = hrHorarioEditing
+                  ExplicitTop = 3
+                  ExplicitWidth = 195
+                  ExplicitHeight = 99
+                  Height = 23
+                  Width = 148
+                end
+              end
+              object cbEvento: TcxComboBox
+                AlignWithMargins = True
+                Left = 2
+                Top = 61
+                Margins.Left = 0
+                Margins.Right = 0
+                Margins.Bottom = 0
+                Align = alTop
                 ParentFont = False
                 Properties.Alignment.Horz = taCenter
-                Properties.SpinButtons.Visible = False
-                Properties.TimeFormat = tfHourMin
-                Properties.UseCtrlIncrement = True
+                Properties.DropDownListStyle = lsFixedList
+                Properties.PopupAlignment = taCenter
                 Properties.UseLeftAlignmentOnEditing = False
-                Properties.OnChange = hrHorarioPropertiesChange
                 Style.Font.Charset = DEFAULT_CHARSET
                 Style.Font.Color = clWindowText
                 Style.Font.Height = -13
                 Style.Font.Name = 'Segoe UI'
                 Style.Font.Style = []
-                Style.LookAndFeel.NativeStyle = False
                 Style.IsFontAssigned = True
-                StyleDisabled.LookAndFeel.NativeStyle = False
-                StyleFocused.LookAndFeel.NativeStyle = False
-                StyleHot.LookAndFeel.NativeStyle = False
-                TabOrder = 4
-                OnEditing = hrHorarioEditing
-                Height = 25
+                TabOrder = 2
+                OnEditing = cbLocalidadeEditing
+                OnEnter = cbLocalidadeEnter
                 Width = 248
-              end
-              object lbTurno: TcxLabel
-                AlignWithMargins = True
-                Left = 2
-                Top = 131
-                Margins.Left = 0
-                Margins.Right = 0
-                Margins.Bottom = 0
-                Align = alTop
-                Caption = 'Manh'#227
-                ParentFont = False
-                Style.Font.Charset = DEFAULT_CHARSET
-                Style.Font.Color = clWindowText
-                Style.Font.Height = -12
-                Style.Font.Name = 'Segoe UI'
-                Style.Font.Style = [fsBold]
-                Style.IsFontAssigned = True
-                Properties.Alignment.Horz = taCenter
-                Properties.Alignment.Vert = taVCenter
-                Transparent = True
-                AnchorX = 126
-                AnchorY = 141
               end
             end
             object cxGroupBox3: TcxGroupBox
@@ -513,56 +595,49 @@ inherited FraEscalas: TFraEscalas
               Align = alBottom
               PanelStyle.Active = True
               TabOrder = 2
+              ExplicitLeft = 3
+              ExplicitTop = 177
               Height = 178
               Width = 402
               object cxGroupBox4: TcxGroupBox
                 AlignWithMargins = True
-                Left = 5
-                Top = 5
+                Left = 6
+                Top = 6
                 Align = alTop
                 PanelStyle.Active = True
                 TabOrder = 0
-                ExplicitLeft = 6
-                ExplicitTop = 6
-                ExplicitWidth = 390
                 Height = 37
-                Width = 392
+                Width = 390
                 object cxButton1: TcxButton
                   AlignWithMargins = True
-                  Left = 277
-                  Top = 5
+                  Left = 274
+                  Top = 6
                   Width = 110
-                  Height = 27
+                  Height = 25
                   Align = alRight
                   Caption = '&Autom'#225'tico'
                   OptionsImage.ImageIndex = 5
                   OptionsImage.Images = cxImageList
                   TabOrder = 2
                   OnClick = cxButton1Click
-                  ExplicitLeft = 274
-                  ExplicitTop = 6
-                  ExplicitHeight = 25
                 end
                 object cxButton2: TcxButton
                   AlignWithMargins = True
-                  Left = 161
-                  Top = 5
+                  Left = 158
+                  Top = 6
                   Width = 110
-                  Height = 27
+                  Height = 25
                   Align = alRight
                   Caption = '&Manual'
                   OptionsImage.ImageIndex = 4
                   OptionsImage.Images = cxImageList
-                  TabOrder = 0
+                  TabOrder = 1
                   OnClick = cxButton2Click
-                  ExplicitLeft = 158
-                  ExplicitTop = 6
-                  ExplicitHeight = 25
                 end
                 object cxLabel1: TcxLabel
                   AlignWithMargins = True
-                  Left = 2
-                  Top = 5
+                  Left = 3
+                  Top = 6
                   Margins.Left = 0
                   Margins.Right = 0
                   Margins.Bottom = 0
@@ -572,28 +647,20 @@ inherited FraEscalas: TFraEscalas
                   Properties.Alignment.Horz = taCenter
                   Properties.Alignment.Vert = taVCenter
                   Transparent = True
-                  ExplicitLeft = 3
-                  ExplicitTop = 6
-                  ExplicitWidth = 152
-                  ExplicitHeight = 28
-                  Height = 30
-                  Width = 156
-                  AnchorX = 80
+                  Height = 28
+                  Width = 152
+                  AnchorX = 79
                   AnchorY = 20
                 end
               end
               object cxGrid1: TcxGrid
                 AlignWithMargins = True
-                Left = 5
-                Top = 48
-                Width = 392
-                Height = 125
+                Left = 6
+                Top = 49
+                Width = 390
+                Height = 123
                 Align = alClient
                 TabOrder = 1
-                ExplicitLeft = 6
-                ExplicitTop = 49
-                ExplicitWidth = 390
-                ExplicitHeight = 123
                 object cxGrid1DBTableView1: TcxGridDBTableView
                   Navigator.Buttons.CustomButtons = <>
                   Navigator.InfoPanel.DisplayMask = '[RecordIndex] de [RecordCount]'
@@ -770,6 +837,14 @@ inherited FraEscalas: TFraEscalas
     object FDMemTable1desc_repete: TStringField
       FieldKind = fkCalculated
       FieldName = 'desc_repete'
+      Calculated = True
+    end
+    object FDMemTable1codigo_evento: TIntegerField
+      FieldName = 'codigo_evento'
+    end
+    object FDMemTable1nome_evento: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'nome_evento'
       Calculated = True
     end
   end

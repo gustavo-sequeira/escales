@@ -42,7 +42,6 @@ type
     dtData: TcxDateEdit;
     chbRepetir: TcxCheckBox;
     cbDiasSemana: TcxComboBox;
-    hrHorario: TcxTimeEdit;
     cxLabel1: TcxLabel;
     dsGridEscalados: TDataSource;
     memGridEscalados: TFDMemTable;
@@ -65,11 +64,18 @@ type
     memGridEscaladosnome: TWideMemoField;
     cxGrid1DBTableView1nome: TcxGridDBColumn;
     cxGrid1DBTableView1Exclusao: TcxGridDBColumn;
-    lbTurno: TcxLabel;
     grdFramePrincialDBTableView1desc_repete: TcxGridDBColumn;
     FDMemTable1nome_localidade: TStringField;
     FDMemTable1data_dia: TStringField;
     FDMemTable1desc_repete: TStringField;
+    cxGroupBox6: TcxGroupBox;
+    lbTurno: TcxLabel;
+    hrHorario: TcxTimeEdit;
+    cbEvento: TcxComboBox;
+    FDMemTable1codigo_evento: TIntegerField;
+    FDMemTable1nome_evento: TStringField;
+    grdFramePrincialDBTableView1codigo_evento: TcxGridDBColumn;
+    grdFramePrincialDBTableView1nome_evento: TcxGridDBColumn;
     procedure tsManutencaoShow(Sender: TObject);
     procedure hrHorarioPropertiesChange(Sender: TObject);
     procedure cxButton2Click(Sender: TObject);
@@ -97,7 +103,9 @@ type
     procedure ValidarAntesExcluir; override;
 
     procedure CarregarComboLocalidades;
+    procedure CarregarComboEventos;
     procedure PosicionarItemIndexLocalidade(ACodigoLocalidade: integer);
+    procedure PosicionarItemIndexEvento(ACodigoEvento: integer);
     procedure PosicionarItemIndexStatus;
     procedure AcaoCheckboxRepetir(checado: boolean);
     procedure PosicionarItemIndexDiaDaSemana;
@@ -105,6 +113,7 @@ type
     procedure SalvarEscalados(CodigoEscala: Integer);
     function PesquisarCodigoObreiro(ANomeObreiro: string): Integer;
     function PesquisarLocalidade(ACodigoLocalidade: integer): string;
+    function PesquisarEvento(ACodigoEvento: integer): string;
   end;
 
 var
@@ -115,7 +124,7 @@ implementation
 uses
   System.DateUtils, uDmPrincipal, uEscala, uEscalado, uModeloBase, uEXEscales,
   uLocalidade, uFrmInclusaoObreiroEscala, System.Types, uLibary, System.StrUtils,
-  Math;
+  Math, uEvento;
 
 {$R *.dfm}
 
@@ -138,6 +147,24 @@ begin
   Result := dmPrincipal.FDQuery1.Fields[0].AsInteger;
 end;
 
+function TFraEscalas.PesquisarEvento(ACodigoEvento: integer): string;
+begin
+  Result := EmptyStr;
+  dmPrincipal.FDQuery1.Close;
+  dmPrincipal.FDQuery1.SQL.Clear;
+  dmPrincipal.FDQuery1.SQL.Add('  select nome ');
+  dmPrincipal.FDQuery1.SQL.Add('    from eventos ');
+  dmPrincipal.FDQuery1.SQL.Add('   where codigo = :codigo');
+  dmPrincipal.FDQuery1.ParamByName('codigo').AsInteger := ACodigoEvento;
+  dmPrincipal.FDQuery1.Open;
+
+  if dmPrincipal.FDQuery1.IsEmpty then
+    Exit;
+
+  Result := dmPrincipal.FDQuery1.Fields[0].AsString;
+
+end;
+
 function TFraEscalas.PesquisarLocalidade(ACodigoLocalidade: integer): string;
 begin
   Result := EmptyStr;
@@ -153,7 +180,6 @@ begin
     Exit;
 
   Result := dmPrincipal.FDQuery1.Fields[0].AsString;
-
 end;
 
 procedure TFraEscalas.AcaoCheckboxRepetir(checado: boolean);
@@ -181,7 +207,32 @@ end;
 procedure TFraEscalas.btnFrameCancelarClick(Sender: TObject);
 begin
   inherited;
-  memGridEscalados.EmptyDataSet;
+  if memGridEscalados.Active then
+    memGridEscalados.EmptyDataSet;
+end;
+
+procedure TFraEscalas.CarregarComboEventos;
+begin
+  cbEvento.Properties.Items.Clear;
+
+  dmPrincipal.FDQuery1.Close;
+  dmPrincipal.FDQuery1.SQL.Clear;
+
+  dmPrincipal.FDQuery1.SQL.Add('	select nome ');
+  dmPrincipal.FDQuery1.SQL.Add('	  from eventos ');
+  dmPrincipal.FDQuery1.SQL.Add('  order by nome ');
+  dmPrincipal.FDQuery1.Open;
+
+  if dmPrincipal.FDQuery1.IsEmpty then
+    Exit;
+
+  dmPrincipal.FDQuery1.First;
+  while not dmPrincipal.FDQuery1.Eof do
+  begin
+    cbEvento.Properties.Items.Add(dmPrincipal.FDQuery1.FieldByName('nome').AsString);
+    dmPrincipal.FDQuery1.Next;
+  end;
+
 end;
 
 procedure TFraEscalas.CarregarComboLocalidades;
@@ -245,7 +296,7 @@ end;
 procedure TFraEscalas.cbLocalidadeEnter(Sender: TObject);
 begin
   inherited;
-FHabilitaValidacaoAntesSalvar := True;
+  FHabilitaValidacaoAntesSalvar := True;
 end;
 
 procedure TFraEscalas.chbRepetirClick(Sender: TObject);
@@ -505,12 +556,9 @@ begin
   FHabilitaValidacaoAntesSalvar := true;
   edtCodigo.Enabled := False;
   edtCodigo.Text := EmptyStr;
-  cbSituacao.ItemIndex := 0;
-
   inherited;
-
-  cbLocalidade.SetFocus;
-
+  cbSituacao.ItemIndex := 0;
+  cbEvento.SetFocus;        
   hrHorario.Time := Now;
   dtData.Date := now;
 
@@ -519,6 +567,8 @@ end;
 procedure TFraEscalas.FDMemTable1CalcFields(DataSet: TDataSet);
 begin
   inherited;
+
+  FDMemTable1nome_evento.AsString := PesquisarEvento(FDMemTable1codigo_evento.AsInteger);
 
   FDMemTable1nome_localidade.AsString := PesquisarLocalidade(FDMemTable1codigo_localidade.AsInteger);
 
@@ -676,15 +726,19 @@ end;
 procedure TFraEscalas.SalvarRegistro;
 var
   Escala: TEscalas;
+  Evento: TEventos;
   Localidade: TLocalidades;
 begin
   inherited;
 
   Escala := TEscalas.Create;
+  Evento := TEventos.Create;
   Localidade := TLocalidades.Create;
   try
     Escala.Codigo := StrToIntDef(edtCodigo.Text, 0);
     Escala.Situacao := cbSituacao.Text;
+    Evento.LoadFromField('NOME', cbEvento.Text);
+    Escala.Evento := Evento;
     Localidade.LoadFromField('NOME', cbLocalidade.Text);
     Escala.Localidade := Localidade;
     Escala.Data := dtData.Date;
@@ -695,6 +749,7 @@ begin
     Escala.Save;
     SalvarEscalados(Escala.Codigo);
   finally
+    Evento.Free;
     Localidade.Free;
     Escala.Free;
   end;
@@ -707,18 +762,37 @@ begin
   // aumentar o tamano do segundo frame (componentes em tela)
   gbFrameSecundario.Height := gbFramePrincipal.Height - (Round(gbFramePrincipal.Height * 0.15) + (btnFrameCancelar.Height));
 
+  CarregarComboEventos;
   CarregarComboLocalidades;
 
   if (not (Trim(edtCodigo.Text) = EmptyStr) and not (Trim(edtCodigo.Text) = '0')) then
   begin
     PosicionarItemIndexStatus;
     PosicionarItemIndexLocalidade(FDMemTable1.FieldByName('codigo_localidade').AsInteger);
+    PosicionarItemIndexEvento(FDMemTable1.FieldByName('codigo_evento').AsInteger);
   end;
 end;
 
 procedure TFraEscalas.PosicionarItemIndexDiaDaSemana;
 begin
   cbDiasSemana.ItemIndex := cbDiasSemana.Properties.Items.IndexOf(FDMemTable1.FieldByName('data_dia').AsString);
+end;
+
+procedure TFraEscalas.PosicionarItemIndexEvento(ACodigoEvento: integer);
+begin
+  dmPrincipal.FDQuery1.Close;
+  dmPrincipal.FDQuery1.SQL.Clear;
+  dmPrincipal.FDQuery1.SQL.Add('	select nome ');
+  dmPrincipal.FDQuery1.SQL.Add('	  from eventos ');
+  dmPrincipal.FDQuery1.SQL.Add('   where codigo = :codigo ');
+  dmPrincipal.FDQuery1.ParamByName('codigo').AsInteger := ACodigoEvento;
+  dmPrincipal.FDQuery1.Open;
+
+  if dmPrincipal.FDQuery1.IsEmpty then
+    Exit;
+
+  cbEvento.ItemIndex := cbEvento.Properties.Items.IndexOf(dmPrincipal.FDQuery1.FieldByName('nome').AsString);
+
 end;
 
 procedure TFraEscalas.PosicionarItemIndexLocalidade(ACodigoLocalidade: integer);
@@ -768,6 +842,12 @@ begin
   if Trim(cbSituacao.Text) = EmptyStr then
   begin
     raise ExEscalasException.Create('Para realizar a ' + vEstado + ' é necessário o campo: SITUAÇÃO. ', vCodException);
+    Abort;
+  end;
+
+  if Trim(cbEvento.Text) = EmptyStr then
+  begin
+    raise ExEscalasException.Create('Para realizar a ' + vEstado + ' é necessário o campo: EVENTO. ', vCodException);
     Abort;
   end;
 

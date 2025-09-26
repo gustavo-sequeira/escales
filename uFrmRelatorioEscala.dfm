@@ -67,8 +67,15 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
         FillType = ftBrush
         Frame.Typ = []
         Height = 22.677180000000000000
-        Top = 102.047310000000000000
+        Top = 185.196970000000000000
         Width = 718.110700000000000000
+      end
+      object GroupHeader1: TfrxGroupHeader
+        FillType = ftBrush
+        Frame.Typ = []
+        Height = 22.677180000000000000
+        Top = 102.047310000000000000
+        Width = 359.055350000000000000
       end
     end
   end

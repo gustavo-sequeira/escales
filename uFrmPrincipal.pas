@@ -46,7 +46,7 @@ type
     dxNavBarDashboardControl: TdxNavBarGroupControl;
     dxNavBar1Item8: TdxNavBarItem;
     dxNavBar1Item9: TdxNavBarItem;
-    p: TActionManager;
+    ActionManager1: TActionManager;
     actCadastroCargos: TAction;
     actCadastroObreiros: TAction;
     Action1: TAction;
@@ -57,6 +57,8 @@ type
     actConfiguracaoParametros: TAction;
     pbPrincipal: TPaintBox;
     Image1: TImage;
+    dxNavBarCadastroEventos: TdxNavBarItem;
+    actCadastroEventos: TAction;
     procedure actCadastroCargosExecute(Sender: TObject);
     procedure actCadastroObreirosExecute(Sender: TObject);
     procedure dxNavBarDashboardClick(Sender: TObject);
@@ -67,10 +69,11 @@ type
     procedure actConfiguracaoParametrosExecute(Sender: TObject);
     procedure pbPrincipalPaint(Sender: TObject);
     procedure dxNavBar1Group3Click(Sender: TObject);
+    procedure actCadastroEventosExecute(Sender: TObject);
 
   private
     { Private declarations }
-        FImg: TPngImage;
+    FImg: TPngImage;
   public
     { Public declarations }
     constructor Create(AOwner: TComponent); override;
@@ -84,8 +87,8 @@ implementation
 
 uses
   uFraObreiros, uFraModelo, uFraCargos, uFraLocalidades, uFraVersiculos,
-  uFraLembretes, uFraEscalas, Math, uFraParametros,System.IOUtils, uDmPrincipal,
-  uFrmSplash, uFrmRelatorioEscala;
+  uFraLembretes, uFraEscalas, Math, uFraParametros, System.IOUtils, uDmPrincipal,
+  uFrmSplash, uFrmRelatorioEscala, uFraEventos;
 
 {$R *.dfm}
 
@@ -116,6 +119,11 @@ begin
   ControleFrame('parametros');
 end;
 
+procedure TfrmPrincipal.actCadastroEventosExecute(Sender: TObject);
+begin
+  ControleFrame('eventos');
+end;
+
 procedure TfrmPrincipal.actCadastroEscalasExecute(Sender: TObject);
 begin
   ControleFrame('escalas');
@@ -128,7 +136,8 @@ end;
 
 procedure TfrmPrincipal.ControleFrame(pFrame: string; pLimparTodos: Boolean = False);
 var
-  fCargo, fObreiro, fLocalidade, fVersiculo, fLembrete, fEscala, fParametros: TFraModelo;
+  fCargo, fObreiro, fLocalidade, fVersiculo, fLembrete, fEscala, fParametros,
+  fEventos: TFraModelo;
   i: Integer;
 begin
 
@@ -167,6 +176,11 @@ begin
           Exit;
       end
       else if pFrame = 'parametros' then
+      begin
+        if TFraParametros(gbTerciarioCenter.Controls[i]).emTransacao then
+          Exit;
+      end
+      else if pFrame = 'eventos' then
       begin
         if TFraParametros(gbTerciarioCenter.Controls[i]).emTransacao then
           Exit;
@@ -239,7 +253,15 @@ begin
       fParametros := TFraParametros.Create(Self);
       fParametros.Parent := gbTerciarioCenter;
       fParametros.Align := alClient;
-      fParametros.pcFramePrincipal.ActivePageIndex := 0;    end;
+      fParametros.pcFramePrincipal.ActivePageIndex := 0;
+    end
+    else if pFrame = 'eventos' then
+    begin
+      fEventos := TFraEventos.Create(Self);
+      fEventos.Parent := gbTerciarioCenter;
+      fEventos.Align := alClient;
+      fEventos.pcFramePrincipal.ActivePageIndex := 0;
+    end;
   end;
 end;
 
@@ -274,7 +296,6 @@ begin
     dmPrincipal.FDQuery1.sql.Add(' select * from localidades ');
     dmPrincipal.FDQuery1.Open;
 
-
     frmRelatorioEscala.frxDBDataset1.DataSet := dmPrincipal.FDQuery1;
 //    frmRelatorioEscala.frxReport1.DataSet := frmRelatorioEscala.frxDBDataset1;
     frmRelatorioEscala.frxReport1.ShowReport;
@@ -296,7 +317,8 @@ var
   RatioImg, RatioBox: Double;
   NewWidth, NewHeight: Integer;
 begin
-  if (FImg = nil) or FImg.Empty then Exit;
+  if (FImg = nil) or FImg.Empty then
+    Exit;
 
   // proporção da imagem e do paintbox
   RatioImg := FImg.Width / FImg.Height;
@@ -316,9 +338,9 @@ begin
   end;
 
   // centraliza
-  DestRect.Left   := (pbPrincipal.Width - NewWidth) div 2;
-  DestRect.Top    := (pbPrincipal.Height - NewHeight) div 2;
-  DestRect.Right  := DestRect.Left + NewWidth;
+  DestRect.Left := (pbPrincipal.Width - NewWidth) div 2;
+  DestRect.Top := (pbPrincipal.Height - NewHeight) div 2;
+  DestRect.Right := DestRect.Left + NewWidth;
   DestRect.Bottom := DestRect.Top + NewHeight;
 
   // desenha redimensionando
