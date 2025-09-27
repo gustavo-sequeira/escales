@@ -18,7 +18,7 @@ uses
   cxGridTableView, cxGridDBTableView, cxGrid, uLibary, dxSkinOffice2010Blue,
   dxNavBarCollns, dxNavBarBase, dxNavBar, cxLabel, Vcl.ExtCtrls, System.Actions,
   Vcl.ActnList, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ActnMan, cxLocalization,
-  Vcl.Imaging.pngimage, dxGDIPlusClasses;
+  Vcl.Imaging.pngimage, dxGDIPlusClasses, dxSkinWXI;
 
 type
   TfrmPrincipal = class(TForm)

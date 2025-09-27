@@ -29,11 +29,11 @@
     <Transaction>2025/09/24 10:25:52.000.526,=C:\projetos\repositorios\escales\Unit1.pas</Transaction>
     <Transaction>2025/09/24 13:08:39.000.523,C:\projetos\repositorios\escales\Unit1.pas=C:\projetos\repositorios\escales\uFrmRelatorioEscala.pas</Transaction>
     <Transaction>2025/09/24 13:08:39.000.523,C:\projetos\repositorios\escales\Unit1.dfm=C:\projetos\repositorios\escales\uFrmRelatorioEscala.dfm</Transaction>
-    <Transaction>2025/09/25 17:34:21.609,=C:\projetos\repositorios\escales\Unit1.pas</Transaction>
-    <Transaction>2025/09/25 17:34:55.798,C:\projetos\repositorios\escales\class\uEvento.pas=C:\projetos\repositorios\escales\Unit1.pas</Transaction>
-    <Transaction>2025/09/25 17:35:12.641,=C:\projetos\repositorios\escales\Unit1.pas</Transaction>
-    <Transaction>2025/09/25 17:36:20.260,C:\projetos\repositorios\escales\frames\uFraEventos.pas=C:\projetos\repositorios\escales\Unit1.pas</Transaction>
-    <Transaction>2025/09/25 17:36:20.260,C:\projetos\repositorios\escales\frames\uFraEventos.dfm=C:\projetos\repositorios\escales\Unit1.dfm</Transaction>
+    <Transaction>2025/09/25 17:34:21.000.609,=C:\projetos\repositorios\escales\Unit1.pas</Transaction>
+    <Transaction>2025/09/25 17:34:55.000.798,C:\projetos\repositorios\escales\class\uEvento.pas=C:\projetos\repositorios\escales\Unit1.pas</Transaction>
+    <Transaction>2025/09/25 17:35:12.000.641,=C:\projetos\repositorios\escales\Unit1.pas</Transaction>
+    <Transaction>2025/09/25 17:36:20.000.260,C:\projetos\repositorios\escales\frames\uFraEventos.pas=C:\projetos\repositorios\escales\Unit1.pas</Transaction>
+    <Transaction>2025/09/25 17:36:20.000.260,C:\projetos\repositorios\escales\frames\uFraEventos.dfm=C:\projetos\repositorios\escales\Unit1.dfm</Transaction>
   </Transactions>
 	<BT_BuildType>Debug</BT_BuildType>
 </BorlandProject>
