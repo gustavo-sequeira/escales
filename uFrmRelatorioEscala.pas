@@ -10,7 +10,7 @@ uses
   FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
   FireDAC.Comp.Client, frxDBSet, FireDAC.UI.Intf, FireDAC.Stan.Def,
   FireDAC.Stan.Pool, FireDAC.Phys, FireDAC.Phys.PG, FireDAC.Phys.PGDef,
-  FireDAC.VCLUI.Wait;
+  FireDAC.VCLUI.Wait, frxSmartMemo, frCoreClasses;
 
 type
   TFrmRelatorioEscala = class(TForm)
@@ -91,6 +91,20 @@ JOIN dias_tabela dref ON c.dow = dref.dow   -- pega só os dias que estão cadastr
 LEFT JOIN dias_tabela d ON d.data = c.data_dia  -- se já existe registro na data, sobrescreve
 ORDER BY c.data_dia, d.codigo NULLS LAST;
 
+                                  ------------------------
+
+
+
+
+    SELECT
+		case
+		c.date AS data,
+		to_char(c.date, 'TMDay') as dia,
+		d.turno,
+		d.horario
+    FROM generate_series('2025-09-01'::date, '2025-09-30'::date, interval '1 day') c
+    inner join ( select horario, turno, dia, repete from escalas where repete = 1 ) d on lower(to_char(c.date, 'TMDay')) = lower(d.dia)
+    inner join ( select horario, turno, data, repete from escalas where repete = 0 ) r on lower(to_char(c.date, 'TMDay')) = lower(to_char(r.data, 'TMDay'))
 
 
 }

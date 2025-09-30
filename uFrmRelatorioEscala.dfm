@@ -10,11 +10,9 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = True
-  PixelsPerInch = 96
   TextHeight = 13
   object frxReport1: TfrxReport
-    Version = '6.7.9'
+    Version = '2024.1.0'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     OldStyleProgress = True
@@ -45,6 +43,8 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
       Width = 1000.000000000000000000
     end
     object Page1: TfrxReportPage
+      VGuides.Strings = (
+        '213')
       PaperWidth = 210.000000000000000000
       PaperHeight = 297.000000000000000000
       PaperSize = 9
@@ -59,10 +59,12 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
         '95')
       Frame.Typ = []
       MirrorMode = []
-      VGuides.Strings = (
-        '213')
       object PageHeader1: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 123.677181670000000000
         Top = 18.897650000000000000
@@ -2369,6 +2371,10 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
       end
       object PageFooter1: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 3.992270000000000000
         Top = 393.071120000000000000
@@ -2376,6 +2382,10 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
       end
       object GroupHeader1: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2390,6 +2400,10 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
       end
       object GroupHeader2: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2471,6 +2485,10 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
       end
       object MasterData1: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 17.007871570000000000
         Top = 313.700990000000000000
@@ -2542,6 +2560,10 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
       end
       object ColumnHeader1: TfrxColumnHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 166.299320000000000000
@@ -2624,6 +2646,10 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
       MirrorMode = []
       object MasterData3: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 18.897650000000000000
@@ -2648,6 +2674,7 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
     CloseDataSource = False
     DataSet = dmPrincipal.FDQuery1
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 144
     Top = 104
   end
