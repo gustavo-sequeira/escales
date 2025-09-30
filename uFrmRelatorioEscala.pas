@@ -10,12 +10,23 @@ uses
   FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
   FireDAC.Comp.Client, frxDBSet, FireDAC.UI.Intf, FireDAC.Stan.Def,
   FireDAC.Stan.Pool, FireDAC.Phys, FireDAC.Phys.PG, FireDAC.Phys.PGDef,
-  FireDAC.VCLUI.Wait, frxSmartMemo, frCoreClasses;
+  FireDAC.VCLUI.Wait;
 
 type
   TFrmRelatorioEscala = class(TForm)
     frxReport1: TfrxReport;
     frxDBDataset1: TfrxDBDataset;
+    FDMemTable1: TFDMemTable;
+    FDMemTable1codigo: TIntegerField;
+    FDMemTable1data: TDateField;
+    FDMemTable1turno: TStringField;
+    FDMemTable1horario: TStringField;
+    FDMemTable1codigo_evento: TIntegerField;
+    FDMemTable1evento: TStringField;
+    FDMemTable1codigo_localidade: TIntegerField;
+    FDMemTable1localidade: TStringField;
+    FDMemTable1obreiro: TStringField;
+    FDMemTable1dia: TStringField;
   private
     { Private declarations }
   public
