@@ -1,9 +1,9 @@
 object FrmRelatorioEscala: TFrmRelatorioEscala
   Left = 0
   Top = 0
-  Caption = 'FrmRelatorioEscala'
-  ClientHeight = 209
-  ClientWidth = 455
+  BorderStyle = bsNone
+  ClientHeight = 147
+  ClientWidth = 267
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,8 +11,88 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = True
+  Position = poScreenCenter
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
+  object cxGroupBox1: TcxGroupBox
+    AlignWithMargins = True
+    Left = 3
+    Top = 3
+    Align = alClient
+    Caption = 'Gera'#231#227'o de escalas'
+    TabOrder = 0
+    ExplicitHeight = 166
+    Height = 141
+    Width = 261
+    object cbMeses: TcxComboBox
+      Left = 27
+      Top = 53
+      ParentFont = False
+      Properties.Alignment.Horz = taCenter
+      Properties.CharCase = ecUpperCase
+      Properties.DropDownListStyle = lsEditFixedList
+      Properties.DropDownRows = 12
+      Properties.HideSelection = False
+      Properties.Items.Strings = (
+        'Janeiro'
+        #10#10'Fevereiro'
+        #10#10'Mar'#231'o'
+        #10#10'Abril'
+        #10#10'Maio'
+        #10#10'Junho'
+        #10#10'Julho'
+        #10#10'Agosto'
+        #10#10'Setembro'#10
+        #10'Outubro'
+        #10#10'Novembro'#10
+        #10'Dezembro')
+      Properties.UseLeftAlignmentOnEditing = False
+      Style.Font.Charset = DEFAULT_CHARSET
+      Style.Font.Color = clWindowText
+      Style.Font.Height = -16
+      Style.Font.Name = 'Tahoma'
+      Style.Font.Style = []
+      Style.LookAndFeel.NativeStyle = False
+      Style.IsFontAssigned = True
+      StyleDisabled.LookAndFeel.NativeStyle = False
+      StyleFocused.LookAndFeel.NativeStyle = False
+      StyleHot.LookAndFeel.NativeStyle = False
+      TabOrder = 0
+      Width = 206
+    end
+    object cxLabel1: TcxLabel
+      Left = 55
+      Top = 24
+      Caption = 'Selecione um m'#234's'
+      ParentFont = False
+      Style.Font.Charset = DEFAULT_CHARSET
+      Style.Font.Color = clWindowText
+      Style.Font.Height = -16
+      Style.Font.Name = 'Tahoma'
+      Style.Font.Style = [fsBold]
+      Style.IsFontAssigned = True
+      Transparent = True
+    end
+    object cxButton1: TcxButton
+      Left = 45
+      Top = 96
+      Width = 75
+      Height = 25
+      Caption = 'Ok'
+      ModalResult = 1
+      TabOrder = 2
+    end
+    object cxButton2: TcxButton
+      Left = 126
+      Top = 96
+      Width = 75
+      Height = 25
+      Caption = 'Cancelar'
+      ModalResult = 2
+      TabOrder = 3
+    end
+  end
   object frxReport1: TfrxReport
     Version = '6.7.9'
     DotMatrixReport = False
@@ -31,12 +111,16 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
       'begin'
       ''
       'end.')
-    Left = 304
-    Top = 104
+    Left = 193
+    Top = 103
     Datasets = <
       item
-        DataSet = frxDBDataset1
-        DataSetName = 'frxDBDataset1'
+        DataSet = frxDBDatasetLocalidade
+        DataSetName = 'frxDBDatasetLocalidade'
+      end
+      item
+        DataSet = frxDBDatasetPrincipal
+        DataSetName = 'frxDBDatasetPrincipal'
       end>
     Variables = <>
     Style = <>
@@ -64,12 +148,16 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
         '95')
       Frame.Typ = []
       MirrorMode = []
-      VGuides.Strings = (
-        '386,85838')
       object PageHeader1: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = []
         Height = 97.220471670000000000
+        ParentFont = False
         Top = 128.504020000000000000
         Width = 718.110700000000000000
         object TfrxMemoView
@@ -80,12 +168,20 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
           AllowVectorExport = True
           Frame.Typ = []
         end
+        object Subreport1: TfrxSubreport
+          AllowVectorExport = True
+          Left = 86.929190000000000000
+          Top = 56.692950000000000000
+          Width = 94.488250000000000000
+          Height = 18.897650000000000000
+          Page = frxReport1.Page2
+        end
       end
       object PageFooter1: TfrxPageFooter
         FillType = ftBrush
         Frame.Typ = []
         Height = 11.338582677165350000
-        Top = 514.016080000000000000
+        Top = 468.661720000000000000
         Width = 718.110700000000000000
         object Page: TfrxMemoView
           IndexTag = 1
@@ -158,12 +254,12 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
           Width = 355.275820000000000000
           Height = 15.118107800000000000
           DataField = 'data'
-          DataSet = frxDBDataset1
-          DataSetName = 'frxDBDataset1'
+          DataSet = frxDBDatasetPrincipal
+          DataSetName = 'frxDBDatasetPrincipal'
           Frame.Typ = []
           Fill.BackColor = clBlack
           Memo.UTF8W = (
-            '[frxDBDataset1."data"]')
+            '[frxDBDatasetPrincipal."data"]')
         end
         object Memo15: TfrxMemoView
           IndexTag = 1
@@ -172,8 +268,8 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
           Top = 0.377952760000027800
           Width = 253.228510000000000000
           Height = 15.118120000000000000
-          DataSet = frxDBDataset1
-          DataSetName = 'frxDBDataset1'
+          DataSet = frxDBDatasetPrincipal
+          DataSetName = 'frxDBDatasetPrincipal'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
           Font.Height = -11
@@ -203,8 +299,8 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
           Top = 0.377952760000027800
           Width = 253.228510000000000000
           Height = 15.118120000000000000
-          DataSet = frxDBDataset1
-          DataSetName = 'frxDBDataset1'
+          DataSet = frxDBDatasetPrincipal
+          DataSetName = 'frxDBDatasetPrincipal'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
           Font.Height = -11
@@ -219,11 +315,11 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
       object MasterData1: TfrxMasterData
         FillType = ftBrush
         Frame.Typ = []
-        Height = 15.118110236220470000
+        Height = 15.118110240000000000
         Top = 393.071120000000000000
         Width = 355.275820000000000000
-        DataSet = frxDBDataset1
-        DataSetName = 'frxDBDataset1'
+        DataSet = frxDBDatasetPrincipal
+        DataSetName = 'frxDBDatasetPrincipal'
         RowCount = 0
         object frxDBDataset1obreiro: TfrxMemoView
           IndexTag = 1
@@ -232,8 +328,8 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
           Width = 158.740260000000000000
           Height = 15.118120000000000000
           DataField = 'obreiro'
-          DataSet = frxDBDataset1
-          DataSetName = 'frxDBDataset1'
+          DataSet = frxDBDatasetPrincipal
+          DataSetName = 'frxDBDatasetPrincipal'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
@@ -241,7 +337,7 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
           Font.Style = []
           Frame.Typ = []
           Memo.UTF8W = (
-            '[frxDBDataset1."obreiro"]')
+            '[frxDBDatasetPrincipal."obreiro"]')
           ParentFont = False
         end
         object frxDBDataset1codigo_evento: TfrxMemoView
@@ -250,8 +346,8 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
           Left = 165.299320000000000000
           Width = 37.795275590000000000
           Height = 15.118120000000000000
-          DataSet = frxDBDataset1
-          DataSetName = 'frxDBDataset1'
+          DataSet = frxDBDatasetPrincipal
+          DataSetName = 'frxDBDatasetPrincipal'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
@@ -269,8 +365,8 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
           Left = 207.874150000000000000
           Width = 147.401645590000000000
           Height = 15.118120000000000000
-          DataSet = frxDBDataset1
-          DataSetName = 'frxDBDataset1'
+          DataSet = frxDBDatasetPrincipal
+          DataSetName = 'frxDBDatasetPrincipal'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
@@ -286,7 +382,7 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
       object ColumnHeader1: TfrxColumnHeader
         FillType = ftBrush
         Frame.Typ = []
-        Height = 20.787401574803150000
+        Height = 20.787401570000000000
         Top = 249.448980000000000000
         Width = 355.275820000000000000
         object Memo10: TfrxMemoView
@@ -2642,32 +2738,45 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
           VAlign = vaCenter
         end
       end
-      object Footer1: TfrxFooter
+    end
+    object Page2: TfrxReportPage
+      PaperWidth = 210.000000000000000000
+      PaperHeight = 297.000000000000000000
+      PaperSize = 9
+      LeftMargin = 10.000000000000000000
+      RightMargin = 10.000000000000000000
+      TopMargin = 10.000000000000000000
+      BottomMargin = 10.000000000000000000
+      ColumnWidth = 94.000000000000000000
+      Frame.Typ = []
+      MirrorMode = []
+      object MasterData2: TfrxMasterData
         FillType = ftBrush
         Frame.Typ = []
         Height = 22.677180000000000000
-        Top = 430.866420000000000000
-        Width = 355.275820000000000000
-        object Memo17: TfrxMemoView
+        Top = 18.897650000000000000
+        Width = 718.110700000000000000
+        DataSet = frxDBDatasetEvento
+        DataSetName = 'frxDBDatasetEvento'
+        RowCount = 0
+        object frxDBDatasetLocalidadelocalidade: TfrxMemoView
+          IndexTag = 1
           AllowVectorExport = True
-          Left = 22.677180000000000000
-          Width = 94.488250000000000000
+          Left = 7.559060000000000000
+          Width = 158.740260000000000000
           Height = 18.897650000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -13
-          Font.Name = 'Arial'
-          Font.Style = []
+          DataField = 'localidade'
+          DataSet = frxDBDatasetLocalidade
+          DataSetName = 'frxDBDatasetLocalidade'
           Frame.Typ = []
           Memo.UTF8W = (
-            'teste')
-          ParentFont = False
+            '[frxDBDatasetLocalidade."localidade"]')
         end
       end
     end
   end
-  object frxDBDataset1: TfrxDBDataset
-    UserName = 'frxDBDataset1'
+  object frxDBDatasetPrincipal: TfrxDBDataset
+    UserName = 'frxDBDatasetPrincipal'
     CloseDataSource = False
     FieldAliases.Strings = (
       'codigo=codigo'
@@ -2682,8 +2791,8 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
       'obreiro=obreiro')
     DataSet = FDMemTable1
     BCDToCurrency = False
-    Left = 144
-    Top = 104
+    Left = 73
+    Top = 103
   end
   object FDMemTable1: TFDMemTable
     FetchOptions.AssignedValues = [evMode]
@@ -2693,37 +2802,34 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
     UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
-    Left = 216
-    Top = 104
-    object FDMemTable1codigo: TIntegerField
-      FieldName = 'codigo'
-    end
-    object FDMemTable1data: TDateField
-      FieldName = 'data'
-    end
-    object FDMemTable1dia: TStringField
-      FieldName = 'dia'
-    end
-    object FDMemTable1turno: TStringField
-      FieldName = 'turno'
-    end
-    object FDMemTable1horario: TStringField
-      FieldName = 'horario'
-    end
-    object FDMemTable1codigo_evento: TIntegerField
-      FieldName = 'codigo_evento'
-    end
-    object FDMemTable1evento: TStringField
-      FieldName = 'evento'
-    end
-    object FDMemTable1codigo_localidade: TIntegerField
-      FieldName = 'codigo_localidade'
-    end
+    Left = 43
+    Top = 103
     object FDMemTable1localidade: TStringField
       FieldName = 'localidade'
     end
-    object FDMemTable1obreiro: TStringField
-      FieldName = 'obreiro'
-    end
+  end
+  object frxDBDatasetEvento: TfrxDBDataset
+    UserName = 'frxDBDatasetEvento'
+    CloseDataSource = False
+    BCDToCurrency = False
+    Left = 103
+    Top = 103
+  end
+  object frxDBDatasetLocalidade: TfrxDBDataset
+    UserName = 'frxDBDatasetLocalidade'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'localidade=localidade')
+    DataSet = FDMemTable1
+    BCDToCurrency = False
+    Left = 133
+    Top = 103
+  end
+  object frxDBDatasetObreiro: TfrxDBDataset
+    UserName = 'frxDBDatasetObreiro'
+    CloseDataSource = False
+    BCDToCurrency = False
+    Left = 155
+    Top = 103
   end
 end
