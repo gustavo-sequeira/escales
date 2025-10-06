@@ -439,8 +439,7 @@ begin
       vQueryQtdLocalidades.SQL.Add('	                              when ''quinta-feira'' then 4 ');
       vQueryQtdLocalidades.SQL.Add('	                              when ''sexta-feira'' then 5 ');
       vQueryQtdLocalidades.SQL.Add('	                              when ''sábado'' then 6 ');
-      vQueryQtdLocalidades.SQL.Add('	                       end as dow, ');
-      vQueryQtdLocalidades.SQL.Add('                     	   codigo_evento ');
+      vQueryQtdLocalidades.SQL.Add('	                       end as dow ');
       vQueryQtdLocalidades.SQL.Add('              		  from escalas e ');
       vQueryQtdLocalidades.SQL.Add('              		 where e.repete = 1 ');
       vQueryQtdLocalidades.SQL.Add('              		   and e.situacao = ''confirmado''), ');
@@ -449,8 +448,7 @@ begin
       vQueryQtdLocalidades.SQL.Add('              -- escalas específicas (com data fixa) ');
       vQueryQtdLocalidades.SQL.Add('              select e.codigo, ');
       vQueryQtdLocalidades.SQL.Add('                     e.data, ');
-      vQueryQtdLocalidades.SQL.Add('                     e.codigo_localidade, ');
-      vQueryQtdLocalidades.SQL.Add('                     e.codigo_evento ');
+      vQueryQtdLocalidades.SQL.Add('                     e.codigo_localidade ');
       vQueryQtdLocalidades.SQL.Add('              from   escalas e ');
       vQueryQtdLocalidades.SQL.Add('              where  e.repete = 0 ');
       vQueryQtdLocalidades.SQL.Add('              and    e.situacao = ''confirmado''), ');
@@ -459,8 +457,7 @@ begin
       vQueryQtdLocalidades.SQL.Add('              -- gera repete=1 expandido no calendário ');
       vQueryQtdLocalidades.SQL.Add('              select r1.codigo, ');
       vQueryQtdLocalidades.SQL.Add('                     c.data, ');
-      vQueryQtdLocalidades.SQL.Add('                     r1.codigo_localidade, ');
-      vQueryQtdLocalidades.SQL.Add('                     r1.codigo_evento ');
+      vQueryQtdLocalidades.SQL.Add('                     r1.codigo_localidade ');
       vQueryQtdLocalidades.SQL.Add('              from   calendario c ');
       vQueryQtdLocalidades.SQL.Add('              join   repete1 r1 ');
       vQueryQtdLocalidades.SQL.Add('              on     c.dow = r1.dow ');
@@ -468,19 +465,16 @@ begin
       vQueryQtdLocalidades.SQL.Add('              -- junta com as específicas (repete=0) ');
       vQueryQtdLocalidades.SQL.Add('              select r0.codigo, ');
       vQueryQtdLocalidades.SQL.Add('                     r0.data, ');
-      vQueryQtdLocalidades.SQL.Add('                     r0.codigo_localidade, ');
-      vQueryQtdLocalidades.SQL.Add('                     r0.codigo_evento ');
+      vQueryQtdLocalidades.SQL.Add('                     r0.codigo_localidade ');
       vQueryQtdLocalidades.SQL.Add('              from   repete0 r0) ');
       vQueryQtdLocalidades.SQL.Add(' ');
       vQueryQtdLocalidades.SQL.Add('			  select distinct on (data, codigo_localidade) expandidas.codigo, ');
       vQueryQtdLocalidades.SQL.Add('                to_char(data, ''tmday'') as dia, ');
-      vQueryQtdLocalidades.SQL.Add('                codigo_localidade, ');
-      vQueryQtdLocalidades.SQL.Add('                codigo_evento ');
+      vQueryQtdLocalidades.SQL.Add('                codigo_localidade ');
       vQueryQtdLocalidades.SQL.Add('from            expandidas ');
       vQueryQtdLocalidades.SQL.Add('where           data between :dt_inicio and :dt_fim ');
       vQueryQtdLocalidades.SQL.Add('order by        data, codigo_localidade) v ');
       vQueryQtdLocalidades.SQL.Add('inner join      localidades l on v.codigo_localidade = l.codigo ');
-      vQueryQtdLocalidades.SQL.Add('inner join      eventos ev on v.codigo_evento = ev.codigo ');
       vQueryQtdLocalidades.SQL.Add('group by l.descricao ');
       vQueryQtdLocalidades.ParamByName('dt_inicio').AsDate := DataPrimeiro;
       vQueryQtdLocalidades.ParamByName('dt_fim').AsDate := DataUltimo;
@@ -489,7 +483,7 @@ begin
       // eventos
       vQueryQtdEventos.Close;
       vQueryQtdEventos.SQL.Clear;
-      vQueryQtdEventos.SQL.Add('select  ev.nome || '' (''|| count(codigo_evento) ||'')'' as evento ');
+      vQueryQtdEventos.SQL.Add('select  ev.descricao || '' (''|| count(codigo_evento) ||'')'' as evento ');
       vQueryQtdEventos.SQL.Add('  from ( ');
       vQueryQtdEventos.SQL.Add('  			with ');
       vQueryQtdEventos.SQL.Add('			  	calendario as ( ');
@@ -501,7 +495,6 @@ begin
       vQueryQtdEventos.SQL.Add('				repete1 as ( ');
       vQueryQtdEventos.SQL.Add('              		-- escalas que repetem (sem data fixa), vinculadas a dia da semana ');
       vQueryQtdEventos.SQL.Add('              		select e.codigo, ');
-      vQueryQtdEventos.SQL.Add('                     	   e.codigo_localidade, ');
       vQueryQtdEventos.SQL.Add('	                       case lower(e.dia) ');
       vQueryQtdEventos.SQL.Add('	                              when ''domingo'' then 0 ');
       vQueryQtdEventos.SQL.Add('	                              when ''segunda-feira'' then 1 ');
@@ -520,7 +513,6 @@ begin
       vQueryQtdEventos.SQL.Add('              -- escalas específicas (com data fixa) ');
       vQueryQtdEventos.SQL.Add('              select e.codigo, ');
       vQueryQtdEventos.SQL.Add('                     e.data, ');
-      vQueryQtdEventos.SQL.Add('                     e.codigo_localidade, ');
       vQueryQtdEventos.SQL.Add('                     e.codigo_evento ');
       vQueryQtdEventos.SQL.Add('              from   escalas e ');
       vQueryQtdEventos.SQL.Add('              where  e.repete = 0 ');
@@ -530,7 +522,6 @@ begin
       vQueryQtdEventos.SQL.Add('              -- gera repete=1 expandido no calendário ');
       vQueryQtdEventos.SQL.Add('              select r1.codigo, ');
       vQueryQtdEventos.SQL.Add('                     c.data, ');
-      vQueryQtdEventos.SQL.Add('                     r1.codigo_localidade, ');
       vQueryQtdEventos.SQL.Add('                     r1.codigo_evento ');
       vQueryQtdEventos.SQL.Add('              from   calendario c ');
       vQueryQtdEventos.SQL.Add('              join   repete1 r1 ');
@@ -539,20 +530,17 @@ begin
       vQueryQtdEventos.SQL.Add('              -- junta com as específicas (repete=0) ');
       vQueryQtdEventos.SQL.Add('              select r0.codigo, ');
       vQueryQtdEventos.SQL.Add('                     r0.data, ');
-      vQueryQtdEventos.SQL.Add('                     r0.codigo_localidade, ');
       vQueryQtdEventos.SQL.Add('                     r0.codigo_evento ');
       vQueryQtdEventos.SQL.Add('              from   repete0 r0) ');
       vQueryQtdEventos.SQL.Add(' ');
-      vQueryQtdEventos.SQL.Add('			  select distinct on (data, codigo_localidade) expandidas.codigo, ');
+      vQueryQtdEventos.SQL.Add('			  select distinct on (data, codigo_evento) expandidas.codigo, ');
       vQueryQtdEventos.SQL.Add('                to_char(data, ''tmday'') as dia, ');
-      vQueryQtdEventos.SQL.Add('                codigo_localidade, ');
       vQueryQtdEventos.SQL.Add('                codigo_evento ');
       vQueryQtdEventos.SQL.Add('from            expandidas ');
       vQueryQtdEventos.SQL.Add('where           data between :dt_inicio and :dt_fim ');
-      vQueryQtdEventos.SQL.Add('order by        data, codigo_localidade) v ');
-      vQueryQtdEventos.SQL.Add('inner join      localidades l on v.codigo_localidade = l.codigo ');
+      vQueryQtdEventos.SQL.Add('order by        data, codigo_evento) v ');
       vQueryQtdEventos.SQL.Add('inner join      eventos ev on v.codigo_evento = ev.codigo ');
-      vQueryQtdEventos.SQL.Add('group by ev.nome ');
+      vQueryQtdEventos.SQL.Add('group by ev.descricao ');
       vQueryQtdEventos.ParamByName('dt_inicio').AsDate := DataPrimeiro;
       vQueryQtdEventos.ParamByName('dt_fim').AsDate := DataUltimo;
       vQueryQtdEventos.Open;
@@ -560,6 +548,9 @@ begin
       frmRelatorioEscala.frxDBDatasetPrincipal.DataSet := vQueryPrincipal;
       frmRelatorioEscala.frxDBDatasetLocalidade.DataSet := vQueryQtdLocalidades;
       frmRelatorioEscala.frxDBDatasetEvento.DataSet := vQueryQtdEventos;
+
+      frmRelatorioEscala.frxReport1.Variables['PeriodoEscala'] := QuotedStr('De '+DateToStr(DataPrimeiro)+' até '+DateToStr(DataUltimo));
+
       frmRelatorioEscala.frxReport1.ShowReport;
     end;
 
