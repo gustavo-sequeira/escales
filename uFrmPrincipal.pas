@@ -18,7 +18,7 @@ uses
   cxGridTableView, cxGridDBTableView, cxGrid, uLibary, dxSkinOffice2010Blue,
   dxNavBarCollns, dxNavBarBase, dxNavBar, cxLabel, Vcl.ExtCtrls, System.Actions,
   Vcl.ActnList, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ActnMan, cxLocalization,
-  Vcl.Imaging.pngimage, dxGDIPlusClasses;
+  Vcl.Imaging.pngimage, dxGDIPlusClasses, dxSkinWXI;
 
 type
   TfrmPrincipal = class(TForm)
@@ -278,6 +278,7 @@ var
   AnoAtual: Word;
   DataPrimeiro, DataUltimo: TDate;
   vQueryPrincipal, vQueryQtdEventos, vQueryQtdLocalidades, vQueryQtdObreiros: TFDQuery;
+  vDescricaoEvento: string;
 begin
   frmRelatorioEscala := TFrmRelatorioEscala.Create(Self);
 
@@ -344,7 +345,7 @@ begin
       vQueryPrincipal.SQL.Add('											      codigo_evento ');
       vQueryPrincipal.SQL.Add('    									     from escalas e ');
       vQueryPrincipal.SQL.Add('    									    where e.repete = 1 ');
-      vQueryPrincipal.SQL.Add('      									      and e.situacao = ''Confirmado''), ');
+      vQueryPrincipal.SQL.Add('      									      and lower(e.situacao) = ''confirmado''), ');
       vQueryPrincipal.SQL.Add('						     repete0 as ( ');
       vQueryPrincipal.SQL.Add('    									   -- escalas específicas (com data fixa) ');
       vQueryPrincipal.SQL.Add('    									   select e.codigo,  ');
@@ -356,7 +357,7 @@ begin
       vQueryPrincipal.SQL.Add('											      e.horario ');
       vQueryPrincipal.SQL.Add('    								   	     from escalas e ');
       vQueryPrincipal.SQL.Add('                                            where e.repete = 0 ');
-      vQueryPrincipal.SQL.Add('                                              and e.situacao = ''Confirmado''), ');
+      vQueryPrincipal.SQL.Add('                                              and lower(e.situacao) = ''confirmado''), ');
       vQueryPrincipal.SQL.Add('					      expandidas as ( ');
       vQueryPrincipal.SQL.Add('    									       -- gera repete=1 expandido no calendário ');
       vQueryPrincipal.SQL.Add('    									       select r1.codigo,  ');
@@ -442,7 +443,7 @@ begin
       vQueryQtdLocalidades.SQL.Add('	                       end as dow ');
       vQueryQtdLocalidades.SQL.Add('              		  from escalas e ');
       vQueryQtdLocalidades.SQL.Add('              		 where e.repete = 1 ');
-      vQueryQtdLocalidades.SQL.Add('              		   and e.situacao = ''confirmado''), ');
+      vQueryQtdLocalidades.SQL.Add('              		   and lower(e.situacao) = ''confirmado''), ');
       vQueryQtdLocalidades.SQL.Add(' ');
       vQueryQtdLocalidades.SQL.Add('				repete0 as ( ');
       vQueryQtdLocalidades.SQL.Add('              -- escalas específicas (com data fixa) ');
@@ -451,7 +452,7 @@ begin
       vQueryQtdLocalidades.SQL.Add('                     e.codigo_localidade ');
       vQueryQtdLocalidades.SQL.Add('              from   escalas e ');
       vQueryQtdLocalidades.SQL.Add('              where  e.repete = 0 ');
-      vQueryQtdLocalidades.SQL.Add('              and    e.situacao = ''confirmado''), ');
+      vQueryQtdLocalidades.SQL.Add('              and    lower(e.situacao) = ''confirmado''), ');
       vQueryQtdLocalidades.SQL.Add(' ');
       vQueryQtdLocalidades.SQL.Add('		expandidas as ( ');
       vQueryQtdLocalidades.SQL.Add('              -- gera repete=1 expandido no calendário ');
@@ -469,7 +470,7 @@ begin
       vQueryQtdLocalidades.SQL.Add('              from   repete0 r0) ');
       vQueryQtdLocalidades.SQL.Add(' ');
       vQueryQtdLocalidades.SQL.Add('			  select distinct on (data, codigo_localidade) expandidas.codigo, ');
-      vQueryQtdLocalidades.SQL.Add('                to_char(data, ''tmday'') as dia, ');
+      vQueryQtdLocalidades.SQL.Add('                to_char(data, ''TMDay'') as dia, ');
       vQueryQtdLocalidades.SQL.Add('                codigo_localidade ');
       vQueryQtdLocalidades.SQL.Add('from            expandidas ');
       vQueryQtdLocalidades.SQL.Add('where           data between :dt_inicio and :dt_fim ');
@@ -507,7 +508,7 @@ begin
       vQueryQtdEventos.SQL.Add('                     	   codigo_evento ');
       vQueryQtdEventos.SQL.Add('              		  from escalas e ');
       vQueryQtdEventos.SQL.Add('              		 where e.repete = 1 ');
-      vQueryQtdEventos.SQL.Add('              		   and e.situacao = ''confirmado''), ');
+      vQueryQtdEventos.SQL.Add('              		   and lower(e.situacao) = ''confirmado''), ');
       vQueryQtdEventos.SQL.Add(' ');
       vQueryQtdEventos.SQL.Add('				repete0 as ( ');
       vQueryQtdEventos.SQL.Add('              -- escalas específicas (com data fixa) ');
@@ -516,7 +517,7 @@ begin
       vQueryQtdEventos.SQL.Add('                     e.codigo_evento ');
       vQueryQtdEventos.SQL.Add('              from   escalas e ');
       vQueryQtdEventos.SQL.Add('              where  e.repete = 0 ');
-      vQueryQtdEventos.SQL.Add('              and    e.situacao = ''confirmado''), ');
+      vQueryQtdEventos.SQL.Add('              and    lower(e.situacao) = ''confirmado''), ');
       vQueryQtdEventos.SQL.Add(' ');
       vQueryQtdEventos.SQL.Add('		expandidas as ( ');
       vQueryQtdEventos.SQL.Add('              -- gera repete=1 expandido no calendário ');
@@ -534,7 +535,7 @@ begin
       vQueryQtdEventos.SQL.Add('              from   repete0 r0) ');
       vQueryQtdEventos.SQL.Add(' ');
       vQueryQtdEventos.SQL.Add('			  select distinct on (data, codigo_evento) expandidas.codigo, ');
-      vQueryQtdEventos.SQL.Add('                to_char(data, ''tmday'') as dia, ');
+      vQueryQtdEventos.SQL.Add('                to_char(data, ''TMDay'') as dia, ');
       vQueryQtdEventos.SQL.Add('                codigo_evento ');
       vQueryQtdEventos.SQL.Add('from            expandidas ');
       vQueryQtdEventos.SQL.Add('where           data between :dt_inicio and :dt_fim ');
@@ -550,6 +551,19 @@ begin
       frmRelatorioEscala.frxDBDatasetEvento.DataSet := vQueryQtdEventos;
 
       frmRelatorioEscala.frxReport1.Variables['PeriodoEscala'] := QuotedStr('De '+DateToStr(DataPrimeiro)+' até '+DateToStr(DataUltimo));
+
+
+      if not(vQueryQtdEventos.IsEmpty) then
+      begin
+        vQueryQtdEventos.First;
+        vDescricaoEvento := vQueryQtdEventos.FieldByName('evento').AsString;
+        if vQueryQtdEventos.RecNo = 1 then
+          frmRelatorioEscala.frxReport1.Variables['DescricaoEvento'] := QuotedStr(vDescricaoEvento)
+        else
+        frmRelatorioEscala.frxReport1.Variables['DescricaoEvento'] :=
+          QuotedStr(frmRelatorioEscala.frxReport1.Variables['DescricaoEvento']) +#13#10+
+          QuotedStr(vDescricaoEvento);
+      end;
 
       frmRelatorioEscala.frxReport1.ShowReport;
     end;
