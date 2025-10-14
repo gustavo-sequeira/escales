@@ -18,7 +18,7 @@ uses
   cxGridTableView, cxGridDBTableView, cxGrid, uLibary, dxSkinOffice2010Blue,
   dxNavBarCollns, dxNavBarBase, dxNavBar, cxLabel, Vcl.ExtCtrls, System.Actions,
   Vcl.ActnList, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ActnMan, cxLocalization,
-  Vcl.Imaging.pngimage, dxGDIPlusClasses, dxSkinWXI;
+  Vcl.Imaging.pngimage, dxGDIPlusClasses;
 
 type
   TfrmPrincipal = class(TForm)
@@ -419,7 +419,7 @@ begin
       // localidades
       vQueryQtdLocalidades.Close;
       vQueryQtdLocalidades.SQL.Clear;
-      vQueryQtdLocalidades.SQL.Add('select  l.descricao || '' ('' || count(v.codigo_localidade) || '')'' as localidade ');
+      vQueryQtdLocalidades.SQL.Add('select  l.descricao ||'';'' as localidade ');
       vQueryQtdLocalidades.SQL.Add('  from ( ');
       vQueryQtdLocalidades.SQL.Add('  			with ');
       vQueryQtdLocalidades.SQL.Add('			  	calendario as ( ');
@@ -484,7 +484,7 @@ begin
       // eventos
       vQueryQtdEventos.Close;
       vQueryQtdEventos.SQL.Clear;
-      vQueryQtdEventos.SQL.Add('select  ev.descricao || '' (''|| count(codigo_evento) ||'')'' as evento ');
+      vQueryQtdEventos.SQL.Add('select  ev.codigo || '' - ''|| ev.descricao ||'';'' as evento ');
       vQueryQtdEventos.SQL.Add('  from ( ');
       vQueryQtdEventos.SQL.Add('  			with ');
       vQueryQtdEventos.SQL.Add('			  	calendario as ( ');
@@ -541,7 +541,7 @@ begin
       vQueryQtdEventos.SQL.Add('where           data between :dt_inicio and :dt_fim ');
       vQueryQtdEventos.SQL.Add('order by        data, codigo_evento) v ');
       vQueryQtdEventos.SQL.Add('inner join      eventos ev on v.codigo_evento = ev.codigo ');
-      vQueryQtdEventos.SQL.Add('group by ev.descricao ');
+      vQueryQtdEventos.SQL.Add('group by ev.codigo ');
       vQueryQtdEventos.ParamByName('dt_inicio').AsDate := DataPrimeiro;
       vQueryQtdEventos.ParamByName('dt_fim').AsDate := DataUltimo;
       vQueryQtdEventos.Open;
@@ -550,19 +550,23 @@ begin
       frmRelatorioEscala.frxDBDatasetLocalidade.DataSet := vQueryQtdLocalidades;
       frmRelatorioEscala.frxDBDatasetEvento.DataSet := vQueryQtdEventos;
 
-      frmRelatorioEscala.frxReport1.Variables['PeriodoEscala'] := QuotedStr('De '+DateToStr(DataPrimeiro)+' até '+DateToStr(DataUltimo));
+      frmRelatorioEscala.frxReport1.Variables['PeriodoEscala'] := QuotedStr('De ' + DateToStr(DataPrimeiro) + ' até ' + DateToStr(DataUltimo));
 
-
-      if not(vQueryQtdEventos.IsEmpty) then
+      if not (vQueryQtdEventos.IsEmpty) then
       begin
+
         vQueryQtdEventos.First;
-        vDescricaoEvento := vQueryQtdEventos.FieldByName('evento').AsString;
-        if vQueryQtdEventos.RecNo = 1 then
-          frmRelatorioEscala.frxReport1.Variables['DescricaoEvento'] := QuotedStr(vDescricaoEvento)
-        else
-        frmRelatorioEscala.frxReport1.Variables['DescricaoEvento'] :=
-          QuotedStr(frmRelatorioEscala.frxReport1.Variables['DescricaoEvento']) +#13#10+
-          QuotedStr(vDescricaoEvento);
+        while not (vQueryQtdEventos.Eof) do
+        begin
+
+          if (vQueryQtdEventos.RecNo = Ceil(vQueryQtdEventos.RecordCount / 2)) then
+            vDescricaoEvento := vDescricaoEvento + '   ' + vQueryQtdEventos.FieldByName('evento').AsString + #13#10
+          else
+            vDescricaoEvento := vDescricaoEvento + '   ' + vQueryQtdEventos.FieldByName('evento').AsString;
+          vQueryQtdEventos.Next;
+        end;
+        frmRelatorioEscala.frxReport1.Variables['DescricaoEvento'] := vDescricaoEvento
+
       end;
 
       frmRelatorioEscala.frxReport1.ShowReport;

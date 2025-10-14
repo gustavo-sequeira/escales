@@ -10,8 +10,10 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  OldCreateOrder = True
   Position = poScreenCenter
   OnShow = FormShow
+  PixelsPerInch = 96
   TextHeight = 13
   object cxGroupBox1: TcxGroupBox
     AlignWithMargins = True
@@ -55,7 +57,6 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
       StyleDisabled.LookAndFeel.NativeStyle = False
       StyleFocused.LookAndFeel.NativeStyle = False
       StyleHot.LookAndFeel.NativeStyle = False
-      StyleReadOnly.LookAndFeel.NativeStyle = False
       TabOrder = 1
       Width = 206
     end
@@ -92,7 +93,7 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
     end
   end
   object frxReport1: TfrxReport
-    Version = '2024.1.0'
+    Version = '6.7.9'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     OldStyleProgress = True
@@ -101,10 +102,43 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 45924.434737372700000000
-    ReportOptions.LastChange = 45943.924077384260000000
+    ReportOptions.LastChange = 45944.475968518520000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
+      'var'
+      '  Cnt: Integer;'
+      '  BaseLeft, BaseTop: Double;'
+      '  '
+      'const'
+      '  LINES_PER_COL = 2;'
+      '  LINE_STEP     = 18.0;'
+      '  COL_STEP      = 120.0;  '
       ''
+      'procedure DescricaoEventoOnBeforePrint(Sender: TfrxComponent);'
+      'var'
+      '  linha, col: Integer;'
+      'begin'
+      '  // Armazena a posi'#231#227'o original na primeira vez'
+      '  if Cnt = 0 then'
+      '  begin'
+      '    BaseLeft :=  DescricaoEvento.Left;'
+      '    BaseTop  :=  DescricaoEvento.Top;'
+      '  end;'
+      ''
+      '  // Cnt '#233' 0-based; some 1 se preferir 1-based'
+      '  linha := Cnt mod LINES_PER_COL;  // 0,1,2'
+      '  col   := Cnt div LINES_PER_COL;  // 0,1,2,...'
+      ''
+      '   DescricaoEvento.Left := BaseLeft + (col * COL_STEP);'
+      '   DescricaoEvento.Top  := BaseTop  + (linha * LINE_STEP);'
+      ''
+      '  Inc(Cnt);'
+      'end;'
+      '  '
+      'procedure ReportOnStartReport(Sender: TfrxComponent);'
+      'begin'
+      '  Cnt := 0;'
+      'end;'
       ''
       'begin'
       ''
@@ -175,12 +209,9 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
       Frame.Typ = []
       MirrorMode = []
       TitleBeforeHeader = False
+      OnBeforePrint = 'Page1OnBeforePrint'
       object PageHeader1: TfrxPageHeader
         FillType = ftBrush
-        FillGap.Top = 0
-        FillGap.Left = 0
-        FillGap.Bottom = 0
-        FillGap.Right = 0
         Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2484,10 +2515,6 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
       end
       object PageFooter1: TfrxPageFooter
         FillType = ftBrush
-        FillGap.Top = 0
-        FillGap.Left = 0
-        FillGap.Bottom = 0
-        FillGap.Right = 0
         Frame.Typ = []
         Height = 11.338582680000000000
         Top = 536.693260000000000000
@@ -2496,7 +2523,7 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
           IndexTag = 1
           Align = baRight
           AllowVectorExport = True
-          Left = 544.252337773437500000
+          Left = 544.252319999999900000
           Top = 0.377952755905512000
           Width = 173.858380000000000000
           Height = 9.448818897637800000
@@ -2531,10 +2558,6 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
       end
       object MasterData1: TfrxMasterData
         FillType = ftBrush
-        FillGap.Top = 0
-        FillGap.Left = 0
-        FillGap.Bottom = 0
-        FillGap.Right = 0
         Frame.Typ = []
         Height = 15.874015748031500000
         Top = 415.748300000000000000
@@ -2602,10 +2625,6 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
       end
       object GroupHeader1: TfrxGroupHeader
         FillType = ftBrush
-        FillGap.Top = 0
-        FillGap.Left = 0
-        FillGap.Bottom = 0
-        FillGap.Right = 0
         Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2619,10 +2638,6 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
       end
       object GroupHeader2: TfrxGroupHeader
         FillType = ftBrush
-        FillGap.Top = 0
-        FillGap.Left = 0
-        FillGap.Bottom = 0
-        FillGap.Right = 0
         Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -2697,10 +2712,6 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
       end
       object ColumnHeader1: TfrxColumnHeader
         FillType = ftBrush
-        FillGap.Top = 0
-        FillGap.Left = 0
-        FillGap.Bottom = 0
-        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677165350000000000
         Top = 272.126160000000000000
@@ -2770,10 +2781,6 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
       end
       object ReportTitle1: TfrxReportTitle
         FillType = ftBrush
-        FillGap.Top = 0
-        FillGap.Left = 0
-        FillGap.Bottom = 0
-        FillGap.Right = 0
         Frame.Typ = []
         Height = 124.724490000000000000
         Top = 124.724490000000000000
@@ -2862,11 +2869,10 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
         object DescricaoEvento: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Top = 33.259842520000000000
+          Top = 33.259842520000010000
           Width = 566.929133860000000000
           Height = 26.456710000000000000
-          ContentScaleOptions.Constraints.MaxIterationValue = 0
-          ContentScaleOptions.Constraints.MinIterationValue = 0
+          OnBeforePrint = 'DescricaoEventoOnBeforePrint'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
@@ -2877,6 +2883,15 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
           Memo.UTF8W = (
             '[DescricaoEvento]')
           ParentFont = False
+          Formats = <
+            item
+            end
+            item
+            end
+            item
+            end
+            item
+            end>
         end
         object Memo22: TfrxMemoView
           AllowVectorExport = True
@@ -3035,10 +3050,6 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
       end
       object Footer1: TfrxFooter
         FillType = ftBrush
-        FillGap.Top = 0
-        FillGap.Left = 0
-        FillGap.Bottom = 0
-        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 453.543600000000000000
@@ -3093,50 +3104,8 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
     CloseDataSource = False
     DataSet = FDMemTable1
     BCDToCurrency = False
-    DataSetOptions = []
     Left = 73
     Top = 103
-    FieldDefs = <
-      item
-        FieldName = 'codigo'
-        FieldAlias = 'codigo'
-      end
-      item
-        FieldName = 'data'
-        FieldAlias = 'data'
-      end
-      item
-        FieldName = 'dia'
-        FieldAlias = 'dia'
-      end
-      item
-        FieldName = 'turno'
-        FieldAlias = 'turno'
-      end
-      item
-        FieldName = 'horario'
-        FieldAlias = 'horario'
-      end
-      item
-        FieldName = 'codigo_evento'
-        FieldAlias = 'codigo_evento'
-      end
-      item
-        FieldName = 'evento'
-        FieldAlias = 'evento'
-      end
-      item
-        FieldName = 'codigo_localidade'
-        FieldAlias = 'codigo_localidade'
-      end
-      item
-        FieldName = 'localidade'
-        FieldAlias = 'localidade'
-      end
-      item
-        FieldName = 'obreiro'
-        FieldAlias = 'obreiro'
-      end>
   end
   object FDMemTable1: TFDMemTable
     FetchOptions.AssignedValues = [evMode]
@@ -3156,7 +3125,6 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
     UserName = 'frxDBDatasetEvento'
     CloseDataSource = False
     BCDToCurrency = False
-    DataSetOptions = []
     Left = 103
     Top = 103
   end
@@ -3165,20 +3133,13 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
     CloseDataSource = False
     DataSet = FDMemTable1
     BCDToCurrency = False
-    DataSetOptions = []
     Left = 133
     Top = 103
-    FieldDefs = <
-      item
-        FieldName = 'localidade'
-        FieldAlias = 'localidade'
-      end>
   end
   object frxDBDatasetObreiro: TfrxDBDataset
     UserName = 'frxDBDatasetObreiro'
     CloseDataSource = False
     BCDToCurrency = False
-    DataSetOptions = []
     Left = 155
     Top = 103
   end

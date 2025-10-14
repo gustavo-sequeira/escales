@@ -13,7 +13,7 @@ uses
   FireDAC.VCLUI.Wait, cxGraphics, cxControls, cxLookAndFeels,
   cxLookAndFeelPainters, cxContainer, cxEdit, dxSkinsCore, dxSkinOffice2010Blue,
   Vcl.Menus, Vcl.StdCtrls, cxButtons, cxLabel, cxTextEdit, cxMaskEdit,
-  cxDropDownEdit, cxGroupBox, dxSkinWXI, frxSmartMemo, frCoreClasses;
+  cxDropDownEdit, cxGroupBox;
 
 type
   TFrmRelatorioEscala = class(TForm)
