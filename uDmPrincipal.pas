@@ -16,6 +16,7 @@ type
     FDPhysPgDriverLink1: TFDPhysPgDriverLink;
     cxLocalizer1: TcxLocalizer;
     FDQuery1: TFDQuery;
+    FDConnectionNeon: TFDConnection;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }

@@ -15,6 +15,7 @@ object dmPrincipal: TdmPrincipal
     Top = 64
   end
   object FDPhysPgDriverLink1: TFDPhysPgDriverLink
+    VendorLib = 'C:\projetos\repositorios\escales\Win32\Debug\libpq.dll'
     Left = 120
     Top = 128
   end
@@ -26,5 +27,16 @@ object dmPrincipal: TdmPrincipal
     Connection = FDConnection
     Left = 64
     Top = 136
+  end
+  object FDConnectionNeon: TFDConnection
+    Params.Strings = (
+      'Database=Escalas'
+      'User_Name=neondb_owner'
+      'Password=npg_Dcq7WSC8mBvY'
+      'Server=ep-fragrant-mountain-acrj8k8z.sa-east-1.aws.neon.tech'
+      'DriverID=PG')
+    LoginPrompt = False
+    Left = 216
+    Top = 144
   end
 end
