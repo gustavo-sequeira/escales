@@ -182,6 +182,10 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
       item
         Name = 'DescricaoCirculo'
         Value = ''
+      end
+      item
+        Name = 'QtdObreiros'
+        Value = ''
       end>
     Style = <>
     object Data: TfrxDataPage
@@ -2517,13 +2521,13 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
         FillType = ftBrush
         Frame.Typ = []
         Height = 11.338582680000000000
-        Top = 536.693260000000000000
+        Top = 555.590910000000000000
         Width = 718.110700000000000000
         object Page: TfrxMemoView
           IndexTag = 1
           Align = baRight
           AllowVectorExport = True
-          Left = 544.252319999999900000
+          Left = 544.252320000000000000
           Top = 0.377952755905512000
           Width = 173.858380000000000000
           Height = 9.448818897637800000
@@ -2560,7 +2564,7 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
         FillType = ftBrush
         Frame.Typ = []
         Height = 15.874015748031500000
-        Top = 415.748300000000000000
+        Top = 434.645950000000000000
         Width = 359.055350000000000000
         AllowSplit = True
         DataSet = frxDBDatasetPrincipal
@@ -2632,7 +2636,7 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
         Font.Name = 'Arial'
         Font.Style = []
         ParentFont = False
-        Top = 355.275820000000000000
+        Top = 374.173470000000000000
         Width = 359.055350000000000000
         Condition = 'frxDBDatasetPrincipal."data"'
       end
@@ -2646,7 +2650,7 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
         Font.Style = []
         Height = 15.118107800000000000
         ParentFont = False
-        Top = 377.953000000000000000
+        Top = 396.850650000000000000
         Width = 359.055350000000000000
         Condition = 'frxDBDatasetPrincipal."turno"'
         object Memo4: TfrxMemoView
@@ -2714,7 +2718,7 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
         FillType = ftBrush
         Frame.Typ = []
         Height = 22.677165350000000000
-        Top = 272.126160000000000000
+        Top = 291.023810000000000000
         Width = 359.055350000000000000
         object Memo10: TfrxMemoView
           AllowVectorExport = True
@@ -2782,7 +2786,7 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
       object ReportTitle1: TfrxReportTitle
         FillType = ftBrush
         Frame.Typ = []
-        Height = 124.724490000000000000
+        Height = 143.622140000000000000
         Top = 124.724490000000000000
         Width = 718.110700000000000000
         object Memo17: TfrxMemoView
@@ -2869,9 +2873,9 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
         object DescricaoEvento: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Top = 33.259842520000010000
+          Top = 33.259842520000000000
           Width = 566.929133860000000000
-          Height = 26.456710000000000000
+          Height = 37.795300000000000000
           OnBeforePrint = 'DescricaoEventoOnBeforePrint'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -2895,7 +2899,7 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
         end
         object Memo22: TfrxMemoView
           AllowVectorExport = True
-          Top = 62.149660000000000000
+          Top = 77.149660000000000000
           Width = 718.110700000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -2910,7 +2914,7 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
         object Memo23: TfrxMemoView
           AllowVectorExport = True
           Left = 568.488560000000000000
-          Top = 33.259842520000000000
+          Top = 49.259842520000000000
           Width = 94.488250000000000000
           Height = 11.338590000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -2927,7 +2931,7 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
         object Memo24: TfrxMemoView
           AllowVectorExport = True
           Left = 568.440944880000000000
-          Top = 47.133890000000000000
+          Top = 63.133890000000000000
           Width = 94.488250000000000000
           Height = 11.338590000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -2945,7 +2949,7 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
           IndexTag = 1
           AllowVectorExport = True
           Left = 665.196850390000000000
-          Top = 47.244094490000000000
+          Top = 63.244094490000000000
           Width = 49.889763780000000000
           Height = 11.338590000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -2963,8 +2967,8 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
           IndexTag = 1
           AllowVectorExport = True
           Left = 665.197280000000000000
-          Top = 33.259842520000000000
-          Width = 49.889763779527560000
+          Top = 49.259842520000000000
+          Width = 49.889763780000000000
           Height = 11.338582680000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -2979,7 +2983,7 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
         end
         object Memo25: TfrxMemoView
           AllowVectorExport = True
-          Top = 63.031540000000000000
+          Top = 78.031540000000000000
           Width = 359.055118110236200000
           Height = 11.338582680000000000
           Font.Charset = DEFAULT_CHARSET
@@ -2997,7 +3001,7 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
         object Memo26: TfrxMemoView
           AllowVectorExport = True
           Left = 359.433070866141700000
-          Top = 63.118110240000000000
+          Top = 78.118110240000000000
           Width = 359.055118110236200000
           Height = 11.338582680000000000
           Font.Charset = DEFAULT_CHARSET
@@ -3015,7 +3019,7 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
         object DescricaoPregracao: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
-          Top = 78.992125980000000000
+          Top = 93.992125980000000000
           Width = 355.275590550000000000
           Height = 41.574803150000000000
           Font.Charset = DEFAULT_CHARSET
@@ -3024,16 +3028,18 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
           Font.Name = 'Arial'
           Font.Style = []
           Frame.Typ = []
+          HAlign = haBlock
           Memo.UTF8W = (
             '[DescricaoPregracao]')
           ParentFont = False
+          WordBreak = True
           VAlign = vaCenter
         end
         object DescricaoCirculo: TfrxMemoView
           IndexTag = 1
           AllowVectorExport = True
           Left = 360.834880000000000000
-          Top = 79.149660000000000000
+          Top = 94.149660000000000000
           Width = 355.275820000000000000
           Height = 41.574830000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -3042,17 +3048,53 @@ object FrmRelatorioEscala: TFrmRelatorioEscala
           Font.Name = 'Arial'
           Font.Style = []
           Frame.Typ = []
+          HAlign = haBlock
           Memo.UTF8W = (
             '[DescricaoCirculo]')
           ParentFont = False
+          WordBreak = True
           VAlign = vaCenter
+        end
+        object Memo27: TfrxMemoView
+          AllowVectorExport = True
+          Left = 568.709030000000000000
+          Top = 34.015770000000000000
+          Width = 94.488250000000000000
+          Height = 11.338590000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Obreiros')
+          ParentFont = False
+          VAlign = vaCenter
+        end
+        object QtdObreiros: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 665.197280000000000000
+          Top = 34.015770000000000000
+          Width = 49.133890000000000000
+          Height = 11.338590000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[QtdObreiros]')
+          ParentFont = False
         end
       end
       object Footer1: TfrxFooter
         FillType = ftBrush
         Frame.Typ = []
         Height = 22.677180000000000000
-        Top = 453.543600000000000000
+        Top = 472.441250000000000000
         Width = 359.055350000000000000
       end
       object Subreport1: TfrxSubreport

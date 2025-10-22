@@ -28,15 +28,4 @@ object dmPrincipal: TdmPrincipal
     Left = 64
     Top = 136
   end
-  object FDConnectionNeon: TFDConnection
-    Params.Strings = (
-      'Database=escales'
-      'User_Name=neondb_owner'
-      'Password=npg_Dcq7WSC8mBvY'
-      'Server=ep-fragrant-mountain-acrj8k8z.sa-east-1.aws.neon.tech'
-      'DriverID=PG')
-    LoginPrompt = False
-    Left = 272
-    Top = 112
-  end
 end

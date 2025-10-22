@@ -2684,6 +2684,17 @@ object frmPrincipal: TfrmPrincipal
       TabOrder = 2
       Height = 105
       Width = 863
+      object cxLabel2: TcxLabel
+        AlignWithMargins = True
+        Left = 6
+        Top = 80
+        Align = alBottom
+        Caption = '1.0.1'
+        Transparent = True
+        ExplicitLeft = 3
+        ExplicitTop = 83
+        ExplicitWidth = 857
+      end
     end
   end
   object dxSkinController1: TdxSkinController
