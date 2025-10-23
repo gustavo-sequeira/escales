@@ -124,7 +124,7 @@ begin
     Result.Senha := Ini.ReadString('DATABASE', 'Senha', 'postgres');
     Result.Schema := Ini.ReadString('DATABASE', 'Schema', 'public');
     Result.Charset := Ini.ReadString('DATABASE', 'Charset', 'UTF8');
-    Result.Timeout := Ini.ReadInteger('DATABASE', 'Timeout', 30);
+    Result.Timeout := Ini.ReadInteger('DATABASE', 'Timeout', 90);
   finally
     Ini.Free;
   end;

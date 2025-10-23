@@ -20,6 +20,7 @@ begin
 
   try
     AtualizarSeNecessario;
+    Readln;
   except
     on E: Exception do
       Abort

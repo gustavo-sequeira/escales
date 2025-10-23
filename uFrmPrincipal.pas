@@ -33,7 +33,7 @@ uses
   dxSkinSilver, dxSkinSpringtime, dxSkinStardust, dxSkinSummer2008,
   dxSkinTheAsphaltWorld, dxSkinTheBezier, dxSkinsDefaultPainters,
   dxSkinValentine, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
-  dxSkinVisualStudio2013Light, dxSkinVS2010, dxSkinXmas2008Blue;
+  dxSkinVisualStudio2013Light, dxSkinVS2010, dxSkinXmas2008Blue, dxSkinWXI;
 
 type
   TfrmPrincipal = class(TForm)

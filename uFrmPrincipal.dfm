@@ -11,9 +11,7 @@ object frmPrincipal: TfrmPrincipal
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
-  OldCreateOrder = True
   WindowState = wsMaximized
-  PixelsPerInch = 96
   TextHeight = 15
   object gbPrincipal: TcxGroupBox
     Left = 0
@@ -2691,9 +2689,6 @@ object frmPrincipal: TfrmPrincipal
         Align = alBottom
         Caption = '1.0.1'
         Transparent = True
-        ExplicitLeft = 3
-        ExplicitTop = 83
-        ExplicitWidth = 857
       end
     end
   end
