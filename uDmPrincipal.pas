@@ -72,6 +72,7 @@ procedure TdmPrincipal.DataModuleCreate(Sender: TObject);
 var
   Config: TConfiguracaoBanco;
 begin
+  Sleep(1000);
   if not TLibary.ArquivoAlteradoRecentemente(PChar(ExtractFilePath(ParamStr(0))+'versao.txt')) then
   begin
     ShellExecute(0, 'open', PChar(ExtractFilePath(ParamStr(0))+'AutoUpdate.exe'), nil, nil, SW_SHOWNORMAL);

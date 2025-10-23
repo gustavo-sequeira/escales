@@ -186,14 +186,15 @@ begin
 
       // Atualiza versão local
     TFile.WriteAllText(NOME_VERSAO_LOCAL, VersaoOnline);
-
+      Sleep(1000);
 //    writeln('');
 //    EscreverConsole(' INFO - Processo de atualização concluído com sucesso. Precione ENTER para continuar ...', ccYellow, true);
 //    Readln;
 
     // Executa o novo e sai
     ShellExecute(0, 'open', PChar(CaminhoNovoExe), nil, nil, SW_SHOWNORMAL);
-    Halt(0);
+//    Halt(0);
+    Application.Terminate;
 
   finally
     Http.Free;
