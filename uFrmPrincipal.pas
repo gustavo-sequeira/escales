@@ -33,7 +33,7 @@ uses
   dxSkinSilver, dxSkinSpringtime, dxSkinStardust, dxSkinSummer2008,
   dxSkinTheAsphaltWorld, dxSkinTheBezier, dxSkinsDefaultPainters,
   dxSkinValentine, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
-  dxSkinVisualStudio2013Light, dxSkinVS2010, dxSkinXmas2008Blue, dxSkinWXI;
+  dxSkinVisualStudio2013Light, dxSkinVS2010, dxSkinXmas2008Blue;
 
 type
   TfrmPrincipal = class(TForm)
@@ -591,7 +591,6 @@ begin
         frmRelatorioEscala.frxReport1.Variables['DescricaoEvento'] := vDescricaoEvento
       end;
 
-
       // Quantidades
       vQueryAuxiliar.Close;
       vQueryAuxiliar.SQL.Clear;
@@ -649,7 +648,6 @@ begin
 
       frmRelatorioEscala.frxReport1.ShowReport;
     end;
-
   finally
     vQueryPrincipal.Free;
     vQueryAuxiliar.Free;

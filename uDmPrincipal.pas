@@ -43,7 +43,7 @@ var
 implementation
 
 uses
-  System.Variants, System.IniFiles;
+  System.Variants, System.IniFiles, Winapi.ShellAPI, Winapi.Windows, uLibary;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -72,6 +72,11 @@ procedure TdmPrincipal.DataModuleCreate(Sender: TObject);
 var
   Config: TConfiguracaoBanco;
 begin
+  if not TLibary.ArquivoAlteradoRecentemente(PChar(ExtractFilePath(ParamStr(0))+'versao.txt')) then
+  begin
+    ShellExecute(0, 'open', PChar(ExtractFilePath(ParamStr(0))+'AutoUpdate.exe'), nil, nil, SW_SHOWNORMAL);
+  end;
+
   FDPhysPgDriverLink1.VendorLib := ExtractFilePath(ParamStr(0)) + 'libpq.dll';
 
   cxLocalizer1.FileName := ExtractFilePath(ParamStr(0)) + 'traducao.ini';
@@ -81,14 +86,10 @@ begin
   try
     Config := LerConfiguracoesBanco(ExtractFilePath(ParamStr(0)) + 'config.ini');
     ConfigurarFDConnection(FDConnection,Config);
-
   except
     on E: Exception do
       Writeln('Erro ao ler configurações: ', E.Message);
   end;
-
-
-
 end;
 
 function TdmPrincipal.GetParamValue(pNome: string): Variant;
@@ -124,7 +125,7 @@ begin
     Result.Senha := Ini.ReadString('DATABASE', 'Senha', 'postgres');
     Result.Schema := Ini.ReadString('DATABASE', 'Schema', 'public');
     Result.Charset := Ini.ReadString('DATABASE', 'Charset', 'UTF8');
-    Result.Timeout := Ini.ReadInteger('DATABASE', 'Timeout', 90);
+    Result.Timeout := Ini.ReadInteger('DATABASE', 'Timeout', 180);
   finally
     Ini.Free;
   end;

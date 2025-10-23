@@ -8,23 +8,25 @@ uses
   System.SysUtils,
   uAppUtils in 'lib\uAppUtils.pas',
   uConsts in 'lib\uConsts.pas';
-
 begin
-  ReportMemoryLeaksOnShutdown := True;
-  IsConsole := True;
-  EscreverConsole(' ====================================', ccCyan);
-  EscreverConsole(' Sistema de atualização do Escales...', ccCyan);
-  EscreverConsole(' ====================================', ccCyan);
-  Writeln('');
+  if not ArquivoAlteradoRecentemente(PChar(ExtractFilePath(ParamStr(0)) + 'versao.txt')) then
+  begin
+    ReportMemoryLeaksOnShutdown := True;
+    IsConsole := True;
+    EscreverConsole(' ===========================================', ccCyan, true);
+    EscreverConsole(' Sistema de atualização do Escales (v.1.0.0)', ccCyan, true);
+    EscreverConsole(' ===========================================', ccCyan, true);
+    Writeln('');
 
-
-  try
-    AtualizarSeNecessario;
-    Readln;
-  except
-    on E: Exception do
-      Abort
+    try
+      AtualizarSeNecessario;
+    except
+      on E: Exception do
+      begin
+        EscreverConsole(' ERRO - ' + e.Message, ccRed, true);
+        Readln;
+      end;
+    end;
   end;
-
-  Readln;
 end.
+

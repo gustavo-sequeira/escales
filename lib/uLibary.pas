@@ -19,7 +19,8 @@ type
     class procedure MudarCorLabelEnter(pLabel: TcxLabel);
     class procedure MudarCorLabelLeave(pLabel: TcxLabel);
     class function ValidarTelefone(const pTelefone: string; out pMensagem: string): boolean;
-
+    class function ArquivoAlteradoRecentemente(const FileName: string): Boolean;
+    class function KillProcessByName(const ExeName: string): Boolean;
   end;
 
 implementation
@@ -28,7 +29,7 @@ uses
   System.Net.URLClient, System.Net.HttpClient, System.Net.HttpClientComponent,
   Vcl.Graphics, System.SysUtils, System.StrUtils, System.JSON, System.Classes,
   System.Generics.Collections, System.RegularExpressions, DateUtils,
-  FireDAC.Comp.Client, uDmPrincipal;
+  FireDAC.Comp.Client, uDmPrincipal, Winapi.TlHelp32, WinApi.Windows;
 
 class function TLibary.MesValido(const AMes: string): Boolean;
 const
@@ -177,6 +178,58 @@ class function TLibary.SegundosAleatorios: Integer;
 begin
   Randomize;
   Result := Random(20) + 1;
+end;
+
+class function TLibary.KillProcessByName(const ExeName: string): Boolean;
+var
+  Snapshot: THandle;
+  ProcessEntry: TProcessEntry32;
+  hProcess: THandle;
+begin
+  Result := False;
+  Snapshot := CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+
+  if Snapshot <> INVALID_HANDLE_VALUE then
+  try
+    ProcessEntry.dwSize := SizeOf(ProcessEntry);
+    if Process32First(Snapshot, ProcessEntry) then
+      repeat
+        if SameText(ProcessEntry.szExeFile, ExeName) then
+        begin
+          hProcess := OpenProcess(PROCESS_TERMINATE, False, ProcessEntry.th32ProcessID);
+          if hProcess <> 0 then
+          try
+            Result := TerminateProcess(hProcess, 0);
+          finally
+            CloseHandle(hProcess);
+          end;
+        end;
+      until not Process32Next(Snapshot, ProcessEntry);
+  finally
+    CloseHandle(Snapshot);
+  end;
+end;
+
+
+class function TLibary.ArquivoAlteradoRecentemente(
+  const FileName: string): Boolean;
+var
+  DataModificacao: TDateTime;
+  d1, d2: Integer;
+begin
+  Result := False;
+  if not FileExists(FileName) then
+    Exit;
+
+  // obtém a data/hora da última modificação
+  DataModificacao := FileDateToDateTime(FileAge(FileName));
+
+  d2 := FileAge(FileName);
+  d1 := DateTimeToFileDate(now);
+
+  // compara com o horário atual (diferença em minutos)
+  // Result := (Now - DataModificacao) * 24 * 60 <= 5;
+  Result := (FileDateToDateTime(d1) - FileDateToDateTime(d2)) * 24 * 60 <= 5;
 end;
 
 class function TLibary.DiaDaSemana(Data: TDateTime): string;

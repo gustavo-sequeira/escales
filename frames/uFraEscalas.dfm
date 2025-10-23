@@ -220,6 +220,7 @@ inherited FraEscalas: TFraEscalas
           Height = 462
           inherited Image1: TImage
             Height = 456
+            Picture.Data = {00}
             ExplicitHeight = 458
           end
           inherited gbFrameSecundario: TcxGroupBox
@@ -227,7 +228,7 @@ inherited FraEscalas: TFraEscalas
             Height = 355
             inherited cxGroupBox1: TcxGroupBox
               ExplicitHeight = 173
-              Height = 173
+              Height = 351
               object cxLabel4: TcxLabel
                 AlignWithMargins = True
                 Left = 2
@@ -255,7 +256,6 @@ inherited FraEscalas: TFraEscalas
                 Caption = 'Localidade'
                 Properties.Alignment.Horz = taLeftJustify
                 Transparent = True
-                ExplicitTop = 61
                 Height = 25
                 Width = 146
               end
@@ -271,7 +271,6 @@ inherited FraEscalas: TFraEscalas
                 Caption = 'Data'
                 Properties.Alignment.Horz = taLeftJustify
                 Transparent = True
-                ExplicitTop = 89
                 Height = 25
                 Width = 146
               end
@@ -288,8 +287,6 @@ inherited FraEscalas: TFraEscalas
                 Caption = 'Evento'
                 Properties.Alignment.Horz = taLeftJustify
                 Transparent = True
-                ExplicitLeft = 9
-                ExplicitTop = 46
                 Height = 25
                 Width = 146
               end
@@ -326,7 +323,7 @@ inherited FraEscalas: TFraEscalas
             end
             inherited cxGroupBox2: TcxGroupBox
               ExplicitHeight = 173
-              Height = 173
+              Height = 351
               object edtCodigo: TcxTextEdit
                 AlignWithMargins = True
                 Left = 2
@@ -394,7 +391,7 @@ inherited FraEscalas: TFraEscalas
                 TabOrder = 3
                 OnEditing = cbLocalidadeEditing
                 OnEnter = cbLocalidadeEnter
-                ExplicitTop = 61
+                ExplicitTop = 85
                 Width = 248
               end
               object cxGroupBox5: TcxGroupBox
@@ -410,7 +407,7 @@ inherited FraEscalas: TFraEscalas
                 Style.TransparentBorder = False
                 TabOrder = 4
                 Transparent = True
-                ExplicitTop = 89
+                ExplicitTop = 113
                 Height = 23
                 Width = 248
                 object dtData: TcxDateEdit
@@ -430,7 +427,6 @@ inherited FraEscalas: TFraEscalas
                   Style.IsFontAssigned = True
                   TabOrder = 0
                   OnEditing = dtDataEditing
-                  ExplicitLeft = -1
                   Width = 167
                 end
                 object chbRepetir: TcxCheckBox
@@ -498,6 +494,7 @@ inherited FraEscalas: TFraEscalas
                 Style.TransparentBorder = False
                 TabOrder = 5
                 Transparent = True
+                ExplicitTop = 139
                 Height = 23
                 Width = 248
                 object lbTurno: TcxLabel
@@ -521,9 +518,6 @@ inherited FraEscalas: TFraEscalas
                   Properties.Alignment.Horz = taCenter
                   Properties.Alignment.Vert = taVCenter
                   Transparent = True
-                  ExplicitLeft = 179
-                  ExplicitTop = 3
-                  ExplicitHeight = 19
                   Height = 23
                   Width = 100
                   AnchorX = 198
@@ -557,9 +551,6 @@ inherited FraEscalas: TFraEscalas
                   StyleHot.LookAndFeel.NativeStyle = False
                   TabOrder = 0
                   OnEditing = hrHorarioEditing
-                  ExplicitTop = 3
-                  ExplicitWidth = 195
-                  ExplicitHeight = 99
                   Height = 23
                   Width = 148
                 end
@@ -592,12 +583,10 @@ inherited FraEscalas: TFraEscalas
             object cxGroupBox3: TcxGroupBox
               Left = 2
               Top = 175
-              Align = alBottom
+              Anchors = [akLeft, akTop, akRight]
               PanelStyle.Active = True
               TabOrder = 2
-              ExplicitLeft = 3
-              ExplicitTop = 177
-              Height = 178
+              Height = 177
               Width = 402
               object cxGroupBox4: TcxGroupBox
                 AlignWithMargins = True
@@ -631,7 +620,7 @@ inherited FraEscalas: TFraEscalas
                   Caption = '&Manual'
                   OptionsImage.ImageIndex = 4
                   OptionsImage.Images = cxImageList
-                  TabOrder = 1
+                  TabOrder = 0
                   OnClick = cxButton2Click
                 end
                 object cxLabel1: TcxLabel
@@ -658,9 +647,10 @@ inherited FraEscalas: TFraEscalas
                 Left = 6
                 Top = 49
                 Width = 390
-                Height = 123
+                Height = 122
                 Align = alClient
                 TabOrder = 1
+                ExplicitHeight = 123
                 object cxGrid1DBTableView1: TcxGridDBTableView
                   Navigator.Buttons.CustomButtons = <>
                   Navigator.InfoPanel.DisplayMask = '[RecordIndex] de [RecordCount]'

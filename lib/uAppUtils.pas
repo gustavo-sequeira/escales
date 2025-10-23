@@ -17,6 +17,8 @@ procedure FecharERenomear(const NomeExe, NovoNomeExe: string);
 
 procedure DownloadGoogleDriveFile(const FileID, Destino: string);
 
+function ArquivoAlteradoRecentemente(const FileName: string): Boolean;
+
 implementation
 
 uses
@@ -25,18 +27,38 @@ uses
   System.RegularExpressions, System.Net.URLClient,
   System.Net.HttpClientComponent;
 
+function ArquivoAlteradoRecentemente(const FileName: string): Boolean;
+var
+  DataModificacao: TDateTime;
+  d1, d2: Integer;
+begin
+  Result := False;
+  if not FileExists(FileName) then
+    Exit;
+
+  // obtém a data/hora da última modificação
+  DataModificacao := FileDateToDateTime(FileAge(FileName));
+
+  d2 := FileAge(FileName);
+  d1 := DateTimeToFileDate(now);
+
+  // compara com o horário atual (diferença em minutos)
+  // Result := (Now - DataModificacao) * 24 * 60 <= 5;
+  Result := (FileDateToDateTime(d1) - FileDateToDateTime(d2)) * 24 * 60 <= 5;
+end;
+
 procedure DownloadGoogleDriveFile(const FileID, Destino: string);
 var
   Http: TNetHTTPClient;
   Resp: IHTTPResponse;
-  HTML, ConfirmToken, DownloadURL: string;
+  vStrData, HTML, ConfirmToken, DownloadURL: string;
   Stream: TFileStream;
 begin
   Http := TNetHTTPClient.Create(nil);
   try
     // 1 Primeira requisição (gera token de confirmação)
-    EscreverConsole('Iniciando o download da nova versão', ccWhite);
-    EscreverConsole('Gerando token de autorização', ccWhite);
+    EscreverConsole(' INFO - Iniciando o download da nova versão...', ccWhite);
+    EscreverConsole(' INFO - Gerando token de autorização...', ccWhite);
     Resp := Http.Get('https://drive.google.com/uc?export=download&id=' + FileID);
     HTML := Resp.ContentAsString();
 
@@ -47,21 +69,25 @@ begin
     begin
       var TokenEnd := HTML.IndexOf('"', TokenStart);
       ConfirmToken := HTML.Substring(TokenStart, TokenEnd - TokenStart);
-      EscreverConsole('Token gerado e confirmado com sucesso', ccWhite);
+      EscreverConsole(' INFO - Token gerado e confirmado com sucesso', ccWhite);
     end
     else
     begin
-      EscreverConsole('Token de confirmação não encontrado. Link pode estar inválido', ccRed);
+      EscreverConsole(' ERRO - Token de confirmação não encontrado. Link pode estar inválido', ccRed, true);
       raise Exception.Create('Token de confirmação não encontrado. Link pode estar inválido.');
     end;
 
     // 3 Segunda requisição — agora baixa o arquivo real
-    EscreverConsole('Baixando a nova versão', ccGreen);
+    EscreverConsole(' INFO - Baixando a nova versão... CONTINUE AGUARDANDO!', ccGreen, True);
     DownloadURL := Format('https://drive.usercontent.google.com/download?id=%s&export=download&confirm=%s', [FileID, ConfirmToken]);
+
+    vStrData := FormatDateTime('yyyymmddmmss', Now);
+    FecharERenomear(NOME_EXE, 'bkp_' + vStrData + '_' + LowerCase(NOME_EXE));
 
     Stream := TFileStream.Create(Destino, fmCreate);
     try
       Http.Get(DownloadURL, Stream);
+      EscreverConsole(' INFO - Download realizado com sucesso', ccWhite);
     finally
       Stream.Free;
     end;
@@ -73,23 +99,15 @@ end;
 
 procedure FecharERenomear(const NomeExe, NovoNomeExe: string);
 begin
-  // Fecha o processo se estiver rodando
-
-  KillProcessByName(NomeExe);
-
-  // Aguarda o sistema liberar o arquivo
-  EscreverConsole('Aguarda o sistema liberar o arquivo', ccWhite);
-  Sleep(1000);
-
   // Renomeia
   if TFile.Exists(NomeExe) then
   begin
-    EscreverConsole('Renomeado o executável antigo', ccWhite);
+    EscreverConsole(' INFO - Renomeado o executável antigo...', ccWhite);
     TFile.Move(NomeExe, NovoNomeExe);
-    EscreverConsole('Executável renomeado com sucesso!', ccWhite);
+    EscreverConsole(' INFO - Executável renomeado com sucesso', ccWhite);
   end
   else
-    EscreverConsole('Executável não encontrado: ' + NomeExe, ccRed);
+    EscreverConsole(' ERRO - Executável não encontrado: ' + NomeExe, ccRed, true);
 end;
 
 function KillProcessByName(const ExeName: string): Boolean;
@@ -100,7 +118,7 @@ var
 begin
   Result := False;
   Snapshot := CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-  EscreverConsole('Verificando se o executável esta sendo executado', ccWhite);
+  EscreverConsole(' INFO - Verificando se o executável esta sendo executado...', ccWhite);
   if Snapshot <> INVALID_HANDLE_VALUE then
   try
     ProcessEntry.dwSize := SizeOf(ProcessEntry);
@@ -113,7 +131,7 @@ begin
           try
             Result := TerminateProcess(hProcess, 0);
           finally
-            EscreverConsole('Executável finalizado com sucesso', ccWhite);
+            EscreverConsole(' INFO - Executável finalizado com sucesso', ccWhite);
             CloseHandle(hProcess);
           end;
         end;
@@ -127,55 +145,54 @@ procedure AtualizarSeNecessario;
 var
   Http: THTTPClient;
   VersaoOnline, VersaoLocal: string;
-  CaminhoNovoExe, CaminhoAtualExe: string;
-  Stream: TMemoryStream;
+  vStrData, CaminhoNovoExe, CaminhoAtualExe: string;
 begin
+  CaminhoNovoExe := TPath.Combine(ExtractFilePath(ParamStr(0)), NOME_EXE);
+
+  // Fecha o processo se estiver rodando
+  KillProcessByName(CaminhoNovoExe);
+  // Aguarda o sistema liberar o arquivo
+  EscreverConsole(' INFO - Aguardando o sistema liberar o arquivo...', ccWhite);
+  Sleep(1000);
+
   Http := THTTPClient.Create;
   try
-    EscreverConsole('Verificando versão local', ccWhite);
+    EscreverConsole(' INFO - Verificando versão local...', ccWhite);
     if FileExists(NOME_VERSAO_LOCAL) then
       VersaoLocal := Trim(TFile.ReadAllText(NOME_VERSAO_LOCAL))
     else
       VersaoLocal := '';
 
-    EscreverConsole('Verificando versão online', ccWhite);
+    EscreverConsole(' INFO - Verificando versão online...', ccWhite);
     VersaoOnline := Trim(Http.Get(URL_VERSAO).ContentAsString());
 
     if VersaoOnline <> VersaoLocal then
     begin
-      EscreverConsole(' Existe uma versão mais atualizada (' + VersaoOnline + ') do que a que você esta usando (' + VersaoLocal + ') ', ccWhite);
-      Writeln('');
-      EscreverConsole(' Iniciando processo de atualização... ', ccWhite);
+      EscreverConsole(' INFO - Existe uma versão diferente (' + VersaoOnline + ') da que você esta usando (' + VersaoLocal + ') ', ccGreen, True);
+      EscreverConsole(' INFO - Iniciando processo de atualização... AGUARDE!', ccWhite);
 
-      FecharERenomear(NOME_EXE, 'BKP_' + NOME_EXE);
-      CaminhoAtualExe := TPath.Combine(ExtractFilePath(ParamStr(0)), 'BKP_' + NOME_EXE);
-      CaminhoNovoExe := TPath.Combine(ExtractFilePath(ParamStr(0)), NOME_EXE);
-
-      // Baixa novo executável
-{      Stream := TMemoryStream.Create;
-      try
-        Http.Get(URL_EXE, Stream);
-        Stream.SaveToFile(CaminhoNovoExe);
-        Readln; //**
-      finally
-        Stream.Free;
-      end;   }
+//      vStrData := FormatDateTime('yyyymmddmmss', Now);
+//      FecharERenomear(NOME_EXE, 'bkp_' + vStrData + '_' + LowerCase(NOME_EXE));
+//      CaminhoAtualExe := TPath.Combine(ExtractFilePath(ParamStr(0)), 'bkp_' + vStrData + '_' + LowerCase(NOME_EXE));
 
       DownloadGoogleDriveFile(ID_GOOGLE, CaminhoNovoExe);
 
-
       // Substitui o antigo (precisa sair antes)
-      if FileExists(CaminhoAtualExe) then
-        MoveFileEx(PChar(CaminhoAtualExe), nil, MOVEFILE_DELAY_UNTIL_REBOOT);
-
-      // Atualiza versão local
-      TFile.WriteAllText(NOME_VERSAO_LOCAL, VersaoOnline);
+//      if FileExists(CaminhoAtualExe) then
+//        MoveFileEx(PChar(CaminhoAtualExe), nil, MOVEFILE_DELAY_UNTIL_REBOOT);
     end
     else
-      EscreverConsole('Não existe versão disponível', ccWhite);
-      // Executa o novo e sai
-    ShellExecute(0, 'open', PChar(CaminhoNovoExe), nil, nil, SW_SHOWNORMAL);
+      EscreverConsole(' INFO - Não existe versão disponível', ccWhite);
 
+      // Atualiza versão local
+    TFile.WriteAllText(NOME_VERSAO_LOCAL, VersaoOnline);
+
+//    writeln('');
+//    EscreverConsole(' INFO - Processo de atualização concluído com sucesso. Precione ENTER para continuar ...', ccYellow, true);
+//    Readln;
+
+    // Executa o novo e sai
+    ShellExecute(0, 'open', PChar(CaminhoNovoExe), nil, nil, SW_SHOWNORMAL);
     Halt(0);
 
   finally
@@ -213,7 +230,7 @@ begin
   vConsole := GetStdHandle(STD_OUTPUT_HANDLE);
   SetConsoleTextAttribute(vConsole, vCor);
 
-  Writeln(Texto);
+  Writeln(FormatDateTime('hh:nn', Now) + Texto);
   vConsole := GetStdHandle(STD_OUTPUT_HANDLE);
   SetConsoleTextAttribute(vConsole, FOREGROUND_RED or FOREGROUND_GREEN or FOREGROUND_BLUE);
 end;

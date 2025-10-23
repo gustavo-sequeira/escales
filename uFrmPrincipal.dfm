@@ -11,7 +11,9 @@ object frmPrincipal: TfrmPrincipal
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  OldCreateOrder = True
   WindowState = wsMaximized
+  PixelsPerInch = 96
   TextHeight = 15
   object gbPrincipal: TcxGroupBox
     Left = 0
@@ -2672,6 +2674,30 @@ object frmPrincipal: TfrmPrincipal
         TabOrder = 2
         Height = 308
         Width = 185
+        object cxLabel2: TcxLabel
+          AlignWithMargins = True
+          Left = 3
+          Top = 289
+          Margins.Left = 0
+          Margins.Top = 0
+          Margins.Right = 0
+          Margins.Bottom = 0
+          Align = alBottom
+          BiDiMode = bdRightToLeft
+          Caption = '1.0.2'
+          ParentBiDiMode = False
+          ParentFont = False
+          Style.Font.Charset = DEFAULT_CHARSET
+          Style.Font.Color = clWindowText
+          Style.Font.Height = -9
+          Style.Font.Name = 'Segoe UI'
+          Style.Font.Style = []
+          Style.TextStyle = [fsBold]
+          Style.IsFontAssigned = True
+          Transparent = True
+          ExplicitWidth = 7
+          ExplicitHeight = 19
+        end
       end
     end
     object gbSecundarioBottom: TcxGroupBox
@@ -2682,25 +2708,17 @@ object frmPrincipal: TfrmPrincipal
       TabOrder = 2
       Height = 105
       Width = 863
-      object cxLabel2: TcxLabel
-        AlignWithMargins = True
-        Left = 6
-        Top = 80
-        Align = alBottom
-        Caption = '1.0.1'
-        Transparent = True
-      end
     end
   end
   object dxSkinController1: TdxSkinController
     NativeStyle = False
     SkinName = 'Office2010Blue'
-    Left = 550
+    Left = 795
     Top = 486
   end
   object ActionManager1: TActionManager
-    Left = 376
-    Top = 438
+    Left = 765
+    Top = 486
     StyleName = 'Platform Default'
     object actCadastroCargos: TAction
       Category = 'Cadastros'

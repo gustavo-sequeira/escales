@@ -3,7 +3,7 @@
 	<Transactions>
     <Transaction>2025/05/08 17:28:25.000.107,=C:\Users\gustavosequeira\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>2025/05/15 14:21:04.000.723,=C:\Users\gustavosequeira\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2025/10/22 10:06:51.000.523,C:\Users\gustavosequeira\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\projetos\repositorios\escales\AutoUpdate.dproj</Transaction>
+    <Transaction>2025/10/22 10:06:51.000.523,C:\projetos\repositorios\escales\AutoUpdate.dproj=C:\Users\gustavosequeira\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
     <Transaction>2025/10/22 10:10:39.000.374,=C:\projetos\repositorios\escales\lib\uAppUtils.pas</Transaction>
     <Transaction>2025/10/22 10:54:17.000.273,=C:\projetos\repositorios\escales\lib\uConsts.pas</Transaction>
   </Transactions>
