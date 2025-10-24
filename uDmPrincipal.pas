@@ -72,17 +72,15 @@ procedure TdmPrincipal.DataModuleCreate(Sender: TObject);
 var
   Config: TConfiguracaoBanco;
 begin
-  Sleep(1000);
+  FDPhysPgDriverLink1.VendorLib := ExtractFilePath(ParamStr(0)) + 'libpq.dll';
+  cxLocalizer1.FileName := ExtractFilePath(ParamStr(0)) + 'traducao.ini';
+  cxLocalizer1.Active := True;
+  cxLocalizer1.Locale := 1046;
+
   if not TLibary.ArquivoAlteradoRecentemente(PChar(ExtractFilePath(ParamStr(0))+'versao.txt')) then
   begin
     ShellExecute(0, 'open', PChar(ExtractFilePath(ParamStr(0))+'AutoUpdate.exe'), nil, nil, SW_SHOWNORMAL);
   end;
-
-  FDPhysPgDriverLink1.VendorLib := ExtractFilePath(ParamStr(0)) + 'libpq.dll';
-
-  cxLocalizer1.FileName := ExtractFilePath(ParamStr(0)) + 'traducao.ini';
-  cxLocalizer1.Active := True;
-  cxLocalizer1.Locale := 1046;
 
   try
     Config := LerConfiguracoesBanco(ExtractFilePath(ParamStr(0)) + 'config.ini');

@@ -24,7 +24,12 @@ object dmPrincipal: TdmPrincipal
     Top = 79
   end
   object FDQuery1: TFDQuery
+    CachedUpdates = True
     Connection = FDConnection
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
     Left = 64
     Top = 136
   end

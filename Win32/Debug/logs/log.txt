@@ -1,0 +1,15 @@
+2025-10-24 11:43:41.761 - Carregando a tela de obreiro
+2025-10-24 11:43:42.079 - Iniciando preenchimento do grid
+2025-10-24 11:43:42.079 - Iniciando preenchimento do grid (Obreiro.ListToQuery)
+2025-10-24 11:43:42.101 - Iniciando preenchimento do grid (Obreiro.ListToQuery ok)
+2025-10-24 11:43:42.101 - Iniciando preenchimento do grid (Query.Open)
+2025-10-24 11:43:42.848 - Iniciando preenchimento do grid (Query.Open ok)
+2025-10-24 11:43:42.848 - Iniciando preenchimento do grid (Query.FetchAll)
+2025-10-24 11:43:42.850 - Iniciando preenchimento do grid (Query.FetchAll ok)
+2025-10-24 11:43:42.850 - Iniciando preenchimento do grid (CloneCursor)
+2025-10-24 11:43:52.788 - Iniciando preenchimento do grid (CloneCursor ok)
+2025-10-24 11:43:52.884 - Preenchimento do grid concluído
+2025-10-24 11:43:53.059 - Show do frame
+2025-10-24 11:43:53.059 - Iniciando carregamento dos cargos
+2025-10-24 11:43:53.234 - Carregamento dos cargos concluído
+2025-10-24 11:43:53.234 - Show do frame concluído

@@ -121,6 +121,7 @@ end;
 
 procedure TfrmPrincipal.actCadastroObreirosExecute(Sender: TObject);
 begin
+  TLibary.GravarLog('Carregando a tela de obreiro');
   ControleFrame('obreiros');
 end;
 

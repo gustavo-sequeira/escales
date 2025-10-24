@@ -206,6 +206,7 @@ uses
 
 procedure TFraObreiros.CarregarComboCargos;
 begin
+  TLibary.GravarLog('Iniciando carregamento dos cargos');
   cbCargo.Properties.Items.Clear;
 
   dmPrincipal.FDQuery1.Close;
@@ -224,10 +225,12 @@ begin
     cbCargo.Properties.Items.Add(dmPrincipal.FDQuery1.FieldByName('nome_cargo').AsString);
     dmPrincipal.FDQuery1.Next;
   end;
+  TLibary.GravarLog('Carregamento dos cargos concluído');
 end;
 
 procedure TFraObreiros.CarregarComboTelefones(pCodigoObreiro: Integer);
 begin
+  TLibary.GravarLog('Iniciando carregamento dos telefones');
   cbTelefone.Properties.Items.Clear;
 
   dmPrincipal.FDQuery1.Close;
@@ -262,10 +265,12 @@ begin
   end;
 
   cbTelefone.ItemIndex := 0;
+  TLibary.GravarLog('Carregamento dos telefones concluído');
 end;
 
 procedure TFraObreiros.CarregarDisponibilidades(pCodigoObreiro: Integer);
 begin
+  TLibary.GravarLog('Iniciando carregamento das disponibilidades');
   dmPrincipal.FDQuery1.Close;
   dmPrincipal.FDQuery1.SQL.Clear;
   dmPrincipal.FDQuery1.SQL.Add('	select * ');
@@ -297,7 +302,7 @@ begin
   chbQuiNoite.Checked := dmPrincipal.FDQuery1.FieldByName('nQui').AsInteger = 1;
   chbSexNoite.Checked := dmPrincipal.FDQuery1.FieldByName('nSex').AsInteger = 1;
   chbSabNoite.Checked := dmPrincipal.FDQuery1.FieldByName('nSab').AsInteger = 1;
-
+  TLibary.GravarLog('Carregamento das disponibilidades concluída');
 end;
 
 function TFraObreiros.PesquisarNomeCargo(ACodigoCargo: integer): string;
@@ -775,16 +780,25 @@ var
   Obreiro: TObreiros;
   Query: TFDQuery;
 begin
+  TLibary.GravarLog('Iniciando preenchimento do grid');
   inherited;
   Obreiro := TObreiros.Create;
+  TLibary.GravarLog('Iniciando preenchimento do grid (Obreiro.ListToQuery)');
   Query := Obreiro.ListToQuery;
+  TLibary.GravarLog('Iniciando preenchimento do grid (Obreiro.ListToQuery ok)');
 
+  TLibary.GravarLog('Iniciando preenchimento do grid (Query.Open)');
   Query.Open;
+  TLibary.GravarLog('Iniciando preenchimento do grid (Query.Open ok)');
+  TLibary.GravarLog('Iniciando preenchimento do grid (Query.FetchAll)');
   Query.FetchAll;
+  TLibary.GravarLog('Iniciando preenchimento do grid (Query.FetchAll ok)');
   try
     FDMemTable1.Close;
     try
-      FDMemTable1.CloneCursor(Query);
+      TLibary.GravarLog('Iniciando preenchimento do grid (CloneCursor)');
+      FDMemTable1.CloneCursor(Query, True, False);
+      TLibary.GravarLog('Iniciando preenchimento do grid (CloneCursor ok)');
     except
       on e: Exception do
         ShowMessage(e.Message);
@@ -793,6 +807,7 @@ begin
     Obreiro.Free;
     Query.Free;
   end;
+  TLibary.GravarLog('Preenchimento do grid concluído');
 end;
 
 procedure TFraObreiros.SalvarDisponibilidade(pCodigoObreiro: Integer);
@@ -880,9 +895,16 @@ begin
     Obreiro.Cargo := Cargo;
     Obreiro.Nome := Trim(edtNome.Text);
     Obreiro.Dt_Nascimento := dtDataNascimento.Date;
+    TLibary.GravarLog('Iniciando salvamento do obreiro');
     Obreiro.Save;
+    TLibary.GravarLog('Obreiro salvo');
+    TLibary.GravarLog('Iniciando salvamento do telefone');
     SalvarTelefone(Obreiro.Codigo);
+    TLibary.GravarLog('Telefones salvos');
+    TLibary.GravarLog('Iniciando salvamento das disponibilidades');
     SalvarDisponibilidade(Obreiro.Codigo);
+    TLibary.GravarLog('Disponibilidades salvas');
+
   finally
     Cargo.Free;
     Obreiro.Free;
@@ -937,6 +959,7 @@ end;
 procedure TFraObreiros.tsManutencaoShow(Sender: TObject);
 begin
   inherited;
+  TLibary.GravarLog('Show do frame');
   CarregarComboCargos;
 
   if (not (Trim(edtCodigo.Text) = EmptyStr) and not (Trim(edtCodigo.Text) = '0')) then
@@ -945,6 +968,7 @@ begin
     CarregarComboTelefones(FDMemTable1.FieldByName('codigo').AsInteger);
     CarregarDisponibilidades(FDMemTable1.FieldByName('codigo').AsInteger);
   end;
+  TLibary.GravarLog('Show do frame concluído');
 end;
 
 procedure TFraObreiros.ValidarAntesExcluir;

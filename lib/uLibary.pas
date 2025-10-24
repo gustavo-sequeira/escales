@@ -21,6 +21,7 @@ type
     class function ValidarTelefone(const pTelefone: string; out pMensagem: string): boolean;
     class function ArquivoAlteradoRecentemente(const FileName: string): Boolean;
     class function KillProcessByName(const ExeName: string): Boolean;
+    class procedure GravarLog(const Mensagem: string; const NomeArquivo: string = 'log.txt');
   end;
 
 implementation
@@ -29,7 +30,7 @@ uses
   System.Net.URLClient, System.Net.HttpClient, System.Net.HttpClientComponent,
   Vcl.Graphics, System.SysUtils, System.StrUtils, System.JSON, System.Classes,
   System.Generics.Collections, System.RegularExpressions, DateUtils,
-  FireDAC.Comp.Client, uDmPrincipal, Winapi.TlHelp32, WinApi.Windows;
+  FireDAC.Comp.Client, uDmPrincipal, Winapi.TlHelp32, WinApi.Windows, System.IOUtils;
 
 class function TLibary.MesValido(const AMes: string): Boolean;
 const
@@ -214,7 +215,6 @@ end;
 class function TLibary.ArquivoAlteradoRecentemente(
   const FileName: string): Boolean;
 var
-  DataModificacao: TDateTime;
   d1, d2: Integer;
 begin
   Result := False;
@@ -222,7 +222,7 @@ begin
     Exit;
 
   // obtém a data/hora da última modificação
-  DataModificacao := FileDateToDateTime(FileAge(FileName));
+
 
   d2 := FileAge(FileName);
   d1 := DateTimeToFileDate(now);
@@ -251,6 +251,42 @@ begin
   Saudacao := Mensagens[Random(Length(Mensagens))];
 
   Result := Format('Olá, irmão %s! Você está escalado para o culto às %s. %s %s', [Nome, Horario, Versiculo, Saudacao]);
+end;
+
+class procedure TLibary.GravarLog(const Mensagem, NomeArquivo: string);
+var
+  CaminhoLog, Linha: string;
+  Arquivo: TextFile;
+begin
+  try
+    // Cria a pasta de logs na mesma pasta do executável (se não existir)
+    CaminhoLog := TPath.Combine(ExtractFilePath(ParamStr(0)), 'logs');
+    if not TDirectory.Exists(CaminhoLog) then
+      TDirectory.CreateDirectory(CaminhoLog);
+
+    // Caminho completo do arquivo
+    CaminhoLog := TPath.Combine(CaminhoLog, NomeArquivo);
+
+    // Monta a linha com data e hora
+    Linha := FormatDateTime('yyyy-mm-dd hh:nn:ss.zzz', Now) + ' - ' + Mensagem;
+
+    // Abre o arquivo para acrescentar (append)
+    AssignFile(Arquivo, CaminhoLog);
+    if FileExists(CaminhoLog) then
+      Append(Arquivo)
+    else
+      Rewrite(Arquivo);
+
+    try
+      Writeln(Arquivo, Linha);
+    finally
+      CloseFile(Arquivo);
+    end;
+
+  except
+    on E: Exception do
+      OutputDebugString(PChar('Erro ao gravar log: ' + E.Message));
+  end;
 end;
 
 class function TLibary.RemoveAcentos(const Texto: string): string;

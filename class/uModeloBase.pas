@@ -658,6 +658,9 @@ var
   PrimaryKeyField: string;
 begin
   vQuery := TFDQuery.Create(nil);
+
+{}vQuery.ResourceOptions.SilentMode := True;
+{}vQuery.CachedUpdates := True;
   vQuery.Connection := dmPrincipal.FDConnection;
   vWhere := AWhere;
   PrimaryKeyField := EmptyStr;
